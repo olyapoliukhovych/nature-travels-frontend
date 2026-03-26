@@ -1,7 +1,7 @@
 @import "modern-normalize/modern-normalize.css";
 
 :root {
-  --font-family: "Montserrat", sans-serif;
+  --font-family: var(--font-montserrat);
 
   --transition: 250ms ease-in-out;
 
