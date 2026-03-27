@@ -92,6 +92,7 @@ a {
 }
 
 button {
+  box-sizing: border-box;
   cursor: pointer;
   border: none;
   background: none;
