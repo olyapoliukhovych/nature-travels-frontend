@@ -1,3 +1,4 @@
+import Button from "@/components/Button/Button";
 import styles from "./page.module.css";
 import PictureList from "@/components/pictureList/pictureList";
 
