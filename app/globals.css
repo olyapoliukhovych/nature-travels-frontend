@@ -1,5 +1,3 @@
-@import "modern-normalize/modern-normalize.css";
-
 :root {
   --font-family: var(--font-montserrat);
 
@@ -55,7 +53,7 @@ html {
 }
 
 body {
-  background-color: var(--color-scheme-2-foreground);
+  background-color: var(--color-scheme-2-background);
   color: var(--color-scheme-2-text);
   font-family: var(--font-family);
   font-weight: 500;
@@ -64,11 +62,10 @@ body {
 }
 
 /* base reset */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 h1,
@@ -84,6 +81,8 @@ p {
 ul,
 ol {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 a {
@@ -125,19 +124,16 @@ textarea {
 
 /* container */
 .container {
-  width: 100%;
+  max-width: 375px;
   margin: 0 auto;
   padding: 0 20px;
-}
 
-@media screen and (min-width: 768px) {
-  .container {
+  @media only screen and (min-width: 768px) {
+    max-width: 768px;
     padding: 0 32px;
   }
-}
 
-@media screen and (min-width: 1440px) {
-  .container {
+  @media only screen and (min-width: 1440px) {
     max-width: 1440px;
     padding: 0 64px;
   }

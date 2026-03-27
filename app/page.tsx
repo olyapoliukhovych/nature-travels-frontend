@@ -2,6 +2,8 @@ import Button from "@/components/Button/Button";
 import styles from "./page.module.css";
 import PictureList from "@/components/StoriesList/StoriesList";
 import UserListMain from "@/components/UserListMain/UserListMain";
+import Hero from "@/components/Hero/Hero";
+import About from "@/components/About/About";
 
 export default function Home() {
   const data = [
