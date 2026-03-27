@@ -1,0 +1,86 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  padding: 4px 10px;
+  min-height: 38px;
+  min-width: 91px;
+
+  font-size: 18px;
+  line-height: 1.5;
+  transition: all var(--transition);
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.mantis {
+  background-color: var(--color-mantis-dark);
+  border: 1px solid var(--color-mantis-dark);
+  color: var(--color-white);
+
+  &:not(:disabled):hover,
+  &:not(:disabled):focus {
+    background: var(--color-mantis-lighter);
+    color: var(--color-scheme-2-text);
+  }
+
+  &:active {
+    background: var(--color-mantis-dark);
+    border: 1px solid var(--color-mantis-dark);
+    color: var(--color-white);
+  }
+}
+
+.neutral {
+  background-color: var(--opacity-neutral-darkest-5);
+  border: 1px solid var(--color-scheme-2-border);
+  color: var(--color-scheme-2-text);
+
+  &:not(:disabled):hover,
+  &:not(:disabled):focus {
+    border: 1px solid var(--opacity-transparent);
+    background: var(--color-mantis-dark);
+    color: var(--color-white);
+  }
+
+  &:active {
+    background: var(--color-mantis-darker);
+    border: 1px solid var(--opacity-transparent);
+    color: var(--color-white);
+  }
+
+  &:disabled {
+    border: 1px solid var(--opacity-transparent);
+  }
+}
+
+.button svg {
+  fill: currentColor;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+.loaderWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid color-mix(in srgb, currentColor, transparent 70%);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
