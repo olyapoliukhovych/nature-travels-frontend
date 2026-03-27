@@ -1,6 +1,4 @@
-import Button from "@/components/Button/Button";
 import styles from "./page.module.css";
-import PictureList from "@/components/StoriesList/StoriesList";
 import UserListMain from "@/components/UserListMain/UserListMain";
 import Hero from "@/components/Hero/Hero";
 import About from "@/components/About/About";
@@ -163,11 +161,10 @@ export default function Home() {
   ];
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <PictureList prop={data} />
-        <UserListMain prop={data}/>
-      </main>
-    </div>
+    <main className={styles.main}>
+      <Hero />
+      <About />
+      <UserListMain prop={data} />
+    </main>
   );
 }
