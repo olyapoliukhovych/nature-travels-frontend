@@ -1,6 +1,6 @@
+import Hero from "@/components/Hero/Hero";
 import styles from "./page.module.css";
 import UserListMain from "@/components/UserListMain/UserListMain";
-import Hero from "@/components/Hero/Hero";
 import About from "@/components/About/About";
 
 export default function Home() {
