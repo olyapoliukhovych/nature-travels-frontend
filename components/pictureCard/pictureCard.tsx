@@ -2,7 +2,6 @@ import Image from "next/image";
 import css from "./pictureCard.module.css";
 import type { Card } from "@/types/picture";
 
-
 interface Props {
   card: Card;
 }
@@ -19,7 +18,7 @@ export default function PictureCard({ card }: Props) {
       />
 
       <div className={css.titleWrapper}>
-        <p>{'card.title'}</p>
+        <p>{"card.title"}</p>
         <span className={css.point}>.</span>
         <span>
           {card.rate}
