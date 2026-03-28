@@ -1,3 +1,6 @@
+import Hero from "@/components/Hero/Hero";
+import styles from "./page.module.css";
+import About from "@/components/About/About";
 import Button from "@/components/Button/Button";
 import styles from "./page.module.css";
 import PictureList from "@/components/pictureList/pictureList";
@@ -160,10 +163,9 @@ export default function Home() {
   ];
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <PictureList prop={data} />
-      </main>
-    </div>
+    <main className={styles.main}>
+      <Hero />
+      <About />
+    </main>
   );
 }
