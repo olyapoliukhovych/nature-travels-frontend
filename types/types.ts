@@ -13,3 +13,10 @@ export interface Category {
   _id: string;
   category: string;
 }
+
+export interface Owner {
+  _id: string;
+  name: string;
+  email: string;
+  avatar: string;
+}
