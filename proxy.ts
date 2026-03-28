@@ -61,7 +61,7 @@ export async function proxy(request: NextRequest) {
     }
 
     if (isPrivateRoute) {
-      return NextResponse.redirect(new URL("/register", request.url));
+      return NextResponse.redirect(new URL("/auth/register", request.url));
     }
   }
 
