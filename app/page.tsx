@@ -1,8 +1,6 @@
 import Hero from "@/components/Hero/Hero";
 import styles from "./page.module.css";
 import About from "@/components/About/About";
-import Button from "@/components/Button/Button";
-import PictureList from "@/components/pictureList/pictureList";
 
 export default function Home() {
   const data = [
