@@ -19,7 +19,7 @@ export default function StoryCard({ story }: Props) {
           <Icon id="icon-bookmark" className={css.icon} />
         </div>
 
-        <h3>{story.title}</h3>
+        <h3 className={css.title}>{story.title}</h3>
         <div className={css.buttonWrapper}>
           <Button variant="neutral" className={css.buttonMore}>
             Переглянути статтю
