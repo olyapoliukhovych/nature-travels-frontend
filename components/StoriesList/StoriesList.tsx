@@ -38,8 +38,8 @@ export default function PictureList({ prop }: Prop) {
         loop={true}
         modules={[Navigation]}
         navigation={{
-          nextEl: ".next",
-          prevEl: ".prev",
+          nextEl: ".stories-next",
+          prevEl: ".stories-prev",
         }}
       >
         {prop.map((el) => (
@@ -49,7 +49,7 @@ export default function PictureList({ prop }: Prop) {
         ))}
       </Swiper>
       <div className={css.buttonWrapper}>
-        <div className={`${css.prev} prev`}>
+        <div className={`${css.prev} stories-prev`}>
           <Image
             alt={"backArrow"}
             width={24}
@@ -57,7 +57,7 @@ export default function PictureList({ prop }: Prop) {
             src={"/arrow_back.svg"}
           />
         </div>
-        <div className={`${css.next} next`}>
+        <div className={`${css.next} stories-next`}>
           <Image
             alt={"forwardArrow"}
             width={24}
