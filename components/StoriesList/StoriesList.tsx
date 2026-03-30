@@ -13,10 +13,10 @@ import css from "./StoriesList.module.css";
 import AppLink from "../AppLink/AppLink";
 
 type Prop = {
-  prop: Card[];
+  stories: Card[];
 };
 
-export default function PictureList({ prop }: Prop) {
+export default function StoriesList({ stories }: Prop) {
   return (
     <section className={css.wrapper}>
       <div className={css.titleWrapper}>
@@ -29,6 +29,9 @@ export default function PictureList({ prop }: Prop) {
         spaceBetween={24}
         breakpoints={{
           320: {
+            slidesPerView: 1,
+          },
+          768: {
             slidesPerView: 2,
           },
           1440: {
@@ -42,7 +45,7 @@ export default function PictureList({ prop }: Prop) {
           prevEl: ".stories-prev",
         }}
       >
-        {prop.map((el) => (
+        {stories.map((el) => (
           <SwiperSlide className={css.cardWrapper} key={el._id.$oid}>
             <PictureCard card={el} />
           </SwiperSlide>

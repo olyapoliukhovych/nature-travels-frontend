@@ -2,6 +2,7 @@ import Hero from "@/components/Hero/Hero";
 import styles from "./page.module.css";
 import UserListMain from "@/components/UserListMain/UserListMain";
 import About from "@/components/About/About";
+import StoriesList from "@/components/StoriesList/StoriesList";
 
 export default function Home() {
   const data = [
@@ -163,6 +164,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Hero />
+      <StoriesList stories={data}/>
       <About />
       <UserListMain prop={data} />
     </main>

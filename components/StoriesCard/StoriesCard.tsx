@@ -2,6 +2,7 @@ import Image from "next/image";
 import css from "./StoriesCard.module.css";
 import type { Card } from "@/types/picture";
 import AppLink from "../AppLink/AppLink";
+import { Icon } from "../Icon/Icon";
 
 interface Props {
   card: Card;
@@ -20,7 +21,7 @@ export default function PictureCard({ card }: Props) {
           <span className={css.point}>.</span>
           <span className={css.saveInfo}>
             {card.rate}
-            <Image height={16} width={16} src={"/bookmark.svg"} alt={"Save"} />
+            <Icon id={"icon-bookmark"} className={css.bookmark}/>
           </span>
         </div>
 
