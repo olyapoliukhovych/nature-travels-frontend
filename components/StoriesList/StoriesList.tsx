@@ -21,7 +21,7 @@ export default function StoriesList({ stories }: Prop) {
     <section className={css.wrapper}>
       <div className={css.titleWrapper}>
         <h2>Популярні Статті</h2>
-        <AppLink className={css.appLink} href={"#"} variant={"mantis"}>
+        <AppLink className={css.appLinkUp} href={"#"} variant={"mantis"}>
           Всі статті
         </AppLink>
       </div>
@@ -69,6 +69,9 @@ export default function StoriesList({ stories }: Prop) {
           />
         </div>
       </div>
+             <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
+          Всі статті
+        </AppLink>
     </section>
   );
 }

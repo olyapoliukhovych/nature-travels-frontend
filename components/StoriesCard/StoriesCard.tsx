@@ -12,7 +12,7 @@ export default function PictureCard({ card }: Props) {
   return (
     <div className={css.card}>
       <div className={css.imageWrapper}>
-        <Image className={css.picture} alt={card.title} src={card.img} fill />
+        <Image className={css.picture} alt={card.title} src={card.img} fill sizes="100%" />
       </div>
 
       <div className={css.descriptionWrapper}>
