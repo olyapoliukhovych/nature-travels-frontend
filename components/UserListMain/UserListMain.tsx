@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -21,7 +21,7 @@ export default function UserListMain({ prop }: Prop) {
     <section className={css.wrapper}>
       <div className={css.titleWrapper}>
         <h2>Наші манрівники</h2>
-        <AppLink className={css.appLink} href={"#"} variant={"mantis"}>
+        <AppLink className={css.appLinkUp} href={"#"} variant={"mantis"}>
           Всі манрівники
         </AppLink>
       </div>
@@ -30,6 +30,7 @@ export default function UserListMain({ prop }: Prop) {
         breakpoints={{
           320: {
             slidesPerView: 3,
+            direction: "vertical"
           },
           768: {
             slidesPerView: 4,
@@ -66,6 +67,9 @@ export default function UserListMain({ prop }: Prop) {
           />
         </div>
       </div>
+      <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
+        Всі манрівники
+      </AppLink>
     </section>
   );
 }
