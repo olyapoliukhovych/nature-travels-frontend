@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero/Hero";
 import styles from "./page.module.css";
+import UserListMain from "@/components/UserListMain/UserListMain";
 import About from "@/components/About/About";
 
 export default function Home() {
@@ -163,6 +164,7 @@ export default function Home() {
     <main className={styles.main}>
       <Hero />
       <About />
+      <UserListMain prop={data} />
     </main>
   );
 }

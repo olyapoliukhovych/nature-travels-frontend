@@ -8,6 +8,7 @@ export default async function Stories() {
     <div>
       <h1>Статті</h1>
       <StoriesCategories />
+      {/* <StoriesList /> */}
       <StoriesList stories={stories} />
     </div>
   );
