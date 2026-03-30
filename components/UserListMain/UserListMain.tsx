@@ -38,8 +38,8 @@ export default function UserListMain({ prop }: Prop) {
         loop={true}
         modules={[Navigation]}
         navigation={{
-          nextEl: ".next",
-          prevEl: ".prev",
+          nextEl: ".user-next",
+          prevEl: ".user-prev",
         }}
       >
         {prop.map((el) => (
@@ -49,7 +49,7 @@ export default function UserListMain({ prop }: Prop) {
         ))}
       </Swiper>
       <div className={css.buttonWrapper}>
-        <div className={`${css.prev} prev`}>
+        <div className={`${css.prev} user-prev`}>
           <Image
             alt={"backArrow"}
             width={24}
@@ -57,7 +57,7 @@ export default function UserListMain({ prop }: Prop) {
             src={"/arrow_back.svg"}
           />
         </div>
-        <div className={`${css.next} next`}>
+        <div className={`${css.next} user-next`}>
           <Image
             alt={"forwardArrow"}
             width={24}
