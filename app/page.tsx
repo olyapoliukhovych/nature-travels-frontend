@@ -164,7 +164,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Hero />
-      <StoriesList stories={data}/>
+      <StoriesList stories={data} />
       <About />
       <UserListMain prop={data} />
     </main>
