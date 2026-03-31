@@ -1,5 +1,5 @@
 import StoriesCategories from "@/components/StoriesCategories/StoriesCategories";
-import StoriesList from "@/components/StoriesList/StoriesList";
+import StoriesList from "@/components/PopularStories/PopularStories";
 import { getAllStories } from "@/lib/api/clientApi";
 
 export default async function Stories() {

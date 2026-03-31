@@ -1,5 +1,5 @@
 import Image from "next/image";
-import css from "./StoriesCard.module.css";
+import css from "./StoryCard.module.css";
 import type { Card } from "@/types/picture";
 import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
@@ -8,7 +8,7 @@ interface Props {
   card: Card;
 }
 
-export default function PictureCard({ card }: Props) {
+export default function StoryCard({ card }: Props) {
   return (
     <div className={css.card}>
       <div className={css.imageWrapper}>
