@@ -1,8 +1,9 @@
 import Link from "next/link";
 import clsx from "clsx";
 import styles from "./AppLink.module.css";
+import { AnchorHTMLAttributes } from "react";
 
-interface AppLinkProps {
+interface AppLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
   variant?: "mantis" | "neutral" | "base";
   disabled?: boolean;
@@ -16,6 +17,7 @@ export default function AppLink({
   disabled,
   children,
   className,
+  ...rest
 }: AppLinkProps) {
   return (
     <Link
@@ -27,6 +29,7 @@ export default function AppLink({
         disabled && styles.disabled,
         className,
       )}
+      {...rest}
     >
       {children}
     </Link>

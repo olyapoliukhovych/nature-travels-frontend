@@ -23,5 +23,5 @@ interface Owner {
 export interface RegistrationValues {
   name: string;
   email: string;
-  password?: string;
+  password: string;
 }

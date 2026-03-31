@@ -1,11 +1,15 @@
 import css from "./AuthHeader.module.css";
-
+import AppLink from "@/components/AppLink/AppLink";
+import { Icon } from "../Icon/Icon";
 export default function AuthHeader() {
   return (
-    <a href="/">
-      <svg className={css.authHeaderSvg} width="121" height="35">
-        <use href="/sprite.svg#icon-logo"></use>
-      </svg>
-    </a>
+    <AppLink className={css.authHeaderLogo} href="/">
+      <Icon
+        id="icon-logo"
+        width={121}
+        height={35}
+        className={css.authHeaderSvg}
+      />
+    </AppLink>
   );
 }

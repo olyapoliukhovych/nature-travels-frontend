@@ -1,28 +1,28 @@
 import css from "./SocialList.module.css";
+import { Icon } from "@/components/Icon/Icon";
+import AppLink from "@/components/AppLink/AppLink";
 export default function SocialList() {
+  const socials = [
+    { id: "facebook", href: "https://www.facebook.com", label: "Фейсбук" },
+    { id: "instagram", href: "https://www.instagram.com", label: "Інстаграм" },
+    { id: "x", href: "https://www.x.com", label: "X (Твіттер)" },
+    { id: "youtube", href: "https://www.youtube.com", label: "Ютуб" },
+  ];
   return (
     <>
       <div className={css.socialListWrapper}>
-        <a className={css.socialListLink} href="https://www.facebook.com">
-          <svg className={css.socialListSvg}>
-            <use href="/sprite.svg#icon-facebook"></use>
-          </svg>
-        </a>
-        <a className={css.socialListLink} href="https://www.instagram.com">
-          <svg className={css.socialListSvg}>
-            <use href="/sprite.svg#icon-instagram"></use>
-          </svg>
-        </a>
-        <a className={css.socialListLink} href="https://www.x.com">
-          <svg className={css.socialListSvg}>
-            <use href="/sprite.svg#icon-x"></use>
-          </svg>
-        </a>
-        <a className={css.socialListLink} href="https://www.youtube.com">
-          <svg className={css.socialListSvg}>
-            <use href="/sprite.svg#icon-youtube"></use>
-          </svg>
-        </a>
+        {socials.map((social) => (
+          <AppLink
+            key={social.id}
+            className={css.socialListLink}
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Перейти на сторінку ${social.label}`}
+          >
+            <Icon id={`icon-${social.id}`} className={css.socialListSvg} />
+          </AppLink>
+        ))}
       </div>
     </>
   );

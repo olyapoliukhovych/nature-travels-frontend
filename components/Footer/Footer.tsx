@@ -2,6 +2,8 @@ import css from "./Footer.module.css";
 import Copyright from "./Copyright";
 import SocialList from "./SocialList/SocialList";
 import FooterNav from "./FooterNav/FooterNav";
+import AppLink from "../AppLink/AppLink";
+import { Icon } from "../Icon/Icon";
 
 export default function Footer() {
   return (
@@ -9,11 +11,13 @@ export default function Footer() {
       <footer className={css.footer}>
         <div className="container">
           <div className={css.footerWrapper}>
-            <a href="/">
-              <svg width="121" height="35">
-                <use href="/sprite.svg#icon-logo"></use>
-              </svg>
-            </a>
+            <AppLink
+              className={css.footerLogo}
+              href="/"
+              aria-label="На головну сторінку"
+            >
+              <Icon id="icon-logo" width={121} height={35} />
+            </AppLink>
             <SocialList />
             <FooterNav />
           </div>

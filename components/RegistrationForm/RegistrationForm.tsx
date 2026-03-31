@@ -10,19 +10,25 @@ import { RegistrationValues } from "../../types/types";
 
 const RegistrationSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, "Ім'я надто коротке")
-    .max(50, "Ім'я надто довге")
+    .min(3, "Ім'я надто коротке")
+    .max(32, "Ім'я надто довге")
     .required("Ім'я обов'язкове"),
   email: Yup.string()
     .email("Невірний формат email")
+    .max(64, "Email надто довгий")
     .required("Email обов'язковий"),
   password: Yup.string()
     .min(8, "Пароль має бути не менше 8 символів")
+    .max(128, "Пароль  має бути не більше 128 символів")
     .required("Пароль обов'язковий"),
 });
 
 export default function RegistrationForm() {
   const router = useRouter();
+
+  const nameId = "registration-name";
+  const emailId = "registration-email";
+  const passwordId = "registration-password";
 
   const handleSubmit = async (
     values: RegistrationValues,
@@ -70,8 +76,11 @@ export default function RegistrationForm() {
         {({ isSubmitting, errors, touched }) => (
           <Form className={css.registrationForm} noValidate>
             <div className={css.registrationField}>
-              <label className={css.registrationLabel}>Імʼя та Прізвище*</label>
+              <label className={css.registrationLabel} htmlFor={nameId}>
+                Імʼя та Прізвище*
+              </label>
               <Field
+                id={nameId}
                 name="name"
                 placeholder="Ваше імʼя та прізвище"
                 className={`${css.registrationInput} ${errors.name && touched.name ? css.registrationInputError : ""}`}
@@ -84,8 +93,11 @@ export default function RegistrationForm() {
             </div>
 
             <div className={css.registrationField}>
-              <label className={css.registrationLabel}>Пошта</label>
+              <label className={css.registrationLabel} htmlFor={emailId}>
+                Пошта
+              </label>
               <Field
+                id={emailId}
                 name="email"
                 type="email"
                 placeholder="hello@podorozhnyky.ua"
@@ -99,8 +111,11 @@ export default function RegistrationForm() {
             </div>
 
             <div className={css.registrationField}>
-              <label className={css.registrationLabel}>Пароль</label>
+              <label className={css.registrationLabel} htmlFor={passwordId}>
+                Пароль
+              </label>
               <Field
+                id={passwordId}
                 name="password"
                 type="password"
                 placeholder="Введіть пароль"

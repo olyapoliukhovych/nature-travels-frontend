@@ -5,24 +5,22 @@
     gap: 16px;
     width: 100%;
 
-    @media screen and (min-width: 768px) {
+    @media only screen and (min-width: 768px) {
         flex-direction: row;
         justify-content: center;
         gap: 32px;
     }
 
-    @media screen and (min-width: 1440px) {
+    @media only screen and (min-width: 1440px) {
         justify-content: flex-end;
         width: 400px;
     }
 }
 
 .footerNavLink {
-    font-size: 18px;
     color: var(--color-scheme-2-text);
     text-decoration: none;
     height: 40px;
-    transition: var(--transition);
 
     &:hover,
     &:focus {
