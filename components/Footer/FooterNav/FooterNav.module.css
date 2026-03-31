@@ -1,0 +1,29 @@
+.footerNavWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+
+    @media only screen and (min-width: 768px) {
+        flex-direction: row;
+        justify-content: center;
+        gap: 32px;
+    }
+
+    @media only screen and (min-width: 1440px) {
+        justify-content: flex-end;
+        width: 400px;
+    }
+}
+
+.footerNavLink {
+    color: var(--color-scheme-2-text);
+    text-decoration: none;
+    height: 40px;
+
+    &:hover,
+    &:focus {
+        color: var(--color-mantis-dark);
+    }
+}
