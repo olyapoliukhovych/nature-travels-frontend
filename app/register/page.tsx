@@ -10,7 +10,7 @@ export default function RegisterPage() {
       <AuthHeader />
 
       <main className={css.registerMainContent}>
-        <div className={css.authWrapper}>
+        <div className={css.registerAuthWrapper}>
           <MainAuthNav />
 
           <h2 className={css.registerFormTitle}>Реєстрація</h2>

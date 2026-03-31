@@ -94,7 +94,7 @@ export default function RegistrationForm() {
 
             <div className={css.registrationField}>
               <label className={css.registrationLabel} htmlFor={emailId}>
-                Пошта
+                Пошта*
               </label>
               <Field
                 id={emailId}
@@ -112,7 +112,7 @@ export default function RegistrationForm() {
 
             <div className={css.registrationField}>
               <label className={css.registrationLabel} htmlFor={passwordId}>
-                Пароль
+                Пароль*
               </label>
               <Field
                 id={passwordId}
@@ -134,7 +134,7 @@ export default function RegistrationForm() {
               loadingText="Реєстрація"
               className={css.registrationSubmitButton}
             >
-              Зареєструватися
+              Зареєструватись
             </Button>
           </Form>
         )}

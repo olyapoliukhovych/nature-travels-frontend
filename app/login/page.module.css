@@ -1,4 +1,4 @@
-.registerMainContent {
+.loginMainContent {
     flex: 1;
     display: flex;
     align-items: center;
@@ -6,7 +6,7 @@
     padding: 64px 0;
 }
 
-.registerPageContainer {
+.loginPageContainer {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -15,21 +15,21 @@
     padding: 0 64px;
 }
 
-.registerPageFooterWrapper {
+.loginPageFooterWrapper {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 24px 0;
 }
 
-.registerAuthWrapper {
+.loginAuthWrapper {
     width: 100%;
     max-width: 644px;
     display: flex;
     flex-direction: column;
 }
 
-.registerFormTitle {
+.loginFormTitle {
     font-weight: 700;
     font-size: 28px;
     line-height: 120%;
@@ -47,7 +47,7 @@
     }
 }
 
-.registerFormParagraph {
+.loginFormParagraph {
     font-size: 16px;
     text-align: center;
     color: var(--color-scheme-1-text);
