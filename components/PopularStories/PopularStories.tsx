@@ -2,21 +2,21 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import Image from "next/image";
 
 import "swiper/css";
 import "swiper/css/navigation";
 
 import type { Card } from "@/types/picture";
-import PictureCard from "../StoriesCard/StoriesCard";
-import css from "./StoriesList.module.css";
+import StoryCard from "../StoryCard/StoryCard";
+import css from "./PopularStories.module.css";
 import AppLink from "../AppLink/AppLink";
+import { Icon } from "../Icon/Icon";
 
 type Prop = {
   stories: Card[];
 };
 
-export default function StoriesList({ stories }: Prop) {
+export default function PopularStories({ stories }: Prop) {
   return (
     <section className={css.wrapper}>
       <div className={css.titleWrapper}>
@@ -47,27 +47,17 @@ export default function StoriesList({ stories }: Prop) {
       >
         {stories.map((el) => (
           <SwiperSlide className={css.cardWrapper} key={el._id.$oid}>
-            <PictureCard card={el} />
+            <StoryCard card={el} />
           </SwiperSlide>
         ))}
       </Swiper>
       <div className={css.buttonWrapper}>
-        <div className={`${css.prev} stories-prev`}>
-          <Image
-            alt={"backArrow"}
-            width={24}
-            height={24}
-            src={"/arrow_back.svg"}
-          />
-        </div>
-        <div className={`${css.next} stories-next`}>
-          <Image
-            alt={"forwardArrow"}
-            width={24}
-            height={24}
-            src={"/arrow_forward.svg"}
-          />
-        </div>
+        <button className={`${css.prev} stories-prev`}>
+          <Icon id={"icon-arrow_back"} className={css.arrow}/>
+        </button>
+        <button className={`${css.next} stories-next`}>
+          <Icon id={"icon-arrow_forward"} className={css.arrow}/>
+        </button>
       </div>
              <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
           Всі статті

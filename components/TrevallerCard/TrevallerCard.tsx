@@ -1,5 +1,4 @@
-import Image from "next/image";
-import css from "./UserCard.module.css";
+import css from "./TrevallerCard.module.css";
 import AppLink from "../AppLink/AppLink";
 import { Card } from "@/types/picture";
 
