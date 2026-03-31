@@ -1,0 +1,69 @@
+"use client";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+
+import type { Card } from "@/types/picture";
+import css from "./OurTravellers.module.css";
+import AppLink from "../AppLink/AppLink";
+import TrevallerCard from "../TrevallerCard/TrevallerCard";
+import { Icon } from "../Icon/Icon";
+
+type Prop = {
+  prop: Card[];
+};
+
+export default function OurTravellers({ prop }: Prop) {
+  return (
+    <section className={css.wrapper}>
+      <div className={css.titleWrapper}>
+        <h2>Наші манрівники</h2>
+        <AppLink className={css.appLinkUp} href={"#"} variant={"mantis"}>
+          Всі манрівники
+        </AppLink>
+      </div>
+      <div className={css.swiperContainer}>
+        <Swiper
+          className={css.swiper}
+          spaceBetween={24}
+          breakpoints={{
+            320: {
+              slidesPerView: 3,
+              direction: "vertical",
+            },
+            768: {
+              slidesPerView: 4,
+              
+            },
+          }}
+          loop={true}
+          modules={[Navigation]}
+          navigation={{
+            nextEl: ".user-next",
+            prevEl: ".user-prev",
+          }}
+        >
+          {prop.map((el) => (
+            <SwiperSlide className={css.cardWrapper} key={el._id.$oid}>
+              <TrevallerCard card={el} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      <div className={css.buttonWrapper}>
+        <button className={`${css.prev} user-prev`}>
+          <Icon id={"icon-arrow_back"} className={css.arrow} />
+        </button>
+        <button className={`${css.next} user-next`}>
+          <Icon id={"icon-arrow_forward"} className={css.arrow} />
+        </button>
+      </div>
+      <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
+        Всі манрівники
+      </AppLink>
+    </section>
+  );
+}

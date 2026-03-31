@@ -1,8 +1,8 @@
 import Hero from "@/components/Hero/Hero";
 import styles from "./page.module.css";
-import UserListMain from "@/components/UserListMain/UserListMain";
+import OurTravellers from "@/components/OurTravellers/OurTravellers";
 import About from "@/components/About/About";
-import StoriesList from "@/components/StoriesList/StoriesList";
+import PopularStories from "@/components/PopularStories/PopularStories";
 
 export default function Home() {
   const data = [
@@ -164,9 +164,9 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Hero />
-      <StoriesList stories={data}/>
+      <PopularStories stories={data}/>
       <About />
-      <UserListMain prop={data} />
+      <OurTravellers prop={data} />
     </main>
   );
 }

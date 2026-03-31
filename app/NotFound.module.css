@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: var(--color-scheme-1-text);
+  font-family: var(--font-family);
+}
+
+.title {
+  margin: 0px;
+  margin-bottom: 12px;
+}
+
+.description {
+  margin-bottom: 18px;
+}
