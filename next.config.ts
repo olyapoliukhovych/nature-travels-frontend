@@ -4,7 +4,14 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "ftp.goit.study" }],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ftp.goit.study",
+        port: "",
+        pathname: "/img/**",
+      },
+    ],
   },
 };
 
