@@ -1,0 +1,47 @@
+.registerMainContent {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 0 111px 0;
+}
+
+.registerPageContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-white);
+    width: 100%;
+    padding: 0 64px;
+}
+
+.registerPageFooterWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+}
+
+.authWrapper {
+    width: 100%;
+    max-width: 644px;
+    display: flex;
+    flex-direction: column;
+}
+
+.registerFormTitle {
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 120%;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: var(--color-scheme-1-text);
+    margin-bottom: 24px;
+}
+
+.registerFormParagraph {
+    font-size: 20px;
+    text-align: center;
+    color: var(--color-scheme-1-text);
+    margin-bottom: 32px;
+}
