@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import type { Card } from "@/types/picture";
 import css from "./OurTravellers.module.css";
 import AppLink from "../AppLink/AppLink";
-import TrevallerCard from "../TrevallerCard/TrevallerCard";
+import TravellerCard from "../TravellerCard/TravellerCard";
 import { Icon } from "../Icon/Icon";
 
 type Prop = {
@@ -20,9 +20,9 @@ export default function OurTravellers({ prop }: Prop) {
   return (
     <section className={css.wrapper}>
       <div className={css.titleWrapper}>
-        <h2>Наші манрівники</h2>
+        <h2>Наші Мандрівники</h2>
         <AppLink className={css.appLinkUp} href={"#"} variant={"mantis"}>
-          Всі манрівники
+          Всі мандрівники
         </AppLink>
       </div>
       <div className={css.swiperContainer}>
@@ -36,7 +36,6 @@ export default function OurTravellers({ prop }: Prop) {
             },
             768: {
               slidesPerView: 4,
-              
             },
           }}
           loop={true}
@@ -48,7 +47,7 @@ export default function OurTravellers({ prop }: Prop) {
         >
           {prop.map((el) => (
             <SwiperSlide className={css.cardWrapper} key={el._id.$oid}>
-              <TrevallerCard card={el} />
+              <TravellerCard card={el} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -62,7 +61,7 @@ export default function OurTravellers({ prop }: Prop) {
         </button>
       </div>
       <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
-        Всі манрівники
+        Всі мандрівники
       </AppLink>
     </section>
   );
