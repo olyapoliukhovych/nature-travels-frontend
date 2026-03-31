@@ -1,23 +1,50 @@
+// export interface Story {
+//   article: string;
+//   category: Category;
+//   date: string;
+//   img: string;
+//   ownerId: Owner;
+//   rate: number;
+//   title: string;
+//   _id: string;
+//   favoritesCount: number;
+// }
+
+// interface Category {
+//   _id: string;
+//   category: string;
+// }
+
+// interface Owner {
+//   _id: string;
+//   name: string;
+// }
+
 export interface Story {
-  article: string;
-  category: Category;
-  date: string;
-  img: string;
-  ownerId: Owner;
-  rate: number;
-  title: string;
   _id: string;
+  title: string;
+  article: string;
+  img: string;
+  date: string;
+  rate: number;
   favoritesCount: number;
+  categoryId: string;
+  ownerId: string;
 }
 
-interface Category {
+export interface Category {
   _id: string;
   category: string;
 }
 
-interface Owner {
+export interface User {
   _id: string;
   name: string;
+  avatarUrl: string;
+  // articlesAmount: number;
+  // savedArticles?: string[];
+  stories: number;
+  savedStories?: string[];
 }
 
 export interface RegistrationValues {
