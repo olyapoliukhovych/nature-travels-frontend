@@ -22,7 +22,13 @@
     height: 100%;
     padding-bottom: 2px;
 
-    &:hover {
+    padding: 0;
+    min-width: unset;
+    border: none;
+
+    &:hover,
+    &:focus {
+        border: none !important;
         color: var(--color-mantis-dark);
     }
 

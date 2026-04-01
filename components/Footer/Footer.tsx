@@ -7,7 +7,6 @@ import { Icon } from "../Icon/Icon";
 
 export default function Footer() {
   return (
-    <>
       <footer className={css.footer}>
         <div className="container">
           <div className={css.footerWrapper}>
@@ -16,7 +15,12 @@ export default function Footer() {
               href="/"
               aria-label="На головну сторінку"
             >
-              <Icon id="icon-logo" width={121} height={35} />
+              <Icon
+                id="icon-logo"
+                width={121}
+                height={35}
+                className={css.footerSvg}
+              />
             </AppLink>
             <SocialList />
             <FooterNav />
@@ -29,6 +33,5 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-    </>
   );
 }

@@ -8,6 +8,10 @@
     }
 }
 
+.footerSvg {
+    stroke: none !important;
+}
+
 .footerWrapper {
     gap: 32px;
     margin-bottom: 32px;
@@ -73,5 +77,6 @@
 
 .copyrightWrapper {
     text-align: center;
-    color: var(--color-scheme-2-text);
+    justify-content: center;
+    display: flex;
 }
