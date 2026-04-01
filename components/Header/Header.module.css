@@ -1,19 +1,28 @@
 .header {
   width: 100%;
   background-color: var(--color-scheme-2-background);
-  border-bottom: 1px solid #ececec;
+  /* border-bottom: 1px solid #ececec; */
   position: relative;
   z-index: 50;
 }
 
 .container {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 16px 24px;
+  width: 100%;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+
+  @media only screen and (min-width: 768px) {
+    max-width: 768px;
+    padding: 16px 32px;
+  }
+
+  @media only screen and (min-width: 1440px) {
+    max-width: 1440px;
+    padding: 16px 64px;
+  }
 }
 
 .logo {

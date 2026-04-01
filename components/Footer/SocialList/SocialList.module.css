@@ -1,9 +1,28 @@
 .socialListWrapper {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
 }
 
 .socialListSvg {
+  fill: var(--color-scheme-2-text);
+  transition: var(--transition);
+  width: 32px;
+  height: 32px;
+
+  @media only screen and (min-width: 768px) {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.socialListLink .socialListSvg {
+  stroke: currentColor;
+}
+
+.socialListLink:hover .socialListSvg {
+  fill: var(--color-mantis-dark);
+  stroke: currentColor;
+}
     fill: var(--color-scheme-2-text);
     transition: var(--transition);
     width: 32px !important;

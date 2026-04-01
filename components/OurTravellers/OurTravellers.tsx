@@ -1,7 +1,7 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import type { Card } from "@/types/picture";
 import css from "./OurTravellers.module.css";
 import AppLink from "../AppLink/AppLink";
-import TravellerCard from "../TravellerCard/TravellerCard";
+// import TravellerCard from "../TravellerCard/TravellerCard";
 import { Icon } from "../Icon/Icon";
 
 type Prop = {
@@ -20,13 +20,13 @@ export default function OurTravellers({ prop }: Prop) {
   return (
     <section className={css.wrapper}>
       <div className={css.titleWrapper}>
-        <h2>Наші Мандрівники</h2>
+        <h2 className={css.title}>Наші Мандрівники</h2>
         <AppLink className={css.appLinkUp} href={"#"} variant={"mantis"}>
           Всі мандрівники
         </AppLink>
       </div>
       <div className={css.swiperContainer}>
-        <Swiper
+        {/* <Swiper
           className={css.swiper}
           spaceBetween={24}
           breakpoints={{
@@ -50,7 +50,7 @@ export default function OurTravellers({ prop }: Prop) {
               <TravellerCard card={el} />
             </SwiperSlide>
           ))}
-        </Swiper>
+        </Swiper> */}
       </div>
       <div className={css.buttonWrapper}>
         <button className={`${css.prev} user-prev`}>
