@@ -10,7 +10,7 @@ import "swiper/css/grid";
 import type { Card } from "@/types/picture";
 import css from "./OurTravellers.module.css";
 import AppLink from "../AppLink/AppLink";
-import TrevallerCard from "../TrevallerCard/TrevallerCard";
+// import TravellerCard from "../TravellerCard/TravellerCard";
 import { Icon } from "../Icon/Icon";
 
 type Prop = {
@@ -21,13 +21,13 @@ export default function OurTravellers({ prop }: Prop) {
   return (
     <section className={css.wrapper}>
       <div className={css.titleWrapper}>
-        <h2>Наші Мандрівники</h2>
+        <h2 className={css.title}>Наші Мандрівники</h2>
         <AppLink className={css.appLinkUp} href={"#"} variant={"mantis"}>
-          Всі манрівники
+          Всі мандрівники
         </AppLink>
       </div>
       <div className={css.swiperContainer}>
-        <Swiper
+        {/* <Swiper
           className={css.swiper}
           spaceBetween={24}
           breakpoints={{
@@ -40,6 +40,7 @@ export default function OurTravellers({ prop }: Prop) {
               grid: {
                 rows: 2
               }
+              slidesPerView: 4,
             },
             1440: {
               slidesPerView: 4,
@@ -57,10 +58,10 @@ export default function OurTravellers({ prop }: Prop) {
         >
           {prop.map((el) => (
             <SwiperSlide className={css.cardWrapper} key={el._id.$oid}>
-              <TrevallerCard card={el} />
+              <TravellerCard card={el} />
             </SwiperSlide>
           ))}
-        </Swiper>
+        </Swiper> */}
       </div>
       <div className={css.buttonWrapper}>
         <button className={`${css.prev} user-prev`}>
@@ -71,7 +72,7 @@ export default function OurTravellers({ prop }: Prop) {
         </button>
       </div>
       <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
-        Всі манрівники
+        Всі мандрівники
       </AppLink>
     </section>
   );

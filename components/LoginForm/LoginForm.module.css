@@ -1,0 +1,73 @@
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.loginField {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.loginLabel {
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--color-scheme-1-text);
+    cursor: pointer;
+
+    @media only screen and (min-width:768px) {
+        font-size: 18px;
+    }
+}
+
+.loginInput {
+    width: 100%;
+    font-size: 16px;
+    outline: none;
+    background: var(--opacity-transparent);
+    transition: var(--transition);
+    border: 1px solid var(--opacity-neutral-darkest-15);
+    border-radius: 6px;
+    padding: 8px;
+    height: 40px;
+
+    &:focus {
+        border: 1px solid var(--color-scheme-1-accent);
+    }
+
+    @media only screen and (min-width:1440px) {
+        font-size: 18px;
+        height: 43px;
+    }
+}
+
+.loginInputError {
+    border: 1px solid var(--color-red);
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--color-red);
+}
+
+.loginErrorText {
+    color: var(--color-red);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.loginSubmitButton {
+    width: 100%;
+    border: 1px solid var(--color-mantis-dark);
+    border-radius: 6px;
+    padding: 6px 12px;
+    height: 44px;
+    font-size: 16px;
+    color: var(--color-white);
+
+    @media only screen and (min-width:1440px) {
+        font-size: 20px;
+    }
+}
