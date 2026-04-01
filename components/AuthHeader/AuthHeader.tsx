@@ -3,7 +3,7 @@ import { Icon } from "../Icon/Icon";
 import Link from "next/link";
 export default function AuthHeader() {
   return (
-    <div className="container">
+    <div className={css.authHeaderWrapper}>
       <Link
         className={css.authHeaderLogo}
         href="/"
