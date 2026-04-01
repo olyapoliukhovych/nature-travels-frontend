@@ -10,7 +10,7 @@ import "swiper/css/grid";
 import type { Card } from "@/types/picture";
 import css from "./OurTravellers.module.css";
 import AppLink from "../AppLink/AppLink";
-// import TravellerCard from "../TravellerCard/TravellerCard";
+import TravellerCard from "../TravellerCard/TravellerCard";
 import { Icon } from "../Icon/Icon";
 
 type Prop = {
@@ -27,7 +27,7 @@ export default function OurTravellers({ prop }: Prop) {
         </AppLink>
       </div>
       <div className={css.swiperContainer}>
-        {/* <Swiper
+        <Swiper
           className={css.swiper}
           spaceBetween={24}
           breakpoints={{
@@ -38,16 +38,16 @@ export default function OurTravellers({ prop }: Prop) {
             768: {
               slidesPerView: 2,
               grid: {
-                rows: 2
-              }
-              slidesPerView: 4,
+                rows: 2,
+              },
+              // slidesPerView: 4,
             },
             1440: {
               slidesPerView: 4,
               grid: {
-                rows: 1
-              }
-            }
+                rows: 1,
+              },
+            },
           }}
           loop={true}
           modules={[Navigation, Grid]}
@@ -61,7 +61,7 @@ export default function OurTravellers({ prop }: Prop) {
               <TravellerCard card={el} />
             </SwiperSlide>
           ))}
-        </Swiper> */}
+        </Swiper>
       </div>
       <div className={css.buttonWrapper}>
         <button className={`${css.prev} user-prev`}>
