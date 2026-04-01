@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { parse } from "cookie";
-import { checkServerSession } from "./lib/api/serverApi";
+import { checkServerSession } from "./lib/api/stories/serverApi";
 
 const privateRoutes = ["/profile", "/stories/new"];
 const authRoutes = ["/auth/login", "/auth/register"];

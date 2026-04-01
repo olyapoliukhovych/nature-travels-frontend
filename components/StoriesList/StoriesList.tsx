@@ -11,12 +11,26 @@ import type { Card } from "@/types/picture";
 import PictureCard from "../StoriesCard/StoriesCard";
 import css from "./StoriesList.module.css";
 import AppLink from "../AppLink/AppLink";
+import { getAllStories } from "@/lib/api/stories/clientApi";
+import { useEffect } from "react";
 
 type Prop = {
   stories: Card[];
 };
 
 export default function StoriesList({ stories }: Prop) {
+  const page = 1;
+  const perPage = 5;
+
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getAllStories({ page, perPage });
+      console.log(data);
+    };
+
+    fetch();
+  }, []);
+
   return (
     <section className={css.wrapper}>
       <div className={css.titleWrapper}>
@@ -69,9 +83,9 @@ export default function StoriesList({ stories }: Prop) {
           />
         </div>
       </div>
-             <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
-          Всі статті
-        </AppLink>
+      <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
+        Всі статті
+      </AppLink>
     </section>
   );
 }
