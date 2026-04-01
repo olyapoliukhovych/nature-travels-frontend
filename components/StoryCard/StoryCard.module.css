@@ -9,18 +9,12 @@
 }
 
 .appLink {
-  border: 1px solid rgba(0, 0, 0, 15%) !important;
-  border-radius: 6px;
-  padding: 6px 12px;
   width: 244px;
   height: 48px;
-  background-color: rgba(0, 0, 0, 5%);
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
-  color: #1b391b;
 }
-
 
 .saveButton {
   border: 1px solid rgba(0, 0, 0, 15%);
@@ -34,29 +28,27 @@
   transition: all var(--transition);
 }
 
-.appLink:hover,
 .saveButton:hover,
-.appLink:focus,
 .saveButton:focus {
-  background-color: #4a9849;
-  color: white;
+  background-color: var(--color-mantis-dark);
+  color: var( --color-white);
   border-color: transparent !important;
 }
 
 .appLink:active,
 .saveButton:active {
-  background-color: #254c24 !important;
+  background-color: var(--color-mantis-darker) !important;
 }
 
 .icon {
-  color: black;
+  color: var(--color-neutral-darkest);
   transition: all var(--transition);
 }
 
 .saveButton:hover .icon,
 .saveButton:active .icon,
-.saveButton:focus .icon  {
-  color: white;
+.saveButton:focus .icon {
+  color: var( --color-white);
 }
 
 .buttonWrapper {
@@ -69,7 +61,6 @@
 
 .descriptionWrapper {
   padding: 16px;
-  background-color: rgba(0, 0, 0, 5%);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
 }
@@ -107,7 +98,7 @@
   gap: 2px;
 }
 
-.bookmark{
+.bookmark {
   width: 16px;
   height: 16px;
 }

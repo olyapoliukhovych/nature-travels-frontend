@@ -1,5 +1,4 @@
-import Image from "next/image";
-import css from "./UserCard.module.css";
+import css from "./TravellerCard.module.css";
 import AppLink from "../AppLink/AppLink";
 import { Card } from "@/types/picture";
 
@@ -7,7 +6,7 @@ interface Props {
   card: Card;
 }
 
-export default function UserCard({ card }: Props) {
+export default function TravellerCard({ card }: Props) {
   return (
     <div className={css.card}>
       {/* <Image src={"#"} width={130} height={130} alt={"user"} /> */}
