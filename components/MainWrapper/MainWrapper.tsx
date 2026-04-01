@@ -8,7 +8,8 @@ export default function MainWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isAuthPage = pathname === "/register" || pathname === "/login";
+  const hideOnPaths = ["/auth/login", "/auth/register"];
+  const isAuthPage = hideOnPaths.includes(pathname);
 
   return <main className={isAuthPage ? "" : "container"}>{children}</main>;
 }

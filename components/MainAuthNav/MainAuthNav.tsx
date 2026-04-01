@@ -12,13 +12,13 @@ export default function MainAuthNav() {
   return (
     <nav className={css.mainAuthNav}>
       <AppLink
-        href="/register"
+        href="/auth/register"
         className={`${css.mainAuthLink} ${isActive("/register") ? css.mainAuthActive : ""}`}
       >
         Реєстрація
       </AppLink>
       <AppLink
-        href="/login"
+        href="/auth/login"
         className={`${css.mainAuthLink} ${isActive("/login") ? css.mainAuthActive : ""}`}
       >
         Вхід
