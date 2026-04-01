@@ -1,0 +1,123 @@
+.closeBtn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 4px;
+
+    @media only screen and (min-width: 1440px) {
+        top: 24px;
+        right: 24px;
+    }
+}
+
+.iconClose {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.titleModal {
+    margin-bottom: 16px;
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: var(--color-scheme-1-text);
+
+    @media only screen and (min-width: 768px) {
+        font-size: 32px;
+    }
+
+    @media only screen and (min-width: 1440px) {
+        font-size: 48px;
+    }
+}
+
+.textModal {
+    margin-bottom: 32px;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: -0.05em;
+    color: var(--color-scheme-1-text);
+
+    @media only screen and (min-width: 1440px) {
+        font-size: 20px;
+        letter-spacing: -0.00em;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .navigationWrapper {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.loginLink,
+.registerLink,
+.cancelBtn,
+.logoutBtn {
+    display: block;
+    padding: 11px;
+    text-align: center;
+    border-radius: 6px;
+
+    @media only screen and (min-width: 1440px) {
+        padding: 8px;
+    }
+}
+
+.loginLink,
+.cancelBtn {
+    margin-bottom: 24px;
+    width: 100%;
+    background-color: var(--opacity-neutral-darkest-5);
+    border: 1px solid var(--color-scheme-2-border);
+    transition: background-color var(--transition), border-color var(--transition);
+
+    &:hover,
+    &:focus {
+        background-color: var(--color-mantis-lighter);
+        border-color: var(--color-mantis-dark);
+    }
+
+    @media only screen and (min-width: 768px) {
+        margin-bottom: 0;
+        max-width: 203px;
+    }
+
+    @media only screen and (min-width: 1440px) {
+        font-size: 20px;
+    }
+}
+
+.logoutBtn,
+.cancelBtn {
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.registerLink,
+.logoutBtn {
+    width: 100%;
+    background-color: var(--color-mantis-dark);
+    border: 1px solid var(--color-mantis-dark);
+    color: var(--color-white);
+    transition: background-color var(--transition), color var(--transition);
+
+    &:hover,
+    &:focus {
+        background-color: transparent;
+        color: inherit;
+    }
+
+    @media only screen and (min-width: 768px) {
+        max-width: 203px;
+    }
+
+    @media only screen and (min-width: 1440px) {
+        font-size: 20px;
+    }
+}
