@@ -8,4 +8,6 @@
 .authHeaderSvg {
     margin: 18px 0;
     stroke: none !important;
+    width: 124px;
+    height: 35px;
 }

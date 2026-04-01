@@ -69,6 +69,7 @@ export default function LoginForm() {
                 id={emailId}
                 name="email"
                 type="email"
+                autoComplete="email"
                 placeholder="hello@podorozhnyky.ua"
                 className={`${css.loginInput} ${
                   errors.email && touched.email ? css.loginInputError : ""
@@ -89,6 +90,7 @@ export default function LoginForm() {
                 id={passwordId}
                 name="password"
                 type="password"
+                autoComplete="current-password"
                 placeholder="Введіть пароль"
                 className={`${css.loginInput} ${
                   errors.password && touched.password ? css.loginInputError : ""
