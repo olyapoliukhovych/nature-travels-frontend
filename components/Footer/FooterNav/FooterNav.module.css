@@ -21,6 +21,15 @@
     color: var(--color-scheme-2-text);
     text-decoration: none;
     height: 40px;
+    white-space: nowrap;
+
+    font-weight: 400;
+    font-size: 16px;
+
+    @media only screen and (min-width: 1440px) {
+        font-size: 18px;
+        height: 43px;
+    }
 
     &:hover,
     &:focus {

@@ -23,3 +23,18 @@
   fill: var(--color-mantis-dark);
   stroke: currentColor;
 }
+    fill: var(--color-scheme-2-text);
+    transition: var(--transition);
+    width: 32px !important;
+    height: 32px !important;
+
+    @media only screen and (min-width: 768px) {
+        width: 24px !important;
+        height: 24px !important;
+    }
+}
+
+.socialListLink:hover .socialListSvg,
+.socialListLink:focus .socialListSvg {
+    fill: var(--color-mantis-dark);
+}

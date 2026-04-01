@@ -35,7 +35,8 @@ export default function RegistrationForm() {
     { setSubmitting }: FormikHelpers<RegistrationValues>,
   ) => {
     try {
-      const response = await fetch("/api/auth/register", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const response = await fetch(`${apiUrl}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
