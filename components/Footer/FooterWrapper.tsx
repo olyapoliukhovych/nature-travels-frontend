@@ -6,7 +6,7 @@ import Footer from "./Footer";
 export default function FooterWrapper() {
   const pathname = usePathname();
 
-  const hideOnPaths = ["/login", "/register"];
+  const hideOnPaths = ["/auth/login", "/auth/register"];
 
   if (hideOnPaths.includes(pathname)) {
     return null;
