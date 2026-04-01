@@ -1,10 +1,11 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Grid, Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/grid";
 
 import type { Card } from "@/types/picture";
 import css from "./OurTravellers.module.css";
@@ -20,7 +21,7 @@ export default function OurTravellers({ prop }: Prop) {
   return (
     <section className={css.wrapper}>
       <div className={css.titleWrapper}>
-        <h2>Наші манрівники</h2>
+        <h2>Наші Мандрівники</h2>
         <AppLink className={css.appLinkUp} href={"#"} variant={"mantis"}>
           Всі манрівники
         </AppLink>
@@ -35,12 +36,20 @@ export default function OurTravellers({ prop }: Prop) {
               direction: "vertical",
             },
             768: {
-              slidesPerView: 4,
-              
+              slidesPerView: 2,
+              grid: {
+                rows: 2
+              }
             },
+            1440: {
+              slidesPerView: 4,
+              grid: {
+                rows: 1
+              }
+            }
           }}
           loop={true}
-          modules={[Navigation]}
+          modules={[Navigation, Grid]}
           navigation={{
             nextEl: ".user-next",
             prevEl: ".user-prev",
