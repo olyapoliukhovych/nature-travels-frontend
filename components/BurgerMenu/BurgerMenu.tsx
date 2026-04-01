@@ -28,8 +28,8 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
           <Link href="/" className={styles.logo} aria-label="На головну">
             <svg
               className={styles.logoIcon}
-              width="108"
-              height="32"
+              width="124"
+              height="36"
               aria-hidden="true"
             >
               <use href="/sprite.svg#icon-logo" />
