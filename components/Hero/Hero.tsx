@@ -32,7 +32,7 @@ export default function Hero() {
 
   return (
     <section className={css.heroSection}>
-      <div className={`container ${css.heroWrapper}`}>
+      <div className={css.heroWrapper}>
         <div className={css.imageWrapper}>
           <picture>
             <source media="(min-width: 1440px)" srcSet={desktop.props.srcSet} />

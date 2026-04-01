@@ -3,7 +3,7 @@
   inset: 0;
   width: 100vw;
   height: 100dvh;
-  background: #ffffff;
+  background: var(--color-scheme-2-background);
   z-index: 999;
   overflow: hidden;
   overscroll-behavior: none;
@@ -21,9 +21,10 @@
 
 .top {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  padding: 16px 24px;
+  padding: 16px 20px;
+  width: 100%;
 }
 
 .logo {
@@ -84,6 +85,7 @@
   justify-content: center;
   padding-bottom: 266px;
 }
+
 .mobileActions {
   display: flex;
   justify-content: center;

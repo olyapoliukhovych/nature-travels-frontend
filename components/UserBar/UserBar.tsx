@@ -13,7 +13,7 @@ export default function UserBar() {
           Ім&apos;я
         </Link>
 
-        <Link href="/auth/login" className={styles.logout} aria-label="Вийти">
+        <Link href="/auth/logout" className={styles.logout} aria-label="Вийти">
           <svg width="20" height="20" aria-hidden="true">
             <use href="/sprite.svg#icon-logout" />
           </svg>

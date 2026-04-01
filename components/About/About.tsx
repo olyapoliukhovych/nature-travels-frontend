@@ -31,7 +31,7 @@ export default function About() {
 
   return (
     <section className={css.aboutSection}>
-      <div className={`container ${css.aboutMainContainer}`}>
+      <div className={css.aboutMainContainer}>
         <div className={css.aboutMainTextWrapper}>
           <h2 className={css.aboutTitle}>
             Мандруй екологічно та відкривай нові горизонти
