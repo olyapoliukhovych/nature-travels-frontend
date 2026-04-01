@@ -73,9 +73,11 @@
 }
 
 .wrapper {
-  max-width: 1440px;
+  /* max-width: 1440px;
   padding-top: 72px;
   padding-bottom: 72;
+  height: 1000px; */
+  display: none;
 }
 
 @media only screen and (min-width: 768px) {
