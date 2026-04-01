@@ -1,10 +1,11 @@
 "use client";
 
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Grid, Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/grid";
 
 import type { Card } from "@/types/picture";
 import css from "./OurTravellers.module.css";
@@ -35,11 +36,21 @@ export default function OurTravellers({ prop }: Prop) {
               direction: "vertical",
             },
             768: {
+              slidesPerView: 2,
+              grid: {
+                rows: 2
+              }
               slidesPerView: 4,
             },
+            1440: {
+              slidesPerView: 4,
+              grid: {
+                rows: 1
+              }
+            }
           }}
           loop={true}
-          modules={[Navigation]}
+          modules={[Navigation, Grid]}
           navigation={{
             nextEl: ".user-next",
             prevEl: ".user-prev",

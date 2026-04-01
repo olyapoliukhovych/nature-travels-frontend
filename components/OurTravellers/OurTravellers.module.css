@@ -66,29 +66,16 @@
 }
 
 .cardWrapper {
-  height: calc((100% - 48px) / 3);
+  height: 317px;
   background-color: var(--color-mantis-lighter);
   border-radius: 12px;
   border: 0px solid rgba(0, 0, 0, 0.15);
-}
-
-@media only screen and (min-width: 768px) {
-  .cardWrapper {
-    width: calc((100% - 24px) / 2);
-  }
-}
-
-@media only screen and (min-width: 1440px) {
-  .cardWrapper {
-    width: calc((100% - 24px) / 3);
-  }
 }
 
 .wrapper {
   max-width: 1440px;
   padding-top: 72px;
   padding-bottom: 72;
-  height: 1000px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -113,9 +100,21 @@
 
 .titleWrapper h2 {
   font-weight: 700;
-  font-size: 52px;
+  font-size: 28px;
   line-height: 120%;
-  letter-spacing: -1%;
+  letter-spacing: -0.01em;
+}
+
+@media only screen and (min-width: 768px) {
+  .titleWrapper h2 {
+    font-size: 44px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .titleWrapper h2 {
+    font-size: 52px;
+  }
 }
 
 .appLinkUp,
@@ -152,6 +151,17 @@
   height: 24px;
 }
 
+/* .swiper {
+  height: 100%;
+  width: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+  .swiperContainer {
+    height: calc(317px * 3 + 24px * 2);
+    width: 100%;
+    overflow: hidden;
+    
 .swiper-slide {
   height: calc((100% - 48px) / 3);
 }
@@ -160,12 +170,15 @@
   .swiper-slide {
     height: calc((100% - 48px) / 4);
   }
-}
+} */
 
 /* @media only screen and (min-width: 768px) {
   .swiperContainer {
-    height: calc((317px * 2) + 24px);
+    height: 658px;
   }
+}
+
+@media only screen and (min-width: 1440px) {
 } */
 
 .swiper {
@@ -175,15 +188,7 @@
 
 @media only screen and (max-width: 767px) {
   .swiperContainer {
-    height: calc(317px * 3 + 24px * 2); /* 3 карточки + 2 промежутка */
-    width: 100%;
-    overflow: hidden;
+    height: 335px;
   }
 }
 
-.cardWrapper {
-  height: 317px;
-  background-color: var(--color-mantis-lighter);
-  border-radius: 12px;
-  border: 0px solid rgba(0, 0, 0, 0.15);
-}
