@@ -3,6 +3,7 @@ import AuthHeader from "@/components/AuthHeader/AuthHeader";
 import MainAuthNav from "@/components/MainAuthNav/MainAuthNav";
 import css from "./page.module.css";
 import LoginForm from "@/components/LoginForm/LoginForm";
+
 export default function AuthPage() {
   return (
     <div className={css.loginPageContainer}>

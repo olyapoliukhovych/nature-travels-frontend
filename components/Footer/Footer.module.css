@@ -1,77 +1,77 @@
 .footer {
-    background: var(--color-scheme-2-foreground);
-    padding: 48px 0;
-    height: auto;
+  background: var(--color-scheme-2-foreground);
+  padding: 48px 0;
+  height: auto;
 
-    @media screen and (min-width: 1440px) {
-        padding: 80px 0;
-    }
+  @media screen and (min-width: 1440px) {
+    padding: 80px 0;
+  }
 }
 
 .footerWrapper {
-    gap: 32px;
-    margin-bottom: 32px;
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
+  gap: 32px;
+  margin-bottom: 32px;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
 
-    @media screen and (min-width: 768px) {
-        grid-template-columns: 1fr 1fr;
-        row-gap: 24px;
-    }
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 24px;
+  }
 
-    @media screen and (min-width: 1440px) {
-        margin-bottom: 24px;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-    }
+  @media screen and (min-width: 1440px) {
+    margin-bottom: 24px;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
 }
 
-.footerWrapper>a,
-.footerWrapper>div {
-    justify-self: center;
+.footerWrapper > a,
+.footerWrapper > div {
+  justify-self: center;
 }
 
 @media screen and (min-width: 768px) {
-    .footerWrapper>a {
-        grid-column: 1;
-        grid-row: 1;
-        justify-self: start;
+  .footerWrapper > a {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+  }
+
+  .footerWrapper > :nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+
+    @media screen and (min-width: 1440px) {
+      justify-self: center;
     }
+  }
 
-    .footerWrapper> :nth-child(2) {
-        grid-column: 2;
-        grid-row: 1;
-        justify-self: end;
+  .footerWrapper > :last-child {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    width: auto;
 
-        @media screen and (min-width: 1440px) {
-            justify-self: center;
-        }
+    @media screen and (min-width: 1440px) {
+      /* width: 400px; */
+      justify-self: end;
+
+      grid-column: 3;
+      grid-row: 1;
     }
-
-    .footerWrapper> :last-child {
-        grid-column: 1 / span 2;
-        grid-row: 2;
-        width: auto;
-
-        @media screen and (min-width: 1440px) {
-            width: 400px;
-            justify-self: end;
-
-            grid-column: 3;
-            grid-row: 1;
-        }
-    }
+  }
 }
 
 .footerLine {
-    margin-bottom: 32px;
-    border: 1px solid var(--color-scheme-2-border);
-    max-width: 1312px;
-    height: 0px;
+  margin-bottom: 32px;
+  border: 1px solid var(--color-scheme-2-border);
+  max-width: 1312px;
+  height: 0px;
 }
 
 .copyrightWrapper {
-    text-align: center;
-    color: var(--color-scheme-2-text);
+  text-align: center;
+  color: var(--color-scheme-2-text);
 }
