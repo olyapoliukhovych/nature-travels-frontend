@@ -167,7 +167,7 @@ export default function Home() {
       <Hero />
       <PopularStories stories={data} />
       <About />
-      <OurTravellers prop={data} />
+      <OurTravellers />
       <Join />
     </>
   );
