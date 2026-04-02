@@ -53,15 +53,15 @@ export default function PopularStories({ stories }: Prop) {
       </Swiper>
       <div className={css.buttonWrapper}>
         <button className={`${css.prev} stories-prev`}>
-          <Icon id={"icon-arrow_back"} className={css.arrow}/>
+          <Icon id={"icon-arrow_back"} className={css.arrow} />
         </button>
         <button className={`${css.next} stories-next`}>
-          <Icon id={"icon-arrow_forward"} className={css.arrow}/>
+          <Icon id={"icon-arrow_forward"} className={css.arrow} />
         </button>
       </div>
-             <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
-          Всі статті
-        </AppLink>
+      <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
+        Всі статті
+      </AppLink>
     </section>
   );
 }
