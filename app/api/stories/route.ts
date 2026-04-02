@@ -7,16 +7,15 @@ import { logErrorResponse } from "../_utils/utils";
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
-    const search = request.nextUrl.searchParams.get("search") ?? "";
+    const perPage = request.nextUrl.searchParams.get("perPage") ?? 10;
     const page = Number(request.nextUrl.searchParams.get("page") ?? 1);
     const rawCategory = request.nextUrl.searchParams.get("category") ?? "";
     const category = rawCategory === "Всі статті" ? "" : rawCategory;
 
     const res = await api("/stories", {
       params: {
-        ...(search && { search }),
         page,
-        perPage: 10,
+        perPage,
         ...(category && { category }),
       },
       headers: {

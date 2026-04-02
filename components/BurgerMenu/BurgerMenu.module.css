@@ -24,7 +24,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  width: 100%;
+  max-width: 375px;
+  height: 72px;
+  margin: 0 auto;
+
+  @media only screen and (min-width: 768px) {
+    padding: 16px 32px;
+    max-width: 768px;
+  }
 }
 
 .logo {
@@ -37,8 +44,8 @@
 
 .logoIcon {
   display: block;
-  width: 108px;
-  height: 32px;
+  width: 124px;
+  height: 36px;
 }
 
 .topRight {

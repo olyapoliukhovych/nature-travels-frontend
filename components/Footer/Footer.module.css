@@ -9,7 +9,9 @@
 }
 
 .footerSvg {
-    stroke: none !important;
+  stroke: none !important;
+  width: 124px;
+  height: 36px;
 }
 
 .footerWrapper {
@@ -76,7 +78,7 @@
 }
 
 .copyrightWrapper {
-    text-align: center;
-    justify-content: center;
-    display: flex;
+  text-align: center;
+  justify-content: center;
+  display: flex;
 }

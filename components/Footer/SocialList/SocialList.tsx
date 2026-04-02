@@ -1,6 +1,6 @@
+import Link from "next/link";
 import css from "./SocialList.module.css";
 import { Icon } from "@/components/Icon/Icon";
-import AppLink from "@/components/AppLink/AppLink";
 export default function SocialList() {
   const socials = [
     { id: "facebook", href: "https://www.facebook.com", label: "Фейсбук" },
@@ -11,7 +11,7 @@ export default function SocialList() {
   return (
     <div className={css.socialListWrapper}>
       {socials.map((social) => (
-        <AppLink
+        <Link
           key={social.id}
           className={css.socialListLink}
           href={social.href}
@@ -20,7 +20,7 @@ export default function SocialList() {
           aria-label={`Перейти на сторінку ${social.label}`}
         >
           <Icon id={`icon-${social.id}`} className={css.socialListSvg} />
-        </AppLink>
+        </Link>
       ))}
     </div>
   );

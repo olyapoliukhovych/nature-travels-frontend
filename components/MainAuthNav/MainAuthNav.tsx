@@ -1,6 +1,6 @@
 "use client";
 
-import AppLink from "../AppLink/AppLink";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import css from "./MainAuthNav.module.css";
 
@@ -11,18 +11,18 @@ export default function MainAuthNav() {
 
   return (
     <nav className={css.mainAuthNav}>
-      <AppLink
+      <Link
         href="/auth/register"
-        className={`${css.mainAuthLink} ${isActive("/register") ? css.mainAuthActive : ""}`}
+        className={`${css.mainAuthLink} ${isActive("/auth/register") ? css.mainAuthActive : ""}`}
       >
         Реєстрація
-      </AppLink>
-      <AppLink
+      </Link>
+      <Link
         href="/auth/login"
-        className={`${css.mainAuthLink} ${isActive("/login") ? css.mainAuthActive : ""}`}
+        className={`${css.mainAuthLink} ${isActive("/auth/login") ? css.mainAuthActive : ""}`}
       >
         Вхід
-      </AppLink>
+      </Link>
     </nav>
   );
 }

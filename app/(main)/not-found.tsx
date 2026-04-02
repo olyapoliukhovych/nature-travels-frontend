@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import css from "@/app/NotFound.module.css";
+import css from "@/app/(main)/NotFound.module.css";
 import AppLink from "@/components/AppLink/AppLink";
 
 export default function NotFound() {

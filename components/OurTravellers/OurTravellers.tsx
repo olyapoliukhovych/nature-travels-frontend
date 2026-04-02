@@ -144,6 +144,7 @@ export default function OurTravellers() {
                 grid: {
                   rows: 2,
                 },
+                // slidesPerView: 4,
               },
               1440: {
                 slidesPerView: 4,
