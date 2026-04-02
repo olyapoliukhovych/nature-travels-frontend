@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "modern-normalize/modern-normalize.css";
 import "./globals.css";
-import FooterWrapper from "@/components/Footer/FooterWrapper";
-import MainWrapper from "@/components/MainWrapper/MainWrapper";
-import HeaderWrapper from "@/components/Header/HeaderWrapper";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
@@ -33,11 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk" className={`${montserrat.variable}`}>
-      <body>
-        <HeaderWrapper />
-        <MainWrapper>{children}</MainWrapper>
-        <FooterWrapper />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
