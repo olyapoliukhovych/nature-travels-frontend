@@ -1,35 +1,11 @@
 import { api } from "../api";
-
-interface Category {
-  _id: string;
-  category: string;
-}
-
-interface Stories {
-  savedCount: number;
-  _id: string;
-  img: string;
-  title: string;
-  article: string;
-  category: Category;
-  rate: number;
-  ownerId: string;
-  date: string;
-  favoritesCount: number;
-}
-
-interface StoriesParams {
-  page: number;
-  perPage: number;
-}
-
-interface StoriesResponse {
-  page: number;
-  perPage: number;
-  totalItems: number;
-  totalPages: number;
-  stories: Stories[];
-}
+import {
+  StoriesParams,
+  StoriesResponse,
+  Story,
+  StoryById,
+  StoryCreate,
+} from "@/types/stories";
 
 export const getAllStories = async (
   params: StoriesParams,
@@ -38,12 +14,27 @@ export const getAllStories = async (
   return res.data;
 };
 
-export const getCategories = async () => {
-  const res = await api.get("/categories");
+export const getStoryById = async ({ id }: StoryById): Promise<Story> => {
+  const res = await api.get<Story>(`/stories/${id}`);
   return res.data;
 };
 
-export const getStoriesByCategory = async (category: string) => {
-  const res = await api.get(`/stories?category=${category}`);
+export const createStory = async ({
+  category,
+  title,
+  article,
+  img,
+}: StoryCreate): Promise<Story> => {
+  const formData = new FormData();
+
+  formData.append("category", category);
+  formData.append("title", title);
+  formData.append("article", article);
+
+  if (img) {
+    formData.append("img", img);
+  }
+
+  const res = await api.post<Story>("/stories", formData);
   return res.data;
 };

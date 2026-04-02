@@ -4,6 +4,7 @@ import Link from "next/link";
 
 const common = {
   alt: "forest and mountains",
+  priority: true,
 };
 
 const mobile = getImageProps({
