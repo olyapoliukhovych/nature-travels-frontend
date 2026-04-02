@@ -41,7 +41,16 @@ export default function Hero() {
                 srcSet={desktop.props.srcSet}
               />
               <source media="(min-width: 768px)" srcSet={tablet.props.srcSet} />
-              <img {...mobile.props} alt={alt} className={css.heroImg} />
+              <img
+                src={mobile.props.src}
+                srcSet={mobile.props.srcSet}
+                width={mobile.props.width}
+                height={mobile.props.height}
+                alt={alt}
+                className={css.heroImg}
+                fetchPriority="high"
+                decoding="async"
+              />
             </picture>
           </div>
           <div className={css.textWrapper}>
