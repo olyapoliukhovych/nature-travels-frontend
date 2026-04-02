@@ -1,24 +1,3 @@
-.title {
-  font-family: var(--font-family);
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: var(--color-scheme-1-text);
-}
-
-@media only screen and (min-width: 768px) {
-  .title {
-    font-size: 44px;
-  }
-}
-
-@media only screen and (min-width: 1440px) {
-  .title {
-    font-size: 52px;
-  }
-}
-
 .slider-wrapper {
   position: relative;
 }
@@ -168,9 +147,9 @@
   .swiper-slide {
     height: calc((100% - 48px) / 4);
   }
-} */
+}
 
-/* @media only screen and (min-width: 768px) {
+@media only screen and (min-width: 768px) {
   .swiperContainer {
     height: 658px;
   }
