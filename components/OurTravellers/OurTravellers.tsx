@@ -17,7 +17,6 @@ import { Icon } from "../Icon/Icon";
 //   prop: Card[];
 // };
 
-
 export default function OurTravellers() {
   const data = [
     {
