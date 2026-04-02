@@ -1,6 +1,7 @@
 .authHeaderLogo {
   display: flex;
   text-decoration: none;
+  width: fit-content;
 }
 
 .authHeaderSvg {
