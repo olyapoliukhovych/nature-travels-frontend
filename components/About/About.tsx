@@ -69,7 +69,15 @@ export default function About() {
                 srcSet={desktop.props.srcSet}
               />
               <source media="(min-width: 768px)" srcSet={tablet.props.srcSet} />
-              <img {...mobile.props} alt={alt} className={css.aboutImg} />
+              <img
+                src={mobile.props.src}
+                srcSet={mobile.props.srcSet}
+                width={mobile.props.width}
+                height={mobile.props.height}
+                alt={alt}
+                className={css.aboutImg}
+                loading="lazy"
+              />
             </picture>
           </div>
         </div>
