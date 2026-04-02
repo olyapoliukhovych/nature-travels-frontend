@@ -162,11 +162,11 @@ export default function Home() {
   ];
 
   return (
-    <main className={styles.main}>
+    <>
       <Hero />
-      <PopularStories stories={data}/>
+      <PopularStories stories={data} />
       <About />
       <OurTravellers prop={data} />
-    </main>
+    </>
   );
 }
