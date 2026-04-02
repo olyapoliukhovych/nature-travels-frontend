@@ -38,12 +38,12 @@ export interface Category {
 }
 
 export interface User {
-  _id: string;
+  _id: { $oid: string };
   name: string;
   avatarUrl: string;
-  // articlesAmount: number;
+  articlesAmount: number;
   // savedArticles?: string[];
-  stories: number;
+  stories?: number;
   savedStories?: string[];
 }
 
