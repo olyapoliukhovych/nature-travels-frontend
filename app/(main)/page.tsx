@@ -1,8 +1,9 @@
 import Hero from "@/components/Hero/Hero";
-import styles from "./page.module.css";
+// import styles from "./page.module.css";
 import OurTravellers from "@/components/OurTravellers/OurTravellers";
 import About from "@/components/About/About";
 import PopularStories from "@/components/PopularStories/PopularStories";
+import Join from "@/components/Join/Join";
 
 export default function Home() {
   const data = [
@@ -167,6 +168,7 @@ export default function Home() {
       <PopularStories stories={data} />
       <About />
       <OurTravellers prop={data} />
+      <Join />
     </>
   );
 }

@@ -32,7 +32,9 @@
   &:active {
     background: var(--color-neutral-lighter);
     border: 1px solid var(--color-scheme-1-text);
+    transform: scale(0.95);
   }
+
   &.disabled {
     opacity: 0.3;
     cursor: not-allowed;
@@ -54,6 +56,7 @@
     background: var(--color-mantis-dark);
     border: 1px solid var(--color-mantis-dark);
     color: var(--color-white);
+    transform: scale(0.95);
   }
 }
 
@@ -73,6 +76,7 @@
     background: var(--color-mantis-darker);
     border: 1px solid var(--opacity-transparent);
     color: var(--color-white);
+    transform: scale(0.95);
   }
 
   &.disabled {
@@ -82,7 +86,6 @@
 
 .link svg {
   fill: currentColor;
-  /* stroke: currentColor; */
   flex-shrink: 0;
   width: 24px;
   height: 24px;
