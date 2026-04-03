@@ -9,11 +9,24 @@
 }
 
 .appLink {
-  width: 244px;
+  width: 100%;
+  max-width: 239px;
   height: 48px;
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
+}
+
+@media only screen and (min-width: 768px) {
+  .appLink {
+    max-width: 244px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .appLink {
+    max-width: 322px;
+  }
 }
 
 .saveButton {
@@ -31,7 +44,7 @@
 .saveButton:hover,
 .saveButton:focus {
   background-color: var(--color-mantis-dark);
-  color: var( --color-white);
+  color: var(--color-white);
   border-color: transparent !important;
 }
 
@@ -48,15 +61,14 @@
 .saveButton:hover .icon,
 .saveButton:active .icon,
 .saveButton:focus .icon {
-  color: var( --color-white);
+  color: var(--color-white);
 }
 
 .buttonWrapper {
   display: flex;
   flex-direction: row;
   gap: 16px;
-  justify-content: center;
-  margin-top: 12px;
+  justify-content: space-between;
 }
 
 .descriptionWrapper {
@@ -84,21 +96,61 @@
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 150%;
 }
 
+@media only screen and (min-width: 1440px) {
+  .title {
+    font-size: 26px;
+  }
+}
 .card {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
+.descriptionWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 150%;
+}
+
 .saveInfo {
   display: flex;
   align-items: center;
   gap: 2px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+}
+
+@media only screen and (min-width: 1440px) {
+  .saveInfo {
+    font-size: 16px;
+  }
 }
 
 .bookmark {
   width: 16px;
   height: 16px;
+}
+
+@media only screen and (min-width: 1440px) {
+  .descriptionWrapper {
+    height: 212px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .descriptionWrapper {
+    font-size: 16px;
+  }
 }

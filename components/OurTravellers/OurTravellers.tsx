@@ -17,7 +17,6 @@ import { Icon } from "../Icon/Icon";
 //   prop: Card[];
 // };
 
-
 export default function OurTravellers() {
   const data = [
     {
@@ -136,15 +135,16 @@ export default function OurTravellers() {
             spaceBetween={24}
             breakpoints={{
               320: {
-                slidesPerView: 3,
-                direction: "vertical",
+                slidesPerView: 1,
+                grid: {
+                  rows: 3,
+                },
               },
               768: {
                 slidesPerView: 2,
                 grid: {
                   rows: 2,
                 },
-                // slidesPerView: 4,
               },
               1440: {
                 slidesPerView: 4,
