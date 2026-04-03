@@ -64,7 +64,6 @@
 }
 
 .wrapper {
-  /* max-width: 1440px; */
   padding-left: auto;
   padding-top: 72px;
   padding-right: auto;
@@ -109,6 +108,15 @@
 .appLinkDown {
   padding: 6px 12px;
   height: 48px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+@media only screen and (min-width: 1440px) {
+  .appLinkUp {
+    font-size: 20px;
+  }
 }
 
 .appLinkDown {

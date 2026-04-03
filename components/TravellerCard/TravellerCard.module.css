@@ -28,6 +28,40 @@
   line-height: 150%;
 }
 
+@media only screen and (min-width: 1440px) {
+  .userButton {
+    font-size: 20px;
+  }
+}
+
 .infoWrappper {
-    width: 100%;
+  width: 100%;
+}
+
+.userName {
+  max-width: 262px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 150%;
+}
+
+@media only screen and (min-width: 1440px) {
+  .userName {
+    font-size: 26px;
+  }
+}
+
+.infoWrappper p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+@media only screen and (min-width: 1440px) {
+  .infoWrappper p {
+    font-size: 20px;
+  }
 }

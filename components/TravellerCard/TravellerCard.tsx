@@ -22,7 +22,7 @@ export default function TravellerCard({ card }: Props) {
       </div>
       <div className={css.infoWrappper}>
         <div className={css.userInfo}>
-          <h3>{card.name}</h3>
+          <h3 className={css.userName}>{card.name}</h3>
           <p>Статей: {card.articlesAmount}</p>
         </div>
         <AppLink href={"#"} variant="neutral" className={css.userButton}>
