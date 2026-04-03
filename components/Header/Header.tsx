@@ -26,7 +26,7 @@ export default function Header() {
   const [viewport, setViewport] = useState<Viewport>("desktop");
   const [isOpen, setIsOpen] = useState(false);
 
-  const isAuth = false; // Оль, це заглушка для перевірки, я подумаю як зробити все правильно та зміню
+  const isAuth = true; // тимчасова заглушка
 
   useEffect(() => {
     const updateViewport = () => setViewport(getViewport());
@@ -67,14 +67,19 @@ export default function Header() {
 
         {viewport === "desktop" && (
           <div className={styles.desktop}>
-            <NavLinks />
+            <NavLinks isAuth={isAuth} />
             {isAuth ? <UserBar /> : <AuthBar />}
           </div>
         )}
 
         {viewport === "tablet" && (
           <div className={styles.tabletActions}>
-            {isAuth ? <UserBar /> : <AuthBar />}
+            {isAuth && (
+              <Link href="/stories/new" className={styles.publish}>
+                Опублікувати статтю
+              </Link>
+            )}
+
             <BurgerMenuBtn isOpen={isOpen} setIsOpen={setIsOpen} />
           </div>
         )}

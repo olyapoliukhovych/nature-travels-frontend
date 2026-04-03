@@ -1,7 +1,6 @@
 .header {
   width: 100%;
   background-color: var(--color-scheme-2-background);
-  border-bottom: 1px solid #ececec;
   position: relative;
   z-index: 50;
 }
@@ -48,4 +47,28 @@
   display: flex;
   align-items: center;
   margin-left: auto;
+}
+.publish {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid var(--color-mantis-dark);
+  border-radius: 6px;
+  padding: 4px 10px;
+  width: 196px;
+  height: 32px;
+  background: var(--color-mantis-dark);
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+
+.publish:hover {
+  opacity: 0.85;
 }

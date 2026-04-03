@@ -16,6 +16,9 @@ type Props = {
 };
 
 export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
+  const showTabletPublish = viewport === "tablet" && isAuth;
+  const showMobilePublish = viewport === "mobile" && isAuth;
+
   return (
     <div
       className={styles.menu}
@@ -37,10 +40,10 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
           </Link>
 
           <div className={styles.topRight}>
-            {viewport === "tablet" && (
-              <div className={styles.tabletActions}>
-                {isAuth ? <UserBar /> : <AuthBar />}
-              </div>
+            {showTabletPublish && (
+              <Link href="/stories/new" className={styles.publish}>
+                Опублікувати статтю
+              </Link>
             )}
 
             <button
@@ -58,14 +61,18 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
 
         <div className={styles.content}>
           <div className={styles.navWrap}>
-            <NavLinks />
+            <NavLinks isAuth={isAuth} />
           </div>
 
-          {viewport === "mobile" && (
-            <div className={styles.mobileActions}>
-              {isAuth ? <UserBar /> : <AuthBar />}
-            </div>
-          )}
+          <div className={styles.mobileActions}>
+            {showMobilePublish && (
+              <Link href="/stories/new" className={styles.publish}>
+                Опублікувати статтю
+              </Link>
+            )}
+
+            {isAuth ? <UserBar showPublish={false} /> : <AuthBar />}
+          </div>
         </div>
       </div>
     </div>

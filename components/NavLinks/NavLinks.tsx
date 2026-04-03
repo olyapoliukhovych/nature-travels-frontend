@@ -1,21 +1,30 @@
 import Link from "next/link";
 import styles from "./NavLinks.module.css";
 
-export default function NavLinks() {
+type Props = {
+  isAuth: boolean;
+};
+
+export default function NavLinks({ isAuth }: Props) {
   return (
     <nav className={styles.nav} aria-label="Основна навігація">
       <Link href="/" className={styles.link}>
         Головна
       </Link>
+
       <Link href="/stories" className={styles.link}>
         Статті
       </Link>
-      <Link href="/travellers" className={styles.link}>
+
+      <Link href="/eco-travelers" className={styles.link}>
         Еко-Мандрівники
       </Link>
-      <Link href="/profile" className={styles.link}>
-        Мій профіль
-      </Link>
+
+      {isAuth && (
+        <Link href="/profile" className={styles.link}>
+          Мій профіль
+        </Link>
+      )}
     </nav>
   );
 }
