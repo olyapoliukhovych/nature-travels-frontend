@@ -1,11 +1,16 @@
 .authHeaderLogo {
-    display: inline-block;
-    text-decoration: none;
-    padding: 0;
-    max-height: 71px;
+  display: flex;
+  text-decoration: none;
+  width: fit-content;
 }
 
 .authHeaderSvg {
-    margin: 18px 0;
-    stroke: none !important;
+  stroke: none !important;
+  width: 124px;
+  height: 36px;
+}
+
+.authHeaderWrapper {
+  padding: 18px 0;
+  width: 100%;
 }

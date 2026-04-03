@@ -38,12 +38,12 @@ export interface Category {
 }
 
 export interface User {
-  _id: string;
+  _id: { $oid: string };
   name: string;
   avatarUrl: string;
-  // articlesAmount: number;
+  articlesAmount: number;
   // savedArticles?: string[];
-  stories: number;
+  stories?: number;
   savedStories?: string[];
 }
 
@@ -56,4 +56,11 @@ export interface RegistrationValues {
 export interface LoginValues {
   email: string;
   password: string;
+}
+
+export interface CreateStoryValues {
+  title: string;
+  categoryId: string;
+  article: string;
+  image: File | null;
 }

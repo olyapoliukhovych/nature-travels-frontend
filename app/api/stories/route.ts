@@ -7,17 +7,15 @@ import { logErrorResponse } from "../_utils/utils";
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
-    const search = request.nextUrl.searchParams.get("search") ?? "";
-    const page = Number(request.nextUrl.searchParams.get("page") ?? 1);
-    const rawCategory = request.nextUrl.searchParams.get("category") ?? "";
-    const category = rawCategory === "Всі статті" ? "" : rawCategory;
+    const perPage = request.nextUrl.searchParams.get("perPage") ?? 10;
+    const page = request.nextUrl.searchParams.get("page") ?? 1;
+    const category = request.nextUrl.searchParams.get("category") ?? undefined;
 
     const res = await api("/stories", {
       params: {
-        ...(search && { search }),
         page,
-        perPage: 10,
-        ...(category && { category }),
+        perPage,
+        category,
       },
       headers: {
         Cookie: cookieStore.toString(),
@@ -45,12 +43,11 @@ export async function POST(request: NextRequest) {
   try {
     const cookieStore = await cookies();
 
-    const body = await request.json();
+    const body = await request.formData();
 
     const res = await api.post("/stories", body, {
       headers: {
         Cookie: cookieStore.toString(),
-        "Content-Type": "application/json",
       },
     });
 

@@ -26,7 +26,8 @@ export default function LoginForm() {
     { setSubmitting }: FormikHelpers<LoginValues>,
   ) => {
     try {
-      const response = await fetch("/api/auth/login", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -68,6 +69,7 @@ export default function LoginForm() {
                 id={emailId}
                 name="email"
                 type="email"
+                autoComplete="email"
                 placeholder="hello@podorozhnyky.ua"
                 className={`${css.loginInput} ${
                   errors.email && touched.email ? css.loginInputError : ""
@@ -88,6 +90,7 @@ export default function LoginForm() {
                 id={passwordId}
                 name="password"
                 type="password"
+                autoComplete="current-password"
                 placeholder="Введіть пароль"
                 className={`${css.loginInput} ${
                   errors.password && touched.password ? css.loginInputError : ""

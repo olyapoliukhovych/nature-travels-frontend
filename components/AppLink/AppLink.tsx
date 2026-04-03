@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import clsx from "clsx";
 import styles from "./AppLink.module.css";
@@ -22,6 +24,9 @@ export default function AppLink({
   return (
     <Link
       href={disabled ? "#" : href}
+      onClick={(e) => {
+        if (disabled) e.preventDefault();
+      }}
       aria-disabled={disabled}
       className={clsx(
         styles.link,

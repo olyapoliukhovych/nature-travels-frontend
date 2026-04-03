@@ -1,0 +1,100 @@
+.joinSection {
+  padding: 32px 0;
+
+  @media only screen and (min-width: 1440px) {
+    padding: 48px 0;
+  }
+}
+
+.bgCard {
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid var(--color-scheme-1-border);
+  overflow: hidden;
+
+  background-image: image-set(
+    url("/join/join-mobile@1x.webp") 1x,
+    url("/join/join-mobile@2x.webp") 2x
+  );
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @media only screen and (min-width: 768px) {
+    background-image: image-set(
+      url("/join/join-tablet@1x.webp") 1x,
+      url("/join/join-tablet@2x.webp") 2x
+    );
+  }
+
+  @media only screen and (min-width: 1440px) {
+    background-image: image-set(
+      url("/join/join-desktop@1x.webp") 1x,
+      url("/join/join-desktop@2x.webp") 2x
+    );
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding: 16px;
+
+  @media only screen and (min-width: 1440px) {
+    padding: 64px;
+    max-width: 900px;
+  }
+}
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  margin-bottom: 24px;
+
+  @media only screen and (min-width: 768px) {
+    font-size: 32px;
+  }
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 48px;
+  }
+}
+
+.text {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--color-white);
+  margin-bottom: 32px;
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 20px;
+  }
+}
+
+.button {
+  display: inline-block;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-white);
+  text-align: center;
+
+  @media only screen and (min-width: 768px) {
+    width: 168px;
+    padding: 12px;
+  }
+
+  @media only screen and (min-width: 1440px) {
+    width: 204px;
+    padding: 9px 12px;
+    font-size: 20px;
+  }
+}

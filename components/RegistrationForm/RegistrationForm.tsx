@@ -35,7 +35,8 @@ export default function RegistrationForm() {
     { setSubmitting }: FormikHelpers<RegistrationValues>,
   ) => {
     try {
-      const response = await fetch("/api/auth/register", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const response = await fetch(`${apiUrl}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -82,6 +83,7 @@ export default function RegistrationForm() {
               <Field
                 id={nameId}
                 name="name"
+                autoComplete="name"
                 placeholder="Ваше імʼя та прізвище"
                 className={`${css.registrationInput} ${errors.name && touched.name ? css.registrationInputError : ""}`}
               />
@@ -100,6 +102,7 @@ export default function RegistrationForm() {
                 id={emailId}
                 name="email"
                 type="email"
+                autoComplete="email"
                 placeholder="hello@podorozhnyky.ua"
                 className={`${css.registrationInput} ${errors.email && touched.email ? css.registrationInputError : ""}`}
               />
@@ -118,6 +121,7 @@ export default function RegistrationForm() {
                 id={passwordId}
                 name="password"
                 type="password"
+                autoComplete="new-password"
                 placeholder="Введіть пароль"
                 className={`${css.registrationInput} ${errors.password && touched.password ? css.registrationInputError : ""}`}
               />

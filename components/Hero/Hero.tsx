@@ -4,6 +4,7 @@ import Link from "next/link";
 
 const common = {
   alt: "forest and mountains",
+  priority: true,
 };
 
 const mobile = getImageProps({
@@ -32,26 +33,40 @@ export default function Hero() {
 
   return (
     <section className={css.heroSection}>
-      <div className={`container ${css.heroWrapper}`}>
-        <div className={css.imageWrapper}>
-          <picture>
-            <source media="(min-width: 1440px)" srcSet={desktop.props.srcSet} />
-            <source media="(min-width: 768px)" srcSet={tablet.props.srcSet} />
-            <img {...mobile.props} alt={alt} className={css.heroImg} />
-          </picture>
-        </div>
-        <div className={css.textWrapper}>
-          <h1 className={css.heroTitle}>
-            Відкрий Україну заново — еко-мандри для натхнення
-          </h1>
-          <p className={css.heroText}>
-            Подорожуй екологічно, відкривай заповідні місця, гори та річки
-            України. Ми зібрали маршрути, які допоможуть побачити красу природи
-            без шкоди для неї.
-          </p>
-          <Link href="/" className={css.heroLink}>
-            Доєднатись до мандрів
-          </Link>
+      <div className="container">
+        <div className={css.heroWrapper}>
+          <div className={css.imageWrapper}>
+            <picture>
+              <source
+                media="(min-width: 1440px)"
+                srcSet={desktop.props.srcSet}
+              />
+              <source media="(min-width: 768px)" srcSet={tablet.props.srcSet} />
+              <img
+                src={mobile.props.src}
+                srcSet={mobile.props.srcSet}
+                width={mobile.props.width}
+                height={mobile.props.height}
+                alt={alt}
+                className={css.heroImg}
+                fetchPriority="high"
+                decoding="async"
+              />
+            </picture>
+          </div>
+          <div className={css.textWrapper}>
+            <h1 className={css.heroTitle}>
+              Відкрий Україну заново — еко-мандри для натхнення
+            </h1>
+            <p className={css.heroText}>
+              Подорожуй екологічно, відкривай заповідні місця, гори та річки
+              України. Ми зібрали маршрути, які допоможуть побачити красу
+              природи без шкоди для неї.
+            </p>
+            <Link href="#join" className={css.heroLink}>
+              Доєднатись до мандрів
+            </Link>
+          </div>
         </div>
       </div>
     </section>

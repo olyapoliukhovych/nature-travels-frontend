@@ -1,0 +1,191 @@
+.formWrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  /* padding: 32px 20px; */
+  box-sizing: border-box;
+  flex-direction: column;
+  display: flex;
+}
+
+.pageTitle {
+  font-size: 32px;
+  color: #1b391b;
+  margin-bottom: 32px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.imageSection {
+  width: 100%;
+}
+
+.imagePreview {
+  width: 100%;
+  height: 223px;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.imagePreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.uploadBtn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #1b391b;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.textarea {
+  min-height: 180px;
+  resize: none;
+  overflow: hidden;
+  line-height: 1.5;
+  display: block;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 60px;
+  margin-bottom: 64px;
+}
+
+.btnSave {
+  background-color: #4a9849;
+  color: #fff;
+  border: 1px solid #4a9849;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btnSave:disabled {
+  background-color: #4a9849;
+  opacity: 0.3;
+}
+
+.btnCancel {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  color: #1b391b;
+}
+
+/* --- ТАБЛЕТНА ВЕРСІЯ (768px+) --- */
+@media (min-width: 768px) {
+  .formWrapper {
+    max-width: 704px; /* Ширина планшетної форми */
+    margin: 0 auto; /* ЦЕНТРУВАННЯ для планшета */
+    padding: 64px 0;
+  }
+
+  .pageTitle {
+    font-size: 48px;
+  }
+  .form {
+    max-width: 704px; /* Як на макеті для планшета */
+  }
+
+  .imagePreview {
+    height: 400px; /* Збільшуємо висоту фото для великих екранів */
+  }
+
+  .buttonGroup {
+    flex-direction: row; /* Кнопки в один ряд */
+    justify-content: flex-start;
+    gap: 16px;
+    width: 203px;
+    height: 48px;
+  }
+
+  .btnSave,
+  .btnCancel {
+    width: auto;
+    min-width: 160px;
+    padding: 12px 24px;
+  }
+}
+
+/* --- ДЕСКТОПНА ВЕРСІЯ (1440px+) --- */
+@media (min-width: 1440px) {
+  .formWrapper {
+    max-width: 1091px;
+    /* Примусово кажемо елементу стати в початок ряду батька */
+    align-self: flex-start;
+
+    margin-left: 0 !important;
+    margin-right: auto !important;
+
+    padding: 80px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form {
+    max-width: 800px; /* На десктопі робимо форму ще ширшою, як на макеті */
+  }
+
+  .pageTitle {
+    font-size: 40px; /* На десктопі заголовок зазвичай більший */
+    margin-bottom: 48px;
+  }
+
+  .textarea,
+  .input,
+  .select {
+    width: 1091px;
+  }
+
+  .imagePreview {
+    width: 1091px;
+    height: 726px;
+  }
+}

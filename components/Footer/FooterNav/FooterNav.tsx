@@ -1,17 +1,17 @@
+import Link from "next/link";
 import css from "./FooterNav.module.css";
-import AppLink from "@/components/AppLink/AppLink";
 export default function FooterNav() {
   return (
     <nav className={css.footerNavWrapper}>
-      <AppLink className={css.footerNavLink} href="/">
+      <Link className={css.footerNavLink} href="/">
         Головна
-      </AppLink>
-      <AppLink className={css.footerNavLink} href="/stories">
+      </Link>
+      <Link className={css.footerNavLink} href="/stories">
         Статті
-      </AppLink>
-      <AppLink className={css.footerNavLink} href="/travellers">
+      </Link>
+      <Link className={css.footerNavLink} href="/travellers">
         Еко-Мандрівники
-      </AppLink>
+      </Link>
     </nav>
   );
 }

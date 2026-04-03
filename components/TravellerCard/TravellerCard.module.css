@@ -1,0 +1,33 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+}
+
+.pictureWrapper {
+  width: 130px;
+  height: 130px;
+}
+
+.picture {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.userInfo {
+  margin-bottom: 16px;
+}
+
+.userButton {
+  height: 48px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.infoWrappper {
+    width: 100%;
+}

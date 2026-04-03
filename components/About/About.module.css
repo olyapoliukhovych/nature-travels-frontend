@@ -1,107 +1,118 @@
 .aboutSection {
-    padding: 48px 0;
+  padding: 48px 0;
 
-    @media only screen and (min-width: 768px) {
-        padding: 64px 0;
-    }
+  @media only screen and (min-width: 768px) {
+    padding: 64px 0;
+  }
 
-    @media only screen and (min-width: 768px) {
-        padding: 112px 0;
-    }
-}
-
-@media only screen and (min-width: 1440px) {
-    .aboutMainContainer {
-        display: flex;
-        gap: 24px;
-        align-items: center;
-    }
-
-    .aboutImgWrapper {
-        min-width: 644px;
-    }
-}
-
-.aboutMainTextWrapper {
-    padding-top: 40px;
-    margin-bottom: 24px;
-
-    @media only screen and (min-width: 1440px) {
-        padding-top: 0;
-        max-width: 644px;
-        margin-bottom: 0;
-    }
-}
-
-.aboutTitle {
-    margin-bottom: 24px;
-    font-size: 28px;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-
-    @media only screen and (min-width: 768px) {
-        font-size: 44px;
-    }
-
-    @media only screen and (min-width: 1440px) {
-        font-size: 52px;
-    }
-}
-
-.aboutText {
-    font-weight: 400;
-    margin-bottom: 32px;
-
-    @media only screen and (min-width: 1440px) {
-        font-size: 20px;
-    }
-}
-
-.aboutSubTextWrapper {
-    padding: 8px 0;
-
-    @media only screen and (min-width: 768px) {
-        display: flex;
-        gap: 24px;
-    }
-}
-
-.helperWrapper {
-
-    &:not(:last-child) {
-        margin-bottom: 24px;
-    }
-
-    @media only screen and (min-width: 768px) {
-        &:not(:last-child) {
-            margin-bottom: 0;
-        }
-    }
-}
-
-.aboutSubTitle {
-    margin-bottom: 16px;
-    font-size: 18px;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-
-    @media only screen and (min-width: 1440px) {
-        font-size: 24px;
-    }
-}
-
-.aboutSubText {
-    font-weight: 400;
-
-    @media only screen and (min-width: 768px) {
-        letter-spacing: -0.01em;
-    }
-
-    @media only screen and (min-width: 1440px) {
-        font-size: 18px;
-    }
+  @media only screen and (min-width: 1440px) {
+    padding: 112px 0;
+  }
 }
 
 .aboutImg {
-    border-radius: 12px;
+  border-radius: 12px;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 335 / 410;
+
+  @media only screen and (min-width: 768px) {
+    aspect-ratio: 704 / 410;
+  }
+
+  @media only screen and (min-width: 1440px) {
+    aspect-ratio: 644 / 686;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .aboutMainContainer {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .aboutImgWrapper {
+    min-width: 644px;
+  }
+}
+
+.aboutMainTextWrapper {
+  padding-top: 40px;
+  margin-bottom: 24px;
+
+  @media only screen and (min-width: 1440px) {
+    padding-top: 0;
+    max-width: 644px;
+    margin-bottom: 0;
+  }
+}
+
+.aboutTitle {
+  margin-bottom: 24px;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+
+  @media only screen and (min-width: 768px) {
+    font-size: 44px;
+  }
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 52px;
+  }
+}
+
+.aboutText {
+  font-weight: 400;
+  margin-bottom: 32px;
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 20px;
+  }
+}
+
+.aboutSubTextWrapper {
+  padding: 8px 0;
+
+  @media only screen and (min-width: 768px) {
+    display: flex;
+    gap: 24px;
+  }
+}
+
+.helperWrapper {
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  @media only screen and (min-width: 768px) {
+    &:not(:last-child) {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.aboutSubTitle {
+  margin-bottom: 16px;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 24px;
+  }
+}
+
+.aboutSubText {
+  font-weight: 400;
+
+  @media only screen and (min-width: 768px) {
+    letter-spacing: -0.01em;
+  }
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 18px;
+  }
 }
