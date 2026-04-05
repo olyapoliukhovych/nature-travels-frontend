@@ -11,12 +11,20 @@ import css from "./PopularStories.module.css";
 import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
 import { Story } from "@/types/stories";
+import { useQuery } from "@tanstack/react-query";
+import { getAllStories } from "@/lib/api/stories/clientApi";
 
-type Prop = {
-  stories: Story[];
-};
+export default function PopularStories() {
+  const { data } = useQuery({
+    queryKey: ["popular-stories"],
+    queryFn: () => getAllStories({ page: 1, perPage: 10 }),
+    refetchOnMount: false,
+  });
 
-export default function PopularStories({ stories }: Prop) {
+  const stories = data?.stories || [];
+
+  if (stories.length === 0) return null;
+
   return (
     <section className={css.wrapper}>
       <div className="container">
