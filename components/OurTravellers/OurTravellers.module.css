@@ -1,163 +1,118 @@
-.slider-wrapper {
-  position: relative;
-}
-
-.next,
-.prev {
-  position: static;
-  top: 50%;
-
-  width: 48px;
-  height: 48px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: var(--color-mantis-lighter);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all var(--transition);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 12px;
-}
-
-.next:hover,
-.prev:hover {
-  background-color: var(--color-neutral-lightest);
-  border-color: var(--color-mantis-light);
-}
-
-.next:active,
-.prev:active,
-.next:focus,
-.prev:focus {
-  background-color: var(--color-mantis-light);
-  border-color: var(--color-mantis-light);
-}
-
-.prev {
-  left: -20px;
-}
-
-.next {
-  right: -20px;
-}
-
-.cardWrapper {
-  height: 317px;
-  background-color: var(--color-mantis-lighter);
-  border-radius: 12px;
-  border: 0px solid rgba(0, 0, 0, 0.15);
-}
-
 .wrapper {
-  padding-left: auto;
-  padding-top: 72px;
-  padding-right: auto;
-  padding-bottom: 72px;
+  padding: 72px 0;
 }
 
-@media only screen and (min-width: 768px) {
-  .wrapper {
-    height: auto;
+.gridContainer {
+  display: grid;
+  gap: 48px;
+  grid-template-areas:
+    "title"
+    "slider"
+    "nav"
+    "link";
+
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "title link"
+      "slider slider"
+      "nav nav";
+    align-items: center;
   }
 }
 
-.buttonWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  justify-content: end;
-  margin-top: 40px;
-}
-
-.titleWrapper {
-  display: flex;
-  margin-bottom: 40px;
-  justify-content: space-between;
-}
-
-.titleWrapper h2 {
+.title {
+  grid-area: title;
   font-weight: 700;
   font-size: 28px;
-  line-height: 120%;
-  letter-spacing: -0.01em;
-}
+  margin: 0;
 
-@media only screen and (min-width: 768px) {
-  .titleWrapper h2 {
+  @media only screen and (min-width: 768px) {
     font-size: 44px;
   }
-}
 
-@media only screen and (min-width: 1440px) {
-  .titleWrapper h2 {
+  @media only screen and (min-width: 1440px) {
     font-size: 52px;
   }
 }
 
-.appLinkUp,
-.appLinkDown {
-  display: flex;
-  padding: 6px 12px !important;
-  height: 48px;
-  font-weight: 500;
-  font-size: 16px !important;
-  line-height: 150%;
-  width: 166px;
-  white-space: nowrap;
+.sliderWrapper {
+  grid-area: slider;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
 
-@media only screen and (min-width: 1440px) {
-  .appLinkUp {
+.swiper {
+  width: 100%;
+  height: auto;
+}
+
+.swiper[class*="OurTravellers"] {
+  @media (max-width: 767px) {
+    height: calc(335px * 3 + 24px * 2);
+  }
+
+  @media only screen and (min-width: 768px) {
+    height: calc(317px * 2 + 24px);
+  }
+
+  @media only screen and (min-width: 1440px) {
+    height: 335px;
+  }
+}
+
+.navigationWrapper {
+  grid-area: nav;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.appLink {
+  grid-area: link;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  padding: 6px 12px !important;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 16px;
+
+  @media only screen and (min-width: 1440px) {
     font-size: 20px;
   }
 }
 
-.appLinkDown {
-  margin-top: 48px;
-  width: 100%;
-}
+.next,
+.prev {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid var(--color-scheme-1-border);
+  background: var(--color-mantis-lighter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
 
-@media only screen and (max-width: 767px) {
-  .appLinkUp {
-    display: none !important;
+  &:active {
+    background: var(--color-mantis-light);
+    transform: scale(0.95);
   }
-}
 
-@media only screen and (min-width: 768px) {
-  .appLinkDown {
-    display: none !important;
+  &:hover,
+  &:focus-visible {
+    border: 1px solid var(--color-mantis-light);
+    background: var(--color-mantis-light);
   }
 }
 
 .arrow {
   width: 24px;
   height: 24px;
-}
-
-.swiper {
-  height: 100%;
-  width: 100%;
-}
-
-@media only screen and (max-width: 767px) {
-  .swiperContainer {
-    height: calc(317px * 3 + 24px * 2);
-    width: 100%;
-    overflow: hidden;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .swiperContainer {
-    height: 658px;
-  }
-}
-
-@media only screen and (min-width: 1440px) {
-  .swiperContainer {
-    height: 335px;
-  }
 }

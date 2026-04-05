@@ -1,3 +1,10 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
 .list {
   display: flex;
   flex-direction: column;
@@ -12,11 +19,15 @@
 }
 
 .card {
+  width: 100%;
+
   @media only screen and (min-width: 768px) {
-    flex-basis: calc((100% - (24px * 2)) / 3);
+    flex: 0 0 calc((100% - 48px) / 3);
+    max-width: calc((100% - 48px) / 3);
   }
 
   @media only screen and (min-width: 1440px) {
-    flex-basis: calc((100% - (24px * 3)) / 4);
+    flex: 0 0 calc((100% - 72px) / 4);
+    max-width: calc((100% - 72px) / 4);
   }
 }

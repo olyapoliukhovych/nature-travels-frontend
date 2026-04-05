@@ -1,4 +1,3 @@
-import { UsersParams, UsersResponse } from "@/types/user";
 import { api } from "../api";
 import {
   StoriesParams,

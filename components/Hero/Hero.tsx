@@ -1,6 +1,7 @@
 import css from "./Hero.module.css";
 import { getImageProps } from "next/image";
 import Link from "next/link";
+import PageTitle from "../PageTitle/PageTitle";
 
 const common = {
   alt: "forest and mountains",
@@ -55,9 +56,9 @@ export default function Hero() {
             </picture>
           </div>
           <div className={css.textWrapper}>
-            <h1 className={css.heroTitle}>
+            <PageTitle className={css.heroTitle}>
               Відкрий Україну заново — еко-мандри для натхнення
-            </h1>
+            </PageTitle>
             <p className={css.heroText}>
               Подорожуй екологічно, відкривай заповідні місця, гори та річки
               України. Ми зібрали маршрути, які допоможуть побачити красу

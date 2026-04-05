@@ -1,17 +1,17 @@
-import { User } from "@/types/user";
-import TravellerCard from "../TravellerCard/TravellerCard";
-import css from "./TravellersList.module.css";
+import { Story } from "@/types/stories";
+import StoryCard from "../StoryCard/StoryCard";
+import css from "./TravellersStories.module.css";
 import Pagination from "../Pagination/Pagination";
 
 interface Props {
-  users: User[];
+  stories: Story[];
   fetchNextPage: () => void;
   isFetchingNextPage: boolean;
   hasNextPage: boolean;
 }
 
-export default function TravellersList({
-  users,
+export default function TravellersStories({
+  stories,
   fetchNextPage,
   isFetchingNextPage,
   hasNextPage,
@@ -19,9 +19,9 @@ export default function TravellersList({
   return (
     <div className={css.container}>
       <ul className={css.list}>
-        {users.map((user) => (
-          <li key={user._id} className={css.card}>
-            <TravellerCard user={user} />
+        {stories.map((story) => (
+          <li key={story._id} className={css.card}>
+            <StoryCard story={story} />
           </li>
         ))}
       </ul>

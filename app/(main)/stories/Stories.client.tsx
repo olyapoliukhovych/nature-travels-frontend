@@ -8,11 +8,13 @@ import {
 } from "@tanstack/react-query";
 import { getAllStories } from "@/lib/api/stories/clientApi";
 import { getCategories } from "@/lib/api/category/clientApi";
-import StoriesCategories from "@/components/StoriesCategories/StoriesCategories";
-import Button from "@/components/Button/Button";
 import css from "./Stories.module.css";
-import StoriesList from "@/components/StoriesList/StoriesList";
+import TravellersStories from "@/components/TravellersStories/TravellersStories";
 import Loader from "@/components/Loader/Loader";
+import clsx from "clsx";
+import CategoriesFilter from "@/components/CategoriesFilter/CategoriesFilter";
+import Pagination from "@/components/Pagination/Pagination";
+import PageTitle from "@/components/PageTitle/PageTitle";
 
 const INITIAL_PAGE = 1;
 
@@ -47,7 +49,7 @@ export default function StoriesClient() {
         getAllStories({
           page: pageParam as number,
           perPage: perPage,
-          category: selectedCategoryId || undefined,
+          categoryId: selectedCategoryId || undefined,
         }),
       initialPageParam: INITIAL_PAGE,
       getNextPageParam: (lastPage) => {
@@ -66,9 +68,9 @@ export default function StoriesClient() {
   };
 
   return (
-    <section className={css.section}>
-      <h1 className={css.title}>Статті</h1>
-      <StoriesCategories
+    <section className={clsx(css.section, "container")}>
+      <PageTitle align="center">Статті</PageTitle>
+      <CategoriesFilter
         categories={categories}
         activeCategoryId={selectedCategoryId}
         onClick={handleCategoryChange}
@@ -79,22 +81,16 @@ export default function StoriesClient() {
       ) : (
         <div className={css.contentWrapper}>
           {hasStories ? (
-            <StoriesList stories={stories} />
+            <TravellersStories
+              stories={stories}
+              fetchNextPage={fetchNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+              hasNextPage={!!hasNextPage}
+            />
           ) : (
             <div className={css.empty}>No stories found in this category.</div>
           )}
         </div>
-      )}
-      {hasNextPage && (
-        <Button
-          onClick={() => fetchNextPage()}
-          isLoading={isFetchingNextPage}
-          disabled={isFetchingNextPage}
-          className={css.loadMore}
-          variant="mantis"
-        >
-          Показати ще
-        </Button>
       )}
     </section>
   );

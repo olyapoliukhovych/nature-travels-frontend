@@ -8,14 +8,6 @@
   display: flex;
 }
 
-.pageTitle {
-  font-size: 32px;
-  color: #1b391b;
-  margin-bottom: 32px;
-  font-weight: bold;
-  width: 100%;
-}
-
 .form {
   display: flex;
   flex-direction: column;
@@ -126,9 +118,6 @@
     padding: 64px 0;
   }
 
-  .pageTitle {
-    font-size: 48px;
-  }
   .form {
     max-width: 704px; /* Як на макеті для планшета */
   }
@@ -171,11 +160,6 @@
 
   .form {
     max-width: 800px; /* На десктопі робимо форму ще ширшою, як на макеті */
-  }
-
-  .pageTitle {
-    font-size: 40px; /* На десктопі заголовок зазвичай більший */
-    margin-bottom: 48px;
   }
 
   .textarea,
