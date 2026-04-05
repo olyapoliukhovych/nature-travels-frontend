@@ -11,7 +11,7 @@ export default function RootLayout({
   return (
     <div className={css.layoutWrapper}>
       <Header />
-      <main className={clsx(css.mainContent, "container")}>{children}</main>
+      <main className={clsx(css.mainContent)}>{children}</main>
       <Footer />
     </div>
   );

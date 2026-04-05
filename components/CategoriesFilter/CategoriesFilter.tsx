@@ -7,7 +7,7 @@ import Select, {
   components,
   DropdownIndicatorProps,
 } from "react-select";
-import css from "./StoriesCategories.module.css";
+import css from "./CategoriesFilter.module.css";
 import { Icon } from "../Icon/Icon";
 import clsx from "clsx";
 import { Category } from "@/types/category";
@@ -41,7 +41,7 @@ const DropdownIndicator = (props: DropdownIndicatorProps<Option, false>) => {
   );
 };
 
-export default function StoriesCategories({
+export default function CategoriesFilter({
   categories,
   activeCategoryId,
   onClick,

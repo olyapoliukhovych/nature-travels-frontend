@@ -3,9 +3,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAllUsers } from "@/lib/api/users/clientApi";
 import TravellersList from "@/components/TravellersList/TravellersList";
-import Button from "@/components/Button/Button";
 import Loader from "@/components/Loader/Loader";
 import css from "./Travellers.module.css";
+import clsx from "clsx";
+import Pagination from "@/components/Pagination/Pagination";
+import PageTitle from "@/components/PageTitle/PageTitle";
 
 const INITIAL_PAGE = 1;
 const PER_PAGE = 12;
@@ -32,31 +34,24 @@ export default function TravellersClient() {
   const hasUsers = users.length > 0;
 
   return (
-    <section className={css.section}>
-      <h1 className={css.title}>Мандрівники</h1>
+    <section className={clsx(css.section, "container")}>
+      <PageTitle align="center">Мандрівники</PageTitle>
 
       {status === "pending" && !isFetchingNextPage ? (
         <Loader />
       ) : (
         <div className={css.contentWrapper}>
           {hasUsers ? (
-            <TravellersList users={users} />
+            <TravellersList
+              users={users}
+              fetchNextPage={fetchNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+              hasNextPage={!!hasNextPage}
+            />
           ) : (
             <div className={css.empty}>Мандрівників поки не знайдено.</div>
           )}
         </div>
-      )}
-
-      {hasNextPage && (
-        <Button
-          onClick={() => fetchNextPage()}
-          isLoading={isFetchingNextPage}
-          disabled={isFetchingNextPage}
-          className={css.loadMore}
-          variant="mantis"
-        >
-          Показати ще
-        </Button>
       )}
     </section>
   );

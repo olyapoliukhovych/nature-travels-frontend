@@ -1,0 +1,10 @@
+.loadMore {
+  align-self: center;
+  padding: 6px 10px;
+
+  font-weight: 500;
+  font-size: 20px;
+
+  min-height: 48px;
+  min-width: 160px;
+}

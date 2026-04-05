@@ -25,7 +25,7 @@ interface Owner {
 export interface StoriesParams {
   page: number;
   perPage: number;
-  category?: string;
+  categoryId?: string;
 }
 
 export interface StoriesResponse {
