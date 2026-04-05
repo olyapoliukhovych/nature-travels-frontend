@@ -13,13 +13,20 @@ import AppLink from "../AppLink/AppLink";
 import TravellerCard from "../TravellerCard/TravellerCard";
 import { Icon } from "../Icon/Icon";
 import { User } from "@/types/user";
+import { useQuery } from "@tanstack/react-query";
+import { getAllUsers } from "@/lib/api/users/clientApi";
 
-interface Props {
-  travellers: User[];
-}
+export default function OurTravellers() {
+  const { data } = useQuery({
+    queryKey: ["popular-travellers"],
+    queryFn: () => getAllUsers({ page: 1, perPage: 12 }),
+    refetchOnMount: false,
+  });
 
-export default function OurTravellers({ travellers }: Props) {
-  console.log(travellers);
+  const travellers = data?.users || [];
+
+  if (travellers.length === 0) return null;
+
   return (
     <section className={css.wrapper}>
       <div className="container">

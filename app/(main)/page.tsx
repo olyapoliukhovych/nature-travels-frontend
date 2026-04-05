@@ -6,18 +6,33 @@ import PopularStories from "@/components/PopularStories/PopularStories";
 import Join from "@/components/Join/Join";
 import { getAllStories } from "@/lib/api/stories/clientApi";
 import { getAllUsers } from "@/lib/api/users/clientApi";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 export default async function Home() {
-  const d = await getAllStories({ page: 1, perPage: 10 });
-  const s = await getAllUsers({ page: 1, perPage: 12 });
+  const queryClient = new QueryClient();
+
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: ["popular-stories"],
+      queryFn: () => getAllStories({ page: 1, perPage: 10 }),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ["popular-travellers"],
+      queryFn: () => getAllUsers({ page: 1, perPage: 12 }),
+    }),
+  ]);
 
   return (
-    <>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <Hero />
-      <PopularStories stories={d.stories} />
+      <PopularStories />
       <About />
-      <OurTravellers travellers={s.users} />
+      <OurTravellers />
       <Join />
-    </>
+    </HydrationBoundary>
   );
 }
