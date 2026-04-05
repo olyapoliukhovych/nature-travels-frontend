@@ -1,4 +1,4 @@
-export interface CategoryStory {
+export interface Category {
   _id: string;
   category: string;
 }

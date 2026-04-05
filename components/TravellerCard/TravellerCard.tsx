@@ -1,20 +1,19 @@
 import css from "./TravellerCard.module.css";
 import AppLink from "../AppLink/AppLink";
-// import { Card } from "@/types/picture";
-import { User } from "@/types/types";
 import Image from "next/image";
+import { User } from "@/types/user";
 
 interface Props {
-  card: User;
+  user: User;
 }
 
-export default function TravellerCard({ card }: Props) {
+export default function TravellerCard({ user }: Props) {
   return (
     <div className={css.card}>
       <div className={css.pictureWrapper}>
         <Image
           className={css.picture}
-          src={card.avatarUrl}
+          src={user.avatarUrl}
           width={130}
           height={130}
           alt={"user"}
@@ -22,8 +21,8 @@ export default function TravellerCard({ card }: Props) {
       </div>
       <div className={css.infoWrappper}>
         <div className={css.userInfo}>
-          <h3 className={css.userName}>{card.name}</h3>
-          <p>Статей: {card.articlesAmount}</p>
+          <h3 className={css.userName}>{user.name}</h3>
+          <p>Статей: {user.articlesAmount}</p>
         </div>
         <AppLink href={"#"} variant="neutral" className={css.userButton}>
           Переглянути профіль

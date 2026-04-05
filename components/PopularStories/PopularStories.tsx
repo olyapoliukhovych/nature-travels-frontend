@@ -6,14 +6,14 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import type { Card } from "@/types/picture";
 import StoryCard from "../StoryCard/StoryCard";
 import css from "./PopularStories.module.css";
 import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
+import { Story } from "@/types/stories";
 
 type Prop = {
-  stories: Card[];
+  stories: Story[];
 };
 
 export default function PopularStories({ stories }: Prop) {
@@ -22,7 +22,11 @@ export default function PopularStories({ stories }: Prop) {
       <div className="container">
         <div className={css.titleWrapper}>
           <h2>Популярні Статті</h2>
-          <AppLink className={css.appLinkUp} href={"#"} variant={"mantis"}>
+          <AppLink
+            className={css.appLinkUp}
+            href={"/stories"}
+            variant={"mantis"}
+          >
             Всі статті
           </AppLink>
         </div>
@@ -47,8 +51,8 @@ export default function PopularStories({ stories }: Prop) {
           }}
         >
           {stories.map((el) => (
-            <SwiperSlide className={css.cardWrapper} key={el._id.$oid}>
-              <StoryCard card={el} />
+            <SwiperSlide className={css.cardWrapper} key={el._id}>
+              <StoryCard story={el} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -60,7 +64,11 @@ export default function PopularStories({ stories }: Prop) {
             <Icon id={"icon-arrow_forward"} className={css.arrow} />
           </button>
         </div>
-        <AppLink className={css.appLinkDown} href={"#"} variant={"mantis"}>
+        <AppLink
+          className={css.appLinkDown}
+          href={"/stories"}
+          variant={"mantis"}
+        >
           Всі статті
         </AppLink>
       </div>

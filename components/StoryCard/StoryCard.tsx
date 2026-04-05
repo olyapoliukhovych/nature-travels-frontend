@@ -1,31 +1,37 @@
 import Image from "next/image";
 import css from "./StoryCard.module.css";
-import type { Card } from "@/types/picture";
 import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
+import { Story } from "@/types/stories";
 
 interface Props {
-  card: Card;
+  story: Story;
 }
 
-export default function StoryCard({ card }: Props) {
+export default function StoryCard({ story }: Props) {
   return (
     <div className={css.card}>
       <div className={css.imageWrapper}>
-        <Image className={css.picture} alt={card.title} src={card.img} fill sizes="100%" />
+        <Image
+          className={css.picture}
+          alt={story.title}
+          src={story.img}
+          fill
+          sizes="100%"
+        />
       </div>
 
       <div className={css.descriptionWrapper}>
         <div className={css.titleWrapper}>
-          <p>title</p>
+          <p>{story.ownerId.name}</p>
           <span className={css.point}>.</span>
           <span className={css.saveInfo}>
-            {card.rate}
-            <Icon id={"icon-bookmark"} className={css.bookmark}/>
+            {story.rate}
+            <Icon id={"icon-bookmark"} className={css.bookmark} />
           </span>
         </div>
 
-        <h3 className={css.title}>{card.title}</h3>
+        <h3 className={css.title}>{story.title}</h3>
 
         <div className={css.buttonWrapper}>
           <AppLink href={"#"} variant={"neutral"} className={css.appLink}>
