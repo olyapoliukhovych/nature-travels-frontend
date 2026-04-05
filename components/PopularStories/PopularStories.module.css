@@ -46,8 +46,6 @@
 
 .cardWrapper {
   width: calc((100% - 24px) / 1);
-  background-color: #def2de;
-  border-radius: 12px;
   border: 0px solid rgba(0, 0, 0, 0.15);
 }
 

@@ -1,4 +1,4 @@
-import { CategoryStory } from "../types/category";
+import { Category } from "./category";
 
 export interface CategoryResponse {
   _id: string;
@@ -6,16 +6,20 @@ export interface CategoryResponse {
 }
 
 export interface Story {
-  savedCount: number;
-  _id: string;
-  img: string;
-  title: string;
   article: string;
-  category: CategoryStory;
-  rate: number;
-  ownerId: string;
+  category: Category;
   date: string;
-  favoritesCount?: number;
+  img: string;
+  ownerId: Owner;
+  rate: number;
+  title: string;
+  _id: string;
+  favoritesCount: number;
+}
+
+interface Owner {
+  _id: string;
+  name: string;
 }
 
 export interface StoriesParams {

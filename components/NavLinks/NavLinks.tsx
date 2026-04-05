@@ -16,7 +16,7 @@ export default function NavLinks({ isAuth }: Props) {
         Статті
       </Link>
 
-      <Link href="/eco-travelers" className={styles.link}>
+      <Link href="/travellers" className={styles.link}>
         Еко-Мандрівники
       </Link>
 

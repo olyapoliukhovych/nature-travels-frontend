@@ -111,6 +111,8 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  border-radius: 12px;
+  background: var(--color-scheme-2-foreground);
 }
 
 .descriptionWrapper {
