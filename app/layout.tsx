@@ -4,6 +4,7 @@ import "modern-normalize/modern-normalize.css";
 import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import NextTopLoader from "nextjs-toploader";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
@@ -34,7 +35,16 @@ export default function RootLayout({
     <html lang="uk" className={`${montserrat.variable}`}>
       <body>
         <TanStackProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            {/* для переходів між сторінками */}
+            <NextTopLoader
+              color="#4a9849"
+              showSpinner={false}
+              height={2}
+              speed={150}
+            />
+            {children}
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>
