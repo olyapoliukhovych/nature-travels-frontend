@@ -10,22 +10,22 @@
 }
 
 .panel {
-  position: absolute;
-  inset: 0;
+  width: 100%;
+  min-height: 100dvh;
   background-color: var(--color-scheme-2-background);
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
   overflow-y: auto;
   box-sizing: border-box;
 }
 
 .top {
+  height: 72px;
+  padding: 0 24px;
+  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 22px 0;
   gap: 12px;
 }
 
@@ -38,6 +38,8 @@
 
 .logoIcon {
   display: block;
+  width: 124px;
+  height: 40px;
 }
 
 .topRight {
@@ -53,36 +55,26 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  height: 32px;
   border: 1px solid var(--color-mantis-dark);
   border-radius: 6px;
-  padding: 4px 10px;
+  padding: 0 10px;
   background: var(--color-mantis-dark);
   color: var(--color-white);
   text-decoration: none;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1;
   white-space: nowrap;
   flex-shrink: 0;
-  transition:
-    color var(--transition),
-    background var(--transition);
-}
-
-.publish:hover {
-  color: var(--color-scheme-2-text);
-  background: var(--color-mantis-lighter);
-}
-
-.publish:active {
-  color: var(--color-white);
-  background: var(--color-mantis-dark);
+  transition: opacity 0.2s ease;
 }
 
 .closeButton {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 6px;
+  border-radius: 12px;
   background: transparent;
   display: inline-flex;
   align-items: center;
@@ -117,7 +109,8 @@
 
 @media (max-width: 767px) {
   .top {
-    padding: 16px 14px 0;
+    height: 72px;
+    padding: 0 14px;
   }
 
   .navWrap {
@@ -130,14 +123,14 @@
 
   .publish {
     width: min(335px, 100%);
-    height: 32px;
     font-size: 14px;
   }
 }
 
-@media (min-width: 768px) and (max-width: 1439px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .top {
-    padding: 22px 28px 0;
+    height: 72px;
+    padding: 0 28px;
   }
 
   .navWrap {
@@ -151,12 +144,11 @@
 
   .publish {
     width: 196px;
-    height: 32px;
     font-size: 14px;
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1024px) {
   .menu {
     display: none;
   }
