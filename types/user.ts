@@ -1,14 +1,17 @@
+import { StoriesResponse } from "./stories";
+
 export interface UsersParams {
   page: number;
   perPage: number;
 }
 
 export interface User {
-  articlesAmount: number;
   avatarUrl: string;
+  email: string;
   name: string;
-  savedArticles: string[];
   savedStories: string[];
+  totalUserStories: number;
+  userStories: string[];
   _id: string;
 }
 
@@ -18,4 +21,12 @@ export interface UsersResponse {
   totalItems: number;
   totalPages: number;
   users: User[];
+}
+
+export interface UserPublicProfileResponse extends StoriesResponse {
+  user: User;
+}
+
+export interface MovementToFavoritesResponse {
+  message: string;
 }

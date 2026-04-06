@@ -1,33 +1,40 @@
 import { api } from "../api";
 import {
-  StoriesParams,
+  RequestParamsGetAllStories,
   StoriesResponse,
   Story,
-  StoryById,
   StoryCreate,
 } from "@/types/stories";
 
-export const getAllStories = async (
-  params: StoriesParams,
-): Promise<StoriesResponse> => {
-  const res = await api.get<StoriesResponse>("/stories", { params });
+export const getAllStories = async ({
+  page,
+  perPage,
+  categoryId,
+}: RequestParamsGetAllStories): Promise<StoriesResponse> => {
+  const res = await api.get<StoriesResponse>("/stories", {
+    params: {
+      page,
+      perPage,
+      categoryId,
+    },
+  });
   return res.data;
 };
 
-export const getStoryById = async ({ id }: StoryById): Promise<Story> => {
-  const res = await api.get<Story>(`/stories/${id}`);
+export const getStoryById = async (storyId: string): Promise<Story> => {
+  const res = await api.get<Story>(`/stories/${storyId}`);
   return res.data;
 };
 
 export const createStory = async ({
-  category,
+  categoryId,
   title,
   article,
   img,
 }: StoryCreate): Promise<Story> => {
   const formData = new FormData();
 
-  formData.append("category", category);
+  formData.append("categoryId", categoryId);
   formData.append("title", title);
   formData.append("article", article);
 

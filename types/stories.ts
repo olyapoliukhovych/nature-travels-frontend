@@ -1,30 +1,32 @@
-import { Category } from "./category";
+import { CategoryStoryResponse } from "../types/category";
 
-export interface CategoryResponse {
-  _id: string;
+export interface OwnerIdPopulate {
   name: string;
+  _id: string;
 }
 
 export interface Story {
-  article: string;
-  category: Category;
-  date: string;
+  savedCount: number;
+  _id: string;
   img: string;
-  ownerId: Owner;
-  rate: number;
   title: string;
-  _id: string;
-  favoritesCount: number;
+  article: string;
+  categoryId: CategoryStoryResponse | string;
+  rate: number;
+  ownerId: OwnerIdPopulate | string;
+  date: string;
 }
 
-interface Owner {
-  _id: string;
-  name: string;
-}
-
-export interface StoriesParams {
+export interface PaginationParams {
   page: number;
   perPage: number;
+}
+
+export interface RequestParamsGetUserById extends PaginationParams {
+  userId: string;
+}
+
+export interface RequestParamsGetAllStories extends PaginationParams {
   categoryId?: string;
 }
 
@@ -33,16 +35,11 @@ export interface StoriesResponse {
   perPage: number;
   totalItems: number;
   totalPages: number;
-  category: CategoryResponse | null;
   stories: Story[];
 }
 
-export interface StoryById {
-  id: string;
-}
-
 export interface StoryCreate {
-  category: string;
+  categoryId: string;
   title: string;
   article: string;
   img: File | null;

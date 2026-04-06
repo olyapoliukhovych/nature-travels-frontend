@@ -71,7 +71,7 @@
 
   &:hover,
   &:focus {
-    background-color: transparent;
+    background-color: var(--color-mantis-lighter);
     color: inherit;
   }
 
