@@ -3,7 +3,7 @@ import css from "./Join.module.css";
 
 export default function Join() {
   return (
-    <section className={css.joinSection}>
+    <section className={css.joinSection} id="join">
       <div className="container">
         <div className={css.bgCard}>
           <div className={css.content}>

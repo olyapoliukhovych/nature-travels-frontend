@@ -1,8 +1,8 @@
-import { CategoryStory } from "../types/category";
+import { CategoryStoryResponse } from "../types/category";
 
-export interface CategoryResponse {
-  _id: string;
+export interface OwnerIdPopulate {
   name: string;
+  _id: string;
 }
 
 export interface Story {
@@ -11,17 +11,23 @@ export interface Story {
   img: string;
   title: string;
   article: string;
-  category: CategoryStory;
+  categoryId: CategoryStoryResponse | string;
   rate: number;
-  ownerId: string;
+  ownerId: OwnerIdPopulate | string;
   date: string;
-  favoritesCount?: number;
 }
 
-export interface StoriesParams {
+export interface PaginationParams {
   page: number;
   perPage: number;
-  category?: string;
+}
+
+export interface RequestParamsGetUserById extends PaginationParams {
+  userId: string;
+}
+
+export interface RequestParamsGetAllStories extends PaginationParams {
+  categoryId?: string;
 }
 
 export interface StoriesResponse {
@@ -29,16 +35,11 @@ export interface StoriesResponse {
   perPage: number;
   totalItems: number;
   totalPages: number;
-  category: CategoryResponse | null;
   stories: Story[];
 }
 
-export interface StoryById {
-  id: string;
-}
-
 export interface StoryCreate {
-  category: string;
+  categoryId: string;
   title: string;
   article: string;
   img: File | null;

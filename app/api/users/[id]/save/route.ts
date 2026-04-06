@@ -1,23 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import { api } from "../api";
+import { api } from "@/app/api/api";
 import { cookies } from "next/headers";
 import { isAxiosError } from "axios";
-import { logErrorResponse } from "../_utils/utils";
+import { logErrorResponse } from "@/app/api/_utils/utils";
 
-export async function GET(request: NextRequest) {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function POST(request: NextRequest, { params }: Props) {
   try {
     const cookieStore = await cookies();
-    const perPage = request.nextUrl.searchParams.get("perPage") ?? 10;
-    const page = request.nextUrl.searchParams.get("page") ?? 1;
-    const categoryId =
-      request.nextUrl.searchParams.get("categoryId") ?? undefined;
+    const { id } = await params;
 
-    const res = await api("/stories", {
-      params: {
-        page,
-        perPage,
-        categoryId,
-      },
+    const res = await api.post(`/users/${id}/save`, null, {
       headers: {
         Cookie: cookieStore.toString(),
       },
@@ -40,13 +36,12 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function DELETE(request: NextRequest, { params }: Props) {
   try {
     const cookieStore = await cookies();
+    const { id } = await params;
 
-    const body = await request.formData();
-
-    const res = await api.post("/stories", body, {
+    const res = await api.delete(`/users/${id}/save`, {
       headers: {
         Cookie: cookieStore.toString(),
       },

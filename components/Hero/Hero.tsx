@@ -63,7 +63,7 @@ export default function Hero() {
               України. Ми зібрали маршрути, які допоможуть побачити красу
               природи без шкоди для неї.
             </p>
-            <Link href="/" className={css.heroLink}>
+            <Link href="#join" className={css.heroLink}>
               Доєднатись до мандрів
             </Link>
           </div>
