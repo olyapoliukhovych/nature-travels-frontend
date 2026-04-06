@@ -115,7 +115,7 @@
   margin-top: auto;
 }
 
-@media (max-width: 767px) {
+@media only screen and (max-width: 767px) {
   .top {
     padding: 16px 14px 0;
   }
@@ -135,7 +135,7 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1439px) {
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
   .top {
     padding: 22px 28px 0;
   }
@@ -156,7 +156,7 @@
   }
 }
 
-@media (min-width: 1440px) {
+@media only screen and (min-width: 1440px) {
   .menu {
     display: none;
   }

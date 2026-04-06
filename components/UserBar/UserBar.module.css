@@ -99,7 +99,7 @@
   height: 24px;
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .user {
     gap: 16px;
   }
@@ -139,7 +139,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media only screen and (max-width: 480px) {
   .user {
     width: 100%;
     flex-direction: column;

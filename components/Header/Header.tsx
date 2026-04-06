@@ -72,13 +72,10 @@ export default function Header() {
 
         {viewport === "tablet" && (
           <div className={styles.tabletActions}>
-            {isAuth && (
-              <AppLink
-                href="/stories/new"
-                // className={styles.publish}
-              >
-                Опублікувати статтю
-              </AppLink>
+            {isAuth ? (
+              <AppLink href="/stories/new">Опублікувати статтю</AppLink>
+            ) : (
+              <AuthBar />
             )}
 
             <BurgerMenuBtn isOpen={isOpen} setIsOpen={setIsOpen} />
