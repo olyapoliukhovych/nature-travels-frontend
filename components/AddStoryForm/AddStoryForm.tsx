@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage, FieldProps } from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  FieldProps,
+  FormikHelpers,
+} from "formik";
 import * as Yup from "yup";
 import TextareaAutosize from "react-textarea-autosize";
 import { CreateStoryValues } from "@/types/types";
@@ -15,11 +22,11 @@ interface BackendCategory {
 
 const validationSchema = Yup.object({
   title: Yup.string()
-    .min(5, "Заголовок має бути не менше 5 символів")
+    .min(3, "Заголовок має бути не менше 3 символів")
     .required("Це обов'язкове поле"),
   categoryId: Yup.string().required("Оберіть категорію"),
   article: Yup.string()
-    .min(20, "Текст має бути не менше 20 символів")
+    .min(3, "Текст має бути не менше 3 символів")
     .required("Це обов'язкове поле"),
   image: Yup.mixed().required("Додайте зображення"),
 });
@@ -31,8 +38,9 @@ const AddStoryForm = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        // ВАЖЛИВО: Переконайся, що порт 3000 — це порт твого Node.js сервера
-        const response = await fetch("http://localhost:3000/categories");
+        const apiUrl =
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+        const response = await fetch(`${apiUrl}/categories`);
 
         if (!response.ok) {
           throw new Error(`Помилка сервера: ${response.status}`);
@@ -55,13 +63,54 @@ const AddStoryForm = () => {
     image: null,
   };
 
-  const handleOnSubmit = (values: CreateStoryValues) => {
-    console.log("Дані готові:", values);
+  const handleOnSubmit = async (
+    values: CreateStoryValues,
+    { resetForm }: FormikHelpers<CreateStoryValues>,
+  ) => {
+    try {
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("categoryId", values.categoryId);
+      formData.append("article", values.article);
+
+      if (values.image) {
+        formData.append("img", values.image);
+      }
+
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(`${apiUrl}/stories`, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Помилка при створенні історії");
+      }
+
+      const result = await response.json();
+      console.log("Успіх!", result);
+      alert("Історію успішно опубліковано!");
+
+      resetForm();
+      setPreview(null);
+    } catch (error: unknown) {
+      console.error("Помилка відправки:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Сталася невідома помилка";
+      alert(`Помилка: ${errorMessage}`);
+    }
   };
 
   return (
     <div className={css.formWrapper}>
-      <PageTitle>Створити нову історію</PageTitle>
+      <PageTitle className={css.pageTitle}>Створити нову історію</PageTitle>
 
       <Formik
         initialValues={initialValues}
@@ -159,6 +208,13 @@ const AddStoryForm = () => {
 
             <div className={css.buttonGroup}>
               <button
+                type="submit"
+                className={css.btnSave}
+                disabled={!(isValid && dirty)}
+              >
+                Зберегти
+              </button>
+              <button
                 type="button"
                 className={css.btnCancel}
                 onClick={() => {
@@ -167,13 +223,6 @@ const AddStoryForm = () => {
                 }}
               >
                 Відмінити
-              </button>
-              <button
-                type="submit"
-                className={css.btnSave}
-                disabled={!(isValid && dirty)}
-              >
-                Зберегти
               </button>
             </div>
           </Form>
