@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./Header.module.css";
-
 import NavLinks from "../NavLinks/NavLinks";
 import AuthBar from "../AuthBar/AuthBar";
 import UserBar from "../UserBar/UserBar";
@@ -30,7 +29,6 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated } = useAuthStore();
 
-  // const isAuth = true; // тимчасова заглушка
   const isAuth = isAuthenticated;
 
   useEffect(() => {
@@ -72,12 +70,12 @@ export default function Header() {
 
         {viewport === "tablet" && (
           <div className={styles.tabletActions}>
-            {isAuth ? (
-              <AppLink href="/stories/new">Опублікувати статтю</AppLink>
-            ) : (
-              <AuthBar />
+            {!isAuth && <AuthBar />}
+            {isAuth && (
+              <AppLink href="/stories/new" className={styles.publish}>
+                Опублікувати статтю
+              </AppLink>
             )}
-
             <BurgerMenuBtn isOpen={isOpen} setIsOpen={setIsOpen} />
           </div>
         )}

@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import styles from "./BurgerMenu.module.css";
-
 import NavLinks from "../NavLinks/NavLinks";
 import AuthBar from "../AuthBar/AuthBar";
 import UserBar from "../UserBar/UserBar";
+import { Icon } from "../Icon/Icon";
 
 type Viewport = "mobile" | "tablet" | "desktop";
 
@@ -34,14 +34,7 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
             aria-label="На головну"
             onClick={onClose}
           >
-            <svg
-              className={styles.logoIcon}
-              width="124"
-              height="36"
-              aria-hidden="true"
-            >
-              <use href="/sprite.svg#icon-logo" />
-            </svg>
+            <Icon id="icon-logo" className={styles.logoIcon} />
           </Link>
 
           <div className={styles.topRight}>
@@ -61,9 +54,7 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
               onClick={onClose}
               aria-label="Закрити меню"
             >
-              <svg width="32" height="32" aria-hidden="true">
-                <use href="/sprite.svg#icon-close" />
-              </svg>
+              <Icon id="icon-close" className={styles.closeSvg} />
             </button>
           </div>
         </div>
