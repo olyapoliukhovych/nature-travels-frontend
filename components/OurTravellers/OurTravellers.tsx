@@ -43,7 +43,7 @@ export default function OurTravellers() {
               nextEl: `.${css.next}`,
               prevEl: `.${css.prev}`,
             }}
-            loop={false}
+            loop={true}
             breakpoints={{
               320: {
                 slidesPerView: 1,

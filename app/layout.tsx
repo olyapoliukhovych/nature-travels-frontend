@@ -4,6 +4,7 @@ import "modern-normalize/modern-normalize.css";
 import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import { Toaster } from "react-hot-toast";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
@@ -36,6 +37,7 @@ export default function RootLayout({
         <TanStackProvider>
           <AuthProvider>{children}</AuthProvider>
         </TanStackProvider>
+        <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       </body>
     </html>
   );

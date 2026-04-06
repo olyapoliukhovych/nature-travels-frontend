@@ -2,7 +2,7 @@
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import css from "./LoginForm.module.css";
 import Button from "../Button/Button";
@@ -28,31 +28,6 @@ export default function LoginForm() {
     values: LoginValues,
     { setSubmitting }: FormikHelpers<LoginValues>,
   ) => {
-    // try {
-    //   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    //   const response = await fetch(`${apiUrl}/auth/login`, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(values),
-    //   });
-
-    //   const data = await response.json();
-
-    //   if (!response.ok) {
-    //     throw new Error(data.message || "Помилка входу");
-    //   }
-
-    //   router.push("/");
-    // } catch (error: unknown) {
-    //   if (error instanceof Error) {
-    //     toast.error(error.message);
-    //   } else {
-    //     toast.error("Щось пішло не так");
-    //   }
-    // } finally {
-    //   setSubmitting(false);
-    // }
-
     try {
       const data = await loginUser(values);
 
@@ -72,7 +47,6 @@ export default function LoginForm() {
 
   return (
     <>
-      <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       <Formik<LoginValues>
         initialValues={{ email: "", password: "" }}
         validationSchema={LoginSchema}
@@ -126,7 +100,7 @@ export default function LoginForm() {
               type="submit"
               variant="mantis"
               isLoading={isSubmitting}
-              loadingText="Вхід..."
+              loadingText="Вхід"
               className={css.loginSubmitButton}
             >
               Увійти

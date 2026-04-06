@@ -7,8 +7,6 @@ import Loader from "@/components/Loader/Loader";
 import css from "./StoryDetailsClient.module.css";
 import SaveStorySection from "@/components/StoryDetails/SaveStorySection";
 import clsx from "clsx";
-import PopularStories from "@/components/PopularStories/PopularStories";
-import { string } from "yup";
 
 export default function StoryDetailsClient() {
   const { id } = useParams<{ id: string }>();
