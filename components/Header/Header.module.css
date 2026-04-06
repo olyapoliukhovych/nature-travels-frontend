@@ -25,14 +25,6 @@
   }
 }
 
-.logo {
-  display: inline-flex;
-  align-items: center;
-  color: var(--color-scheme-2-text);
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
 .logoIcon {
   display: block;
   width: 124px;
@@ -58,7 +50,8 @@
   align-items: center;
   margin-left: auto;
 }
-.publish {
+
+/* .publish {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -81,4 +74,4 @@
 
 .publish:hover {
   opacity: 0.85;
-}
+} */
