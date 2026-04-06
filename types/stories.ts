@@ -1,4 +1,4 @@
-import { CategoryStoryResponse } from "../types/category";
+import { Category } from "../types/category";
 
 export interface OwnerIdPopulate {
   name: string;
@@ -11,7 +11,7 @@ export interface Story {
   img: string;
   title: string;
   article: string;
-  categoryId: CategoryStoryResponse | string;
+  categoryId: Category | string;
   rate: number;
   ownerId: OwnerIdPopulate | string;
   date: string;
