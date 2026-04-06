@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import css from "./LoginForm.module.css";
 import Button from "../Button/Button";
 import { LoginValues } from "../../types/types";
+import { useAuthStore } from "@/lib/store/authStore";
+import { loginUser } from "@/lib/api/auth/clientApi";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -17,6 +19,7 @@ const LoginSchema = Yup.object().shape({
 
 export default function LoginForm() {
   const router = useRouter();
+  const setUser = useAuthStore((s) => s.setUser);
 
   const emailId = "login-email";
   const passwordId = "login-password";
@@ -25,22 +28,38 @@ export default function LoginForm() {
     values: LoginValues,
     { setSubmitting }: FormikHelpers<LoginValues>,
   ) => {
+    // try {
+    //   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    //   const response = await fetch(`${apiUrl}/auth/login`, {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(values),
+    //   });
+
+    //   const data = await response.json();
+
+    //   if (!response.ok) {
+    //     throw new Error(data.message || "Помилка входу");
+    //   }
+
+    //   router.push("/");
+    // } catch (error: unknown) {
+    //   if (error instanceof Error) {
+    //     toast.error(error.message);
+    //   } else {
+    //     toast.error("Щось пішло не так");
+    //   }
+    // } finally {
+    //   setSubmitting(false);
+    // }
+
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const response = await fetch(`${apiUrl}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      const data = await loginUser(values);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Помилка входу");
-      }
+      setUser(data);
 
       router.push("/");
-    } catch (error: unknown) {
+    } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
       } else {

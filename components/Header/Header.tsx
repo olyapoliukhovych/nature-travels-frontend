@@ -11,6 +11,7 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import BurgerMenuBtn from "../BurgerMenuBtn/BurgerMenuBtn";
 import { Icon } from "../Icon/Icon";
 import AppLink from "../AppLink/AppLink";
+import { useAuthStore } from "@/lib/store/authStore";
 
 type Viewport = "mobile" | "tablet" | "desktop";
 
@@ -27,8 +28,10 @@ function getViewport(): Viewport {
 export default function Header() {
   const [viewport, setViewport] = useState<Viewport>("desktop");
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated } = useAuthStore();
 
-  const isAuth = true; // тимчасова заглушка
+  // const isAuth = true; // тимчасова заглушка
+  const isAuth = isAuthenticated;
 
   useEffect(() => {
     const updateViewport = () => setViewport(getViewport());
@@ -63,13 +66,7 @@ export default function Header() {
         {viewport === "desktop" && (
           <div className={styles.desktop}>
             <NavLinks isAuth={isAuth} />
-            {isAuth ? (
-              <UserBar
-              // user={user}
-              />
-            ) : (
-              <AuthBar />
-            )}
+            {isAuth ? <UserBar /> : <AuthBar />}
           </div>
         )}
 

@@ -6,8 +6,8 @@
   height: 100vh;
   color: var(--color-scheme-1-text);
   font-family: var(--font-family);
-  padding-left: 120px;
-  padding-right: 120px;
+  padding-left: 220px;
+  padding-right: 220px;
 }
 
 .title {

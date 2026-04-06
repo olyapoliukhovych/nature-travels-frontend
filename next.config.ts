@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "ac.goit.global",
+      },
     ],
     formats: ["image/avif", "image/webp"],
   },
