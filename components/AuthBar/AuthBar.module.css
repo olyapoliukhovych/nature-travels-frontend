@@ -1,50 +1,62 @@
 .auth {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 16px;
 }
 
 .primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 16px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 16px;
-  line-height: 1;
-  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 6px;
   border: 1px solid var(--color-mantis-dark);
   border-radius: 6px;
   padding: 4px 10px;
-  width: 114px;
-  height: 32px;
-  background-color: var(--color-mantis-dark);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.5;
+  background: var(--color-mantis-dark);
+  color: var(--color-white);
+  transition:
+    border var(--transition),
+    background var(--transition),
+    color var(--transition);
+}
+
+.primary:hover,
+.primary:focus {
+  border: 1px solid var(--color-mantis-dark);
+  background: var(--color-mantis-lighter);
+  color: var(--color-scheme-2-text);
+}
+
+.primary:active {
+  border: 1px solid var(--color-mantis-dark);
+  background: var(--color-mantis-dark);
   color: var(--color-white);
 }
+
 .link {
   border: 1px solid var(--color-scheme-2-border);
   border-radius: 6px;
   padding: 4px 10px;
-  width: 56px;
-  height: 32px;
-  background-color: var(--opacity-neutral-darkest-5);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.5;
+  background: var(--opacity-neutral-darkest-5);
   color: var(--color-scheme-2-text);
+  transition:
+    border var(--transition),
+    background var(--transition),
+    color var(--transition);
 }
 
 .link:hover,
-.primary:hover {
-  opacity: 0.9;
+.link:focus {
+  border: 1px solid var(--opacity-transparent);
+  background: var(--color-mantis-dark);
+  color: var(--color-white);
 }
 
-@media (max-width: 767px) {
+.link:active {
+  border: 1px solid var(--opacity-transparent);
+  background: var(--color-mantis-darker);
+}
+
+@media only screen and (max-width: 767px) {
   .auth {
     display: flex;
     flex-direction: column;
@@ -55,22 +67,21 @@
 
   .link {
     text-align: center;
-    width: auto;
+    width: 100%;
     border: 1px solid var(--color-scheme-2-border);
     border-radius: 6px;
     padding: 4px 10px;
-    width: 335px;
-    height: 32px;
+    min-width: 335px;
     background-color: var(--opacity-neutral-darkest-5);
   }
 
   .primary {
+    text-align: center;
     width: 100%;
     border: 1px solid var(--color-mantis-dark);
     border-radius: 6px;
     padding: 4px 10px;
-    width: 335px;
-    height: 32px;
+    min-width: 335px;
     background-color: var(--color-mantis-dark);
   }
 }

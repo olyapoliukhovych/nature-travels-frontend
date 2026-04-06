@@ -18,7 +18,7 @@
   color: var(--color-mantis-dark);
 }
 
-@media (min-width: 1440px) {
+@media only screen and (min-width: 1440px) {
   .nav {
     flex-direction: row;
     gap: 24px;
