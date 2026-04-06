@@ -4,8 +4,6 @@ import Link from "next/link";
 import styles from "./UserBar.module.css";
 import Image from "next/image";
 import { Icon } from "../Icon/Icon";
-// import { User } from "@/types/user";
-// import Button from "../Button/Button";
 import { useAuthStore } from "@/lib/store/authStore";
 import { logoutUser } from "@/lib/api/auth/clientApi";
 
@@ -35,7 +33,7 @@ export default function UserBar({ showPublish = true }: Props) {
       )}
 
       <div className={styles.bottom}>
-        <div className={styles.profile}>
+        <Link href="/profile" className={styles.profile}>
           <div className={styles.avatar}>
             {user?.avatarUrl ? (
               <Image
@@ -46,16 +44,18 @@ export default function UserBar({ showPublish = true }: Props) {
                 className={styles.avatarImg}
               />
             ) : (
-              <svg width="32" height="32" aria-hidden="true">
-                <use href="/sprite.svg#icon-user" />
-              </svg>
+              <Image
+                src={"/default-avatar.jpg"}
+                alt={"default avatar"}
+                width={32}
+                height={32}
+                className={styles.avatarImg}
+              />
             )}
           </div>
 
-          <Link href="/profile" className={styles.name}>
-            {user?.name || "Ім'я"}
-          </Link>
-        </div>
+          <span className={styles.name}>{user?.name || "Ім'я"}</span>
+        </Link>
 
         <span className={styles.divider} />
 
