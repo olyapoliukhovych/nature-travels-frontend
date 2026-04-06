@@ -28,7 +28,12 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
     >
       <div className={styles.panel}>
         <div className={styles.top}>
-          <Link href="/" className={styles.logo} aria-label="На головну">
+          <Link
+            href="/"
+            className={styles.logo}
+            aria-label="На головну"
+            onClick={onClose}
+          >
             <svg
               className={styles.logoIcon}
               width="124"
@@ -41,7 +46,11 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
 
           <div className={styles.topRight}>
             {showTabletPublish && (
-              <Link href="/stories/new" className={styles.publish}>
+              <Link
+                href="/stories/new"
+                className={styles.publish}
+                onClick={onClose}
+              >
                 Опублікувати статтю
               </Link>
             )}
@@ -61,12 +70,16 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
 
         <div className={styles.content}>
           <div className={styles.navWrap}>
-            <NavLinks isAuth={isAuth} />
+            <NavLinks isAuth={isAuth} onLinkClick={onClose} />
           </div>
 
           <div className={styles.mobileActions}>
             {showMobilePublish && (
-              <Link href="/stories/new" className={styles.publish}>
+              <Link
+                href="/stories/new"
+                className={styles.publish}
+                onClick={onClose}
+              >
                 Опублікувати статтю
               </Link>
             )}
