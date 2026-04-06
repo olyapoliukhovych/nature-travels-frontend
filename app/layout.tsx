@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "modern-normalize/modern-normalize.css";
 import "./globals.css";
+import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
@@ -30,7 +31,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk" className={`${montserrat.variable}`}>
-      <body>{children}</body>
+      <body>
+        <TanStackProvider>{children}</TanStackProvider>
+      </body>
     </html>
   );
 }

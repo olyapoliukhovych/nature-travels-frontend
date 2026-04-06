@@ -1,3 +1,4 @@
+import { Category } from "@/types/category";
 import { api } from "../api";
 import { CategoryStoryResponse } from "@/types/category";
 

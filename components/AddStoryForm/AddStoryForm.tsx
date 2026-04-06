@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import TextareaAutosize from "react-textarea-autosize";
 import { CreateStoryValues } from "@/types/types";
 import css from "./AddStoryForm.module.css";
+import PageTitle from "../PageTitle/PageTitle";
 
 interface BackendCategory {
   _id: string;
@@ -60,7 +61,7 @@ const AddStoryForm = () => {
 
   return (
     <div className={css.formWrapper}>
-      <h1 className={css.pageTitle}>Створити нову історію</h1>
+      <PageTitle>Створити нову історію</PageTitle>
 
       <Formik
         initialValues={initialValues}

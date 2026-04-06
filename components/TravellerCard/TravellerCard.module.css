@@ -4,6 +4,8 @@
   align-items: center;
   gap: 24px;
   padding: 24px;
+  border-radius: 12px;
+  background-color: var(--color-mantis-lighter);
 }
 
 .pictureWrapper {
@@ -25,9 +27,37 @@
   width: 100%;
   font-weight: 500;
   font-size: 16px;
-  line-height: 150%;
+  line-height: 1.5;
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 20px;
+  }
 }
 
 .infoWrappper {
-    width: 100%;
+  width: 100%;
+}
+
+.userName {
+  max-width: 262px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.5;
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 26px;
+  }
+}
+
+.infoWrappper p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 20px;
+  }
 }
