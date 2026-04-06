@@ -1,5 +1,9 @@
 import AddStoryForm from "@/components/AddStoryForm/AddStoryForm";
 
 export default function NewStoryPage() {
-  return <AddStoryForm />;
+  return (
+    <div className="container">
+      <AddStoryForm />
+    </div>
+  );
 }

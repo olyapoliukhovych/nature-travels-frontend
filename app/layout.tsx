@@ -4,6 +4,7 @@ import "modern-normalize/modern-normalize.css";
 import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import { Toaster } from "react-hot-toast";
 import NextTopLoader from "nextjs-toploader";
 
 const montserrat = Montserrat({
@@ -46,6 +47,7 @@ export default function RootLayout({
             {children}
           </AuthProvider>
         </TanStackProvider>
+        <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       </body>
     </html>
   );

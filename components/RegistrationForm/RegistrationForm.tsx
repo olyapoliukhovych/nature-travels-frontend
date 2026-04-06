@@ -2,7 +2,7 @@
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import css from "./RegistrationForm.module.css";
 import Button from "../Button/Button";
@@ -37,32 +37,6 @@ export default function RegistrationForm() {
     values: RegistrationValues,
     { setSubmitting }: FormikHelpers<RegistrationValues>,
   ) => {
-    // try {
-    //   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    //   const response = await fetch(`${apiUrl}/auth/register`, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(values),
-    //   });
-
-    //   const data = await response.json();
-
-    //   if (!response.ok) {
-    //     throw new Error(data.message || "Помилка реєстрації");
-    //   }
-
-    //   router.push("/");
-    //   router.refresh();
-    // } catch (error: unknown) {
-    //   if (error instanceof Error) {
-    //     toast.error(error.message);
-    //   } else {
-    //     toast.error("Щось пішло не так");
-    //   }
-    // } finally {
-    //   setSubmitting(false);
-    // }
-
     try {
       await registerUser(values);
 
@@ -75,7 +49,7 @@ export default function RegistrationForm() {
 
       router.push("/");
       router.refresh();
-    } catch (error: unknown) {
+    } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
@@ -88,12 +62,6 @@ export default function RegistrationForm() {
 
   return (
     <>
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          duration: 3000,
-        }}
-      />
       <Formik<RegistrationValues>
         initialValues={{ name: "", email: "", password: "" }}
         validationSchema={RegistrationSchema}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import {
   Formik,
   Form,
@@ -11,11 +11,17 @@ import {
 } from "formik";
 import * as Yup from "yup";
 import TextareaAutosize from "react-textarea-autosize";
-import { CreateStoryValues } from "@/types/types";
-import css from "./AddStoryForm.module.css";
-import PageTitle from "../PageTitle/PageTitle";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { Category } from "@/types/category";
+
+import { CreateStoryValues } from "@/types/types";
+import { getCategories } from "@/lib/api/category/clientApi";
+import PageTitle from "../PageTitle/PageTitle";
+import AppSelect from "../AppSelect/AppSelect";
+import css from "./AddStoryForm.module.css";
+import { createStory } from "@/lib/api/stories/clientApi";
+import toast from "react-hot-toast";
+import Button from "../Button/Button";
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -28,80 +34,49 @@ const validationSchema = Yup.object({
   image: Yup.mixed().required("Додайте зображення"),
 });
 
+const initialValues: CreateStoryValues = {
+  title: "",
+  categoryId: "",
+  article: "",
+  image: null,
+};
+
 const AddStoryForm = () => {
   const [preview, setPreview] = useState<string | null>(null);
-  const [categories, setCategories] = useState<Category[]>([]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const apiUrl =
-          process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-        const response = await fetch(`${apiUrl}/categories`);
+  const { data: categories = [] } = useQuery({
+    queryKey: ["categories"],
+    queryFn: getCategories,
+  });
 
-        if (!response.ok) {
-          throw new Error(`Помилка сервера: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setCategories(data);
-      } catch (error) {
-        console.error("Не вдалося завантажити категорії:", error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  const initialValues: CreateStoryValues = {
-    title: "",
-    categoryId: "",
-    article: "",
-    image: null,
-  };
+  const categoryOptions = useMemo(
+    () => categories.map((cat) => ({ value: cat._id, label: cat.category })),
+    [categories],
+  );
 
   const handleOnSubmit = async (
     values: CreateStoryValues,
     { resetForm }: FormikHelpers<CreateStoryValues>,
   ) => {
     try {
-      const formData = new FormData();
-      formData.append("title", values.title);
-      formData.append("categoryId", values.categoryId);
-      formData.append("article", values.article);
-
-      if (values.image) {
-        formData.append("img", values.image);
-      }
-
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-
-      const token = localStorage.getItem("token");
-
-      const response = await fetch(`${apiUrl}/stories`, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const story = await createStory({
+        title: values.title,
+        categoryId: values.categoryId,
+        article: values.article,
+        img: values.image,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Помилка при створенні історії");
-      }
+      if (!story) throw new Error("Помилка при створенні історії");
 
-      const result = await response.json();
-      console.log("Успіх!", result);
-      alert("Історію успішно опубліковано!");
-
+      toast.success("Історію успішно опубліковано!");
       resetForm();
       setPreview(null);
-    } catch (error: unknown) {
-      console.error("Помилка відправки:", error);
-      const errorMessage =
-        error instanceof Error ? error.message : "Сталася невідома помилка";
-      alert(`Помилка: ${errorMessage}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Щось пішло не так");
+      }
     }
   };
 
@@ -114,32 +89,45 @@ const AddStoryForm = () => {
         validationSchema={validationSchema}
         onSubmit={handleOnSubmit}
       >
-        {({ setFieldValue, resetForm, isValid, dirty }) => (
+        {({
+          setFieldValue,
+          resetForm,
+          setFieldTouched,
+          values,
+          isValid,
+          dirty,
+        }) => (
           <Form className={css.form}>
             <div className={css.imageSection}>
               <span className={css.label}>Обкладинка статті</span>
               <div className={css.imagePreview}>
-                {preview ? (
-                  <Image src={preview} alt="Preview" />
-                ) : (
-                  <Image
-                    src="/placeholder.png"
-                    alt="Placeholder"
-                    className={css.placeholderImg}
-                  />
-                )}
+                <Image
+                  src={preview || "/placeholder.png"}
+                  alt={
+                    preview
+                      ? "Прев'ю завантаженого зображення"
+                      : "Місце для обкладинки статті"
+                  }
+                  width={1191}
+                  height={726}
+                  className={css.image}
+                />
               </div>
-
               <label className={css.uploadBtn}>
                 Завантажити фото
                 <input
                   type="file"
                   name="image"
+                  value=""
                   hidden
                   accept="image/*"
                   onChange={(e) => {
                     const file = e.currentTarget.files?.[0];
                     if (file) {
+                      if (preview) {
+                        URL.revokeObjectURL(preview);
+                      }
+
                       setFieldValue("image", file);
                       setPreview(URL.createObjectURL(file));
                     }
@@ -154,11 +142,14 @@ const AddStoryForm = () => {
             </div>
 
             <div className={css.fieldGroup}>
-              <label className={css.label}>Заголовок</label>
+              <label htmlFor="title-input" className={css.label}>
+                Заголовок
+              </label>
               <Field
+                id="title-input"
                 name="title"
                 className={css.input}
-                placeholder="Введіть назву історії"
+                placeholder="Введіть заголовок історії"
               />
               <ErrorMessage
                 name="title"
@@ -168,16 +159,23 @@ const AddStoryForm = () => {
             </div>
 
             <div className={css.fieldGroup}>
-              <label className={css.label}>Категорія</label>
-              <Field as="select" name="categoryId" className={css.select}>
-                <option value="">Оберіть категорію</option>
-                {categories.length > 0 &&
-                  categories.map((cat) => (
-                    <option key={cat._id} value={cat._id}>
-                      {cat.category}
-                    </option>
-                  ))}
-              </Field>
+              <label htmlFor="category-select-input" className={css.label}>
+                Категорія
+              </label>
+              <AppSelect
+                inputId="category-select-input"
+                instanceId="category-select"
+                options={categoryOptions}
+                value={
+                  categoryOptions.find(
+                    (opt) => opt.value === values.categoryId,
+                  ) || null
+                }
+                onChange={(opt) =>
+                  setFieldValue("categoryId", opt?.value || "")
+                }
+                onBlur={() => setFieldTouched("categoryId", true)}
+              />
               <ErrorMessage
                 name="categoryId"
                 component="div"
@@ -193,6 +191,7 @@ const AddStoryForm = () => {
                     {...field}
                     className={css.textarea}
                     minRows={8}
+                    placeholder="Ваша історія тут"
                   />
                 )}
               </Field>
@@ -204,15 +203,16 @@ const AddStoryForm = () => {
             </div>
 
             <div className={css.buttonGroup}>
-              <button
+              <Button
                 type="submit"
                 className={css.btnSave}
                 disabled={!(isValid && dirty)}
               >
                 Зберегти
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
+                variant="neutral"
                 className={css.btnCancel}
                 onClick={() => {
                   resetForm();
@@ -220,7 +220,7 @@ const AddStoryForm = () => {
                 }}
               >
                 Відмінити
-              </button>
+              </Button>
             </div>
           </Form>
         )}

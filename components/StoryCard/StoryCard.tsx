@@ -35,7 +35,7 @@ export default function StoryCard({ story }: Props) {
 
         <div className={css.buttonWrapper}>
           <AppLink
-            href={"/stories/${story._id}"}
+            href={`/stories/${story._id}`}
             variant={"neutral"}
             className={css.appLink}
           >

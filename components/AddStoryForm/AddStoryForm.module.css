@@ -1,7 +1,6 @@
 .formWrapper {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
   padding: 32px 20px;
   box-sizing: border-box;
   flex-direction: column;
@@ -24,7 +23,6 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  /* width: 100%; */
 }
 
 .label {
@@ -39,17 +37,12 @@
 .imagePreview {
   width: 100%;
   height: 223px;
-  background-color: #f3f4f6;
   border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
   margin-bottom: 24px;
 }
 
-.imagePreview img {
+.image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -66,16 +59,16 @@
   font-size: 16px;
   font-weight: 500;
   border: 1px solid rgba(0, 0, 0, 0.15);
-}
 
-.uploadBtn:hover {
-  background-color: #4a9849;
-  border: 1px solid rgba(255, 255, 255, 0);
-  color: #fff;
+  &:hover,
+  &:focus {
+    background-color: #4a9849;
+    border: 1px solid rgba(255, 255, 255, 0);
+    color: #fff;
+  }
 }
 
 .input,
-.select,
 .textarea {
   width: 100%;
   padding: 12px;
@@ -84,6 +77,11 @@
   font-size: 16px;
   outline: none;
   box-sizing: border-box;
+
+  &:focus,
+  &:hover {
+    border: 1px solid var(--color-scheme-1-accent);
+  }
 }
 
 .textarea {
@@ -96,8 +94,7 @@
 
 .error {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 5px;
   color: #dc2626;
   font-size: 12px;
   line-height: 1;
@@ -111,48 +108,15 @@
   margin-bottom: 64px;
 }
 
-.btnSave {
-  background-color: #4a9849;
-  color: #fff;
-  border: 1px solid #4a9849;
-  padding: 12px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.btnSave:hover {
-  background-color: #254c24;
-  border: 1px solid rgba(255, 255, 255, 0);
-  color: #fff;
-}
-
-.btnSave:disabled {
-  background-color: #4a9849;
-  opacity: 0.3;
-}
-
+.btnSave,
 .btnCancel {
-  background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 12px;
-  border-radius: 6px;
   font-weight: 500;
-  cursor: pointer;
-  text-align: center;
-  color: #1b391b;
-}
-
-.btnCancel:hover {
-  background-color: #4a9849;
-  border: 1px solid rgba(255, 255, 255, 0);
-  color: #fff;
+  padding: 6px 12px;
 }
 
 @media (min-width: 768px) {
   .formWrapper {
     max-width: 704px;
-    margin: 0 auto;
     padding: 64px 32px 0 32px;
   }
 
@@ -168,8 +132,6 @@
     flex-direction: row;
     justify-content: flex-start;
     gap: 16px;
-    width: 203px;
-    height: 48px;
   }
 
   .btnSave,
@@ -183,12 +145,6 @@
 @media (min-width: 1440px) {
   .formWrapper {
     max-width: 1091px;
-
-    align-self: auto;
-
-    margin-left: 64px !important;
-    margin-right: auto !important;
-
     padding: 80px 0;
     display: flex;
     flex-direction: column;
@@ -196,12 +152,17 @@
   }
 
   .form {
-    max-width: 800px;
+    max-width: 1091px;
+    width: 100%;
+  }
+
+  .fieldGroup {
+    width: 100%;
   }
 
   .textarea,
   .input,
-  .select {
+  .fieldGroup > div {
     width: 1091px;
   }
 
