@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "modern-normalize/modern-normalize.css";
 import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
@@ -32,7 +33,9 @@ export default function RootLayout({
   return (
     <html lang="uk" className={`${montserrat.variable}`}>
       <body>
-        <TanStackProvider>{children}</TanStackProvider>
+        <TanStackProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </TanStackProvider>
       </body>
     </html>
   );

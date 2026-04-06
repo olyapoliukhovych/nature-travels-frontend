@@ -1,77 +1,76 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { parse } from "cookie";
-import { checkServerSession } from "./lib/api/stories/serverApi";
 
 const privateRoutes = ["/profile", "/stories/new"];
 const authRoutes = ["/auth/login", "/auth/register"];
 
 export async function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
-  const refreshToken = cookieStore.get("refreshToken")?.value;
-  const isPublicRoute = authRoutes.some((route) => pathname.startsWith(route));
+  const { cookies, nextUrl } = request;
+
+  const accessToken = cookies.get("accessToken")?.value;
+  const refreshToken = cookies.get("refreshToken")?.value;
+
+  const isPublicRoute = authRoutes.some((route) =>
+    nextUrl.pathname.startsWith(route),
+  );
   const isPrivateRoute = privateRoutes.some((route) =>
-    pathname.startsWith(route),
+    nextUrl.pathname.startsWith(route),
   );
 
   if (!accessToken) {
-    if (refreshToken) {
-      const data = await checkServerSession();
-      const setCookie = data.headers["set-cookie"];
-
-      if (setCookie) {
-        const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
-        for (const cookieStr of cookieArray) {
-          const parsed = parse(cookieStr);
-          const options = {
-            expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
-            path: parsed.Path,
-            maxAge: Number(parsed["Max-Age"]),
-          };
-
-          if (parsed.accessToken)
-            cookieStore.set("accessToken", parsed.accessToken, options);
-
-          if (parsed.refreshToken)
-            cookieStore.set("refreshToken", parsed.refreshToken, options);
-        }
-
-        if (isPublicRoute) {
-          return NextResponse.redirect(new URL("/", request.url), {
-            headers: {
-              Cookie: cookieStore.toString(),
-            },
-          });
-        }
-
-        if (isPrivateRoute) {
-          return NextResponse.next({
-            headers: {
-              Cookie: cookieStore.toString(),
-            },
-          });
-        }
-      }
-    }
-
-    if (isPublicRoute) {
-      return NextResponse.next();
-    }
-
     if (isPrivateRoute) {
-      return NextResponse.redirect(new URL("/auth/register", request.url));
+      return NextResponse.redirect(new URL("/auth/login", request.url));
     }
-  }
-
-  if (isPublicRoute) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
-  if (isPrivateRoute) {
     return NextResponse.next();
   }
+
+  if (accessToken && refreshToken) {
+    try {
+      const refreshRes = await fetch(
+        `${process.env.BACKEND_API_URL}/auth/refresh`,
+        {
+          method: "POST",
+          headers: {
+            cookie: `refreshToken=${refreshToken}; sessionId=${cookies.get("sessionId")?.value}`,
+          },
+          credentials: "include",
+        },
+      );
+
+      if (!refreshRes.ok) {
+        const res = NextResponse.next();
+        res.cookies.delete("accessToken");
+        res.cookies.delete("refreshToken");
+        res.cookies.delete("sessionId");
+        if (isPrivateRoute) {
+          return NextResponse.redirect(new URL("/auth/login", request.url));
+        }
+        return res;
+      }
+
+      if (isPublicRoute) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+
+      return NextResponse.next();
+    } catch {
+      const res = NextResponse.next();
+      res.cookies.delete("accessToken");
+      res.cookies.delete("refreshToken");
+      res.cookies.delete("sessionId");
+      if (isPrivateRoute) {
+        return NextResponse.redirect(new URL("/auth/login", request.url));
+      }
+      return res;
+    }
+  }
+
+  if (accessToken && !refreshToken) {
+    if (isPrivateRoute) {
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {

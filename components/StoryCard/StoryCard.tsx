@@ -23,7 +23,7 @@ export default function StoryCard({ story }: Props) {
 
       <div className={css.descriptionWrapper}>
         <div className={css.titleWrapper}>
-          <p>{story.ownerId.name}</p>
+          <p>{story.ownerId?.name || "Невідомий автор"}</p>
           <span className={css.point}>.</span>
           <span className={css.saveInfo}>
             {story.rate}
