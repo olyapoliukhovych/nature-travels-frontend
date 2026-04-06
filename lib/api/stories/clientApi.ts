@@ -23,6 +23,7 @@ export const getAllStories = async ({
 
 export const getStoryById = async (storyId: string): Promise<Story> => {
   const res = await api.get<Story>(`/stories/${storyId}`);
+  // console.log("getStoryById data:", res.data);
   return res.data;
 };
 
