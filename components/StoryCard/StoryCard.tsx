@@ -34,7 +34,11 @@ export default function StoryCard({ story }: Props) {
         <h3 className={css.title}>{story.title}</h3>
 
         <div className={css.buttonWrapper}>
-          <AppLink href={"#"} variant={"neutral"} className={css.appLink}>
+          <AppLink
+            href={"/stories/${story._id}"}
+            variant={"neutral"}
+            className={css.appLink}
+          >
             Переглянути статтю
           </AppLink>
 
