@@ -13,16 +13,18 @@
   color: var(--color-scheme-2-text);
 }
 
-.link:hover {
-  opacity: 0.75;
+.link:hover,
+.link:focus {
+  color: var(--color-mantis-dark);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
   .nav {
     flex-direction: row;
     gap: 24px;
     align-items: center;
   }
+
   .link {
     font-size: 16px;
   }

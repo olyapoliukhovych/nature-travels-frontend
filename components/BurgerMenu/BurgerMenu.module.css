@@ -63,18 +63,26 @@
   line-height: 1.5;
   white-space: nowrap;
   flex-shrink: 0;
-  transition: opacity 0.2s ease;
+  transition:
+    color var(--transition),
+    background var(--transition);
 }
 
 .publish:hover {
-  opacity: 0.85;
+  color: var(--color-scheme-2-text);
+  background: var(--color-mantis-lighter);
+}
+
+.publish:active {
+  color: var(--color-white);
+  background: var(--color-mantis-dark);
 }
 
 .closeButton {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
+  border-radius: 6px;
   background: transparent;
   display: inline-flex;
   align-items: center;
@@ -127,7 +135,7 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1439px) {
   .top {
     padding: 22px 28px 0;
   }
@@ -148,7 +156,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
   .menu {
     display: none;
   }

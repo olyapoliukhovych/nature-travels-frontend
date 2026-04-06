@@ -9,6 +9,8 @@ import AuthBar from "../AuthBar/AuthBar";
 import UserBar from "../UserBar/UserBar";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import BurgerMenuBtn from "../BurgerMenuBtn/BurgerMenuBtn";
+import { Icon } from "../Icon/Icon";
+import AppLink from "../AppLink/AppLink";
 
 type Viewport = "mobile" | "tablet" | "desktop";
 
@@ -54,30 +56,32 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link href="/" className={styles.logo} aria-label="На головну">
-          <svg
-            className={styles.logoIcon}
-            width="108"
-            height="32"
-            aria-hidden="true"
-          >
-            <use href="/sprite.svg#icon-logo" />
-          </svg>
+        <Link href="/" aria-label="На головну сторінку">
+          <Icon id="icon-logo" className={styles.logoIcon} />
         </Link>
 
         {viewport === "desktop" && (
           <div className={styles.desktop}>
             <NavLinks isAuth={isAuth} />
-            {isAuth ? <UserBar /> : <AuthBar />}
+            {isAuth ? (
+              <UserBar
+              // user={user}
+              />
+            ) : (
+              <AuthBar />
+            )}
           </div>
         )}
 
         {viewport === "tablet" && (
           <div className={styles.tabletActions}>
             {isAuth && (
-              <Link href="/stories/new" className={styles.publish}>
+              <AppLink
+                href="/stories/new"
+                // className={styles.publish}
+              >
                 Опублікувати статтю
-              </Link>
+              </AppLink>
             )}
 
             <BurgerMenuBtn isOpen={isOpen} setIsOpen={setIsOpen} />
