@@ -22,7 +22,7 @@ export default function TravellerCard({ user }: Props) {
       <div className={css.infoWrappper}>
         <div className={css.userInfo}>
           <h3 className={css.userName}>{user.name}</h3>
-          <p>Статей: {user.articlesAmount}</p>
+          <p>Статей: {user.totalUserStories}</p>
         </div>
         <AppLink href={"#"} variant="neutral" className={css.userButton}>
           Переглянути профіль
