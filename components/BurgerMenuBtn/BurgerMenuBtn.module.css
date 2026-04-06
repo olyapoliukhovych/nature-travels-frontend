@@ -1,12 +1,12 @@
 .button {
   width: 40px;
   height: 40px;
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 1px solid;
   border-radius: 8px;
-  background: #ffffff;
   background-color: var(--opacity-neutral-darkest-5);
   cursor: pointer;
   flex-shrink: 0;
