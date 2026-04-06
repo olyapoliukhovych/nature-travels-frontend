@@ -11,9 +11,9 @@ export interface Story {
   img: string;
   title: string;
   article: string;
-  categoryId: Category | string;
+  categoryId: Category;
   rate: number;
-  ownerId: OwnerIdPopulate | string;
+  ownerId: OwnerIdPopulate;
   date: string;
 }
 
