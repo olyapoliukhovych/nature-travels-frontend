@@ -10,7 +10,7 @@ import Select, {
 import css from "./CategoriesFilter.module.css";
 import { Icon } from "../Icon/Icon";
 import clsx from "clsx";
-import { CategoryStoryResponse } from "@/types/category";
+import { Category } from "@/types/category";
 
 interface Option {
   value: string;
