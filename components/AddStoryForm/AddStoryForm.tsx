@@ -14,11 +14,8 @@ import TextareaAutosize from "react-textarea-autosize";
 import { CreateStoryValues } from "@/types/types";
 import css from "./AddStoryForm.module.css";
 import PageTitle from "../PageTitle/PageTitle";
-
-interface BackendCategory {
-  _id: string;
-  category: string;
-}
+import Image from "next/image";
+import { Category } from "@/types/category";
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -33,7 +30,7 @@ const validationSchema = Yup.object({
 
 const AddStoryForm = () => {
   const [preview, setPreview] = useState<string | null>(null);
-  const [categories, setCategories] = useState<BackendCategory[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -123,9 +120,9 @@ const AddStoryForm = () => {
               <span className={css.label}>Обкладинка статті</span>
               <div className={css.imagePreview}>
                 {preview ? (
-                  <img src={preview} alt="Preview" />
+                  <Image src={preview} alt="Preview" />
                 ) : (
-                  <img
+                  <Image
                     src="/placeholder.png"
                     alt="Placeholder"
                     className={css.placeholderImg}
