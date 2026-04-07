@@ -20,7 +20,7 @@ type Props = {
   queryKeyName?: string;
   currentStoryId?: string;
   withContainer?: boolean;
-  withNavBtn?: boolean;
+
 };
 
 export default function PopularStories({
@@ -31,7 +31,7 @@ export default function PopularStories({
   queryKeyName,
   currentStoryId,
   withContainer = true,
-  withNavBtn = true,
+  
 }: Props) {
   const { data } = useQuery({
     queryKey: [queryKeyName, categoryId],
@@ -86,7 +86,7 @@ export default function PopularStories({
             ))}
           </Swiper>
         </div>
-        {withNavBtn ? (
+        
           <div className={css.navigationWrapper}>
             <button className={css.prev}>
               <Icon id="icon-arrow_back" className={css.arrow} />
@@ -95,7 +95,7 @@ export default function PopularStories({
               <Icon id="icon-arrow_forward" className={css.arrow} />
             </button>
           </div>
-        ) : null}
+         
       </div>
     </section>
   );
