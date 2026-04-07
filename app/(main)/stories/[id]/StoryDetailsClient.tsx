@@ -37,7 +37,7 @@ export default function StoryDetailsClient() {
         currentStoryId={story._id}
         queryKeyName="related-stories"
         withContainer={false}
-        withNavBtn={false}
+     
       />
     </div>
   );
