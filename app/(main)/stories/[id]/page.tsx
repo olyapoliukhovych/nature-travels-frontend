@@ -3,7 +3,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-import { getStoryById } from "@/lib/api/stories/clientApi";
+import { getStoryById } from "@/lib/api/stories/serverApi";
 import StoryDetailsClient from "./StoryDetailsClient";
 
 type Props = {

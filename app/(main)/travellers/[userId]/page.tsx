@@ -1,7 +1,8 @@
 import TravellerInfo from "@/components/TravellerInfo/TravellerInfo";
-import { getUserByIdPublic } from "@/lib/api/users/clientApi";
+import { getUserByIdPublic } from "@/lib/api/users/serverApi";
 import css from "./page.module.css";
 import TravellerProfileClient from "./TravellerProfile.client";
+
 export default async function TravellerPage({
   params,
   searchParams,
