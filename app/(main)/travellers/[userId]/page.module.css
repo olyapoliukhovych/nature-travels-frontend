@@ -1,0 +1,20 @@
+.travellerProfilePageSection {
+    padding: 48px 0 72px 0;
+}
+
+.travellerProfilePageTitle {
+
+    line-height: 120%;
+    color: var(--color-scheme-1-text);
+    margin-bottom: 40px;
+
+    font-size: 28px;
+
+    @media only screen and (min-width:768px) {
+        font-size: 44px;
+    }
+
+    @media only screen and (min-width:1440px) {
+        font-size: 52px;
+    }
+}

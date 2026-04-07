@@ -24,7 +24,11 @@ export default function TravellerCard({ user }: Props) {
           <h3 className={css.userName}>{user.name}</h3>
           <p>Статей: {user.totalUserStories}</p>
         </div>
-        <AppLink href={"#"} variant="neutral" className={css.userButton}>
+        <AppLink
+          href={`/travellers/${user._id}`}
+          variant="neutral"
+          className={css.userButton}
+        >
           Переглянути профіль
         </AppLink>
       </div>
