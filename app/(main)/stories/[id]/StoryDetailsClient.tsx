@@ -7,7 +7,6 @@ import Loader from "@/components/Loader/Loader";
 import css from "./StoryDetailsClient.module.css";
 import SaveStorySection from "@/components/StoryDetails/SaveStorySection";
 import clsx from "clsx";
-import PopularStories from "@/components/PopularStories/PopularStories";
 
 export default function StoryDetailsClient() {
   const { id } = useParams<{ id: string }>();
@@ -30,7 +29,6 @@ export default function StoryDetailsClient() {
     <div className={clsx(css.section, "container")}>
       <StoryDetailsPage story={story} />
       <SaveStorySection storyId={story._id} />
-      <PopularStories />
     </div>
   );
 }
