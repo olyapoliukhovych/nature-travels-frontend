@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+import { useState, useMemo, useEffect } from "react";
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import * as Yup from "yup";
 import TextareaAutosize from "react-textarea-autosize";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-
 import { CreateStoryValues } from "@/types/types";
 import { getCategories } from "@/lib/api/category/clientApi";
 import PageTitle from "../PageTitle/PageTitle";
@@ -15,6 +14,8 @@ import css from "./AddStoryForm.module.css";
 import { createStory } from "@/lib/api/stories/clientApi";
 import toast from "react-hot-toast";
 import Button from "../Button/Button";
+import { useStoryDraftStore } from "@/lib/store/createStoryStore";
+import { useRouter } from "next/navigation";
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -27,14 +28,28 @@ const validationSchema = Yup.object({
   image: Yup.mixed().required("Додайте зображення"),
 });
 
-const initialValues: CreateStoryValues = {
-  title: "",
-  categoryId: "",
-  article: "",
-  image: null,
-};
+const FormikObserver = () => {
+  const { values } = useFormikContext<CreateStoryValues>();
+  const { setDraft } = useStoryDraftStore();
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDraft({
+        title: values.title,
+        categoryId: values.categoryId,
+        article: values.article,
+      });
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [values, setDraft]);
+
+  return null;
+}; // стежить за змінами і автоматично викликає setDraft
 
 const AddStoryForm = () => {
+  const router = useRouter();
+  const { draft, clearDraft } = useStoryDraftStore();
   const [preview, setPreview] = useState<string | null>(null);
 
   const { data: categories = [] } = useQuery({
@@ -42,35 +57,45 @@ const AddStoryForm = () => {
     queryFn: getCategories,
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: createStory,
+    onSuccess: (newStory) => {
+      toast.success("Історію успішно опубліковано!");
+      clearDraft();
+      setPreview(null);
+
+      if (newStory && "_id" in newStory) {
+        router.push(`/stories/${newStory._id}`);
+      } else {
+        router.push("/stories");
+      }
+    },
+    onError: (error) => {
+      toast.error(
+        error instanceof Error ? error.message : "Помилка при створенні",
+      );
+    },
+  });
+
+  const initialValuesWithDraft: CreateStoryValues = {
+    title: draft.title || "",
+    categoryId: draft.categoryId || "",
+    article: draft.article || "",
+    image: null,
+  };
+
   const categoryOptions = useMemo(
     () => categories.map((cat) => ({ value: cat._id, label: cat.category })),
     [categories],
   );
 
-  const handleOnSubmit = async (
-    values: CreateStoryValues,
-    { resetForm }: FormikHelpers<CreateStoryValues>,
-  ) => {
-    try {
-      const story = await createStory({
-        title: values.title,
-        categoryId: values.categoryId,
-        article: values.article,
-        img: values.image,
-      });
-
-      if (!story) throw new Error("Помилка при створенні історії");
-
-      toast.success("Історію успішно опубліковано!");
-      resetForm();
-      setPreview(null);
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("Щось пішло не так");
-      }
-    }
+  const handleOnSubmit = (values: CreateStoryValues) => {
+    mutate({
+      title: values.title,
+      categoryId: values.categoryId,
+      article: values.article,
+      img: values.image,
+    });
   };
 
   return (
@@ -78,19 +103,14 @@ const AddStoryForm = () => {
       <PageTitle className={css.pageTitle}>Створити нову історію</PageTitle>
 
       <Formik
-        initialValues={initialValues}
+        initialValues={initialValuesWithDraft}
+        enableReinitialize={true}
         validationSchema={validationSchema}
         onSubmit={handleOnSubmit}
       >
-        {({
-          setFieldValue,
-          resetForm,
-          setFieldTouched,
-          values,
-          isValid,
-          dirty,
-        }) => (
+        {({ setFieldValue, setFieldTouched, values, isValid }) => (
           <Form className={css.form}>
+            <FormikObserver />
             <div className={css.imageSection}>
               <span className={css.label}>Обкладинка статті</span>
               <div className={css.imagePreview}>
@@ -111,7 +131,6 @@ const AddStoryForm = () => {
                 <input
                   type="file"
                   name="image"
-                  value=""
                   hidden
                   accept="image/*"
                   onChange={(e) => {
@@ -199,18 +218,16 @@ const AddStoryForm = () => {
               <Button
                 type="submit"
                 className={css.btnSave}
-                disabled={!(isValid && dirty)}
+                disabled={!isValid || isPending}
               >
                 Зберегти
+                {/* {isPending ? "Зберігаю..." : "Зберегти"} */}
               </Button>
               <Button
                 type="button"
                 variant="neutral"
                 className={css.btnCancel}
-                onClick={() => {
-                  resetForm();
-                  setPreview(null);
-                }}
+                onClick={() => router.back()}
               >
                 Відмінити
               </Button>
