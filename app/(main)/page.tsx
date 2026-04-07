@@ -29,7 +29,12 @@ export default async function Home() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Hero />
-      <PopularStories />
+      <PopularStories
+        title="Популярні статті"
+        linkLabel="Всі статті"
+        linkHref="/stories"
+        queryKeyName="popular-stories"
+      />
       <About />
       <OurTravellers />
       <Join />

@@ -4,6 +4,10 @@
   gap: 24px;
   width: 100%;
   margin-bottom: 24px;
+
+  @media only screen and (min-width: 1440px) {
+    gap: 48px;
+  }
 }
 .desctopWrapper {
   display: flex;
