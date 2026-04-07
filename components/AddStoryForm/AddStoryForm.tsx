@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  useFormikContext,
+  FormikHelpers,
+} from "formik";
 import * as Yup from "yup";
 import TextareaAutosize from "react-textarea-autosize";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -16,6 +23,8 @@ import toast from "react-hot-toast";
 import Button from "../Button/Button";
 import { useStoryDraftStore } from "@/lib/store/createStoryStore";
 import { useRouter } from "next/navigation";
+
+import { useQueryClient } from "@tanstack/react-query";
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -50,6 +59,7 @@ const FormikObserver = () => {
 const AddStoryForm = () => {
   const router = useRouter();
   const { draft, clearDraft } = useStoryDraftStore();
+  const queryClient = useQueryClient();
   const [preview, setPreview] = useState<string | null>(null);
 
   const { data: categories = [] } = useQuery({
@@ -89,13 +99,40 @@ const AddStoryForm = () => {
     [categories],
   );
 
-  const handleOnSubmit = (values: CreateStoryValues) => {
-    mutate({
-      title: values.title,
-      categoryId: values.categoryId,
-      article: values.article,
-      img: values.image,
-    });
+  const handleOnSubmit = async (
+    values: CreateStoryValues,
+    { setSubmitting, resetForm }: FormikHelpers<CreateStoryValues>,
+  ) => {
+    try {
+      const story = await createStory({
+        title: values.title,
+        categoryId: values.categoryId,
+        article: values.article,
+        img: values.image,
+      });
+
+      if (!story) throw new Error("Помилка при створенні історії");
+
+      toast.success("Історію успішно опубліковано!");
+      clearDraft();
+      resetForm();
+      setPreview(null);
+
+      router.refresh();
+      queryClient.invalidateQueries({ queryKey: ["stories"] });
+
+      if (story && "_id" in story) {
+        router.push(`/stories/${story._id}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Щось пішло не так");
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
