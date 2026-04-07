@@ -6,7 +6,6 @@ import TravellersList from "@/components/TravellersList/TravellersList";
 import Loader from "@/components/Loader/Loader";
 import css from "./Travellers.module.css";
 import clsx from "clsx";
-// import Pagination from "@/components/Pagination/Pagination";
 import PageTitle from "@/components/PageTitle/PageTitle";
 
 const INITIAL_PAGE = 1;

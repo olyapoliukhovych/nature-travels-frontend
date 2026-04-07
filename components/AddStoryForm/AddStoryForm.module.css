@@ -28,6 +28,7 @@
 .label {
   cursor: pointer;
   display: block;
+  align-self: flex-start;
   margin-bottom: 8px;
 }
 

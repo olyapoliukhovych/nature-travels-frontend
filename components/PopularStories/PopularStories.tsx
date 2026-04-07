@@ -1,7 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Mousewheel } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -20,7 +20,6 @@ type Props = {
   queryKeyName?: string;
   currentStoryId?: string;
   withContainer?: boolean;
-
 };
 
 export default function PopularStories({
@@ -31,7 +30,6 @@ export default function PopularStories({
   queryKeyName,
   currentStoryId,
   withContainer = true,
-  
 }: Props) {
   const { data } = useQuery({
     queryKey: [queryKeyName, categoryId],
@@ -86,16 +84,15 @@ export default function PopularStories({
             ))}
           </Swiper>
         </div>
-        
-          <div className={css.navigationWrapper}>
-            <button className={css.prev}>
-              <Icon id="icon-arrow_back" className={css.arrow} />
-            </button>
-            <button className={css.next}>
-              <Icon id="icon-arrow_forward" className={css.arrow} />
-            </button>
-          </div>
-         
+
+        <div className={css.navigationWrapper}>
+          <button className={css.prev}>
+            <Icon id="icon-arrow_back" className={css.arrow} />
+          </button>
+          <button className={css.next}>
+            <Icon id="icon-arrow_forward" className={css.arrow} />
+          </button>
+        </div>
       </div>
     </section>
   );
