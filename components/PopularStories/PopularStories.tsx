@@ -64,7 +64,7 @@ export default function PopularStories({
         <div className={css.sliderWrapper}>
           <Swiper
             spaceBetween={24}
-            modules={withNavBtn ? [Navigation, Mousewheel] : [Mousewheel]}
+            modules={[Navigation]}
             observer={true}
             observeParents={true}
             navigation={{
