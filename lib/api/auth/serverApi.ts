@@ -66,7 +66,7 @@ export const logoutUser = async (): Promise<LogoutResponse> => {
 export const refreshSession = async (): Promise<RefreshSessionResponse> => {
   const cookie = await cookies();
 
-  const res = await api.post<RefreshSessionResponse>("auth/session", null, {
+  const res = await api.post<RefreshSessionResponse>("auth/refresh", null, {
     headers: {
       Cookie: cookie.toString(),
     },

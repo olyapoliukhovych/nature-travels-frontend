@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import TravellersClient from "./Travellers.client";
-import { getAllUsers } from "@/lib/api/users/clientApi";
+import { getAllUsers } from "@/lib/api/users/serverApi";
 
 export default async function Travellers() {
   const queryClient = new QueryClient();

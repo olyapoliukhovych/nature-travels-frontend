@@ -4,13 +4,13 @@ import OurTravellers from "@/components/OurTravellers/OurTravellers";
 import About from "@/components/About/About";
 import PopularStories from "@/components/PopularStories/PopularStories";
 import Join from "@/components/Join/Join";
-import { getAllStories } from "@/lib/api/stories/clientApi";
-import { getAllUsers } from "@/lib/api/users/clientApi";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { getAllStories } from "@/lib/api/stories/serverApi";
+import { getAllUsers } from "@/lib/api/users/serverApi";
 
 export default async function Home() {
   const queryClient = new QueryClient();

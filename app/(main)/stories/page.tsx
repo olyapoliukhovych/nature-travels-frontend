@@ -1,11 +1,11 @@
-import { getCategories } from "@/lib/api/category/clientApi";
+import { getCategories } from "@/lib/api/category/serverApi";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
 import StoriesClient from "./Stories.client";
-import { getAllStories } from "@/lib/api/stories/clientApi";
+import { getAllStories } from "@/lib/api/stories/serverApi";
 
 export default async function Stories() {
   const queryClient = new QueryClient();
