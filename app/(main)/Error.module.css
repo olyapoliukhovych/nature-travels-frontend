@@ -6,8 +6,16 @@
   height: 100vh;
   color: var(--color-scheme-1-text);
   font-family: var(--font-family);
-  padding-left: 220px;
-  padding-right: 220px;
+  max-width: 375px;
+  margin: 0 auto;
+
+  @media only screen and (min-width: 768px) {
+    max-width: 768px;
+  }
+
+  @media only screen and (min-width: 1440px) {
+    max-width: 1440px;
+  }
 }
 
 .title {

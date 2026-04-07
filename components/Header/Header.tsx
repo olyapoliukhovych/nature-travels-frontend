@@ -64,12 +64,7 @@ export default function Header() {
         {viewport === "desktop" && (
           <div className={styles.desktop}>
             <NavLinks isAuth={isAuth} />
-            {isAuth ? (
-              <UserBar
-              />
-            ) : (
-              <AuthBar variant="header" />
-            )}
+            {isAuth ? <UserBar /> : <AuthBar variant="header" />}
           </div>
         )}
         {viewport === "tablet" && (
@@ -98,6 +93,13 @@ export default function Header() {
           onClose={() => setIsOpen(false)}
         />
       )}
+      {/* {isOpen && viewport !== "desktop" && (
+        <BurgerMenu
+          viewport={viewport}
+          isAuth={isAuth}
+          onClose={() => setIsOpen(false)}
+        />
+      )} */}
     </header>
   );
 }
