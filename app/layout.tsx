@@ -6,6 +6,7 @@ import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import NextTopLoader from "nextjs-toploader";
+import ScrollToTopBtn from "@/components/ScrollToTopBtn/ScrollToTopBtn";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
@@ -45,6 +46,7 @@ export default function RootLayout({
               speed={150}
             />
             {children}
+            <ScrollToTopBtn />
           </AuthProvider>
         </TanStackProvider>
         <Toaster position="top-center" toastOptions={{ duration: 3000 }} />

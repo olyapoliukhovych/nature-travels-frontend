@@ -50,6 +50,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: var(--color-mantis-dark) var(--color-scheme-2-background);
 }
 
 body {
@@ -106,20 +107,6 @@ textarea {
   background: none;
   border: none;
   color: inherit;
-}
-
-/* scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-scheme-2-background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-mantis-dark);
-  border-radius: 10px;
 }
 
 /* container */
