@@ -27,6 +27,9 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
           </Link>
 
           <div className={styles.topRight}>
+            {!isAuth && viewport === "tablet" && (
+              <AuthBar variant="menu" onLinkClick={onClose} />
+            )}
             <button
               type="button"
               className={styles.closeButton}
@@ -44,14 +47,23 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
           </div>
 
           <div className={styles.mobileActions}>
-            {isAuth ? (
-              <UserBar
-                showPublish={viewport === "mobile"}
-                // user={user}
-              />
+            {/* {isAuth ? (
+              <UserBar showPublish={viewport === "mobile"} />
             ) : viewport === "mobile" ? (
               <AuthBar variant="menu" onLinkClick={onClose} />
-            ) : null}
+            ) : null} */}
+            {/* {isAuth ? (
+              <UserBar showPublish={viewport === "mobile"} />
+            ) : (
+              <AuthBar variant="menu" onLinkClick={onClose} />
+            )} */}
+            {isAuth ? (
+              <UserBar showPublish={viewport === "mobile"} />
+            ) : (
+              viewport === "mobile" && (
+                <AuthBar variant="menu" onLinkClick={onClose} />
+              )
+            )}
           </div>
         </div>
       </div>
