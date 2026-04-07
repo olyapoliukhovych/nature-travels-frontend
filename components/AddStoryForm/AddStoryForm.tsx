@@ -92,7 +92,7 @@ const AddStoryForm = () => {
         }) => (
           <Form className={css.form}>
             <div className={css.imageSection}>
-              <span className={css.label}>Обкладинка статті</span>
+              <span className={css.span}>Обкладинка статті</span>
               <div className={css.imagePreview}>
                 <Image
                   src={preview || "/placeholder.png"}

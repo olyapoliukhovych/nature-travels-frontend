@@ -18,9 +18,6 @@ export default function StoryDetailsPage({ story }: Props) {
       })
     : "";
 
-  console.log("story", story);
-  console.log("ownerId", story.ownerId);
-  console.log("ownerName", story.ownerId?.name);
   return (
     <div className={css.container}>
       <div className={css.desctopWrapper}>
