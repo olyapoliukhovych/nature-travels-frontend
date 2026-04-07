@@ -22,17 +22,13 @@ export const getAllUsers = async ({
   return res.data;
 };
 
-export const getUserByIdPublic = async ({
-  userId,
-  page,
-  perPage,
-}: RequestParamsGetUserById): Promise<UserPublicProfileResponse> => {
-  const res = await api.get<UserPublicProfileResponse>(`/users/${userId}`, {
-    params: { page, perPage },
-  });
+export const getUserByIdPublic = async (userId: string): Promise<User> => {
+  const res = await api.get<User>(`/users/${userId}`);
 
   return res.data;
 };
+
+export const getUserStoriesPublic = async () => {};
 
 export const getUserProfile = async (): Promise<User> => {
   const res = await api.get<User>("/users/me");
@@ -60,7 +56,7 @@ export const deleteStoryToFavorites = async (
   return res.data;
 };
 
-export const getUserStories = async ({
+export const getUserStoriesPrivate = async ({
   page,
   perPage,
 }: PaginationParams): Promise<StoriesResponse> => {

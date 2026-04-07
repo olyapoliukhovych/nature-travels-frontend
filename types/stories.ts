@@ -1,4 +1,6 @@
 import { Category } from "../types/category";
+import { RefreshSessionResponse } from "./auth";
+import { MovementToFavoritesResponse } from "./user";
 
 export interface OwnerIdPopulate {
   name: string;
@@ -12,7 +14,6 @@ export interface Story {
   title: string;
   article: string;
   categoryId: Category;
-  rate: number;
   ownerId: OwnerIdPopulate;
   date: string;
 }
@@ -29,6 +30,9 @@ export interface RequestParamsGetUserById extends PaginationParams {
 export interface RequestParamsGetAllStories extends PaginationParams {
   categoryId?: string;
 }
+
+export interface CreateStoryResponse
+  extends RefreshSessionResponse, MovementToFavoritesResponse {}
 
 export interface StoriesResponse {
   page: number;
