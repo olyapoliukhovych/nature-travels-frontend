@@ -64,13 +64,18 @@ export default function Header() {
         {viewport === "desktop" && (
           <div className={styles.desktop}>
             <NavLinks isAuth={isAuth} />
-            {isAuth ? <UserBar /> : <AuthBar />}
+            {isAuth ? (
+              <UserBar
+              />
+            ) : (
+              <AuthBar variant="header" />
+            )}
           </div>
         )}
-
         {viewport === "tablet" && (
           <div className={styles.tabletActions}>
-            {!isAuth && <AuthBar />}
+            {!isAuth && !isOpen && <AuthBar variant="header" />}
+
             {isAuth && (
               <AppLink href="/stories/new" className={styles.publish}>
                 Опублікувати статтю
@@ -79,7 +84,6 @@ export default function Header() {
             <BurgerMenuBtn isOpen={isOpen} setIsOpen={setIsOpen} />
           </div>
         )}
-
         {viewport === "mobile" && (
           <div className={styles.mobileActions}>
             <BurgerMenuBtn isOpen={isOpen} setIsOpen={setIsOpen} />
