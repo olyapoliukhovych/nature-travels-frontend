@@ -15,8 +15,6 @@ export async function POST() {
       return NextResponse.json({ success: true });
     }
 
-    console.log(cookieStore);
-
     if (refreshToken) {
       const apiRes = await api.post("auth/refresh", null, {
         headers: {
