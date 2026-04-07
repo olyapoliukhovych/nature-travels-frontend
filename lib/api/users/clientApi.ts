@@ -1,7 +1,6 @@
 import {
   PaginationParams,
   RequestParamsGetUserById,
-  // RequestParamsGetUserById,
   StoriesResponse,
 } from "@/types/stories";
 import { api } from "../api";
@@ -9,7 +8,6 @@ import {
   MovementToFavoritesResponse,
   User,
   UserPublicProfileResponse,
-  // UserPublicProfileResponse,
   UsersResponse,
 } from "@/types/user";
 
