@@ -47,16 +47,6 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
           </div>
 
           <div className={styles.mobileActions}>
-            {/* {isAuth ? (
-              <UserBar showPublish={viewport === "mobile"} />
-            ) : viewport === "mobile" ? (
-              <AuthBar variant="menu" onLinkClick={onClose} />
-            ) : null} */}
-            {/* {isAuth ? (
-              <UserBar showPublish={viewport === "mobile"} />
-            ) : (
-              <AuthBar variant="menu" onLinkClick={onClose} />
-            )} */}
             {isAuth ? (
               <UserBar showPublish={viewport === "mobile"} />
             ) : (
