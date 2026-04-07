@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import styles from "./BurgerMenu.module.css";
-
 import NavLinks from "../NavLinks/NavLinks";
 import AuthBar from "../AuthBar/AuthBar";
 import UserBar from "../UserBar/UserBar";
@@ -34,9 +33,7 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
               onClick={onClose}
               aria-label="Закрити меню"
             >
-              <svg width="32" height="32" aria-hidden="true">
-                <use href="/sprite.svg#icon-close" />
-              </svg>
+              <Icon id="icon-close" className={styles.closeSvg} />
             </button>
           </div>
         </div>

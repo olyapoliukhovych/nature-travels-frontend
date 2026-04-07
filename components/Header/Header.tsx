@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./Header.module.css";
-
 import NavLinks from "../NavLinks/NavLinks";
 import AuthBar from "../AuthBar/AuthBar";
 import UserBar from "../UserBar/UserBar";
@@ -11,6 +10,7 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import BurgerMenuBtn from "../BurgerMenuBtn/BurgerMenuBtn";
 import { Icon } from "../Icon/Icon";
 import AppLink from "../AppLink/AppLink";
+import { useAuthStore } from "@/lib/store/authStore";
 
 type Viewport = "mobile" | "tablet" | "desktop";
 
@@ -27,8 +27,9 @@ function getViewport(): Viewport {
 export default function Header() {
   const [viewport, setViewport] = useState<Viewport>("desktop");
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated } = useAuthStore();
 
-  const isAuth = false; // тимчасова заглушка
+  const isAuth = isAuthenticated;
 
   useEffect(() => {
     const updateViewport = () => setViewport(getViewport());
@@ -65,7 +66,6 @@ export default function Header() {
             <NavLinks isAuth={isAuth} />
             {isAuth ? (
               <UserBar
-              // user={user}
               />
             ) : (
               <AuthBar variant="header" />
@@ -77,14 +77,10 @@ export default function Header() {
             {!isAuth && !isOpen && <AuthBar variant="header" />}
 
             {isAuth && (
-              <AppLink
-                href="/stories/new"
-                // className={styles.publish}
-              >
+              <AppLink href="/stories/new" className={styles.publish}>
                 Опублікувати статтю
               </AppLink>
             )}
-
             <BurgerMenuBtn isOpen={isOpen} setIsOpen={setIsOpen} />
           </div>
         )}

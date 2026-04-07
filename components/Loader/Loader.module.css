@@ -8,11 +8,8 @@
 
 .spinner {
   border-radius: 50%;
-  /* Основне коло — світло-сіре або напівпрозоре */
   border: 3px solid rgba(0, 0, 0, 0.1);
-  /* Активна частина — ваш фірмовий колір */
   border-top-color: var(--color-mantis-dark);
-
   animation: spin 0.8s linear infinite;
 }
 

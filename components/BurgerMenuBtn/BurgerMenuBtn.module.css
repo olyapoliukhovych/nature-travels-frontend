@@ -1,17 +1,17 @@
 .button {
-  width: 40px;
-  height: 40px;
-  box-sizing: border-box;
+  width: 32px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid;
-  border-radius: 8px;
+  border: 1px solid var(--color-scheme-2-border);
+  border-radius: 6px;
   background-color: var(--opacity-neutral-darkest-5);
-  cursor: pointer;
-  flex-shrink: 0;
+  padding: 0;
 }
 
 .icon {
   display: block;
+  width: 24px;
+  height: 24px;
 }

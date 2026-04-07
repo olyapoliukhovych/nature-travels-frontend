@@ -2,35 +2,27 @@
 
 import Link from "next/link";
 import styles from "./UserBar.module.css";
-// import Image from "next/image";
+import Image from "next/image";
 import { Icon } from "../Icon/Icon";
-// import toast from "react-hot-toast";
-// import Button from "../Button/Button";
-// import { useUserStore } from "@/store/userStore";
-
-// const { user } = useUserStore();
+import { useAuthStore } from "@/lib/store/authStore";
+import { logoutUser } from "@/lib/api/auth/clientApi";
 
 type Props = {
   showPublish?: boolean;
-  // user: {
-  //   name: string;
-  //   avatarUrl: string;
-  // };
 };
 
 export default function UserBar({ showPublish = true }: Props) {
-  // const logoutStore = useUserStore((s) => s.logout);
+  const user = useAuthStore((s) => s.user);
+  const clear = useAuthStore((s) => s.clearIsAuthenticated);
 
-  // const handleLogout = async () => {
-  //   try {
-  //     await userLogout();
-  //   } catch (error) {
-  //     toast.error(error.message);
-  //   }
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+    } catch {}
 
-  //   logoutStore();
-  //   window.location.href = "/";
-  // };
+    clear();
+    window.location.href = "/";
+  };
 
   return (
     <div className={styles.user}>
@@ -41,34 +33,35 @@ export default function UserBar({ showPublish = true }: Props) {
       )}
 
       <div className={styles.bottom}>
-        <div className={styles.profile}>
+        <Link href="/profile" className={styles.profile}>
           <div className={styles.avatar}>
-            {/* {user.avatarUrl ? (
-            <Image
-              src={user.avatarUrl}
-              alt={user.name}
-              width={32}
-              height={32}
-              className={styles.avatarImg}
-            />
-          ) : (
-            <svg width="32" height="32" aria-hidden="true">
-              <use href="/sprite.svg#icon-user" />
-            </svg>
-          )} */}
+            {user?.avatarUrl ? (
+              <Image
+                src={user.avatarUrl}
+                alt={user.name}
+                width={32}
+                height={32}
+                className={styles.avatarImg}
+              />
+            ) : (
+              <Image
+                src={"/default-avatar.jpg"}
+                alt={"default avatar"}
+                width={32}
+                height={32}
+                className={styles.avatarImg}
+              />
+            )}
           </div>
 
-          <Link href="/profile" className={styles.name}>
-            Ім&apos;я
-            {/* {user.name} */}
-          </Link>
-        </div>
+          <span className={styles.name}>{user?.name || "Ім'я"}</span>
+        </Link>
 
         <span className={styles.divider} />
 
         <button
           className={styles.logout}
-          // onClick={handleLogout}
+          onClick={handleLogout}
           aria-label="Вийти"
         >
           {/* <svg width="24" height="24" aria-hidden="true">

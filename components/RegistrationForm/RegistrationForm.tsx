@@ -2,11 +2,13 @@
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import css from "./RegistrationForm.module.css";
 import Button from "../Button/Button";
 import { RegistrationValues } from "../../types/types";
+import { useAuthStore } from "@/lib/store/authStore";
+import { loginUser, registerUser } from "@/lib/api/auth/clientApi";
 
 const RegistrationSchema = Yup.object().shape({
   name: Yup.string()
@@ -25,6 +27,7 @@ const RegistrationSchema = Yup.object().shape({
 
 export default function RegistrationForm() {
   const router = useRouter();
+  const setUser = useAuthStore((s) => s.setUser);
 
   const nameId = "registration-name";
   const emailId = "registration-email";
@@ -35,22 +38,18 @@ export default function RegistrationForm() {
     { setSubmitting }: FormikHelpers<RegistrationValues>,
   ) => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const response = await fetch(`${apiUrl}/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+      await registerUser(values);
+
+      const data = await loginUser({
+        email: values.email,
+        password: values.password,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Помилка реєстрації");
-      }
+      setUser(data);
 
       router.push("/");
       router.refresh();
-    } catch (error: unknown) {
+    } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
@@ -63,12 +62,6 @@ export default function RegistrationForm() {
 
   return (
     <>
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          duration: 3000,
-        }}
-      />
       <Formik<RegistrationValues>
         initialValues={{ name: "", email: "", password: "" }}
         validationSchema={RegistrationSchema}
