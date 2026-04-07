@@ -40,8 +40,9 @@ export default function PopularStories() {
             navigation={{
               nextEl: `.${css.next}`,
               prevEl: `.${css.prev}`,
+              disabledClass: css.disabled,
             }}
-            loop={true}
+            loop={false}
             breakpoints={{
               320: { slidesPerView: 1 },
               768: { slidesPerView: 2 },
