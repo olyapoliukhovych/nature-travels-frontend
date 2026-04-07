@@ -1,14 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import {
-  Formik,
-  Form,
-  Field,
-  ErrorMessage,
-  FieldProps,
-  FormikHelpers,
-} from "formik";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import TextareaAutosize from "react-textarea-autosize";
 import { useQuery } from "@tanstack/react-query";
@@ -184,17 +177,17 @@ const AddStoryForm = () => {
             </div>
 
             <div className={css.fieldGroup}>
-              <label className={css.label}>Текст історії</label>
-              <Field name="article">
-                {({ field }: FieldProps) => (
-                  <TextareaAutosize
-                    {...field}
-                    className={css.textarea}
-                    minRows={8}
-                    placeholder="Ваша історія тут"
-                  />
-                )}
-              </Field>
+              <label htmlFor="article-field" className={css.label}>
+                Текст історії
+              </label>
+              <Field
+                id="article-field"
+                name="article"
+                as={TextareaAutosize}
+                className={css.textarea}
+                minRows={8}
+                placeholder="Ваша історія тут"
+              />
               <ErrorMessage
                 name="article"
                 component="div"

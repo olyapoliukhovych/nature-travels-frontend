@@ -103,13 +103,20 @@
   justify-content: center;
   transition: all var(--transition);
 
-  &:active {
+  &.disabled {
+    background: var(--color-scheme-1-foreground);
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:active:not(.disabled) {
     background: var(--color-mantis-light);
     transform: scale(0.95);
   }
 
-  &:hover,
-  &:focus-visible {
+  &:hover:not(.disabled),
+  &:focus-visible:not(.disabled) {
     border: 1px solid var(--color-mantis-light);
     background: var(--color-mantis-light);
   }

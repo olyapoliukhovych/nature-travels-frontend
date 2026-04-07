@@ -140,6 +140,7 @@ export default function AppSelect({
       styles={customStyles}
       isSearchable={false}
       placeholder={placeholder}
+      openMenuOnFocus={true}
       components={{ DropdownIndicator }}
     />
   );
