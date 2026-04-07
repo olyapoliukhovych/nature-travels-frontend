@@ -28,7 +28,7 @@ export default function StoryDetailsClient() {
   return (
     <div className={clsx(css.section, "container")}>
       <StoryDetailsPage story={story} />
-      <SaveStorySection />
+      <SaveStorySection storyId={story._id} />
     </div>
   );
 }
