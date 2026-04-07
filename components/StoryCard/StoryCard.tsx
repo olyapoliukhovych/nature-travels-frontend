@@ -26,7 +26,7 @@ export default function StoryCard({ story }: Props) {
           <p>{story.ownerId?.name || "Невідомий автор"}</p>
           <span className={css.point}>.</span>
           <span className={css.saveInfo}>
-            {story.rate}
+            {story.savedCount}
             <Icon id={"icon-bookmark"} className={css.bookmark} />
           </span>
         </div>
