@@ -28,12 +28,30 @@ export const getAllUsers = async ({
   return res.data;
 };
 
-export const getUserByIdPublic = async (userId: string): Promise<User> => {
-  const cookie = await cookies();
+// перша версія
+// export const getUserByIdPublic = async (userId: string): Promise<User> => {
+//   const cookie = await cookies();
 
-  const res = await api.get<User>(`/users/${userId}`, {
+//   const res = await api.get<User>(`/users/${userId}`, {
+//     headers: {
+//       Cookie: cookie.toString(),
+//     },
+//   });
+
+//   return res.data;
+// };
+
+export const getUserByIdPublic = async ({
+  userId,
+  page,
+  perPage,
+}: RequestParamsGetUserById): Promise<UserPublicProfileResponse> => {
+  const cookieStore = await cookies();
+
+  const res = await api.get<UserPublicProfileResponse>(`/users/${userId}`, {
+    params: { page, perPage },
     headers: {
-      Cookie: cookie.toString(),
+      Cookie: cookieStore.toString(),
     },
   });
 

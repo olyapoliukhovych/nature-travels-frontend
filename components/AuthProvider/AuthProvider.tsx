@@ -3,47 +3,51 @@
 import { useEffect, useState, useRef } from "react";
 import { useAuthStore } from "@/lib/store/authStore";
 import { getUserProfile } from "@/lib/api/users/clientApi";
-import { checkClientSession } from "@/lib/api/auth/clientApi";
+import { refreshSession } from "@/lib/api/auth/clientApi";
+import axios from "axios";
 
 export default function AuthProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { setUser, clearIsAuthenticated, _hasHydrated } = useAuthStore();
+  const { setUser, clearIsAuthenticated } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
   const isInitialized = useRef(false);
 
   useEffect(() => {
-    if (!_hasHydrated) return;
-
     if (isInitialized.current) return;
     isInitialized.current = true;
 
     const initAuth = async () => {
       try {
-        const session = checkClientSession();
-
-        if (session.success) {
-          const user = await getUserProfile();
-          if (user) {
-            setUser(user);
+        const user = await getUserProfile();
+        setUser(user);
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 401) {
+            try {
+              await refreshSession();
+              const user = await getUserProfile();
+              setUser(user);
+            } catch (refreshError) {
+              console.error("Error:", refreshError);
+              clearIsAuthenticated();
+            }
           } else {
             clearIsAuthenticated();
           }
         } else {
+          console.error("Non-axios error:", error);
           clearIsAuthenticated();
         }
-      } catch (error) {
-        console.error("Session sync failed:", error);
-        clearIsAuthenticated();
       } finally {
         setIsLoading(false);
       }
     };
 
     initAuth();
-  }, [_hasHydrated, setUser, clearIsAuthenticated]);
+  }, [setUser, clearIsAuthenticated]);
 
   if (isLoading) return null;
 

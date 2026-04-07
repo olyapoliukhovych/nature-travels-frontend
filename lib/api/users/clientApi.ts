@@ -1,6 +1,7 @@
 import {
   PaginationParams,
   RequestParamsGetUserById,
+  // RequestParamsGetUserById,
   StoriesResponse,
 } from "@/types/stories";
 import { api } from "../api";
@@ -8,6 +9,7 @@ import {
   MovementToFavoritesResponse,
   User,
   UserPublicProfileResponse,
+  // UserPublicProfileResponse,
   UsersResponse,
 } from "@/types/user";
 
@@ -22,9 +24,20 @@ export const getAllUsers = async ({
   return res.data;
 };
 
-export const getUserByIdPublic = async (userId: string): Promise<User> => {
-  const res = await api.get<User>(`/users/${userId}`);
+// перша версія
+// export const getUserByIdPublic = async (userId: string): Promise<User> => {
+//   const res = await api.get<User>(`/users/${userId}`);
+//   return res.data;
+// };
 
+export const getUserByIdPublic = async ({
+  userId,
+  page,
+  perPage,
+}: RequestParamsGetUserById): Promise<UserPublicProfileResponse> => {
+  const res = await api.get<UserPublicProfileResponse>(`/users/${userId}`, {
+    params: { page, perPage },
+  });
   return res.data;
 };
 
