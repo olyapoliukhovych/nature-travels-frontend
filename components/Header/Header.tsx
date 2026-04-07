@@ -86,20 +86,13 @@ export default function Header() {
         )}
       </div>
 
-      {isOpen && (
+      {isOpen && viewport !== "desktop" && (
         <BurgerMenu
           viewport={viewport}
           isAuth={isAuth}
           onClose={() => setIsOpen(false)}
         />
       )}
-      {/* {isOpen && viewport !== "desktop" && (
-        <BurgerMenu
-          viewport={viewport}
-          isAuth={isAuth}
-          onClose={() => setIsOpen(false)}
-        />
-      )} */}
     </header>
   );
 }
