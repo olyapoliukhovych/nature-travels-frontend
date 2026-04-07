@@ -1,31 +1,51 @@
 "use client";
 
-// import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useAuthStore } from "@/lib/store/authStore";
+import { getUserProfile } from "@/lib/api/users/clientApi";
+import { checkClientSession } from "@/lib/api/auth/clientApi";
 
-type Props = {
+export default function AuthProvider({
+  children,
+}: {
   children: React.ReactNode;
-};
+}) {
+  const { setUser, clearIsAuthenticated, _hasHydrated } = useAuthStore();
+  const [isLoading, setIsLoading] = useState(true);
+  const isInitialized = useRef(false);
 
-const AuthProvider = ({ children }: Props) => {
-  //   const setUser = useAuthStore((state) => state.setUser);
-  //   const clearIsAuthenticated = useAuthStore(
-  //     (state) => state.clearIsAuthenticated,
-  //   );
+  useEffect(() => {
+    if (!_hasHydrated) return;
 
-  //   useEffect(() => {
-  //     const fetchUser = async () => {
-  //       const isAuthenticated = await checkSession();
-  //       if (isAuthenticated) {
-  //         const user = await getMe();
-  //         if (user) setUser(user);
-  //       } else {
-  //         clearIsAuthenticated();
-  //       }
-  //     };
-  //     fetchUser();
-  //   }, [setUser, clearIsAuthenticated]);
+    if (isInitialized.current) return;
+    isInitialized.current = true;
 
-  return children;
-};
+    const initAuth = async () => {
+      try {
+        const session = checkClientSession();
 
-export default AuthProvider;
+        if (session.success) {
+          const user = await getUserProfile();
+          if (user) {
+            setUser(user);
+          } else {
+            clearIsAuthenticated();
+          }
+        } else {
+          clearIsAuthenticated();
+        }
+      } catch (error) {
+        console.error("Session sync failed:", error);
+        clearIsAuthenticated();
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    initAuth();
+  }, [_hasHydrated, setUser, clearIsAuthenticated]);
+
+  if (isLoading) return null;
+
+  return <>{children}</>;
+}

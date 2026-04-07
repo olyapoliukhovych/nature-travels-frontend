@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { api } from "../api";
 import {
   CreateStoryResponse,

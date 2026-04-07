@@ -27,10 +27,10 @@ export function ModeModal({ mode, onClose, logout }: Props) {
       <div className={css.navigationWrapper}>
         {variant ? (
           <>
-            <Link className={css.loginLink} href="/login">
+            <Link className={css.loginLink} href="/auth/login">
               Увійти
             </Link>
-            <Link className={css.registerLink} href="/register">
+            <Link className={css.registerLink} href="/auth/register">
               Зареєструватись
             </Link>
           </>

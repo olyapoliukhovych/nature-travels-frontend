@@ -1,3 +1,4 @@
+import { Icon } from "../Icon/Icon";
 import styles from "./BurgerMenuBtn.module.css";
 
 type Props = {
@@ -15,9 +16,10 @@ export default function BurgerMenuBtn({ isOpen, setIsOpen }: Props) {
       aria-expanded={isOpen}
       aria-controls="mobile-menu"
     >
-      <svg className={styles.icon} width="32" height="32" aria-hidden="true">
-        <use href={`/sprite.svg#${isOpen ? "icon-close" : "icon-menu"}`} />
-      </svg>
+      <Icon
+        id={`${isOpen ? "icon-close" : "icon-menu"}`}
+        className={styles.icon}
+      />
     </button>
   );
 }

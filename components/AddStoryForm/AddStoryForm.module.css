@@ -1,18 +1,33 @@
 .formWrapper {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
-  /* padding: 32px 20px; */
+  padding: 32px 20px;
   box-sizing: border-box;
   flex-direction: column;
   display: flex;
 }
 
+.pageTitle {
+  margin-bottom: 32px;
+}
+
+.fieldGroup,
+.imageSection {
+  position: relative;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
 .form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  width: 100%;
+  gap: 4px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
 }
 
 .imageSection {
@@ -22,23 +37,19 @@
 .imagePreview {
   width: 100%;
   height: 223px;
-  background-color: #f3f4f6;
   border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
   margin-bottom: 24px;
 }
 
-.imagePreview img {
+.image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .uploadBtn {
+  align-self: flex-start;
   display: inline-block;
   padding: 8px 16px;
   background-color: rgba(0, 0, 0, 0.05);
@@ -48,10 +59,16 @@
   font-size: 16px;
   font-weight: 500;
   border: 1px solid rgba(0, 0, 0, 0.15);
+
+  &:hover,
+  &:focus {
+    background-color: #4a9849;
+    border: 1px solid rgba(255, 255, 255, 0);
+    color: #fff;
+  }
 }
 
 .input,
-.select,
 .textarea {
   width: 100%;
   padding: 12px;
@@ -60,6 +77,11 @@
   font-size: 16px;
   outline: none;
   box-sizing: border-box;
+
+  &:focus,
+  &:hover {
+    border: 1px solid var(--color-scheme-1-accent);
+  }
 }
 
 .textarea {
@@ -71,9 +93,11 @@
 }
 
 .error {
+  position: absolute;
+  bottom: 5px;
   color: #dc2626;
   font-size: 12px;
-  margin-top: 4px;
+  line-height: 1;
 }
 
 .buttonGroup {
@@ -84,54 +108,30 @@
   margin-bottom: 64px;
 }
 
-.btnSave {
-  background-color: #4a9849;
-  color: #fff;
-  border: 1px solid #4a9849;
-  padding: 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.btnSave:disabled {
-  background-color: #4a9849;
-  opacity: 0.3;
-}
-
+.btnSave,
 .btnCancel {
-  background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: center;
-  color: #1b391b;
+  font-weight: 500;
+  padding: 6px 12px;
 }
 
-/* --- ТАБЛЕТНА ВЕРСІЯ (768px+) --- */
 @media (min-width: 768px) {
   .formWrapper {
-    max-width: 704px; /* Ширина планшетної форми */
-    margin: 0 auto; /* ЦЕНТРУВАННЯ для планшета */
-    padding: 64px 0;
+    max-width: 704px;
+    padding: 64px 32px 0 32px;
   }
 
   .form {
-    max-width: 704px; /* Як на макеті для планшета */
+    max-width: 704px;
   }
 
   .imagePreview {
-    height: 400px; /* Збільшуємо висоту фото для великих екранів */
+    height: 400px;
   }
 
   .buttonGroup {
-    flex-direction: row; /* Кнопки в один ряд */
+    flex-direction: row;
     justify-content: flex-start;
     gap: 16px;
-    width: 203px;
-    height: 48px;
   }
 
   .btnSave,
@@ -142,16 +142,9 @@
   }
 }
 
-/* --- ДЕСКТОПНА ВЕРСІЯ (1440px+) --- */
 @media (min-width: 1440px) {
   .formWrapper {
     max-width: 1091px;
-    /* Примусово кажемо елементу стати в початок ряду батька */
-    align-self: flex-start;
-
-    margin-left: 0 !important;
-    margin-right: auto !important;
-
     padding: 80px 0;
     display: flex;
     flex-direction: column;
@@ -159,12 +152,17 @@
   }
 
   .form {
-    max-width: 800px; /* На десктопі робимо форму ще ширшою, як на макеті */
+    max-width: 1091px;
+    width: 100%;
+  }
+
+  .fieldGroup {
+    width: 100%;
   }
 
   .textarea,
   .input,
-  .select {
+  .fieldGroup > div {
     width: 1091px;
   }
 
