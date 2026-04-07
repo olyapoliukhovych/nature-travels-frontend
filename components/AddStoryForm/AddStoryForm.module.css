@@ -25,6 +25,11 @@
   gap: 4px;
 }
 
+.span {
+  cursor: not-allowed;
+  pointer-events: none;
+  margin-bottom: 8px;
+}
 .label {
   cursor: pointer;
   display: block;
