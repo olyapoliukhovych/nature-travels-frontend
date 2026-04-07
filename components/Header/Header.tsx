@@ -28,7 +28,7 @@ export default function Header() {
   const [viewport, setViewport] = useState<Viewport>("desktop");
   const [isOpen, setIsOpen] = useState(false);
 
-  const isAuth = true; // тимчасова заглушка
+  const isAuth = false; // тимчасова заглушка
 
   useEffect(() => {
     const updateViewport = () => setViewport(getViewport());
@@ -68,13 +68,14 @@ export default function Header() {
               // user={user}
               />
             ) : (
-              <AuthBar />
+              <AuthBar variant="header" />
             )}
           </div>
         )}
-
         {viewport === "tablet" && (
           <div className={styles.tabletActions}>
+            {!isAuth && !isOpen && <AuthBar variant="header" />}
+
             {isAuth && (
               <AppLink
                 href="/stories/new"
@@ -87,7 +88,6 @@ export default function Header() {
             <BurgerMenuBtn isOpen={isOpen} setIsOpen={setIsOpen} />
           </div>
         )}
-
         {viewport === "mobile" && (
           <div className={styles.mobileActions}>
             <BurgerMenuBtn isOpen={isOpen} setIsOpen={setIsOpen} />

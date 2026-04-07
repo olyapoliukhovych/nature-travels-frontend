@@ -6,55 +6,28 @@ import styles from "./BurgerMenu.module.css";
 import NavLinks from "../NavLinks/NavLinks";
 import AuthBar from "../AuthBar/AuthBar";
 import UserBar from "../UserBar/UserBar";
-
-type Viewport = "mobile" | "tablet" | "desktop";
+import { Icon } from "../Icon/Icon";
 
 type Props = {
-  viewport: Viewport;
+  viewport: "mobile" | "tablet";
   isAuth: boolean;
   onClose: () => void;
 };
 
 export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
-  const showTabletPublish = viewport === "tablet" && isAuth;
-  const showMobilePublish = viewport === "mobile" && isAuth;
-
   return (
-    <div
-      className={styles.menu}
-      id="mobile-menu"
-      role="dialog"
-      aria-modal="true"
-    >
+    <div className={styles.menu} id="mobile-menu">
       <div className={styles.panel}>
         <div className={styles.top}>
           <Link
             href="/"
             className={styles.logo}
-            aria-label="На головну"
-            onClick={onClose}
+            aria-label="На головну сторінку"
           >
-            <svg
-              className={styles.logoIcon}
-              width="124"
-              height="36"
-              aria-hidden="true"
-            >
-              <use href="/sprite.svg#icon-logo" />
-            </svg>
+            <Icon id="icon-logo" className={styles.logoIcon} />
           </Link>
 
           <div className={styles.topRight}>
-            {showTabletPublish && (
-              <Link
-                href="/stories/new"
-                className={styles.publish}
-                onClick={onClose}
-              >
-                Опублікувати статтю
-              </Link>
-            )}
-
             <button
               type="button"
               className={styles.closeButton}
@@ -74,17 +47,14 @@ export default function BurgerMenu({ viewport, isAuth, onClose }: Props) {
           </div>
 
           <div className={styles.mobileActions}>
-            {showMobilePublish && (
-              <Link
-                href="/stories/new"
-                className={styles.publish}
-                onClick={onClose}
-              >
-                Опублікувати статтю
-              </Link>
-            )}
-
-            {isAuth ? <UserBar showPublish={false} /> : <AuthBar />}
+            {isAuth ? (
+              <UserBar
+                showPublish={viewport === "mobile"}
+                // user={user}
+              />
+            ) : viewport === "mobile" ? (
+              <AuthBar variant="menu" onLinkClick={onClose} />
+            ) : null}
           </div>
         </div>
       </div>
