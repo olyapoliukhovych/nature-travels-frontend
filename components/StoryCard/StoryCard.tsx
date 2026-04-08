@@ -46,7 +46,6 @@ export default function StoryCard({ story }: Props) {
 
       toast.success(
         isSaved ? "Видалено зі збережених" : "Додано до збережених",
-        { id: "save-status" },
       );
     },
 
@@ -91,7 +90,7 @@ export default function StoryCard({ story }: Props) {
             <span className={css.saveInfo}>
               {story.savedCount}
               <Icon
-                id={"icon-bookmark-filled-black"}
+                id={"icon-bookmark-filled-green"}
                 className={css.bookmark}
               />
             </span>
@@ -115,7 +114,7 @@ export default function StoryCard({ story }: Props) {
               type="button"
             >
               <Icon
-                id={isSaved ? "icon-bookmark-filled" : "icon-bookmark"}
+                id={isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"}
                 className={css.icon}
               />
             </button>
