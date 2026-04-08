@@ -21,7 +21,7 @@ export function ModeModal({ mode, onClose, logout }: Props) {
       </h2>
       <p className={css.textModal}>
         {variant
-          ? "Щоб зберегти статтю вам треба увійти, якщо ще немає облікового запису зареєструйтесь"
+          ? "Щоб зберегти статтю, вам треба увійти. Якщо ще немає облікового запису, зареєструйтесь"
           : "Ми будемо сумувати за вами!"}
       </p>
       <div className={css.navigationWrapper}>

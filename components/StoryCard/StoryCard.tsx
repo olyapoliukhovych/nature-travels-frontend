@@ -10,6 +10,10 @@ import {
   getUserProfile,
 } from "@/lib/api/users/clientApi";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import Modal from "../Modal/Modal";
+import { ModeModal } from "../ModeModal/ModeModal";
 
 interface Props {
   story: Story;
@@ -17,8 +21,9 @@ interface Props {
 
 export default function StoryCard({ story }: Props) {
   const queryClient = useQueryClient();
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 
-  const { data: user } = useQuery({
+  const { data: user, isLoading: isUserLoading } = useQuery({
     queryKey: ["user-profile"],
     queryFn: getUserProfile,
     retry: false,
@@ -40,28 +45,32 @@ export default function StoryCard({ story }: Props) {
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
       queryClient.invalidateQueries({ queryKey: ["profile-stories"] });
     },
-    onError: () => {
-      toast.error("Щось пішло не так...");
+
+toast.success(
+        isSaved ? "Видалено зі збережених" : "Додано до збережених",
+        { id: "save-status" }
+      );
+
+  onError: (error) => {
+      toast.error(error instanceof Error ? error.message : "Щось пішло не так...", {
+        id: "save-error",
+      });
     },
   });
 
   const handleSaveClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!user) {
-      toast.error("Будь ласка, спочатку увійдіть в акаунт", {
-        icon: "🔒",
-        style: {
-          borderRadius: "10px",
-          background: "--color-scheme-1-background",
-          color: "--color-scheme-2-text",
-        },
-      });
+    
+    if (!user && !isUserLoading) 
+      setIsErrorModalOpen(true);
       return;
     }
-
+    
     toggleSave();
   };
+  
   return (
+   <>
     <div className={css.card}>
       <div className={css.imageWrapper}>
         <Image
@@ -72,27 +81,32 @@ export default function StoryCard({ story }: Props) {
           sizes="100%"
         />
       </div>
-
-      <div className={css.descriptionWrapper}>
-        <div className={css.titleWrapper}>
-          <p>{story.ownerId?.name || "Невідомий автор"}</p>
-          <span className={css.point}>.</span>
-          <span className={css.saveInfo}>
-            {story.savedCount}
-            <Icon id={"icon-bookmark"} className={css.bookmark} />
-          </span>
+ 
+      <div className={css.card}>
+        <div className={css.imageWrapper}>
+          <Image
+            className={css.picture}
+            alt={story.title}
+            src={story.img}
+            fill
+            sizes="100%"
+          />
         </div>
 
-        <h3 className={css.title}>{story.title}</h3>
+        <div className={css.descriptionWrapper}>
+          <div className={css.titleWrapper}>
+            <p>{story.ownerId?.name || "Невідомий автор"}</p>
+            <span className={css.point}>.</span>
+            <span className={css.saveInfo}>
+              {story.savedCount}
+              <Icon
+                id={"icon-bookmark-filled-black"}
+                className={css.bookmark}
+              />
+            </span>
+          </div>
 
-        <div className={css.buttonWrapper}>
-          <AppLink
-            href={`/stories/${story._id}`}
-            variant={"neutral"}
-            className={css.appLink}
-          >
-            Переглянути статтю
-          </AppLink>
+          <h3 className={css.title}>{story.title}</h3>
 
           <button
             className={css.saveButton}
@@ -108,8 +122,35 @@ export default function StoryCard({ story }: Props) {
               style={{ fill: isSaved ? "white" : "" }}
             />
           </button>
+          <div className={css.buttonWrapper}>
+            <AppLink
+              href={`/stories/${story._id}`}
+              variant={"neutral"}
+              className={css.appLink}
+            >
+              Переглянути статтю
+            </AppLink>
+
+            <button
+              className={`${css.saveButton} ${isSaved ? css.isSaved : ""}`}
+              onClick={handleSaveClick}
+              disabled={isPending}
+              type="button"
+            >
+              <Icon
+                id={isSaved ? "icon-bookmark-filled" : "icon-bookmark"}
+                className={css.icon}
+              />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+
+      {isErrorModalOpen && (
+        <Modal onClose={() => setIsErrorModalOpen(false)}>
+          <ModeModal mode="save" onClose={() => setIsErrorModalOpen(false)} />
+        </Modal>
+      )}
+    </>
+
 }

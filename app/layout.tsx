@@ -49,7 +49,29 @@ export default function RootLayout({
             <ScrollToTopBtn />
           </AuthProvider>
         </TanStackProvider>
-        <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+        {/* <Toaster position="top-center" toastOptions={{ duration: 3000 }} /> */}
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              color: "#000",
+              backgroundColor: "#fff",
+            },
+            success: {
+              iconTheme: {
+                primary: "#4a9849",
+                secondary: "#fff",
+              },
+            },
+            error: {
+              iconTheme: {
+                primary: "#b00101",
+                secondary: "#fff",
+              },
+            },
+          }}
+        />
       </body>
     </html>
   );
