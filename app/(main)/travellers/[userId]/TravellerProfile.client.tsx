@@ -4,11 +4,11 @@ import { useState } from "react";
 import { Story } from "@/types/stories";
 import StoryCard from "@/components/StoryCard/StoryCard";
 import Pagination from "@/components/Pagination/Pagination";
-import { getUserByIdPublic } from "@/lib/api/users/clientApi";
+import { getUserStoriesPublic } from "@/lib/api/users/clientApi";
 import css from "./TravellerProfile.module.css";
 
 interface Props {
-  initialStories: Story[];
+  initialStories: (Story | string)[];
   userId: string;
   totalPages: number;
   currentPage: number;
@@ -20,24 +20,42 @@ export default function TravellerProfileClient({
   totalPages,
   currentPage,
 }: Props) {
-  const [stories, setStories] = useState<Story[]>(initialStories);
+  // const [stories, setStories] = useState<Story[]>(
+  //   initialStories.filter((s): s is Story => typeof s !== "string"),
+  // );
+  const [stories, setStories] = useState<Story[]>(() =>
+    Array.isArray(initialStories)
+      ? initialStories.filter(
+          (s): s is Story => typeof s === "object" && s !== null && "_id" in s,
+        )
+      : [],
+  );
+
   const [page, setPage] = useState(currentPage);
   const [isFetching, setIsFetching] = useState(false);
 
   const fetchNextPage = async () => {
+    if (isFetching || page >= totalPages) return;
+
     setIsFetching(true);
     try {
       const nextPage = page + 1;
-      const data = await getUserByIdPublic({
+      const data = await getUserStoriesPublic({
         userId,
         page: nextPage,
         perPage: 6,
       });
 
-      setStories((prev) => [...prev, ...data.stories]);
-      setPage(nextPage);
+      if (data?.stories) {
+        const validNewStories = data.stories.filter(
+          (s): s is Story => typeof s === "object" && s !== null && "_id" in s,
+        );
+
+        setStories((prev) => [...prev, ...validNewStories]);
+        setPage(page + 1);
+      }
     } catch (error) {
-      console.error("Помилка при завантаженні", error);
+      return <p>Помилка при завантаженні.</p>;
     } finally {
       setIsFetching(false);
     }

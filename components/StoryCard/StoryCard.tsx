@@ -3,6 +3,7 @@ import css from "./StoryCard.module.css";
 import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
 import { Story } from "@/types/stories";
+import toast from "react-hot-toast";
 import {
   addStoryToFavorites,
   deleteStoryToFavorites,
@@ -42,27 +43,45 @@ export default function StoryCard({ story }: Props) {
         : addStoryToFavorites(story._id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      toast.success(
-        isSaved ? "Видалено зі збережених" : "Додано до збережених",
-      );
+      queryClient.invalidateQueries({ queryKey: ["profile-stories"] });
     },
-    onError: (error) => {
-      toast.error(error instanceof Error ? error.message : "Помилка запиту", {
+
+toast.success(
+        isSaved ? "Видалено зі збережених" : "Додано до збережених",
+        { id: "save-status" }
+      );
+
+  onError: (error) => {
+      toast.error(error instanceof Error ? error.message : "Щось пішло не так...", {
         id: "save-error",
       });
     },
   });
 
-  const handleSaveClick = () => {
-    if (!user && !isUserLoading) {
+  const handleSaveClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    if (!user && !isUserLoading) 
       setIsErrorModalOpen(true);
       return;
     }
+    
     toggleSave();
   };
-
+  
   return (
-    <>
+   <>
+    <div className={css.card}>
+      <div className={css.imageWrapper}>
+        <Image
+          className={css.picture}
+          alt={story.title}
+          src={story.img}
+          fill
+          sizes="100%"
+        />
+      </div>
+ 
       <div className={css.card}>
         <div className={css.imageWrapper}>
           <Image
@@ -89,6 +108,20 @@ export default function StoryCard({ story }: Props) {
 
           <h3 className={css.title}>{story.title}</h3>
 
+          <button
+            className={css.saveButton}
+            onClick={handleSaveClick}
+            disabled={isPending}
+            style={{
+              backgroundColor: isSaved ? "var(--color-mantis-dark)" : "",
+            }}
+          >
+            <Icon
+              id={"icon-bookmark"}
+              className={css.icon}
+              style={{ fill: isSaved ? "white" : "" }}
+            />
+          </button>
           <div className={css.buttonWrapper}>
             <AppLink
               href={`/stories/${story._id}`}
@@ -119,5 +152,5 @@ export default function StoryCard({ story }: Props) {
         </Modal>
       )}
     </>
-  );
+
 }

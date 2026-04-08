@@ -6,12 +6,12 @@ import TravellersStories from "../TravellersStories/TravellersStories";
 import {
   getUserStoriesFavorites,
   getUserStoriesPrivate,
+  getUserProfile,
 } from "@/lib/api/users/clientApi";
-
+import { useQuery } from "@tanstack/react-query";
 interface Props {
   initialStories: Story[];
   initialTotalPages: number;
-  userId: string;
   type: "saved" | "my";
 }
 
@@ -20,59 +20,56 @@ export default function ProfileStoriesClient({
   initialTotalPages,
   type,
 }: Props) {
-  const [perPage, setPerPage] = useState(6);
-  const [stories, setStories] = useState<Story[]>(initialStories);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(initialTotalPages);
-  const [isFetching, setIsFetching] = useState(false);
+  const perPage = 6;
+  const [allStories, setAllStories] = useState<Story[]>(initialStories);
+
+  const { data: userProfile } = useQuery({
+    queryKey: ["user-profile"],
+    queryFn: getUserProfile,
+  });
+
+  const { data, isFetching } = useQuery({
+    queryKey: ["profile-stories", type, page],
+    queryFn: () =>
+      type === "saved"
+        ? getUserStoriesFavorites({ page, perPage })
+        : getUserStoriesPrivate({ page, perPage }),
+    enabled: page > 1,
+  });
 
   useEffect(() => {
-    const updateDimensions = () => {
-      const isMobile = window.innerWidth < 1440;
-      const newPerPage = isMobile ? 4 : 6;
-
-      setPerPage(newPerPage);
-
-      if (isMobile && initialStories.length === 6 && page === 1) {
-        setStories(initialStories.slice(0, 4));
-
-        const estimatedTotalItems = initialTotalPages * 6;
-        const newTotalPages = Math.ceil(estimatedTotalItems / newPerPage);
-        setTotalPages(newTotalPages);
-      }
-    };
-
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, [initialStories, initialTotalPages]);
-
-  const fetchNextPage = async () => {
-    if (isFetching || page >= totalPages) return;
-
-    setIsFetching(true);
-    try {
-      const nextPage = page + 1;
-      const data =
-        type === "saved"
-          ? await getUserStoriesFavorites({ page: nextPage, perPage })
-          : await getUserStoriesPrivate({ page: nextPage, perPage });
-
-      if (data?.stories) {
-        setStories((prev) => [...prev, ...data.stories]);
-        setPage(nextPage);
-      }
-    } catch (error) {
-      console.error("Error loading profile stories:", error);
-    } finally {
-      setIsFetching(false);
+    if (data?.stories && page > 1) {
+      setAllStories((prev) => {
+        const existingIds = new Set(prev.map((s) => s._id));
+        const newUnique = data.stories.filter((s) => !existingIds.has(s._id));
+        return [...prev, ...newUnique];
+      });
     }
+  }, [data, page]);
+
+  useEffect(() => {
+    if (type === "saved" && userProfile?.savedStories) {
+      const savedIds = new Set(
+        userProfile.savedStories.map((s: string | { _id: string }) =>
+          typeof s === "string" ? s : s._id,
+        ),
+      );
+
+      setAllStories((prev) => prev.filter((story) => savedIds.has(story._id)));
+    }
+  }, [userProfile, type]);
+
+  const handleFetchNextPage = () => {
+    setPage((prev) => prev + 1);
   };
+
+  const totalPages = data?.totalPages || initialTotalPages;
 
   return (
     <TravellersStories
-      stories={stories}
-      fetchNextPage={fetchNextPage}
+      stories={allStories}
+      fetchNextPage={handleFetchNextPage}
       isFetchingNextPage={isFetching}
       hasNextPage={page < totalPages}
     />

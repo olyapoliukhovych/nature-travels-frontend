@@ -4,6 +4,7 @@ import { getUserStoriesPrivate } from "@/lib/api/users/clientApi";
 import { useQuery } from "@tanstack/react-query";
 import ProfileStoriesClient from "@/components/ProfileStories/ProfileStories";
 import Loader from "@/components/Loader/Loader";
+import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
 export default function MyStoriesPage() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["stories", "my"],
@@ -22,11 +23,14 @@ export default function MyStoriesPage() {
           key="my-stories"
           initialStories={data.stories}
           initialTotalPages={data.totalPages}
-          userId="me"
           type="my"
         />
       ) : (
-        <p>заглушка</p>
+        <MessageNoStories
+          text="Ви ще нічого не публікували, поділіться своєю першою історією"
+          buttonText="Опублікувати історію"
+          linkTo="/stories/new"
+        />
       )}
     </>
   );
