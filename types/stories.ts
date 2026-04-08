@@ -7,6 +7,11 @@ export interface OwnerIdPopulate {
   _id: string;
 }
 
+export interface GategoryRecomendParams {
+  categoryId: string;
+  storyId: string;
+}
+
 export interface Story {
   savedCount: number;
   _id: string;

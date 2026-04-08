@@ -1,5 +1,8 @@
 import TravellerInfo from "@/components/TravellerInfo/TravellerInfo";
-import { getUserByIdPublic } from "@/lib/api/users/serverApi";
+import {
+  getUserByIdPublic,
+  getUserStoriesPublic,
+} from "@/lib/api/users/serverApi";
 import css from "./page.module.css";
 import TravellerProfileClient from "./TravellerProfile.client";
 import { User } from "@/types/user";
@@ -30,6 +33,8 @@ export async function generateMetadata({
     },
   };
 }
+import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
+import { UserPrivate } from "@/types/user";
 
 export default async function TravellerPage({
   params,
@@ -42,25 +47,36 @@ export default async function TravellerPage({
   const sParams = await searchParams;
   const currentPage = Number(sParams.page) || 1;
 
-  const data = await getUserByIdPublic({
+  const user = await getUserByIdPublic(userId);
+
+  const storiesData = await getUserStoriesPublic({
     userId,
     page: currentPage,
     perPage: 6,
   });
 
-  if (!data || !data._id) return <div>Користувача не знайдено</div>;
+  if (!user || !user._id) return <div>Користувача не знайдено</div>;
+  const hasStories = user.totalUserStories > 0 || user.userStories?.length > 0;
   return (
     <section className={css.travellerProfilePageSection}>
       <div className="container">
-        <TravellerInfo user={data as unknown as User} />
+        <TravellerInfo user={user as UserPrivate} />
         <h1 className={css.travellerProfilePageTitle}>Історії мандрівника</h1>
 
-        <TravellerProfileClient
-          initialStories={data.userStories}
-          userId={userId}
-          totalPages={data.totalPages || 1}
-          currentPage={currentPage}
-        />
+        {hasStories ? (
+          <TravellerProfileClient
+            initialStories={storiesData.stories}
+            userId={userId}
+            totalPages={storiesData.totalPages || 1}
+            currentPage={currentPage}
+          />
+        ) : (
+          <MessageNoStories
+            text="Цей користувач ще не публікував історій"
+            buttonText="Назад до історій"
+            linkTo="/stories"
+          />
+        )}
       </div>
     </section>
   );

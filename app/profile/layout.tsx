@@ -20,9 +20,9 @@ export default async function ProfileLayout({
 }) {
   const cookieStore = await cookies();
   const token = cookieStore.get("accessToken")?.value;
-  // if (!token) {
-  //   redirect("/auth/login");
-  // }
+  if (!token) {
+    redirect("/auth/login");
+  }
   try {
     const res = await api.get("/users/me", {
       headers: {
@@ -47,11 +47,11 @@ export default async function ProfileLayout({
       </>
     );
   } catch (error: unknown) {
-    // if (error instanceof Error) {
-    //   const apiError = error as ApiError;
-    //   if (apiError.response?.status === 401) {
-    //     redirect("/auth/login");
-    //   }
-    // }
+    if (error instanceof Error) {
+      const apiError = error as ApiError;
+      if (apiError.response?.status === 401) {
+        redirect("/auth/login");
+      }
+    }
   }
 }

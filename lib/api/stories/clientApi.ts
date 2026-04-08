@@ -1,6 +1,7 @@
 import { api } from "../api";
 import {
   CreateStoryResponse,
+  GategoryRecomendParams,
   RequestParamsGetAllStories,
   StoriesResponse,
   Story,
@@ -19,6 +20,20 @@ export const getAllStories = async ({
       categoryId,
     },
   });
+  return res.data;
+};
+
+export const getRecomendStories = async ({
+  categoryId,
+  storyId,
+}: GategoryRecomendParams): Promise<Story[]> => {
+  const res = await api.get<Story[]>("/stories/recomend", {
+    params: {
+      categoryId,
+      storyId,
+    },
+  });
+
   return res.data;
 };
 

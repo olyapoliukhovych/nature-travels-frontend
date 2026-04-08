@@ -31,32 +31,39 @@
   height: 48px;
   padding: 6px;
   background: var(--opacity-neutral-darkest-5);
-  transition: all var(--transition);
+  color: var(--color-neutral-darkest);
+  transition:
+    border var(--transition),
+    background var(--transition),
+    color var(--transition);
+
+  &:hover,
+  &:focus {
+    background: var(--color-mantis-dark);
+    color: var(--color-white);
+    border: 1px solid transparent;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }
 
-.saveButton:hover,
-.saveButton:focus {
-  background-color: var(--color-mantis-dark);
-  color: var(--color-white);
-  border-color: transparent !important;
+.appLink:active {
+  background: var(--color-mantis-darker);
 }
 
-.appLink:active,
-.saveButton:active {
-  background-color: var(--color-mantis-darker) !important;
+.saveButton.isSaved {
+  border: 1px solid var(--color-scheme-2-border);
+  background: var(--opacity-neutral-darkest-5);
 }
 
 .icon {
   width: 24px;
   height: 24px;
-  fill: var(--color-neutral-darkest);
-  transition: all var(--transition);
-}
-
-.saveButton:hover .icon,
-.saveButton:active .icon,
-.saveButton:focus .icon {
-  fill: var(--color-white);
+  fill: currentColor;
+  transition: fill var(--transition);
 }
 
 .buttonWrapper {

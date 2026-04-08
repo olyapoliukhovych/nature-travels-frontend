@@ -6,8 +6,8 @@ import {
 import { api } from "../api";
 import {
   MovementToFavoritesResponse,
-  User,
-  UserPublicProfileResponse,
+  UserPrivate,
+  UserPublic,
   UsersResponse,
 } from "@/types/user";
 import { cookies } from "next/headers";
@@ -28,29 +28,44 @@ export const getAllUsers = async ({
   return res.data;
 };
 
-export const getUserByIdPublic = async ({
-  userId,
-  page,
-  perPage,
-}: RequestParamsGetUserById): Promise<UserPublicProfileResponse> => {
-  const cookieStore = await cookies();
+export const getUserByIdPublic = async (
+  userId: string,
+): Promise<UserPublic> => {
+  const cookie = await cookies();
 
-  const res = await api.get<UserPublicProfileResponse>(`/users/${userId}`, {
-    params: { page, perPage },
+  const res = await api.get<UserPublic>(`/users/${userId}`, {
     headers: {
-      Cookie: cookieStore.toString(),
+      Cookie: cookie.toString(),
     },
   });
 
   return res.data;
 };
 
-export const getUserStoriesPublic = async () => {};
-
-export const getUserProfile = async (): Promise<User> => {
+export const getUserStoriesPublic = async ({
+  userId,
+  page,
+  perPage,
+}: RequestParamsGetUserById): Promise<StoriesResponse> => {
   const cookie = await cookies();
 
-  const res = await api.get<User>("/users/me", {
+  const res = await api.get<StoriesResponse>(`/users/${userId}/public`, {
+    params: {
+      page,
+      perPage,
+    },
+    headers: {
+      Cookie: cookie.toString(),
+    },
+  });
+
+  return res.data;
+};
+
+export const getUserProfile = async (): Promise<UserPrivate> => {
+  const cookie = await cookies();
+
+  const res = await api.get<UserPrivate>("/users/me", {
     headers: {
       Cookie: cookie.toString(),
     },

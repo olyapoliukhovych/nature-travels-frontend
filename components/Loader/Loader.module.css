@@ -1,39 +1,43 @@
 .container {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  width: 100%;
+  width: auto;
+  height: auto;
 }
 
 .spinner {
   border-radius: 50%;
-  border: 3px solid rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
   border-top-color: var(--color-mantis-dark);
   animation: spin 0.8s linear infinite;
+  transform-origin: center;
+  box-sizing: border-box;
 }
 
-/* Розміри */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .sm {
   width: 24px;
   height: 24px;
-  border-width: 2px;
+  border-width: 3px;
 }
 
 .md {
   width: 48px;
   height: 48px;
-  border-width: 3px;
+  border-width: 4px;
 }
 
 .lg {
   width: 80px;
   height: 80px;
   border-width: 5px;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }

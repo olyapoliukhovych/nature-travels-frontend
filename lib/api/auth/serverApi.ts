@@ -4,7 +4,7 @@ import {
   RefreshSessionResponse,
   RegisterParams,
 } from "@/types/auth";
-import { User } from "@/types/user";
+import { UserPrivate } from "@/types/user";
 import { api } from "../api";
 import { cookies } from "next/headers";
 
@@ -12,10 +12,10 @@ export const registerUser = async ({
   name,
   email,
   password,
-}: RegisterParams): Promise<User> => {
+}: RegisterParams): Promise<UserPrivate> => {
   const cookie = await cookies();
 
-  const res = await api.post<User>(
+  const res = await api.post<UserPrivate>(
     "/auth/register",
     {
       name,
@@ -35,10 +35,10 @@ export const registerUser = async ({
 export const loginUser = async ({
   email,
   password,
-}: LoginParams): Promise<User> => {
+}: LoginParams): Promise<UserPrivate> => {
   const cookie = await cookies();
 
-  const res = await api.post<User>(
+  const res = await api.post<UserPrivate>(
     "/auth/login",
     { email, password },
     {
