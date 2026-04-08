@@ -1,89 +1,168 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage, FieldProps } from "formik";
+import { useState, useMemo, useEffect } from "react";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  useFormikContext,
+  FormikHelpers,
+} from "formik";
 import * as Yup from "yup";
 import TextareaAutosize from "react-textarea-autosize";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import { CreateStoryValues } from "@/types/types";
-import css from "./AddStoryForm.module.css";
+import { getCategories } from "@/lib/api/category/clientApi";
 import PageTitle from "../PageTitle/PageTitle";
+import AppSelect from "../AppSelect/AppSelect";
+import css from "./AddStoryForm.module.css";
+import { createStory } from "@/lib/api/stories/clientApi";
+import toast from "react-hot-toast";
+import Button from "../Button/Button";
+import { useStoryDraftStore } from "@/lib/store/createStoryStore";
+import { useRouter } from "next/navigation";
 
-interface BackendCategory {
-  _id: string;
-  category: string;
-}
+import { useQueryClient } from "@tanstack/react-query";
 
 const validationSchema = Yup.object({
   title: Yup.string()
-    .min(5, "Заголовок має бути не менше 5 символів")
+    .min(3, "Заголовок має бути не менше 3 символів")
     .required("Це обов'язкове поле"),
   categoryId: Yup.string().required("Оберіть категорію"),
   article: Yup.string()
-    .min(20, "Текст має бути не менше 20 символів")
+    .min(3, "Текст має бути не менше 3 символів")
     .required("Це обов'язкове поле"),
   image: Yup.mixed().required("Додайте зображення"),
 });
 
-const AddStoryForm = () => {
-  const [preview, setPreview] = useState<string | null>(null);
-  const [categories, setCategories] = useState<BackendCategory[]>([]);
+const FormikObserver = () => {
+  const { values } = useFormikContext<CreateStoryValues>();
+  const { setDraft } = useStoryDraftStore();
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        // ВАЖЛИВО: Переконайся, що порт 3000 — це порт твого Node.js сервера
-        const response = await fetch("http://localhost:3000/categories");
+    const timeoutId = setTimeout(() => {
+      setDraft({
+        title: values.title,
+        categoryId: values.categoryId,
+        article: values.article,
+      });
+    }, 1000);
 
-        if (!response.ok) {
-          throw new Error(`Помилка сервера: ${response.status}`);
-        }
+    return () => clearTimeout(timeoutId);
+  }, [values, setDraft]);
 
-        const data = await response.json();
-        setCategories(data);
-      } catch (error) {
-        console.error("Не вдалося завантажити категорії:", error);
+  return null;
+}; // стежить за змінами і автоматично викликає setDraft
+
+const AddStoryForm = () => {
+  const router = useRouter();
+  const { draft, clearDraft } = useStoryDraftStore();
+  const queryClient = useQueryClient();
+  const [preview, setPreview] = useState<string | null>(null);
+
+  const { data: categories = [] } = useQuery({
+    queryKey: ["categories"],
+    queryFn: getCategories,
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: createStory,
+    onSuccess: (newStory) => {
+      toast.success("Історію успішно опубліковано!");
+      clearDraft();
+      setPreview(null);
+
+      if (newStory && "_id" in newStory) {
+        router.push(`/stories/${newStory._id}`);
+      } else {
+        router.push("/stories");
       }
-    };
+    },
+    onError: (error) => {
+      toast.error(
+        error instanceof Error ? error.message : "Помилка при створенні",
+      );
+    },
+  });
 
-    fetchCategories();
-  }, []);
-
-  const initialValues: CreateStoryValues = {
-    title: "",
-    categoryId: "",
-    article: "",
+  const initialValuesWithDraft: CreateStoryValues = {
+    title: draft.title || "",
+    categoryId: draft.categoryId || "",
+    article: draft.article || "",
     image: null,
   };
 
-  const handleOnSubmit = (values: CreateStoryValues) => {
-    console.log("Дані готові:", values);
+  const categoryOptions = useMemo(
+    () => categories.map((cat) => ({ value: cat._id, label: cat.category })),
+    [categories],
+  );
+
+  const handleOnSubmit = async (
+    values: CreateStoryValues,
+    { setSubmitting, resetForm }: FormikHelpers<CreateStoryValues>,
+  ) => {
+    try {
+      const story = await createStory({
+        title: values.title,
+        categoryId: values.categoryId,
+        article: values.article,
+        img: values.image,
+      });
+
+      if (!story) throw new Error("Помилка при створенні історії");
+
+      toast.success("Історію успішно опубліковано!");
+      clearDraft();
+      resetForm();
+      setPreview(null);
+
+      router.refresh();
+      queryClient.invalidateQueries({ queryKey: ["stories"] });
+
+      if (story && "_id" in story) {
+        router.push(`/stories/${story._id}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Щось пішло не так");
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <div className={css.formWrapper}>
-      <PageTitle>Створити нову історію</PageTitle>
+      <PageTitle className={css.pageTitle}>Створити нову історію</PageTitle>
 
       <Formik
-        initialValues={initialValues}
+        initialValues={initialValuesWithDraft}
+        enableReinitialize={true}
         validationSchema={validationSchema}
         onSubmit={handleOnSubmit}
       >
-        {({ setFieldValue, resetForm, isValid, dirty }) => (
+        {({ setFieldValue, setFieldTouched, values, isValid }) => (
           <Form className={css.form}>
+            <FormikObserver />
             <div className={css.imageSection}>
-              <span className={css.label}>Обкладинка статті</span>
+              <span className={css.span}>Обкладинка статті</span>
               <div className={css.imagePreview}>
-                {preview ? (
-                  <img src={preview} alt="Preview" />
-                ) : (
-                  <img
-                    src="/placeholder.png"
-                    alt="Placeholder"
-                    className={css.placeholderImg}
-                  />
-                )}
+                <Image
+                  src={preview || "/placeholder.png"}
+                  alt={
+                    preview
+                      ? "Прев'ю завантаженого зображення"
+                      : "Місце для обкладинки статті"
+                  }
+                  width={1191}
+                  height={726}
+                  className={css.image}
+                />
               </div>
-
               <label className={css.uploadBtn}>
                 Завантажити фото
                 <input
@@ -94,6 +173,10 @@ const AddStoryForm = () => {
                   onChange={(e) => {
                     const file = e.currentTarget.files?.[0];
                     if (file) {
+                      if (preview) {
+                        URL.revokeObjectURL(preview);
+                      }
+
                       setFieldValue("image", file);
                       setPreview(URL.createObjectURL(file));
                     }
@@ -108,11 +191,14 @@ const AddStoryForm = () => {
             </div>
 
             <div className={css.fieldGroup}>
-              <label className={css.label}>Заголовок</label>
+              <label htmlFor="title-input" className={css.label}>
+                Заголовок
+              </label>
               <Field
+                id="title-input"
                 name="title"
                 className={css.input}
-                placeholder="Введіть назву історії"
+                placeholder="Введіть заголовок історії"
               />
               <ErrorMessage
                 name="title"
@@ -122,16 +208,23 @@ const AddStoryForm = () => {
             </div>
 
             <div className={css.fieldGroup}>
-              <label className={css.label}>Категорія</label>
-              <Field as="select" name="categoryId" className={css.select}>
-                <option value="">Оберіть категорію</option>
-                {categories.length > 0 &&
-                  categories.map((cat) => (
-                    <option key={cat._id} value={cat._id}>
-                      {cat.category}
-                    </option>
-                  ))}
-              </Field>
+              <label htmlFor="category-select-input" className={css.label}>
+                Категорія
+              </label>
+              <AppSelect
+                inputId="category-select-input"
+                instanceId="category-select"
+                options={categoryOptions}
+                value={
+                  categoryOptions.find(
+                    (opt) => opt.value === values.categoryId,
+                  ) || null
+                }
+                onChange={(opt) =>
+                  setFieldValue("categoryId", opt?.value || "")
+                }
+                onBlur={() => setFieldTouched("categoryId", true)}
+              />
               <ErrorMessage
                 name="categoryId"
                 component="div"
@@ -140,16 +233,17 @@ const AddStoryForm = () => {
             </div>
 
             <div className={css.fieldGroup}>
-              <label className={css.label}>Текст історії</label>
-              <Field name="article">
-                {({ field }: FieldProps) => (
-                  <TextareaAutosize
-                    {...field}
-                    className={css.textarea}
-                    minRows={8}
-                  />
-                )}
-              </Field>
+              <label htmlFor="article-field" className={css.label}>
+                Текст історії
+              </label>
+              <Field
+                id="article-field"
+                name="article"
+                as={TextareaAutosize}
+                className={css.textarea}
+                minRows={8}
+                placeholder="Ваша історія тут"
+              />
               <ErrorMessage
                 name="article"
                 component="div"
@@ -158,23 +252,22 @@ const AddStoryForm = () => {
             </div>
 
             <div className={css.buttonGroup}>
-              <button
-                type="button"
-                className={css.btnCancel}
-                onClick={() => {
-                  resetForm();
-                  setPreview(null);
-                }}
-              >
-                Відмінити
-              </button>
-              <button
+              <Button
                 type="submit"
                 className={css.btnSave}
-                disabled={!(isValid && dirty)}
+                disabled={!isValid || isPending}
               >
                 Зберегти
-              </button>
+                {/* {isPending ? "Зберігаю..." : "Зберегти"} */}
+              </Button>
+              <Button
+                type="button"
+                variant="neutral"
+                className={css.btnCancel}
+                onClick={() => router.back()}
+              >
+                Відмінити
+              </Button>
             </div>
           </Form>
         )}

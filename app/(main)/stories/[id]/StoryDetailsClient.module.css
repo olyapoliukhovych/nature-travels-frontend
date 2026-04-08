@@ -1,0 +1,23 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 32px;
+
+  @media (min-width: 1440px) {
+    padding-top: 48px;
+  }
+}
+
+.textDesctop {
+  @media only screen and (min-width: 1440px) {
+    padding-left: 223px;
+    padding-right: 223px;
+  }
+}
+
+.titlePopular {
+  font-weight: 700;
+  font-size: 44px;
+}

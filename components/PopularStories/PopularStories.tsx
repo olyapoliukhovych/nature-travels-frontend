@@ -12,24 +12,52 @@ import { Icon } from "../Icon/Icon";
 import { useQuery } from "@tanstack/react-query";
 import { getAllStories } from "@/lib/api/stories/clientApi";
 
-export default function PopularStories() {
+type Props = {
+  title?: string;
+  linkLabel?: string;
+  linkHref?: string;
+  categoryId?: string;
+  queryKeyName?: string;
+  currentStoryId?: string;
+  withContainer?: boolean;
+};
+
+export default function PopularStories({
+  title,
+  linkLabel,
+  linkHref,
+  categoryId,
+  queryKeyName,
+  currentStoryId,
+  withContainer = true,
+}: Props) {
   const { data } = useQuery({
-    queryKey: ["popular-stories"],
-    queryFn: () => getAllStories({ page: 1, perPage: 10 }),
+    queryKey: [queryKeyName, categoryId],
+    queryFn: () =>
+      getAllStories({
+        page: 1,
+        perPage: 10,
+        ...(categoryId ? { categoryId } : {}),
+      }),
     refetchOnMount: false,
   });
 
-  const stories = data?.stories || [];
+  const stories =
+    data?.stories.filter((story) => story._id !== currentStoryId) || [];
   if (stories.length === 0) return null;
 
   return (
     <section className={css.wrapper}>
-      <div className={`container ${css.gridContainer}`}>
-        <h2 className={css.title}>Популярні Статті</h2>
+      <div
+        className={`${withContainer ? "container" : ""} ${css.gridContainer}`}
+      >
+        <h2 className={css.title}>{title}</h2>
 
-        <AppLink className={css.appLink} href="/stories" variant="mantis">
-          Всі статті
-        </AppLink>
+        {linkLabel && linkHref && (
+          <AppLink className={css.appLink} href={linkHref} variant="mantis">
+            {linkLabel}
+          </AppLink>
+        )}
 
         <div className={css.sliderWrapper}>
           <Swiper
@@ -40,8 +68,9 @@ export default function PopularStories() {
             navigation={{
               nextEl: `.${css.next}`,
               prevEl: `.${css.prev}`,
+              disabledClass: css.disabled,
             }}
-            loop={true}
+            loop={false}
             breakpoints={{
               320: { slidesPerView: 1 },
               768: { slidesPerView: 2 },

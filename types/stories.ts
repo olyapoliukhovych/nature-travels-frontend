@@ -53,3 +53,9 @@ export interface StoryCreate {
   article: string;
   img: File | null;
 }
+
+export type NewStoryData = {
+  categoryId: string;
+  title: string;
+  article: string;
+};

@@ -42,6 +42,7 @@ export default function OurTravellers() {
             navigation={{
               nextEl: `.${css.next}`,
               prevEl: `.${css.prev}`,
+              disabledClass: css.disabled,
             }}
             loop={false}
             breakpoints={{

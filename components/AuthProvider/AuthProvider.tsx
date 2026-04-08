@@ -1,31 +1,55 @@
 "use client";
 
-// import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useAuthStore } from "@/lib/store/authStore";
+import { getUserProfile } from "@/lib/api/users/clientApi";
+import { refreshSession } from "@/lib/api/auth/clientApi";
+import axios from "axios";
 
-type Props = {
+export default function AuthProvider({
+  children,
+}: {
   children: React.ReactNode;
-};
+}) {
+  const { setUser, clearIsAuthenticated } = useAuthStore();
+  const [isLoading, setIsLoading] = useState(true);
+  const isInitialized = useRef(false);
 
-const AuthProvider = ({ children }: Props) => {
-  //   const setUser = useAuthStore((state) => state.setUser);
-  //   const clearIsAuthenticated = useAuthStore(
-  //     (state) => state.clearIsAuthenticated,
-  //   );
+  useEffect(() => {
+    if (isInitialized.current) return;
+    isInitialized.current = true;
 
-  //   useEffect(() => {
-  //     const fetchUser = async () => {
-  //       const isAuthenticated = await checkSession();
-  //       if (isAuthenticated) {
-  //         const user = await getMe();
-  //         if (user) setUser(user);
-  //       } else {
-  //         clearIsAuthenticated();
-  //       }
-  //     };
-  //     fetchUser();
-  //   }, [setUser, clearIsAuthenticated]);
+    const initAuth = async () => {
+      try {
+        const user = await getUserProfile();
+        setUser(user);
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 401) {
+            try {
+              await refreshSession();
+              const user = await getUserProfile();
+              setUser(user);
+            } catch (refreshError) {
+              console.error("Error:", refreshError);
+              clearIsAuthenticated();
+            }
+          } else {
+            clearIsAuthenticated();
+          }
+        } else {
+          console.error("Non-axios error:", error);
+          clearIsAuthenticated();
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  return children;
-};
+    initAuth();
+  }, [setUser, clearIsAuthenticated]);
 
-export default AuthProvider;
+  if (isLoading) return null;
+
+  return <>{children}</>;
+}

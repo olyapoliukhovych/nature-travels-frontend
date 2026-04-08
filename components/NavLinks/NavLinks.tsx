@@ -1,27 +1,57 @@
+"use client";
+
 import Link from "next/link";
 import styles from "./NavLinks.module.css";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 type Props = {
   isAuth: boolean;
+  onLinkClick?: () => void;
 };
 
-export default function NavLinks({ isAuth }: Props) {
+const navLinks = [
+  { name: "Головна", href: "/" },
+  { name: "Статті", href: "/stories" },
+  { name: "Еко-Мандрівники", href: "/travellers" },
+];
+
+export default function NavLinks({ isAuth, onLinkClick }: Props) {
+  const pathname = usePathname();
+
+  const getIsActive = (href: string) => {
+    if (href === "/stories") {
+      return pathname === "/stories";
+    }
+
+    if (href === "/") {
+      return pathname === "/";
+    }
+
+    return pathname.startsWith(href);
+  };
+
   return (
     <nav className={styles.nav} aria-label="Основна навігація">
-      <Link href="/" className={styles.link}>
-        Головна
-      </Link>
-
-      <Link href="/stories" className={styles.link}>
-        Статті
-      </Link>
-
-      <Link href="/travellers" className={styles.link}>
-        Еко-Мандрівники
-      </Link>
+      {navLinks.map((link) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          className={clsx(styles.link, getIsActive(link.href) && styles.active)}
+        >
+          {link.name}
+        </Link>
+      ))}
 
       {isAuth && (
-        <Link href="/profile" className={styles.link}>
+        <Link
+          href="/profile"
+          onClick={onLinkClick}
+          className={clsx(
+            styles.link,
+            getIsActive("/profile") && styles.active,
+          )}
+        >
           Мій профіль
         </Link>
       )}
