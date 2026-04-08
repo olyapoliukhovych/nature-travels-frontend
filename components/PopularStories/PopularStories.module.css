@@ -125,4 +125,6 @@
 .arrow {
   width: 24px;
   height: 24px;
+  stroke-width: 4px;
+  stroke: var(--color-scheme-2-text);
 }
