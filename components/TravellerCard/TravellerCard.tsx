@@ -1,10 +1,10 @@
 import css from "./TravellerCard.module.css";
 import AppLink from "../AppLink/AppLink";
 import Image from "next/image";
-import { User } from "@/types/user";
+import { UserPublic } from "@/types/user";
 
 interface Props {
-  user: User;
+  user: UserPublic;
 }
 
 export default function TravellerCard({ user }: Props) {

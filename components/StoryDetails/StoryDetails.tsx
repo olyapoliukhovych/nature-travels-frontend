@@ -4,9 +4,6 @@ import css from "./StoryDetails.module.css";
 import { Icon } from "../Icon/Icon";
 import clsx from "clsx";
 import AppLink from "../AppLink/AppLink";
-
-import SaveStorySection from "./SaveStorySection";
-
 import SaveStorySection from "./SaveStorySection";
 
 interface Props {

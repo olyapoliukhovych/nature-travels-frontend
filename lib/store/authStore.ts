@@ -1,10 +1,10 @@
+import { UserPrivate } from "@/types/user";
 import { create } from "zustand";
-import { User } from "@/types/user";
 
 interface AuthStore {
-  user: User | null;
+  user: UserPrivate | null;
   isAuthenticated: boolean;
-  setUser: (user: User) => void;
+  setUser: (user: UserPrivate) => void;
   clearIsAuthenticated: () => void;
 }
 

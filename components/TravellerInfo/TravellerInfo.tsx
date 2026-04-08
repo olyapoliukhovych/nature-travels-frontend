@@ -1,9 +1,10 @@
 import Image from "next/image";
-import { User } from "@/types/user";
+
 import css from "./TravellerInfo.module.css";
+import { UserPrivate } from "@/types/user";
 
 interface Props {
-  user: User | null;
+  user: UserPrivate | null;
 }
 
 export default function TravellerInfo({ user }: Props) {
