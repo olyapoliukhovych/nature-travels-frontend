@@ -23,7 +23,6 @@ import toast from "react-hot-toast";
 import Button from "../Button/Button";
 import { useStoryDraftStore } from "@/lib/store/createStoryStore";
 import { useRouter } from "next/navigation";
-
 import { useQueryClient } from "@tanstack/react-query";
 
 const validationSchema = Yup.object({
@@ -62,17 +61,34 @@ const AddStoryForm = () => {
   const queryClient = useQueryClient();
   const [preview, setPreview] = useState<string | null>(null);
 
+  // при розмонтуванні компонента видаляємо посилання на фото з пам'яті, щоб не засмічувати
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
+
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: createStory,
+    mutationFn: (values: CreateStoryValues) =>
+      createStory({
+        title: values.title,
+        categoryId: values.categoryId,
+        article: values.article,
+        img: values.image,
+      }),
     onSuccess: (newStory) => {
-      toast.success("Історію успішно опубліковано!");
+      toast.success("Історію успішно опубліковано!", { id: "publish-success" });
+
       clearDraft();
       setPreview(null);
+
+      router.refresh();
+      queryClient.invalidateQueries({ queryKey: ["stories"] });
 
       if (newStory && "_id" in newStory) {
         router.push(`/stories/${newStory._id}`);
@@ -83,6 +99,7 @@ const AddStoryForm = () => {
     onError: (error) => {
       toast.error(
         error instanceof Error ? error.message : "Помилка при створенні",
+        { id: "publish-error" },
       );
     },
   });
@@ -101,38 +118,10 @@ const AddStoryForm = () => {
 
   const handleOnSubmit = async (
     values: CreateStoryValues,
-    { setSubmitting, resetForm }: FormikHelpers<CreateStoryValues>,
+    { setSubmitting }: FormikHelpers<CreateStoryValues>,
   ) => {
-    try {
-      const story = await createStory({
-        title: values.title,
-        categoryId: values.categoryId,
-        article: values.article,
-        img: values.image,
-      });
-
-      if (!story) throw new Error("Помилка при створенні історії");
-
-      toast.success("Історію успішно опубліковано!");
-      clearDraft();
-      resetForm();
-      setPreview(null);
-
-      router.refresh();
-      queryClient.invalidateQueries({ queryKey: ["stories"] });
-
-      if (story && "_id" in story) {
-        router.push(`/stories/${story._id}`);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("Щось пішло не так");
-      }
-    } finally {
-      setSubmitting(false);
-    }
+    mutate(values);
+    setSubmitting(false);
   };
 
   return (
