@@ -53,7 +53,7 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
         className={css.saveButton}
         onClick={() => toggleSave()}
         isLoading={isPending}
-        variant={isSaved ? "neutral" : "mantis"}
+        type="button"
       >
         {isSaved ? "Видалити" : "Зберегти"}
       </Button>

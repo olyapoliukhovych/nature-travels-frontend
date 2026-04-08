@@ -9,6 +9,7 @@ import css from "./StoryDetailsClient.module.css";
 import SaveStorySection from "@/components/StoryDetails/SaveStorySection";
 import clsx from "clsx";
 import PopularStories from "@/components/PopularStories/PopularStories";
+import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
 
 export default function StoryDetailsClient() {
   const { id } = useParams<{ id: string }>();
@@ -37,7 +38,6 @@ export default function StoryDetailsClient() {
         currentStoryId={story._id}
         queryKeyName="related-stories"
         withContainer={false}
-     
       />
     </div>
   );

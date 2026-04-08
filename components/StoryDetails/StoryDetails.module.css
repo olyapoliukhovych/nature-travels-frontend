@@ -74,18 +74,11 @@
 }
 
 .backLink {
-  display: inline-flex;
-  align-items: center;
   gap: 8px;
-  align-self: self-start;
-
-  text-decoration: none;
-  white-space: nowrap;
-
+  align-self: flex-start;
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
-  color: var(--color-neutral-darkest);
 
   @media only screen and (min-width: 1440px) {
     font-size: 20px;
