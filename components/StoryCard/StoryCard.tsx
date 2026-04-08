@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import css from "./StoryCard.module.css";
 import AppLink from "../AppLink/AppLink";
@@ -6,6 +8,7 @@ import { Story } from "@/types/stories";
 import {
   addStoryToFavorites,
   deleteStoryToFavorites,
+  getUserProfile,
 } from "@/lib/api/users/clientApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -13,6 +16,7 @@ import toast from "react-hot-toast";
 import Modal from "../Modal/Modal";
 import { ModeModal } from "../ModeModal/ModeModal";
 import { useAuthStore } from "@/lib/store/authStore";
+import Loader from "../Loader/Loader";
 
 interface Props {
   story: Story;
@@ -20,8 +24,7 @@ interface Props {
 
 export default function StoryCard({ story }: Props) {
   const queryClient = useQueryClient();
-  const user = useAuthStore((s) => s.user);
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const { user, isAuthenticated, setUser } = useAuthStore();
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 
   const isSaved = user?.savedStories?.some((item: string | { _id: string }) => {
@@ -36,21 +39,29 @@ export default function StoryCard({ story }: Props) {
       isSaved
         ? deleteStoryToFavorites(story._id)
         : addStoryToFavorites(story._id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      queryClient.invalidateQueries({ queryKey: ["profile-stories"] });
+
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+      await queryClient.invalidateQueries({ queryKey: ["profile-stories"] });
+      await queryClient.invalidateQueries({ queryKey: ["stories"] });
+
+      try {
+        const updatedUser = await getUserProfile();
+        setUser(updatedUser);
+      } catch (e) {
+        console.error("Failed to sync user state", e);
+      }
 
       toast.success(
         isSaved ? "Видалено зі збережених" : "Додано до збережених",
+        { id: "save-success" },
       );
     },
 
     onError: (error) => {
       toast.error(
         error instanceof Error ? error.message : "Щось пішло не так...",
-        {
-          id: "save-error",
-        },
+        { id: "save-error" },
       );
     },
   });
@@ -109,10 +120,14 @@ export default function StoryCard({ story }: Props) {
               disabled={isPending}
               type="button"
             >
-              <Icon
-                id={isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"}
-                className={css.icon}
-              />
+              {isPending ? (
+                <Loader size="sm" />
+              ) : (
+                <Icon
+                  id={isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"}
+                  className={css.icon}
+                />
+              )}
             </button>
           </div>
         </div>
