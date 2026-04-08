@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 import StoriesClient from "./Stories.client";
 import { getAllStories } from "@/lib/api/stories/serverApi";
+import { Metadata } from "next";
 
 export default async function Stories() {
   const queryClient = new QueryClient();

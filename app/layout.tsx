@@ -16,15 +16,36 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Природні Мандри",
+  title: {
+    template: "%s | Природні Мандри",
+    default: "Природні Мандри — Еко-подорожі Україною",
+  },
   description:
     "Платформа для екологічних мандрів Україною: відкривайте нові місця, діліться історіями та знаходьте однодумців.",
+
+  metadataBase: new URL("https://nature-travels-frontend.vercel.app"),
+
   icons: {
     icon: [
       {
         url: "/favicon.png",
       },
     ],
+  },
+
+  openGraph: {
+    title: "Природні Мандри",
+    description: "Діліться вашими історіями",
+    url: "https://nature-travels-frontend.vercel.app",
+    siteName: "Природні Мандри",
+    locale: "uk_UA",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Природні Мандри",
+    description: "Еко-подорожі Україною",
   },
 };
 

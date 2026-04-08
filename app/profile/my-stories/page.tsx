@@ -4,6 +4,7 @@ import { getUserStoriesPrivate } from "@/lib/api/users/clientApi";
 import { useQuery } from "@tanstack/react-query";
 import ProfileStoriesClient from "@/components/ProfileStories/ProfileStories";
 import Loader from "@/components/Loader/Loader";
+
 export default function MyStoriesPage() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["stories", "my"],

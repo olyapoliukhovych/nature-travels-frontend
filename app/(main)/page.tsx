@@ -10,6 +10,13 @@ import {
 } from "@tanstack/react-query";
 import { getAllStories } from "@/lib/api/stories/serverApi";
 import { getAllUsers } from "@/lib/api/users/serverApi";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Головна",
+  description:
+    "Природні Мандри — ваша платформа для екологічних подорожей Україною.",
+};
 
 export default async function Home() {
   const queryClient = new QueryClient();
