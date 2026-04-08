@@ -36,9 +36,9 @@ export default function LoginForm() {
       router.push("/");
     } catch (error) {
       if (error instanceof Error) {
-        toast.error(error.message);
+        toast.error(error.message, { id: "login-error" });
       } else {
-        toast.error("Щось пішло не так");
+        toast.error("Щось пішло не так", { id: "login-err" });
       }
     } finally {
       setSubmitting(false);
