@@ -40,7 +40,7 @@ export const logoutUser = async (): Promise<LogoutResponse> => {
 };
 
 export const refreshSession = async (): Promise<RefreshSessionResponse> => {
-  const res = await api.post<RefreshSessionResponse>("/auth/session");
+  const res = await api.get<RefreshSessionResponse>("/auth/session");
 
   return res.data;
 };

@@ -1,12 +1,8 @@
-import {
-  LoginParams,
-  LogoutResponse,
-  RefreshSessionResponse,
-  RegisterParams,
-} from "@/types/auth";
+import { LoginParams, LogoutResponse, RegisterParams } from "@/types/auth";
 import { UserPrivate } from "@/types/user";
 import { api } from "../api";
 import { cookies } from "next/headers";
+import { AxiosResponse } from "axios";
 
 export const registerUser = async ({
   name,
@@ -63,14 +59,14 @@ export const logoutUser = async (): Promise<LogoutResponse> => {
   return res.data;
 };
 
-export const refreshSession = async (): Promise<RefreshSessionResponse> => {
+export const refreshSession = async (): Promise<AxiosResponse> => {
   const cookie = await cookies();
 
-  const res = await api.post<RefreshSessionResponse>("auth/session", null, {
+  const res = await api.get<AxiosResponse>("auth/session", {
     headers: {
       Cookie: cookie.toString(),
     },
   });
 
-  return res.data;
+  return res;
 };
