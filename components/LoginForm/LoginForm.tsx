@@ -9,6 +9,7 @@ import Button from "../Button/Button";
 import { LoginValues } from "../../types/types";
 import { useAuthStore } from "@/lib/store/authStore";
 import { loginUser } from "@/lib/api/auth/clientApi";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -20,6 +21,7 @@ const LoginSchema = Yup.object().shape({
 export default function LoginForm() {
   const router = useRouter();
   const setUser = useAuthStore((s) => s.setUser);
+  const { getRedirect } = useAuthRedirect();
 
   const emailId = "login-email";
   const passwordId = "login-password";
@@ -33,7 +35,8 @@ export default function LoginForm() {
 
       setUser(data);
 
-      router.push("/");
+      const destination = getRedirect();
+      router.push(destination);
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message, { id: "login-error" });
