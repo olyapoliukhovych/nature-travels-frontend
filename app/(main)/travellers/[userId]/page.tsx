@@ -2,10 +2,9 @@ import TravellerInfo from "@/components/TravellerInfo/TravellerInfo";
 import {
   getUserByIdPublic,
   getUserStoriesPublic,
-} from "@/lib/api/users/serverApi";
+} from "@/lib/api/users/clientApi";
 import css from "./page.module.css";
 import TravellerProfileClient from "./TravellerProfile.client";
-import { User } from "@/types/user";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -15,7 +14,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { userId } = await params;
 
-  const data = await getUserByIdPublic({ userId, page: 1, perPage: 1 });
+  const data = await getUserByIdPublic(userId);
 
   if (!data) {
     return { title: "Користувача не знайдено" };
