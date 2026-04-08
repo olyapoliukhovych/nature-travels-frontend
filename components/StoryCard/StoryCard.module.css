@@ -36,13 +36,18 @@
     border var(--transition),
     background var(--transition),
     color var(--transition);
-}
 
-.saveButton:hover,
-.saveButton:focus {
-  background: var(--color-mantis-dark);
-  color: var(--color-white);
-  border: 1px solid transparent;
+  &:hover,
+  &:focus {
+    background: var(--color-mantis-dark);
+    color: var(--color-white);
+    border: 1px solid transparent;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }
 
 .appLink:active {
