@@ -2,6 +2,7 @@ import TravellerInfo from "@/components/TravellerInfo/TravellerInfo";
 import { getUserByIdPublic } from "@/lib/api/users/serverApi";
 import css from "./page.module.css";
 import TravellerProfileClient from "./TravellerProfile.client";
+import { User } from "@/types/user";
 
 export default async function TravellerPage({
   params,
@@ -20,17 +21,17 @@ export default async function TravellerPage({
     perPage: 6,
   });
 
-  if (!data?.user) return <div>Користувача не знайдено</div>;
+  if (!data || !data._id) return <div>Користувача не знайдено</div>;
   return (
     <section className={css.travellerProfilePageSection}>
       <div className="container">
-        <TravellerInfo user={data.user} />
+        <TravellerInfo user={data as unknown as User} />
         <h1 className={css.travellerProfilePageTitle}>Історії мандрівника</h1>
 
         <TravellerProfileClient
-          initialStories={data.stories}
+          initialStories={data.userStories}
           userId={userId}
-          totalPages={data.totalPages}
+          totalPages={data.totalPages || 1}
           currentPage={currentPage}
         />
       </div>
