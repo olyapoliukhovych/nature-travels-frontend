@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { getStoryById } from "@/lib/api/stories/clientApi";
 import Loader from "@/components/Loader/Loader";
 import css from "./StoryDetailsClient.module.css";
-import StoryDetailsPage from "@/components/StoryDetails/StoryDetails";
 import clsx from "clsx";
 import PopularStories from "@/components/PopularStories/PopularStories";
 
