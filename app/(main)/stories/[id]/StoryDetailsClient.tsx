@@ -3,13 +3,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { getStoryById } from "@/lib/api/stories/clientApi";
-import StoryDetailsPage from "@/components/StoryDetails/StoryDetails";
 import Loader from "@/components/Loader/Loader";
 import css from "./StoryDetailsClient.module.css";
 import SaveStorySection from "@/components/StoryDetails/SaveStorySection";
 import clsx from "clsx";
 import PopularStories from "@/components/PopularStories/PopularStories";
-import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
 
 export default function StoryDetailsClient() {
   const { id } = useParams<{ id: string }>();
@@ -31,7 +29,6 @@ export default function StoryDetailsClient() {
   return (
     <div className={clsx(css.section, "container")}>
       <StoryDetailsPage story={story} />
-      <SaveStorySection storyId={story._id} />
       <PopularStories
         title="Вам також сподобається"
         categoryId={story.categoryId._id}
