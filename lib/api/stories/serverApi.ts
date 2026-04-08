@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { api } from "../api";
 import {
   CreateStoryResponse,
+  GategoryRecomendParams,
   RequestParamsGetAllStories,
   StoriesResponse,
   Story,
@@ -25,6 +26,25 @@ export const getAllStories = async ({
       Cookie: cookie.toString(),
     },
   });
+  return res.data;
+};
+
+export const getRecomendStories = async ({
+  categoryId,
+  storyId,
+}: GategoryRecomendParams): Promise<Story[]> => {
+  const cookie = await cookies();
+
+  const res = await api.get<Story[]>("/stories/recomend", {
+    params: {
+      categoryId,
+      storyId,
+    },
+    headers: {
+      Cookie: cookie.toString(),
+    },
+  });
+
   return res.data;
 };
 

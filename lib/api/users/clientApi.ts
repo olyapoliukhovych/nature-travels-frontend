@@ -6,8 +6,8 @@ import {
 import { api } from "../api";
 import {
   MovementToFavoritesResponse,
-  User,
-  UserPublicProfileResponse,
+  UserPrivate,
+  UserPublic,
   UsersResponse,
 } from "@/types/user";
 
@@ -22,27 +22,31 @@ export const getAllUsers = async ({
   return res.data;
 };
 
-// перша версія
-// export const getUserByIdPublic = async (userId: string): Promise<User> => {
-//   const res = await api.get<User>(`/users/${userId}`);
-//   return res.data;
-// };
+export const getUserByIdPublic = async (
+  userId: string,
+): Promise<UserPublic> => {
+  const res = await api.get<UserPublic>(`/users/${userId}`);
 
-export const getUserByIdPublic = async ({
-  userId,
-  page,
-  perPage,
-}: RequestParamsGetUserById): Promise<UserPublicProfileResponse> => {
-  const res = await api.get<UserPublicProfileResponse>(`/users/${userId}`, {
-    params: { page, perPage },
-  });
   return res.data;
 };
 
-export const getUserStoriesPublic = async () => {};
+export const getUserStoriesPublic = async ({
+  userId,
+  page,
+  perPage,
+}: RequestParamsGetUserById): Promise<StoriesResponse> => {
+  const res = await api.get<StoriesResponse>(`/users/${userId}/public`, {
+    params: {
+      page,
+      perPage,
+    },
+  });
 
-export const getUserProfile = async (): Promise<User> => {
-  const res = await api.get<User>("/users/me");
+  return res.data;
+};
+
+export const getUserProfile = async (): Promise<UserPrivate> => {
+  const res = await api.get<UserPrivate>("/users/me");
 
   return res.data;
 };

@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { UserPrivate } from "@/types/user";
 import { api } from "../api";
 import {
   RegisterParams,
@@ -11,8 +11,8 @@ export const registerUser = async ({
   name,
   email,
   password,
-}: RegisterParams): Promise<User> => {
-  const res = await api.post<User>("/auth/register", {
+}: RegisterParams): Promise<UserPrivate> => {
+  const res = await api.post<UserPrivate>("/auth/register", {
     name,
     email,
     password,
@@ -24,8 +24,8 @@ export const registerUser = async ({
 export const loginUser = async ({
   email,
   password,
-}: LoginParams): Promise<User> => {
-  const res = await api.post<User>("/auth/login", {
+}: LoginParams): Promise<UserPrivate> => {
+  const res = await api.post<UserPrivate>("/auth/login", {
     email,
     password,
   });
