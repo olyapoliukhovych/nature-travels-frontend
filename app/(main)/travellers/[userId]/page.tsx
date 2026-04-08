@@ -5,8 +5,8 @@ import {
 } from "@/lib/api/users/serverApi";
 import css from "./page.module.css";
 import TravellerProfileClient from "./TravellerProfile.client";
-import { UserPublic } from "@/types/user";
 import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
+import { UserPrivate } from "@/types/user";
 
 export default async function TravellerPage({
   params,
@@ -32,7 +32,7 @@ export default async function TravellerPage({
   return (
     <section className={css.travellerProfilePageSection}>
       <div className="container">
-        <TravellerInfo user={user as UserPublic} />
+        <TravellerInfo user={user as UserPrivate} />
         <h1 className={css.travellerProfilePageTitle}>Історії мандрівника</h1>
 
         {hasStories ? (

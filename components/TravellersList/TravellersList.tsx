@@ -1,10 +1,10 @@
-import { User } from "@/types/user";
 import TravellerCard from "../TravellerCard/TravellerCard";
 import css from "./TravellersList.module.css";
 import Pagination from "../Pagination/Pagination";
+import { UserPublic } from "@/types/user";
 
 interface Props {
-  users: User[];
+  users: UserPublic[];
   fetchNextPage: () => void;
   isFetchingNextPage: boolean;
   hasNextPage: boolean;
