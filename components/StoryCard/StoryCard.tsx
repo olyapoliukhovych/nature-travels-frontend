@@ -6,13 +6,13 @@ import { Story } from "@/types/stories";
 import {
   addStoryToFavorites,
   deleteStoryToFavorites,
-  getUserProfile,
 } from "@/lib/api/users/clientApi";
-import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Modal from "../Modal/Modal";
 import { ModeModal } from "../ModeModal/ModeModal";
+import { useAuthStore } from "@/lib/store/authStore";
 
 interface Props {
   story: Story;
@@ -20,13 +20,9 @@ interface Props {
 
 export default function StoryCard({ story }: Props) {
   const queryClient = useQueryClient();
+  const user = useAuthStore((s) => s.user);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-
-  const { data: user, isLoading: isUserLoading } = useQuery({
-    queryKey: ["user-profile"],
-    queryFn: getUserProfile,
-    retry: false,
-  });
 
   const isSaved = user?.savedStories?.some((item: string | { _id: string }) => {
     if (typeof item === "string") {
@@ -63,7 +59,7 @@ export default function StoryCard({ story }: Props) {
   const handleSaveClick = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!user && !isUserLoading) {
+    if (!isAuthenticated) {
       setIsErrorModalOpen(true);
       return;
     }
