@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { refreshSession } from "./lib/api/auth/serverApi";
 import { parse } from "cookie";
 
-const privateRoutes = ["/profile", "/stories/new"];
+const privateRoutes = ["/profile", "/stories", "/travellers", "/"];
 const authRoutes = ["/auth/login", "/auth/register"];
 
 export async function proxy(request: NextRequest) {
@@ -74,5 +74,12 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile/:path*", "/stories/new", "/auth/login", "/auth/register"],
+  matcher: [
+    "/",
+    "/profile/:path*",
+    "/stories/:path*",
+    "/travellers",
+    "/auth/login",
+    "/auth/register",
+  ],
 };
