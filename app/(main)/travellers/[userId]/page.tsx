@@ -5,6 +5,34 @@ import {
 } from "@/lib/api/users/serverApi";
 import css from "./page.module.css";
 import TravellerProfileClient from "./TravellerProfile.client";
+import { User } from "@/types/user";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ userId: string }>;
+}): Promise<Metadata> {
+  const { userId } = await params;
+
+  const data = await getUserByIdPublic({ userId, page: 1, perPage: 1 });
+
+  if (!data) {
+    return { title: "Користувача не знайдено" };
+  }
+
+  const userAvatar = (data as { avatar?: string }).avatar;
+
+  return {
+    title: data.name,
+    description: `Переглядайте історії мандрів та еко-пригоди користувача ${data.name} на платформі Природні Мандри.`,
+    openGraph: {
+      title: `${data.name} — Профіль мандрівника`,
+      description: `Приєднуйтесь до пригод ${data.name} в Україні.`,
+      images: [userAvatar || "/default-avatar.jpg"],
+    },
+  };
+}
 import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
 import { UserPrivate } from "@/types/user";
 

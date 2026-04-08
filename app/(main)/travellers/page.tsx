@@ -5,6 +5,12 @@ import {
 } from "@tanstack/react-query";
 import TravellersClient from "./Travellers.client";
 import { getAllUsers } from "@/lib/api/users/serverApi";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Мандрівники",
+  description: "Познайомтеся зі спільнотою Природні Мандри.",
+};
 
 export default async function Travellers() {
   const queryClient = new QueryClient();

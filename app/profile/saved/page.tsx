@@ -1,4 +1,12 @@
 import ProfileStoriesClient from "@/components/ProfileStories/ProfileStories";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Збережені історії",
+  description:
+    "Ваша персональна колекція улюблених еко-подорожей та історій мандрівників по Україні.",
+};
+
 import { cookies } from "next/headers";
 import { api } from "@/lib/api/api";
 import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
