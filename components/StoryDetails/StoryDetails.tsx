@@ -4,6 +4,7 @@ import css from "./StoryDetails.module.css";
 import { Icon } from "../Icon/Icon";
 import clsx from "clsx";
 import AppLink from "../AppLink/AppLink";
+
 import SaveStorySection from "./SaveStorySection";
 
 interface Props {
@@ -41,7 +42,7 @@ export default function StoryDetailsPage({ story }: Props) {
           <ul className={css.autorsWrapp}>
             <li className={css.text}>
               <span className={css.bold}>Автор статті</span>
-              {story.ownerId?.name || "Невідомий автор"}
+              {story.ownerId?.name ?? "Невідомий автор"}
             </li>
             <li className={css.text}>
               <span className={css.bold}>Опубліковано</span>

@@ -10,6 +10,7 @@ import {
   deleteStoryToFavorites,
   getUserProfile,
 } from "@/lib/api/users/clientApi";
+import toast from "react-hot-toast";
 
 interface SaveStorySectionProps {
   storyId: string;
@@ -19,7 +20,7 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
-  const { data: user } = useQuery({
+  const { data: user, isLoading } = useQuery({
     queryKey: ["user-profile"],
     queryFn: getUserProfile,
     retry: false,
@@ -32,11 +33,33 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
   const { mutate: toggleSave, isPending } = useMutation({
     mutationFn: () =>
       isSaved ? deleteStoryToFavorites(storyId) : addStoryToFavorites(storyId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      if (!isSaved) setIsModalOpen(true);
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+
+      if (isSaved) {
+        toast.error("Історію видалено зі збережених");
+      } else {
+        toast.success("Історію збережено");
+      }
+    },
+    onError: (error) => {
+      const message =
+        error instanceof Error ? error.message : "Не вдалося виконати запит";
+
+      toast.error(message);
     },
   });
+
+  const handleClick = () => {
+    if (isLoading) return;
+
+    if (!user) {
+      setIsModalOpen(true);
+      return;
+    }
+
+    toggleSave();
+  };
   return (
     <div className={css.saveStoryWrapper}>
       <h3 className={css.title}>
@@ -50,7 +73,7 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
 
       <Button
         className={css.saveButton}
-        onClick={() => toggleSave()}
+        onClick={handleClick}
         isLoading={isPending}
         type="button"
       >
