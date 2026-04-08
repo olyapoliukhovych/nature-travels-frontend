@@ -10,6 +10,7 @@ import {
   deleteStoryToFavorites,
   getUserProfile,
 } from "@/lib/api/users/clientApi";
+import toast from "react-hot-toast";
 
 interface SaveStorySectionProps {
   storyId: string;
@@ -19,7 +20,7 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
-  const { data: user } = useQuery({
+  const { data: user, isLoading: isUserLoading } = useQuery({
     queryKey: ["user-profile"],
     queryFn: getUserProfile,
     retry: false,
@@ -34,9 +35,25 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
       isSaved ? deleteStoryToFavorites(storyId) : addStoryToFavorites(storyId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      if (!isSaved) setIsModalOpen(true);
+
+      toast.success(
+        isSaved ? "Видалено зі збережених" : "Додано до збережених",
+        { id: "save-detail-status" },
+      );
+    },
+    onError: (error) => {
+      toast.error(error instanceof Error ? error.message : "Помилка запиту");
     },
   });
+
+  const handleSaveClick = () => {
+    if (!user && !isUserLoading) {
+      setIsModalOpen(true);
+      return;
+    }
+    toggleSave();
+  };
+
   return (
     <div className={css.saveStoryWrapper}>
       <h3 className={css.title}>
@@ -44,13 +61,13 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
       </h3>
       <p className={css.text}>
         {isSaved
-          ? "Історія доступна у Вашому профілі у розділі збережене, Ви можете її видалити"
+          ? "Історія доступна у Вашому профілі у розділі збережене. Ви можете її видалити"
           : "Вона буде доступна у Вашому профілі у розділі збережене"}
       </p>
 
       <Button
         className={css.saveButton}
-        onClick={() => toggleSave()}
+        onClick={handleSaveClick}
         isLoading={isPending}
         type="button"
       >
