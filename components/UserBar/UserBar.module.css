@@ -38,7 +38,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* flex-shrink: 0; */
   white-space: nowrap;
 }
 
@@ -48,15 +47,13 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-
-  /* border: 1px solid transparent;
-  border-radius: 6px; */
   padding: 2px 8px;
+  transform: scale(0.95);
   transition: transform var(--transition);
 }
 
 .profile:hover {
-  transform: scale(1.1);
+  transform: scale(1);
 }
 
 .avatar {
@@ -89,11 +86,12 @@
 .logout {
   display: inline-flex;
   padding: 6px 0 6px 8px;
+  transform: scale(0.9);
   transition: transform var(--transition);
 }
 
 .logout:hover {
-  transform: scale(1.1);
+  transform: scale(1);
 }
 
 .logoutSvg {
@@ -111,12 +109,10 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    /* gap: 8px; */
     border: 1px solid var(--color-mantis-dark);
     border-radius: 6px;
     padding: 4px 10px;
     min-width: 196px;
-    /* height: 32px; */
     background-color: var(--color-mantis-dark);
     font-weight: 500;
     font-size: 14px;
@@ -154,18 +150,15 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    /* gap: 8px; */
     border-radius: 6px;
     padding: 4px 10px;
     min-width: 335px;
-    /* height: 32px; */
     margin-bottom: 24px;
   }
 
   .bottom {
     width: 100%;
     justify-content: center;
-    /* gap: 8px; */
   }
 
   .avatar {

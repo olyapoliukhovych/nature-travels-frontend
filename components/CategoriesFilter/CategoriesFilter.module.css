@@ -58,17 +58,14 @@
     font-size: 18px;
   }
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     color: var(--color-scheme-1-accent);
   }
 }
 
 .active {
-  font-weight: 500;
-  background: var(--color-scheme-1-foreground);
+  background: var(--color-scheme-2-foreground);
   pointer-events: none;
-
-  @media only screen and (min-width: 1440px) {
-    font-size: 20px;
-  }
+  transform: scale(1.1);
 }

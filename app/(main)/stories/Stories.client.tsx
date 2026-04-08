@@ -13,7 +13,6 @@ import TravellersStories from "@/components/TravellersStories/TravellersStories"
 import Loader from "@/components/Loader/Loader";
 import clsx from "clsx";
 import CategoriesFilter from "@/components/CategoriesFilter/CategoriesFilter";
-// import Pagination from "@/components/Pagination/Pagination";
 import PageTitle from "@/components/PageTitle/PageTitle";
 
 const INITIAL_PAGE = 1;

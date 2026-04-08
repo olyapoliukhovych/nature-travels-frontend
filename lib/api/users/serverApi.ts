@@ -28,19 +28,6 @@ export const getAllUsers = async ({
   return res.data;
 };
 
-// перша версія
-// export const getUserByIdPublic = async (userId: string): Promise<User> => {
-//   const cookie = await cookies();
-
-//   const res = await api.get<User>(`/users/${userId}`, {
-//     headers: {
-//       Cookie: cookie.toString(),
-//     },
-//   });
-
-//   return res.data;
-// };
-
 export const getUserByIdPublic = async ({
   userId,
   page,

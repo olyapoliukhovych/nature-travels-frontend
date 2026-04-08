@@ -39,12 +39,11 @@ export const logoutUser = async (): Promise<LogoutResponse> => {
   return res.data;
 };
 
-// шлях не той?
-// export const refreshSession = async (): Promise<RefreshSessionResponse> => {
-//   const res = await api.post<RefreshSessionResponse>("/auth/session");
+export const refreshSession = async (): Promise<RefreshSessionResponse> => {
+  const res = await api.post<RefreshSessionResponse>("/auth/session");
 
-//   return res.data;
-// };
+  return res.data;
+};
 
 // лишнє?
 // export const checkClientSession = () => {
@@ -61,8 +60,3 @@ export const logoutUser = async (): Promise<LogoutResponse> => {
 
 //   return { success: hasAccess && hasRefresh };
 // };
-
-export const refreshSession = async (): Promise<RefreshSessionResponse> => {
-  const res = await api.post<RefreshSessionResponse>("/auth/refresh");
-  return res.data;
-};

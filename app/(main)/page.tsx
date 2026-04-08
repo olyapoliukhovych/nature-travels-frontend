@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero/Hero";
-// import styles from "./page.module.css";
 import OurTravellers from "@/components/OurTravellers/OurTravellers";
 import About from "@/components/About/About";
 import PopularStories from "@/components/PopularStories/PopularStories";

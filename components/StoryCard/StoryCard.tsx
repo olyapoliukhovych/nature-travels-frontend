@@ -4,11 +4,43 @@ import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
 import { Story } from "@/types/stories";
 
+import {
+  addStoryToFavorites,
+  deleteStoryToFavorites,
+  getUserProfile,
+} from "@/lib/api/users/clientApi";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+
 interface Props {
   story: Story;
 }
 
 export default function StoryCard({ story }: Props) {
+  const queryClient = useQueryClient();
+
+  const { data: user } = useQuery({
+    queryKey: ["user-profile"],
+    queryFn: getUserProfile,
+    retry: false,
+  });
+
+  const isSaved = user?.savedStories?.some((item: string | { _id: string }) => {
+    if (typeof item === "string") {
+      return item === story._id;
+    }
+    return item._id === story._id;
+  });
+
+  const { mutate: toggleSave, isPending } = useMutation({
+    mutationFn: () =>
+      isSaved
+        ? deleteStoryToFavorites(story._id)
+        : addStoryToFavorites(story._id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+    },
+  });
+
   return (
     <div className={css.card}>
       <div className={css.imageWrapper}>
@@ -42,8 +74,19 @@ export default function StoryCard({ story }: Props) {
             Переглянути статтю
           </AppLink>
 
-          <button className={css.saveButton}>
-            <Icon id={"icon-bookmark"} className={css.icon} />
+          <button
+            className={css.saveButton}
+            onClick={() => toggleSave()}
+            disabled={isPending}
+            style={{
+              backgroundColor: isSaved ? "var(--color-mantis-dark)" : "",
+            }}
+          >
+            <Icon
+              id={"icon-bookmark"}
+              className={css.icon}
+              style={{ fill: isSaved ? "white" : "" }}
+            />
           </button>
         </div>
       </div>
