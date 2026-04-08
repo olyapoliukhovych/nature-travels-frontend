@@ -49,8 +49,6 @@ export default function StoryDetailsPage({ story }: Props) {
             </li>
             <li className={css.categories}>{story.categoryId.category}</li>
           </ul>
-
-          <SaveStorySection storyId={story._id} />
         </div>
       </div>
       <p className={clsx(css.text, css.textDesctop)}>{story.article}</p>
