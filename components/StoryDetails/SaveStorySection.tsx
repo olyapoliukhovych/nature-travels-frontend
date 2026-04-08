@@ -100,6 +100,7 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
         className={css.saveButton}
         onClick={handleSave}
         isLoading={isPending}
+        type="button"
       >
         {isSaved ? "Видалити" : "Зберегти"}
       </Button>

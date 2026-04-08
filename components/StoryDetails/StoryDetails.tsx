@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { Story } from "@/types/stories";
 import css from "./StoryDetails.module.css";
-import Link from "next/link";
 import { Icon } from "../Icon/Icon";
 import clsx from "clsx";
+import AppLink from "../AppLink/AppLink";
 
 interface Props {
   story: Story;
@@ -18,9 +18,6 @@ export default function StoryDetailsPage({ story }: Props) {
       })
     : "";
 
-  console.log("story", story);
-  console.log("ownerId", story.ownerId);
-  console.log("ownerName", story.ownerId?.name);
   return (
     <div className={css.container}>
       <div className={css.desctopWrapper}>
@@ -33,10 +30,10 @@ export default function StoryDetailsPage({ story }: Props) {
         />
 
         <div className={css.contentWrapper}>
-          <Link href="/stories" className={css.backLink}>
+          <AppLink href="/stories" className={css.backLink} variant="base">
             <Icon id="icon-chevron_left" className={css.icon} />
             Всі статті
-          </Link>
+          </AppLink>
 
           <h1 className={css.mainTitle}>{story.title}</h1>
 
