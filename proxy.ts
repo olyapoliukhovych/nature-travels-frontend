@@ -1,59 +1,76 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { refreshSession } from "./lib/api/auth/serverApi";
+import { parse } from "cookie";
 
 const privateRoutes = ["/profile", "/stories/new"];
 const authRoutes = ["/auth/login", "/auth/register"];
 
 export async function proxy(request: NextRequest) {
-  const { cookies, nextUrl } = request;
+  const { pathname } = request.nextUrl;
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+  const refreshToken = cookieStore.get("refreshToken")?.value;
 
-  const accessToken = cookies.get("accessToken")?.value;
-  const refreshToken = cookies.get("refreshToken")?.value;
-  const sessionId = cookies.get("sessionId")?.value;
-
-  const isPublicRoute = authRoutes.some((route) =>
-    nextUrl.pathname.startsWith(route),
-  );
+  const isPublicRoute = authRoutes.some((route) => pathname.startsWith(route));
   const isPrivateRoute = privateRoutes.some((route) =>
-    nextUrl.pathname.startsWith(route),
+    pathname.startsWith(route),
   );
 
-  // логіка рефрешу
-  if (!accessToken && refreshToken && sessionId) {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh`,
-        {
-          method: "POST",
-          headers: {
-            Cookie: `refreshToken=${refreshToken}; sessionId=${sessionId}`,
-          },
-        },
-      );
+  if (!accessToken) {
+    if (refreshToken) {
+      const data = await refreshSession();
+      const setCookie = data.headers["set-cookie"];
 
-      if (response.ok) {
-        const nextResponse = NextResponse.next();
-        const setCookieHeader = response.headers.get("set-cookie");
-        if (setCookieHeader) {
-          nextResponse.headers.set("set-cookie", setCookieHeader);
+      if (setCookie) {
+        const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+        for (const cookieStr of cookieArray) {
+          const parsed = parse(cookieStr);
+          const options = {
+            expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
+            path: parsed.Path,
+            maxAge: Number(parsed["Max-Age"]),
+          };
+          if (parsed.accessToken)
+            cookieStore.set("accessToken", parsed.accessToken, options);
+          if (parsed.refreshToken)
+            cookieStore.set("refreshToken", parsed.refreshToken, options);
         }
-        return nextResponse;
+
+        if (isPublicRoute) {
+          return NextResponse.redirect(new URL("/", request.url), {
+            headers: {
+              Cookie: cookieStore.toString(),
+            },
+          });
+        }
+
+        if (isPrivateRoute) {
+          return NextResponse.next({
+            headers: {
+              Cookie: cookieStore.toString(),
+            },
+          });
+        }
       }
-    } catch (error) {
-      console.error("Proxy refresh error:", error);
+    }
+
+    if (isPublicRoute) {
+      return NextResponse.next();
+    }
+
+    if (isPrivateRoute) {
+      return NextResponse.redirect(new URL("/auth/login", request.url));
     }
   }
 
-  // Якщо немає токена і роут приватний — на логін
-  if (!accessToken && isPrivateRoute) {
-    return NextResponse.redirect(new URL("/auth/login", request.url));
-  }
-
-  // Якщо токен є і роут публічний (логін/реєстрація) — на головну
-  if (accessToken && isPublicRoute) {
+  if (isPublicRoute) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  return NextResponse.next();
+  if (isPrivateRoute) {
+    return NextResponse.next();
+  }
 }
 
 export const config = {
