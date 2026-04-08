@@ -122,6 +122,7 @@ export default function AppSelect({
         ...base,
         fontSize: "18px",
         color: "var(--color-scheme-2-text)",
+        fontWeight: "400",
       }),
       input: (base) => ({ ...base, display: "none" }),
       indicatorSeparator: () => ({ display: "none" }),

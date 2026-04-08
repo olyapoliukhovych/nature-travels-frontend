@@ -155,6 +155,7 @@ const AddStoryForm = () => {
               <label className={css.uploadBtn}>
                 Завантажити фото
                 <input
+                  id="image-upload"
                   type="file"
                   name="image"
                   hidden
