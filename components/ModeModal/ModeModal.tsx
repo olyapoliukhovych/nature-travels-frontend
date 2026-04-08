@@ -1,6 +1,7 @@
 import { Icon } from "../Icon/Icon";
 import css from "./ModeModal.module.css";
 import Link from "next/link";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 interface Props {
   mode: "save" | "logout";
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export function ModeModal({ mode, onClose, logout }: Props) {
+  const { setRedirect } = useAuthRedirect();
   const variant = mode === "save";
 
   return (
@@ -27,10 +29,18 @@ export function ModeModal({ mode, onClose, logout }: Props) {
       <div className={css.navigationWrapper}>
         {variant ? (
           <>
-            <Link className={css.loginLink} href="/auth/login">
+            <Link
+              className={css.loginLink}
+              onClick={setRedirect}
+              href="/auth/login"
+            >
               Увійти
             </Link>
-            <Link className={css.registerLink} href="/auth/register">
+            <Link
+              className={css.registerLink}
+              onClick={setRedirect}
+              href="/auth/register"
+            >
               Зареєструватись
             </Link>
           </>
