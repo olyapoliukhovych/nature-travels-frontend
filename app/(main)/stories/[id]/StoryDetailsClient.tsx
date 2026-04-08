@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { getStoryById } from "@/lib/api/stories/clientApi";
-import StoryDetailsPage from "@/components/StoryDetails/StoryDetails";
 import Loader from "@/components/Loader/Loader";
 import css from "./StoryDetailsClient.module.css";
 import clsx from "clsx";
