@@ -1,0 +1,20 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 32px;
+  padding-bottom: 64px;
+
+  @media (min-width: 1440px) {
+    padding-top: 48px;
+    padding-bottom: 72px;
+  }
+}
+
+.textDesctop {
+  @media only screen and (min-width: 1440px) {
+    padding-left: 223px;
+    padding-right: 223px;
+  }
+}

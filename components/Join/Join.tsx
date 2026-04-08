@@ -1,7 +1,12 @@
+"use client";
+
+import { useAuthStore } from "@/lib/store/authStore";
 import AppLink from "../AppLink/AppLink";
 import css from "./Join.module.css";
 
 export default function Join() {
+  const isAuth = useAuthStore((s) => s.isAuthenticated);
+
   return (
     <section className={css.joinSection} id="join">
       <div className="container">
@@ -18,11 +23,11 @@ export default function Join() {
             </p>
 
             <AppLink
-              href="/auth/register"
+              href={isAuth ? "/profile" : "/auth/register"}
               variant="mantis"
               className={css.button}
             >
-              Зареєструватися
+              {isAuth ? "Збережені статті" : "Зареєструватися"}
             </AppLink>
           </div>
         </div>
