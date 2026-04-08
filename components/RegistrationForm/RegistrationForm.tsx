@@ -51,9 +51,9 @@ export default function RegistrationForm() {
       router.refresh();
     } catch (error) {
       if (error instanceof Error) {
-        toast.error(error.message);
+        toast.error(error.message, { id: "register-err" });
       } else {
-        toast.error("Щось пішло не так");
+        toast.error("Щось пішло не так", { id: "register-error" });
       }
     } finally {
       setSubmitting(false);

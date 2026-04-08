@@ -9,7 +9,7 @@ export default function ScrollToTopBtn() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY > 900);
+      setVisible(window.scrollY > 800);
     };
 
     window.addEventListener("scroll", handleScroll);
