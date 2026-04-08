@@ -37,7 +37,6 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
       if (!isSaved) setIsModalOpen(true);
     },
   });
-
   return (
     <div className={css.saveStoryWrapper}>
       <h3 className={css.title}>

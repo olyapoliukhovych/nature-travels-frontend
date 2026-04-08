@@ -3,7 +3,7 @@ import css from "./StoryCard.module.css";
 import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
 import { Story } from "@/types/stories";
-
+import toast from "react-hot-toast";
 import {
   addStoryToFavorites,
   deleteStoryToFavorites,
@@ -38,9 +38,29 @@ export default function StoryCard({ story }: Props) {
         : addStoryToFavorites(story._id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+      queryClient.invalidateQueries({ queryKey: ["profile-stories"] });
+    },
+    onError: () => {
+      toast.error("Щось пішло не так...");
     },
   });
 
+  const handleSaveClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!user) {
+      toast.error("Будь ласка, спочатку увійдіть в акаунт", {
+        icon: "🔒",
+        style: {
+          borderRadius: "10px",
+          background: "--color-scheme-1-background",
+          color: "--color-scheme-2-text",
+        },
+      });
+      return;
+    }
+
+    toggleSave();
+  };
   return (
     <div className={css.card}>
       <div className={css.imageWrapper}>
@@ -76,7 +96,7 @@ export default function StoryCard({ story }: Props) {
 
           <button
             className={css.saveButton}
-            onClick={() => toggleSave()}
+            onClick={handleSaveClick}
             disabled={isPending}
             style={{
               backgroundColor: isSaved ? "var(--color-mantis-dark)" : "",
