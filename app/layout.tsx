@@ -70,25 +70,45 @@ export default function RootLayout({
             <ScrollToTopBtn />
           </AuthProvider>
         </TanStackProvider>
-        {/* <Toaster position="top-center" toastOptions={{ duration: 3000 }} /> */}
+
         <Toaster
-          position="top-center"
+          gutter={12}
+          containerStyle={{
+            top: 24,
+            right: 24,
+          }}
           toastOptions={{
             duration: 3000,
             style: {
-              color: "#000",
-              backgroundColor: "#fff",
+              background: "var(--color-mantis-lightest)",
+              color: "var(--color-mantis-darkest)",
+              border: "1px solid var(--color-mantis-lighter)",
+              padding: "14px 16px",
+              borderRadius: "16px",
+              fontSize: "14px",
+              fontWeight: 500,
+              boxShadow: "0 10px 24px var(--opacity-neutral-darkest-10)",
             },
             success: {
+              style: {
+                background: "var(--color-mantis-lightest)",
+                color: "var(--color-mantis-darkest)",
+                border: "1px solid var(--color-mantis-light)",
+              },
               iconTheme: {
-                primary: "#4a9849",
-                secondary: "#fff",
+                primary: "var(--color-mantis)",
+                secondary: "var(--color-white)",
               },
             },
             error: {
+              style: {
+                background: "#fff5f5",
+                color: "var(--color-red)",
+                border: "1px solid rgba(176, 1, 1, 0.2)",
+              },
               iconTheme: {
-                primary: "#b00101",
-                secondary: "#fff",
+                primary: "var(--color-red)",
+                secondary: "var(--color-white)",
               },
             },
           }}
