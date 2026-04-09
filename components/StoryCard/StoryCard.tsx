@@ -173,14 +173,14 @@ export default function StoryCard({ story }: Props) {
                   style={{ position: "relative", zIndex: 12 }}
                 />
               </div>
-<!--               {isPending ? (
+              {isPending ? (
                 <Loader size="sm" />
               ) : (
                 <Icon
                   id={isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"}
                   className={css.icon}
                 />
-              )} -->
+              )}
             </button>
           </div>
         </div>

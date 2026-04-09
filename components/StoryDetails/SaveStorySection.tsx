@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import Button from "../Button/Button";
 import css from "./StoryDetails.module.css";
 import { ModeModal } from "../ModeModal/ModeModal";
@@ -21,31 +21,34 @@ interface SaveStorySectionProps {
 
 export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
   const queryClient = useQueryClient();
-  const { user, isAuthenticated, setUser, clearIsAuthenticated } =
-    useAuthStore();
+  const { isAuthenticated, setUser, clearIsAuthenticated } = useAuthStore();
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 
-  const { data: user, isLoading: isUserLoading } = useQuery({
+  const { data: userData, isLoading: isUserLoading } = useQuery({
     queryKey: ["user-profile"],
     queryFn: getUserProfile,
+    enabled: isAuthenticated,
     retry: false,
-  const isSaved = user?.savedStories?.some((item: string | { _id: string }) => {
-    if (typeof item === "string") {
-      return item === storyId;
-    }
-    return item._id === storyId;
   });
 
+  const isSaved = userData?.savedStories?.some(
+    (item: string | { _id: string }) => {
+      if (typeof item === "string") {
+        return item === storyId;
+      }
+      return item._id === storyId;
+    },
+  );
+
   const { mutate: toggleSave, isPending } = useMutation({
-     mutationFn: async () => {
+    mutationFn: async () => {
       try {
         return isSaved
           ? await deleteStoryToFavorites(storyId)
           : await addStoryToFavorites(storyId);
-      } catch {
+      } catch (error) {
         try {
           await refreshSession();
-
           return isSaved
             ? await deleteStoryToFavorites(storyId)
             : await addStoryToFavorites(storyId);
@@ -54,7 +57,6 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
         }
       }
     },
-    
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["user-profile"] });
       await queryClient.invalidateQueries({ queryKey: ["stories"] });
@@ -63,7 +65,7 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
         const updatedUser = await getUserProfile();
         setUser(updatedUser);
       } catch (e) {
-        console.error(e);
+        console.error("Failed to update store user:", e);
       }
 
       if (isSaved) {
@@ -72,10 +74,10 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
         toast.success("Додано до збережених", { id: "unsave" });
       }
     },
-        onError: (error: AxiosError) => {
+    onError: (error: Error | AxiosError) => {
       if (
         error.message === "Сесія завершена. Увійдіть знову." ||
-        error.response?.status === 401
+        (error as AxiosError).response?.status === 401
       ) {
         clearIsAuthenticated();
         setIsErrorModalOpen(true);
@@ -85,15 +87,14 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
     },
   });
 
+  const handleSaveClick = () => {
+    if (!isAuthenticated) {
+      setIsErrorModalOpen(true);
+      return;
+    }
     toggleSave();
   };
 
-  const handleSaveClick = () => {
-    if (!user && !isUserLoading) {
-      setIsModalOpen(true);
-      return;
-    }
-   
   return (
     <div className={css.saveStoryWrapper}>
       <h3 className={css.title}>
@@ -108,7 +109,7 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
       <Button
         className={css.saveButton}
         onClick={handleSaveClick}
-        isLoading={isPending}
+        isLoading={isPending || isUserLoading}
         type="button"
       >
         {isSaved ? "Видалити" : "Зберегти"}
