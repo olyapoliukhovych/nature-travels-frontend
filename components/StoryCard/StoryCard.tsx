@@ -21,7 +21,6 @@ import {
 } from "../SaveAnimation/SaveAnimation";
 import NumberFlow from "@number-flow/react";
 import { useAuthStore } from "@/lib/store/authStore";
-import Loader from "../Loader/Loader";
 import { AxiosError } from "axios";
 import { refreshSession } from "@/lib/api/auth/clientApi";
 
@@ -74,9 +73,9 @@ export default function StoryCard({ story }: Props) {
       }
 
       if (isSaved) {
-        toast.error("Історію видалено зі збережених", { id: "save" });
+        toast.error("Історію видалено зі збережених");
       } else {
-        toast.success("Історію збережено", { id: "unsave" });
+        toast.success("Історію збережено");
       }
     },
 
@@ -173,14 +172,15 @@ export default function StoryCard({ story }: Props) {
                   style={{ position: "relative", zIndex: 12 }}
                 />
               </div>
-              {isPending ? (
+
+              {/* {isPending ? (
                 <Loader size="sm" />
               ) : (
                 <Icon
                   id={isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"}
                   className={css.icon}
                 />
-              )}
+              )} */}
             </button>
           </div>
         </div>
