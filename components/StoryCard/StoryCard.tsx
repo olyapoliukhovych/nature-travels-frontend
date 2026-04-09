@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import css from "./StoryCard.module.css";
 import AppLink from "../AppLink/AppLink";
@@ -8,7 +10,7 @@ import {
   deleteStoryToFavorites,
   getUserProfile,
 } from "@/lib/api/users/clientApi";
-import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Modal from "../Modal/Modal";
@@ -18,6 +20,10 @@ import {
   CircleAnimation,
 } from "../SaveAnimation/SaveAnimation";
 import NumberFlow from "@number-flow/react";
+import { useAuthStore } from "@/lib/store/authStore";
+import Loader from "../Loader/Loader";
+import { AxiosError } from "axios";
+import { refreshSession } from "@/lib/api/auth/clientApi";
 
 interface Props {
   story: Story;
@@ -25,14 +31,10 @@ interface Props {
 
 export default function StoryCard({ story }: Props) {
   const queryClient = useQueryClient();
+  const { user, isAuthenticated, setUser, clearIsAuthenticated } =
+    useAuthStore();
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-
-  const { data: user, isLoading: isUserLoading } = useQuery({
-    queryKey: ["user-profile"],
-    queryFn: getUserProfile,
-    retry: false,
-  });
 
   const isSaved = user?.savedStories?.some((item: string | { _id: string }) => {
     if (typeof item === "string") {
@@ -42,33 +44,59 @@ export default function StoryCard({ story }: Props) {
   });
 
   const { mutate: toggleSave, isPending } = useMutation({
-    mutationFn: () =>
-      isSaved
-        ? deleteStoryToFavorites(story._id)
-        : addStoryToFavorites(story._id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      queryClient.invalidateQueries({ queryKey: ["profile-stories"] });
+    mutationFn: async () => {
+      try {
+        return isSaved
+          ? await deleteStoryToFavorites(story._id)
+          : await addStoryToFavorites(story._id);
+      } catch {
+        try {
+          await refreshSession();
 
-      toast.success(
-        isSaved ? "Видалено зі збережених" : "Додано до збережених",
-      );
+          return isSaved
+            ? await deleteStoryToFavorites(story._id)
+            : await addStoryToFavorites(story._id);
+        } catch {
+          throw new Error("Сесія завершена. Увійдіть знову.");
+        }
+      }
     },
 
-    onError: (error) => {
-      toast.error(
-        error instanceof Error ? error.message : "Щось пішло не так...",
-        {
-          id: "save-error",
-        },
-      );
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+      await queryClient.invalidateQueries({ queryKey: ["stories"] });
+
+      try {
+        const updatedUser = await getUserProfile();
+        setUser(updatedUser);
+      } catch (e) {
+        console.error(e);
+      }
+
+      if (isSaved) {
+        toast.error("Історію видалено зі збережених", { id: "save" });
+      } else {
+        toast.success("Історію збережено", { id: "unsave" });
+      }
+    },
+
+    onError: (error: AxiosError) => {
+      if (
+        error.message === "Сесія завершена. Увійдіть знову." ||
+        error.response?.status === 401
+      ) {
+        clearIsAuthenticated();
+        setIsErrorModalOpen(true);
+      } else {
+        toast.error(error.message || "Помилка збереження");
+      }
     },
   });
 
   const handleSaveClick = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!user && !isUserLoading) {
+    if (!isAuthenticated) {
       setIsErrorModalOpen(true);
       return;
     }
@@ -145,6 +173,14 @@ export default function StoryCard({ story }: Props) {
                   style={{ position: "relative", zIndex: 12 }}
                 />
               </div>
+<!--               {isPending ? (
+                <Loader size="sm" />
+              ) : (
+                <Icon
+                  id={isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"}
+                  className={css.icon}
+                />
+              )} -->
             </button>
           </div>
         </div>

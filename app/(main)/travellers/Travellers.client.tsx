@@ -14,7 +14,7 @@ const PER_PAGE = 12;
 export default function TravellersClient() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
-      queryKey: ["users", PER_PAGE],
+      queryKey: ["users", INITIAL_PAGE],
       queryFn: ({ pageParam = INITIAL_PAGE }) =>
         getAllUsers({
           page: pageParam as number,

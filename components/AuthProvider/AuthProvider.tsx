@@ -1,55 +1,37 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { useAuthStore } from "@/lib/store/authStore";
-import { getUserProfile } from "@/lib/api/users/clientApi";
 import { refreshSession } from "@/lib/api/auth/clientApi";
-import axios from "axios";
+import { getUserProfile } from "@/lib/api/users/clientApi";
 
-export default function AuthProvider({
-  children,
-}: {
+type Props = {
   children: React.ReactNode;
-}) {
-  const { setUser, clearIsAuthenticated } = useAuthStore();
-  const [isLoading, setIsLoading] = useState(true);
-  const isInitialized = useRef(false);
+};
+
+const AuthProvider = ({ children }: Props) => {
+  const setUser = useAuthStore((state) => state.setUser);
+  const clearIsAuthenticated = useAuthStore(
+    (state) => state.clearIsAuthenticated,
+  );
 
   useEffect(() => {
-    if (isInitialized.current) return;
-    isInitialized.current = true;
+    const fetchUser = async () => {
+      const isAuthenticated = await refreshSession();
 
-    const initAuth = async () => {
-      try {
+      if (isAuthenticated) {
         const user = await getUserProfile();
-        setUser(user);
-      } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-          if (error.response?.status === 401) {
-            try {
-              await refreshSession();
-              const user = await getUserProfile();
-              setUser(user);
-            } catch (refreshError) {
-              console.error("Error:", refreshError);
-              clearIsAuthenticated();
-            }
-          } else {
-            clearIsAuthenticated();
-          }
-        } else {
-          console.error("Non-axios error:", error);
-          clearIsAuthenticated();
-        }
-      } finally {
-        setIsLoading(false);
+
+        if (user) setUser(user);
+      } else {
+        clearIsAuthenticated();
       }
     };
 
-    initAuth();
+    fetchUser();
   }, [setUser, clearIsAuthenticated]);
 
-  if (isLoading) return null;
+  return children;
+};
 
-  return <>{children}</>;
-}
+export default AuthProvider;

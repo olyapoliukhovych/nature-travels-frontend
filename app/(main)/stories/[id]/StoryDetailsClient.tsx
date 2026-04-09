@@ -24,7 +24,7 @@ export default function StoryDetailsClient() {
   });
 
   if (isLoading) return <Loader />;
-  if (isError || !story) return <p>Some error...</p>;
+  if (isError || !story) return <p>Така історія відсутня</p>;
 
   return (
     <div className={clsx(css.section, "container")}>

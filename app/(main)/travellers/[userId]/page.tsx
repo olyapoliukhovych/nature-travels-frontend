@@ -2,9 +2,36 @@ import TravellerInfo from "@/components/TravellerInfo/TravellerInfo";
 import {
   getUserByIdPublic,
   getUserStoriesPublic,
-} from "@/lib/api/users/serverApi";
+} from "@/lib/api/users/clientApi";
 import css from "./page.module.css";
 import TravellerProfileClient from "./TravellerProfile.client";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ userId: string }>;
+}): Promise<Metadata> {
+  const { userId } = await params;
+
+  const data = await getUserByIdPublic(userId);
+
+  if (!data) {
+    return { title: "Користувача не знайдено" };
+  }
+
+  const userAvatar = (data as { avatar?: string }).avatar;
+
+  return {
+    title: data.name,
+    description: `Переглядайте історії мандрів та еко-пригоди користувача ${data.name} на платформі Природні Мандри.`,
+    openGraph: {
+      title: `${data.name} — Профіль мандрівника`,
+      description: `Приєднуйтесь до пригод ${data.name} в Україні.`,
+      images: [userAvatar || "/default-avatar.jpg"],
+    },
+  };
+}
 import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
 import { UserPrivate } from "@/types/user";
 
