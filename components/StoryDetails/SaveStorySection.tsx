@@ -25,6 +25,10 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
     useAuthStore();
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 
+  const { data: user, isLoading: isUserLoading } = useQuery({
+    queryKey: ["user-profile"],
+    queryFn: getUserProfile,
+    retry: false,
   const isSaved = user?.savedStories?.some((item: string | { _id: string }) => {
     if (typeof item === "string") {
       return item === storyId;
@@ -33,7 +37,7 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
   });
 
   const { mutate: toggleSave, isPending } = useMutation({
-    mutationFn: async () => {
+     mutationFn: async () => {
       try {
         return isSaved
           ? await deleteStoryToFavorites(storyId)
@@ -50,7 +54,7 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
         }
       }
     },
-
+    
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["user-profile"] });
       await queryClient.invalidateQueries({ queryKey: ["stories"] });
@@ -63,13 +67,12 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
       }
 
       if (isSaved) {
-        toast.error("Історію видалено зі збережених", { id: "save" });
+        toast.error("Видалено зі збережених", { id: "save" });
       } else {
-        toast.success("Історію збережено", { id: "unsave" });
+        toast.success("Додано до збережених", { id: "unsave" });
       }
     },
-
-    onError: (error: AxiosError) => {
+        onError: (error: AxiosError) => {
       if (
         error.message === "Сесія завершена. Увійдіть знову." ||
         error.response?.status === 401
@@ -82,17 +85,15 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
     },
   });
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    if (!isAuthenticated) {
-      setIsErrorModalOpen(true);
-      return;
-    }
-
     toggleSave();
   };
 
+  const handleSaveClick = () => {
+    if (!user && !isUserLoading) {
+      setIsModalOpen(true);
+      return;
+    }
+   
   return (
     <div className={css.saveStoryWrapper}>
       <h3 className={css.title}>
@@ -100,13 +101,13 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
       </h3>
       <p className={css.text}>
         {isSaved
-          ? "Історія доступна у Вашому профілі у розділі збережене, Ви можете її видалити"
+          ? "Історія доступна у Вашому профілі у розділі збережене. Ви можете її видалити"
           : "Вона буде доступна у Вашому профілі у розділі збережене"}
       </p>
 
       <Button
         className={css.saveButton}
-        onClick={handleClick}
+        onClick={handleSaveClick}
         isLoading={isPending}
         type="button"
       >

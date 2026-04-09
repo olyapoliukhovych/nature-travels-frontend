@@ -15,6 +15,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import Modal from "../Modal/Modal";
 import { ModeModal } from "../ModeModal/ModeModal";
+import {
+  BurstAnimation,
+  CircleAnimation,
+} from "../SaveAnimation/SaveAnimation";
+import NumberFlow from "@number-flow/react";
 import { useAuthStore } from "@/lib/store/authStore";
 import Loader from "../Loader/Loader";
 import { AxiosError } from "axios";
@@ -29,6 +34,7 @@ export default function StoryCard({ story }: Props) {
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
     useAuthStore();
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const isSaved = user?.savedStories?.some((item: string | { _id: string }) => {
     if (typeof item === "string") {
@@ -95,6 +101,11 @@ export default function StoryCard({ story }: Props) {
       return;
     }
 
+    if (!isSaved) {
+      setIsAnimating(true);
+      setTimeout(() => setIsAnimating(false), 1000);
+    }
+
     toggleSave();
   };
 
@@ -116,7 +127,8 @@ export default function StoryCard({ story }: Props) {
             <p>{story.ownerId?.name || "Невідомий автор"}</p>
             <span className={css.point}>.</span>
             <span className={css.saveInfo}>
-              {story.savedCount}
+              {/* {story.savedCount} */}
+              <NumberFlow value={story.savedCount} />
               <Icon
                 id={"icon-bookmark-filled-green"}
                 className={css.bookmark}
@@ -140,15 +152,35 @@ export default function StoryCard({ story }: Props) {
               onClick={handleSaveClick}
               disabled={isPending}
               type="button"
+              style={{ position: "relative" }}
             >
-              {isPending ? (
+              <div
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "24px",
+                  height: "24px",
+                }}
+              >
+                {isAnimating && <CircleAnimation />}
+                {isAnimating && <BurstAnimation />}
+
+                <Icon
+                  id={isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"}
+                  className={css.icon}
+                  style={{ position: "relative", zIndex: 12 }}
+                />
+              </div>
+<!--               {isPending ? (
                 <Loader size="sm" />
               ) : (
                 <Icon
                   id={isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"}
                   className={css.icon}
                 />
-              )}
+              )} -->
             </button>
           </div>
         </div>
