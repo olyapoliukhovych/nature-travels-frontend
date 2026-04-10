@@ -52,9 +52,6 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
     },
 
     onSuccess: async () => {
-      // await queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      // await queryClient.invalidateQueries({ queryKey: ["story", storyId] });
-      // await queryClient.invalidateQueries({ queryKey: ["stories"] });
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ["user-profile"] }),
         queryClient.invalidateQueries({ queryKey: ["story", storyId] }),
@@ -69,7 +66,7 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
       }
 
       if (isSaved) {
-        toast.error("Історію видалено зі збережених");
+        toast.success("Історію видалено зі збережених");
       } else {
         toast.success("Історію збережено");
       }
