@@ -73,7 +73,7 @@ export default function StoryCard({ story }: Props) {
       }
 
       if (isSaved) {
-        toast.error("Історію видалено зі збережених");
+        toast.success("Історію видалено зі збережених");
       } else {
         toast.success("Історію збережено");
       }
