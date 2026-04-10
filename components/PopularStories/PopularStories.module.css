@@ -28,7 +28,6 @@
   grid-area: title;
   font-weight: 700;
   font-size: 28px;
-  margin: 0;
 
   @media only screen and (min-width: 768px) {
     font-size: 44px;
@@ -52,9 +51,7 @@
 }
 
 .swiper[class*="OurTravellers"] {
-  @media (max-width: 767px) {
-    height: calc(335px * 3 + 24px * 2);
-  }
+  height: calc(335px * 3 + 24px * 2);
 
   @media only screen and (min-width: 768px) {
     height: calc(317px * 2 + 24px);
