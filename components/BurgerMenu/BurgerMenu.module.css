@@ -1,24 +1,20 @@
-.menu {
+.panel {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100dvh;
   z-index: 1000;
   background-color: var(--color-scheme-2-background);
   overflow: hidden;
   overscroll-behavior: none;
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
 
   @media only screen and (min-width: 1440px) {
     display: none;
   }
-}
-
-.panel {
-  width: 100%;
-  min-height: 100dvh;
-  background-color: var(--color-scheme-2-background);
-  display: flex;
-  flex-direction: column;
 }
 
 .logo {
@@ -81,35 +77,41 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+
+  max-width: 375px;
+
+  @media only screen and (min-width: 768px) {
+    max-width: 768px;
+  }
 }
 
 .navWrap {
   flex: 1;
   display: flex;
   justify-content: center;
-  padding: 24px 20px;
+  padding: 24px 0;
 }
 
 .mobileActions {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 0 20px 92px;
+  justify-content: center;
+  padding: 0 0 92px;
 }
 
 .top {
   width: 100%;
-  margin: 0 auto;
   height: 72px;
   max-width: 375px;
-  padding: 16px 20px;
+  padding: 16px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   @media only screen and (min-width: 768px) {
     max-width: 768px;
-    padding: 16px 32px;
+    padding: 16px 0;
   }
 }

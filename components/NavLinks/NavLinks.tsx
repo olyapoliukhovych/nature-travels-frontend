@@ -37,6 +37,7 @@ export default function NavLinks({ isAuth, onLinkClick }: Props) {
         <Link
           key={link.href}
           href={link.href}
+          onClick={onLinkClick}
           className={clsx(styles.link, getIsActive(link.href) && styles.active)}
         >
           {link.name}
