@@ -4,11 +4,11 @@ import Link from "next/link";
 import styles from "./NavLinks.module.css";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { useAuthStore } from "@/lib/store/authStore";
 
-type Props = {
-  isAuth: boolean;
-  onLinkClick?: () => void;
-};
+interface Props {
+  onClick?: () => void;
+}
 
 const navLinks = [
   { name: "Головна", href: "/" },
@@ -16,8 +16,9 @@ const navLinks = [
   { name: "Еко-Мандрівники", href: "/travellers" },
 ];
 
-export default function NavLinks({ isAuth, onLinkClick }: Props) {
+export default function NavLinks({ onClick }: Props) {
   const pathname = usePathname();
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
   const getIsActive = (href: string) => {
     if (href === "/stories") {
@@ -37,17 +38,17 @@ export default function NavLinks({ isAuth, onLinkClick }: Props) {
         <Link
           key={link.href}
           href={link.href}
-          onClick={onLinkClick}
+          onClick={onClick}
           className={clsx(styles.link, getIsActive(link.href) && styles.active)}
         >
           {link.name}
         </Link>
       ))}
 
-      {isAuth && (
+      {isAuthenticated && (
         <Link
           href="/profile"
-          onClick={onLinkClick}
+          onClick={onClick}
           className={clsx(
             styles.link,
             getIsActive("/profile") && styles.active,

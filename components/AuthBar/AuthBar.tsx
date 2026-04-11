@@ -1,24 +1,31 @@
-import Link from "next/link";
-import styles from "./AuthBar.module.css";
+import css from "./AuthBar.module.css";
+import AppLink from "../AppLink/AppLink";
+import clsx from "clsx";
 
-type Props = {
-  variant?: "header" | "menu";
-  onLinkClick?: () => void;
-};
+interface Props {
+  direction?: "row" | "column";
+  onClick?: () => void;
+}
 
-export default function AuthBar({ variant = "header", onLinkClick }: Props) {
+export default function AuthBar({ direction = "row", onClick }: Props) {
   return (
-    <div className={`${styles.auth} ${variant === "menu" ? styles.menu : ""}`}>
-      <Link href="/auth/login" className={styles.link} onClick={onLinkClick}>
+    <div className={clsx(css.wrapper, css[direction])}>
+      <AppLink
+        href="/auth/login"
+        variant="neutral"
+        className={css.link}
+        onClick={onClick}
+      >
         Вхід
-      </Link>
-      <Link
+      </AppLink>
+      <AppLink
         href="/auth/register"
-        className={styles.primary}
-        onClick={onLinkClick}
+        variant="mantis"
+        className={css.link}
+        onClick={onClick}
       >
         Реєстрація
-      </Link>
+      </AppLink>
     </div>
   );
 }

@@ -1,63 +1,67 @@
 .header {
   width: 100%;
   background-color: var(--color-scheme-2-background);
-  position: relative;
-  z-index: 50;
+  padding: 16px 0;
 }
 
 .container {
-  max-width: 375px;
-  margin: 0 auto;
-  height: 72px;
-  padding: 16px 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   @media only screen and (min-width: 768px) {
     max-width: 768px;
-    padding: 16px 32px;
   }
 
   @media only screen and (min-width: 1440px) {
     max-width: 1440px;
-    padding: 16px 64px;
   }
 }
 
-.logoIcon {
-  display: block;
-  width: 124px;
-  height: 36px;
+.logoWrapper {
+  flex-grow: 1;
 }
 
-.desktop {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  margin-left: auto;
+.desktopNav {
+  display: none;
+
+  @media only screen and (min-width: 1440px) {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-left: auto;
+    margin-right: 32px;
+  }
 }
 
-.tabletActions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.userBarWrapper {
+  display: none;
+
+  @media only screen and (min-width: 1440px) {
+    display: block;
+  }
 }
 
-.mobileActions {
+.burgerMenuBtn {
   display: flex;
   align-items: center;
-  margin-left: auto;
+  margin-left: 16px;
+
+  @media only screen and (min-width: 1440px) {
+    display: none;
+  }
+}
+
+.authBarWrapper,
+.publishWrapper {
+  display: none;
+
+  @media only screen and (min-width: 768px) {
+    display: block;
+  }
 }
 
 .publish {
-  border: 1px solid var(--color-mantis-dark);
-  border-radius: 6px;
-  padding: 4px 10px !important;
+  padding: 3px 10px;
   min-width: 196px;
-  background: var(--color-mantis-dark);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--color-white);
 }

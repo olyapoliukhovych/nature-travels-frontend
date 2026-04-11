@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./UserBar.module.css";
+import css from "./UserBar.module.css";
 import Image from "next/image";
 import { Icon } from "../Icon/Icon";
 import { useAuthStore } from "@/lib/store/authStore";
@@ -10,11 +10,7 @@ import { useState } from "react";
 import Modal from "../Modal/Modal";
 import { ModeModal } from "../ModeModal/ModeModal";
 
-type Props = {
-  showPublish?: boolean;
-};
-
-export default function UserBar({ showPublish = true }: Props) {
+export default function UserBar() {
   const user = useAuthStore((s) => s.user);
   const clear = useAuthStore((s) => s.clearIsAuthenticated);
 
@@ -31,23 +27,17 @@ export default function UserBar({ showPublish = true }: Props) {
 
   return (
     <>
-      <div className={styles.user}>
-        {showPublish && (
-          <Link href="/stories/new" className={styles.publish}>
-            Опублікувати статтю
-          </Link>
-        )}
-
-        <div className={styles.bottom}>
-          <Link href="/profile" className={styles.profile}>
-            <div className={styles.avatar}>
+      <div className={css.user}>
+        <div className={css.bottom}>
+          <Link href="/profile" className={css.profile}>
+            <div className={css.avatar}>
               {user?.avatarUrl ? (
                 <Image
                   src={user.avatarUrl}
                   alt={user.name}
                   width={32}
                   height={32}
-                  className={styles.avatarImg}
+                  className={css.avatarImg}
                 />
               ) : (
                 <Image
@@ -55,22 +45,22 @@ export default function UserBar({ showPublish = true }: Props) {
                   alt={"default avatar"}
                   width={32}
                   height={32}
-                  className={styles.avatarImg}
+                  className={css.avatarImg}
                 />
               )}
             </div>
 
-            <span className={styles.name}>{user?.name || "Ім'я"}</span>
+            <span className={css.name}>{user?.name || "Ім'я"}</span>
           </Link>
 
-          <span className={styles.divider} />
+          <span className={css.divider} />
 
           <button
-            className={styles.logout}
+            className={css.logout}
             onClick={() => setIsModalOpen(true)}
             aria-label="Вийти"
           >
-            <Icon id="icon-logout" className={styles.logoutSvg} />
+            <Icon id="icon-logout" className={css.logoutSvg} />
           </button>
         </div>
       </div>

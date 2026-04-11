@@ -5,15 +5,13 @@
   box-sizing: border-box;
   text-align: center;
 
-  line-height: 1.5;
-
   border-radius: 6px;
-  padding: 0px 8px;
-  min-width: 60px;
-  min-height: 30px;
   border: 1px solid transparent;
 
-  transition: all var(--transition);
+  transition:
+    border var(--transition),
+    background var(--transition),
+    color var(--transition);
   cursor: pointer;
 
   &.disabled {
