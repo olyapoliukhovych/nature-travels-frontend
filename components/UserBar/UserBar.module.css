@@ -5,35 +5,6 @@
   flex-wrap: nowrap;
 }
 
-.publish {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  border: 1px solid var(--color-mantis-dark);
-  border-radius: 6px;
-  padding: 4px 10px;
-  min-width: 240px;
-  background: var(--color-mantis-dark);
-  font-weight: 500;
-  line-height: 1.5;
-  font-size: 18px;
-  color: var(--color-white);
-  transition:
-    color var(--transition),
-    background var(--transition);
-}
-
-.publish:hover {
-  color: var(--color-scheme-2-text);
-  background: var(--color-mantis-lighter);
-}
-
-.publish:active {
-  color: var(--color-white);
-  background: var(--color-mantis-dark);
-}
-
 .bottom {
   display: flex;
   align-items: center;
@@ -48,12 +19,12 @@
   align-items: center;
   gap: 8px;
   padding: 2px 8px;
-  transform: scale(0.95);
+  transform: scale(1);
   transition: transform var(--transition);
 }
 
 .profile:hover {
-  transform: scale(1);
+  transform: scale(1.05);
 }
 
 .avatar {
@@ -78,20 +49,18 @@
 
 .name {
   font-weight: 400;
+  font-size: 12px;
   color: var(--color-scheme-2-text);
-  border: 1px solid transparent;
-  border-radius: 6px;
 }
 
 .logout {
   display: inline-flex;
   padding: 6px 0 6px 8px;
-  transform: scale(0.9);
   transition: transform var(--transition);
 }
 
 .logout:hover {
-  transform: scale(1);
+  transform: scale(1.1);
 }
 
 .logoutSvg {
@@ -104,36 +73,8 @@
     gap: 16px;
   }
 
-  .publish {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    border: 1px solid var(--color-mantis-dark);
-    border-radius: 6px;
-    padding: 4px 10px;
-    min-width: 196px;
-    background-color: var(--color-mantis-dark);
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--color-white);
-  }
-
-  .avatar {
-    width: 32px;
-    height: 32px;
-  }
-
   .divider {
     height: 29px;
-  }
-
-  .name {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1.5;
-    color: var(--color-scheme-2-text);
   }
 }
 
@@ -145,28 +86,8 @@
     gap: 10px;
   }
 
-  .publish {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    border-radius: 6px;
-    padding: 4px 10px;
-    min-width: 335px;
-    margin-bottom: 24px;
-  }
-
   .bottom {
     width: 100%;
     justify-content: center;
-  }
-
-  .avatar {
-    width: 36px;
-    height: 36px;
-  }
-
-  .name {
-    font-size: 14px;
   }
 }
