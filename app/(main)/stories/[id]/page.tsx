@@ -3,7 +3,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-import { getStoryById } from "@/lib/api/stories/serverApi";
+import { getAllStories, getStoryById } from "@/lib/api/stories/serverApi";
 import StoryDetailsClient from "./StoryDetailsClient";
 import { Metadata } from "next";
 
@@ -42,11 +42,22 @@ export default async function StoryDetails({ params }: Props) {
   const { id } = await params;
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
+  const story = await queryClient.ensureQueryData({
     queryKey: ["story", id],
     queryFn: () => getStoryById(id),
   });
 
+  if (story?.categoryId._id) {
+    await queryClient.prefetchQuery({
+      queryKey: ["stories-related", story.categoryId._id],
+      queryFn: () =>
+        getAllStories({
+          page: 1,
+          perPage: 10,
+          categoryId: story.categoryId._id,
+        }),
+    });
+  }
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <StoryDetailsClient />

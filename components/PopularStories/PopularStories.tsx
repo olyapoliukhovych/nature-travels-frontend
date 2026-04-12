@@ -26,7 +26,7 @@ export default function PopularStories({
   title,
   linkLabel,
   linkHref,
-  categoryId,
+  categoryId = "",
   queryKeyName,
   currentStoryId,
   withContainer = true,
@@ -44,6 +44,7 @@ export default function PopularStories({
 
   const stories =
     data?.stories.filter((story) => story._id !== currentStoryId) || [];
+
   if (stories.length === 0) return null;
 
   return (

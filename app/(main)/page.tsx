@@ -23,7 +23,7 @@ export default async function Home() {
 
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: ["popular-stories"],
+      queryKey: ["stories-popular"],
       queryFn: () => getAllStories({ page: 1, perPage: 10 }),
     }),
     queryClient.prefetchQuery({
@@ -39,7 +39,7 @@ export default async function Home() {
         title="Популярні статті"
         linkLabel="Всі статті"
         linkHref="/stories"
-        queryKeyName="popular-stories"
+        queryKeyName="stories-popular"
       />
       <About />
       <OurTravellers />

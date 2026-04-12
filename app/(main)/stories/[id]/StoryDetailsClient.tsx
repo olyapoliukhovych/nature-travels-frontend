@@ -33,7 +33,7 @@ export default function StoryDetailsClient() {
         title="Вам також сподобається"
         categoryId={story.categoryId._id}
         currentStoryId={story._id}
-        queryKeyName="related-stories"
+        queryKeyName="stories-related"
         withContainer={false}
       />
     </div>

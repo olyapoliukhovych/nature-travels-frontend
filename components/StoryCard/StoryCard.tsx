@@ -62,8 +62,19 @@ export default function StoryCard({ story }: Props) {
     },
 
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      await queryClient.invalidateQueries({ queryKey: ["stories"] });
+      queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+      queryClient.invalidateQueries({
+        queryKey: ["stories"],
+        refetchType: "active",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["stories-popular"],
+        refetchType: "active",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["stories-related"],
+        refetchType: "active",
+      });
 
       try {
         const updatedUser = await getUserProfile();
@@ -72,11 +83,13 @@ export default function StoryCard({ story }: Props) {
         console.error(e);
       }
 
-      if (isSaved) {
-        toast.success("Історію видалено зі збережених");
-      } else {
-        toast.success("Історію збережено");
-      }
+      const message = isSaved
+        ? "Історію видалено зі збережених"
+        : "Історію збережено";
+
+      toast.success(message, {
+        id: "toggle-save-toast",
+      });
     },
 
     onError: (error: AxiosError) => {
