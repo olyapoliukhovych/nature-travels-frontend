@@ -19,6 +19,8 @@
 }
 
 .logoWrapper {
+  display: flex;
+  align-items: center;
   flex-grow: 1;
 }
 
@@ -45,7 +47,6 @@
 .burgerMenuBtn {
   display: flex;
   align-items: center;
-  margin-left: 16px;
 
   @media only screen and (min-width: 1440px) {
     display: none;
@@ -58,6 +59,7 @@
 
   @media only screen and (min-width: 768px) {
     display: block;
+    margin-right: 16px;
   }
 }
 
