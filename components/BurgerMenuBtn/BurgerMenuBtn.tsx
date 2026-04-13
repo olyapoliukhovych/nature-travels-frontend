@@ -2,11 +2,11 @@ import { Icon } from "../Icon/Icon";
 import styles from "./BurgerMenuBtn.module.css";
 
 type Props = {
-  isOpen: boolean;
+  isOpen?: boolean;
   setIsOpen: (value: boolean) => void;
 };
 
-export default function BurgerMenuBtn({ isOpen, setIsOpen }: Props) {
+export default function BurgerMenuBtn({ isOpen = false, setIsOpen }: Props) {
   return (
     <button
       type="button"

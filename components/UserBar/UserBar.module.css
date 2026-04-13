@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  gap: 8px;
 }
 
 .profile {
@@ -18,7 +19,6 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  padding: 2px 8px;
   transform: scale(1);
   transition: transform var(--transition);
 }
@@ -55,7 +55,7 @@
 
 .logout {
   display: inline-flex;
-  padding: 6px 0 6px 8px;
+  padding: 6px 0;
   transition: transform var(--transition);
 }
 
