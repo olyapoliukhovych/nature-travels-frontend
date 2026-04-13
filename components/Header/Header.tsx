@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import css from "./Header.module.css";
 import NavLinks from "../NavLinks/NavLinks";
 import AuthBar from "../AuthBar/AuthBar";
@@ -15,17 +15,6 @@ import Logo from "../Logo/Logo";
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
 
   return (
     <header className={css.header}>
@@ -59,13 +48,11 @@ export default function Header() {
         )}
 
         <div className={css.burgerMenuBtn}>
-          <BurgerMenuBtn isOpen={isOpen} setIsOpen={setIsOpen} />
+          <BurgerMenuBtn setIsOpen={setIsOpen} />
         </div>
       </div>
 
-      {isOpen && (
-        <BurgerMenu isOpen={isOpen} onClose={() => setIsOpen(false)} />
-      )}
+      <BurgerMenu isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </header>
   );
 }
