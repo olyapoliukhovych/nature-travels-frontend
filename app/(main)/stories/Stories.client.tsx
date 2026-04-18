@@ -15,7 +15,7 @@ import clsx from "clsx";
 import CategoriesFilter from "@/components/CategoriesFilter/CategoriesFilter";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
-import { INITIAL_PAGE, STORIES_PER_PAGE } from "@/app/constants/pagination";
+import { INITIAL_PAGE, STORIES_PER_PAGE } from "@/constants/pagination";
 
 export default function StoriesClient() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");

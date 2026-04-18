@@ -16,7 +16,7 @@ import {
 import {
   INITIAL_PAGE,
   TRAVELLER_STORIES_PER_PAGE,
-} from "@/app/constants/pagination";
+} from "@/constants/pagination";
 
 interface Props {
   params: Promise<{ userId: string }>;

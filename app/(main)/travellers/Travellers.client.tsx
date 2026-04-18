@@ -7,7 +7,7 @@ import Loader from "@/components/Loader/Loader";
 import css from "./Travellers.module.css";
 import clsx from "clsx";
 import PageTitle from "@/components/PageTitle/PageTitle";
-import { INITIAL_PAGE, TRAVELLERS_PER_PAGE } from "@/app/constants/pagination";
+import { INITIAL_PAGE, TRAVELLERS_PER_PAGE } from "@/constants/pagination";
 
 export default function TravellersClient() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =

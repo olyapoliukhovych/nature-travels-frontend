@@ -6,7 +6,7 @@ import {
 import TravellersClient from "./Travellers.client";
 import { getAllUsers } from "@/lib/api/users/serverApi";
 import { Metadata } from "next";
-import { INITIAL_PAGE, TRAVELLERS_PER_PAGE } from "@/app/constants/pagination";
+import { INITIAL_PAGE, TRAVELLERS_PER_PAGE } from "@/constants/pagination";
 
 export const metadata: Metadata = {
   title: "Мандрівники",

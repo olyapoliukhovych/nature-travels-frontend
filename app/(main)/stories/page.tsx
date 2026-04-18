@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import StoriesClient from "./Stories.client";
 import { getAllStories } from "@/lib/api/stories/serverApi";
-import { INITIAL_PAGE, STORIES_PER_PAGE } from "@/app/constants/pagination";
+import { INITIAL_PAGE, STORIES_PER_PAGE } from "@/constants/pagination";
 
 export default async function Stories() {
   const queryClient = new QueryClient();

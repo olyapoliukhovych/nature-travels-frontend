@@ -9,7 +9,7 @@ import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
 import {
   INITIAL_PAGE,
   TRAVELLER_STORIES_PER_PAGE,
-} from "@/app/constants/pagination";
+} from "@/constants/pagination";
 
 interface Props {
   userId: string;
