@@ -1,17 +1,28 @@
+import css from "./page.module.css";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import TravellerProfileClient from "./TravellerProfile.client";
+import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
 import TravellerInfo from "@/components/TravellerInfo/TravellerInfo";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 import {
   getUserByIdPublic,
   getUserStoriesPublic,
 } from "@/lib/api/users/clientApi";
-import css from "./page.module.css";
-import TravellerProfileClient from "./TravellerProfile.client";
-import { Metadata } from "next";
+import {
+  INITIAL_PAGE,
+  TRAVELLER_STORIES_PER_PAGE,
+} from "@/app/constants/pagination";
 
-export async function generateMetadata({
-  params,
-}: {
+interface Props {
   params: Promise<{ userId: string }>;
-}): Promise<Metadata> {
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { userId } = await params;
 
   const data = await getUserByIdPublic(userId);
@@ -32,51 +43,50 @@ export async function generateMetadata({
     },
   };
 }
-import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
-import { UserPrivate } from "@/types/user";
 
-export default async function TravellerPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ userId: string }>;
-  searchParams: Promise<{ page?: string }>;
-}) {
+export default async function TravellerPage({ params }: Props) {
   const { userId } = await params;
-  const sParams = await searchParams;
-  const currentPage = Number(sParams.page) || 1;
+  const queryClient = new QueryClient();
 
-  const user = await getUserByIdPublic(userId);
-
-  const storiesData = await getUserStoriesPublic({
-    userId,
-    page: currentPage,
-    perPage: 6,
+  const user = await queryClient.ensureQueryData({
+    queryKey: ["user-public", userId],
+    queryFn: () => getUserByIdPublic(userId),
   });
 
-  if (!user || !user._id) return <div>Користувача не знайдено</div>;
-  const hasStories = user.totalUserStories > 0 || user.userStories?.length > 0;
-  return (
-    <section className={css.travellerProfilePageSection}>
-      <div className="container">
-        <TravellerInfo user={user as UserPrivate} />
-        <h1 className={css.travellerProfilePageTitle}>Історії мандрівника</h1>
+  if (!user || !user._id) {
+    notFound();
+  }
 
-        {hasStories ? (
-          <TravellerProfileClient
-            initialStories={storiesData.stories}
-            userId={userId}
-            totalPages={storiesData.totalPages || 1}
-            currentPage={currentPage}
-          />
-        ) : (
-          <MessageNoStories
-            text="Цей користувач ще не публікував історій"
-            buttonText="Назад до історій"
-            linkTo="/stories"
-          />
-        )}
-      </div>
-    </section>
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ["user-public-stories", userId],
+    queryFn: ({ pageParam = INITIAL_PAGE }) =>
+      getUserStoriesPublic({
+        userId,
+        page: pageParam,
+        perPage: TRAVELLER_STORIES_PER_PAGE,
+      }),
+    initialPageParam: INITIAL_PAGE,
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <section className={css.travellerProfilePageSection}>
+        <div className="container">
+          <TravellerInfo userId={userId} />
+
+          <h1 className={css.travellerProfilePageTitle}>Історії мандрівника</h1>
+
+          {user.totalUserStories > 0 ? (
+            <TravellerProfileClient userId={userId} />
+          ) : (
+            <MessageNoStories
+              text="Цей користувач ще не публікував історій"
+              buttonText="Назад до історій"
+              linkTo="/stories"
+            />
+          )}
+        </div>
+      </section>
+    </HydrationBoundary>
   );
 }

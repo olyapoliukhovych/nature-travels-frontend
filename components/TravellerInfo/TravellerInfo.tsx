@@ -1,14 +1,22 @@
-import Image from "next/image";
+"use client";
 
+import Image from "next/image";
 import css from "./TravellerInfo.module.css";
-import { UserPrivate } from "@/types/user";
+import { useQuery } from "@tanstack/react-query";
+import { getUserByIdPublic } from "@/lib/api/users/clientApi";
 
 interface Props {
-  user: UserPrivate | null;
+  userId: string;
 }
 
-export default function TravellerInfo({ user }: Props) {
-  if (!user) return <div className={css.loader}>Завантаження профілю...</div>;
+export default function TravellerInfo({ userId }: Props) {
+  const { data: user } = useQuery({
+    queryKey: ["user-public", userId],
+    queryFn: () => getUserByIdPublic(userId),
+    refetchOnMount: false,
+  });
+
+  if (!user) return null;
 
   return (
     <div className={css.travellerInfoWrapper}>
@@ -19,6 +27,7 @@ export default function TravellerInfo({ user }: Props) {
           height={145}
           alt={user.name}
           className={css.travellerInfoAvatar}
+          priority
         />
       </div>
 

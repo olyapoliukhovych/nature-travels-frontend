@@ -1,38 +1,23 @@
 .travellerProfileClientList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 40px;
 }
 
 .travellerProfileClientcard {
-    flex-basis: 100%;
-}
+  flex-basis: 100%;
 
-@media only screen and (min-width: 768px) {
-    .travellerProfileClientcard {
-        flex-basis: calc((100% - 24px) / 2);
-    }
+  @media only screen and (min-width: 768px) {
+    flex-basis: calc((100% - 24px) / 2);
+  }
 
-    .travellerProfileClientcard:nth-child(6n+5),
-    .travellerProfileClientcard:nth-child(6n+6) {
-        display: none;
-    }
-}
-
-@media only screen and (min-width: 1440px) {
-    .travellerProfileClientcard {
-        flex-basis: calc((100% - (24px * 2)) / 3);
-    }
-
-
-    .travellerProfileClientcard:nth-child(6n+5),
-    .travellerProfileClientcard:nth-child(6n+6) {
-        display: block;
-    }
+  @media only screen and (min-width: 1440px) {
+    flex-basis: calc((100% - (24px * 2)) / 3);
+  }
 }
 
 .travellerProfileClientBtnWrapper {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }

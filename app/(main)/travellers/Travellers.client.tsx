@@ -7,18 +7,16 @@ import Loader from "@/components/Loader/Loader";
 import css from "./Travellers.module.css";
 import clsx from "clsx";
 import PageTitle from "@/components/PageTitle/PageTitle";
-
-const INITIAL_PAGE = 1;
-const PER_PAGE = 12;
+import { INITIAL_PAGE, TRAVELLERS_PER_PAGE } from "@/app/constants/pagination";
 
 export default function TravellersClient() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
-      queryKey: ["users", INITIAL_PAGE],
+      queryKey: ["users"],
       queryFn: ({ pageParam = INITIAL_PAGE }) =>
         getAllUsers({
           page: pageParam as number,
-          perPage: PER_PAGE,
+          perPage: TRAVELLERS_PER_PAGE,
         }),
       initialPageParam: INITIAL_PAGE,
       getNextPageParam: (lastPage) => {

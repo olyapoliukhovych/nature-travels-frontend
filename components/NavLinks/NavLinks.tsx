@@ -25,6 +25,10 @@ export default function NavLinks({ onClick }: Props) {
       return pathname === "/stories";
     }
 
+    if (href === "/travellers") {
+      return pathname === "/travellers";
+    }
+
     if (href === "/") {
       return pathname === "/";
     }
