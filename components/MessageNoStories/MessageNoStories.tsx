@@ -1,21 +1,34 @@
 "use client";
-import Link from "next/link";
+
 import css from "./MessageNoStories.module.css";
 import AppLink from "../AppLink/AppLink";
+import Button from "../Button/Button";
 
-type Props = {
+interface Props {
   text: string;
   buttonText: string;
-  linkTo: string;
-};
+  linkTo?: string;
+  onClick?: () => void;
+}
 
-export default function MessageNoStories({ text, buttonText, linkTo }: Props) {
+export default function MessageNoStories({
+  text,
+  buttonText,
+  linkTo,
+  onClick,
+}: Props) {
   return (
     <div className={css.wrapper}>
       <p className={css.text}>{text}</p>
-      <AppLink href={linkTo} className={css.btn} variant="mantis">
-        {buttonText}
-      </AppLink>
+      {onClick ? (
+        <Button onClick={onClick} className={css.btn} type="button">
+          {buttonText}
+        </Button>
+      ) : (
+        <AppLink href={linkTo || "/"} className={css.btn} variant="mantis">
+          {buttonText}
+        </AppLink>
+      )}
     </div>
   );
 }

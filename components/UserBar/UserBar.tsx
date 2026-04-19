@@ -29,7 +29,7 @@ export default function UserBar() {
     <>
       <div className={css.user}>
         <div className={css.bottom}>
-          <Link href="/profile" className={css.profile}>
+          <Link href="/profile/my-stories" className={css.profile}>
             <div className={css.avatar}>
               {user?.avatarUrl ? (
                 <Image

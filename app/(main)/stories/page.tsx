@@ -6,17 +6,17 @@ import {
 } from "@tanstack/react-query";
 import StoriesClient from "./Stories.client";
 import { getAllStories } from "@/lib/api/stories/serverApi";
-import { Metadata } from "next";
+import { INITIAL_PAGE, STORIES_PER_PAGE } from "@/constants/pagination";
 
 export default async function Stories() {
   const queryClient = new QueryClient();
 
   await Promise.all([
     queryClient.prefetchInfiniteQuery({
-      queryKey: ["stories", "", 9],
-      queryFn: ({ pageParam = 1 }) =>
-        getAllStories({ page: pageParam, perPage: 9 }),
-      initialPageParam: 1,
+      queryKey: ["stories", ""],
+      queryFn: ({ pageParam = INITIAL_PAGE }) =>
+        getAllStories({ page: pageParam, perPage: STORIES_PER_PAGE }),
+      initialPageParam: INITIAL_PAGE,
     }),
     queryClient.prefetchQuery({
       queryKey: ["categories"],

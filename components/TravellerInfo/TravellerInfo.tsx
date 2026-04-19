@@ -1,14 +1,15 @@
-import Image from "next/image";
+"use client";
 
+import Image from "next/image";
 import css from "./TravellerInfo.module.css";
-import { UserPrivate } from "@/types/user";
+import { UserPrivate, UserPublic } from "@/types/user";
 
 interface Props {
-  user: UserPrivate | null;
+  user: UserPublic | UserPrivate;
 }
 
 export default function TravellerInfo({ user }: Props) {
-  if (!user) return <div className={css.loader}>Завантаження профілю...</div>;
+  if (!user) return null;
 
   return (
     <div className={css.travellerInfoWrapper}>
@@ -19,6 +20,7 @@ export default function TravellerInfo({ user }: Props) {
           height={145}
           alt={user.name}
           className={css.travellerInfoAvatar}
+          priority
         />
       </div>
 
