@@ -2,20 +2,13 @@
 
 import Image from "next/image";
 import css from "./TravellerInfo.module.css";
-import { useQuery } from "@tanstack/react-query";
-import { getUserByIdPublic } from "@/lib/api/users/clientApi";
+import { UserPrivate, UserPublic } from "@/types/user";
 
 interface Props {
-  userId: string;
+  user: UserPublic | UserPrivate;
 }
 
-export default function TravellerInfo({ userId }: Props) {
-  const { data: user } = useQuery({
-    queryKey: ["user-public", userId],
-    queryFn: () => getUserByIdPublic(userId),
-    refetchOnMount: false,
-  });
-
+export default function TravellerInfo({ user }: Props) {
   if (!user) return null;
 
   return (

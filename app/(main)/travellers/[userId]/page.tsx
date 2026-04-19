@@ -72,7 +72,7 @@ export default async function TravellerPage({ params }: Props) {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <section className={css.travellerProfilePageSection}>
         <div className="container">
-          <TravellerInfo userId={userId} />
+          <TravellerInfo user={user} />
 
           <h1 className={css.travellerProfilePageTitle}>Історії мандрівника</h1>
 
