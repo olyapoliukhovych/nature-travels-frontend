@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const CIRCLE_RADIUS = 35;
+const CIRCLE_RADIUS = 30;
 
 interface ParticleProps {
   fromColor: string;
@@ -21,7 +21,7 @@ export const CircleAnimation = () => (
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",
-      zIndex: 10,
+      zIndex: 110,
     }}
   >
     <motion.circle
@@ -40,8 +40,8 @@ const Particle = ({ fromColor, toColor, index, total }: ParticleProps) => {
   const angle = (index / total) * 360 + 45;
   const radians = (angle * Math.PI) / 180;
 
-  const burstDistance = 120;
-  const duration = 8;
+  const burstDistance = 80;
+  const duration = 4;
 
   return (
     <motion.div
@@ -54,7 +54,7 @@ const Particle = ({ fromColor, toColor, index, total }: ParticleProps) => {
         borderRadius: "50%",
         top: "calc(50% - 2.5px)",
         left: "calc(50% - 2.5px)",
-        zIndex: 11,
+        zIndex: 1111,
       }}
       initial={{ opacity: 0, scale: 1, x: 0, y: 0 }}
       animate={{
@@ -94,7 +94,7 @@ export const BurstAnimation = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: 11,
+        zIndex: 1111,
       }}
     >
       {colorPairs.map((colors, i) => (

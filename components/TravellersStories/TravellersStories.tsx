@@ -2,6 +2,7 @@ import { Story } from "@/types/stories";
 import StoryCard from "../StoryCard/StoryCard";
 import css from "./TravellersStories.module.css";
 import Pagination from "../Pagination/Pagination";
+import { motion } from "framer-motion";
 
 interface Props {
   stories: Story[];
@@ -20,9 +21,19 @@ export default function TravellersStories({
     <div className={css.container}>
       <ul className={css.list}>
         {stories.map((story) => (
-          <li key={story._id} className={css.card}>
+          <motion.li
+            layout
+            key={story._id}
+            className={css.card}
+            transition={{
+              duration: 0.5,
+              type: "spring",
+              stiffness: 100,
+              damping: 15,
+            }}
+          >
             <StoryCard story={story} />
-          </li>
+          </motion.li>
         ))}
       </ul>
       {hasNextPage && (

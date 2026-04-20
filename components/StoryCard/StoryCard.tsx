@@ -11,7 +11,7 @@ import {
   getUserProfile,
 } from "@/lib/api/users/clientApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Modal from "../Modal/Modal";
 import { ModeModal } from "../ModeModal/ModeModal";
@@ -34,6 +34,11 @@ export default function StoryCard({ story }: Props) {
     useAuthStore();
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [localSavedCount, setLocalSavedCount] = useState(story.savedCount);
+
+  useEffect(() => {
+    setLocalSavedCount(story.savedCount);
+  }, [story.savedCount]);
 
   const isSaved = user?.savedStories?.some((item: string | { _id: string }) => {
     if (typeof item === "string") {
@@ -62,37 +67,67 @@ export default function StoryCard({ story }: Props) {
     },
 
     onSuccess: async () => {
-      queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      queryClient.invalidateQueries({
-        queryKey: ["stories"],
-        refetchType: "active",
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["stories-popular"],
-        refetchType: "active",
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["stories-related"],
-        refetchType: "active",
-      });
+      setLocalSavedCount((prev) => (isSaved ? prev - 1 : prev + 1));
 
-      try {
-        const updatedUser = await getUserProfile();
-        setUser(updatedUser);
-      } catch (e) {
-        console.error(e);
-      }
+      const change = isSaved ? -1 : 1;
 
-      const message = isSaved
-        ? "Історію видалено зі збережених"
-        : "Історію збережено";
+      queryClient.setQueriesData<{ stories: Story[] }>(
+        { queryKey: ["profile-stories"] },
+        (old) => {
+          if (!old || !old.stories) return old;
 
-      toast.success(message, {
-        id: "toggle-save-toast",
-      });
+          return {
+            ...old,
+            stories: old.stories.map((s: Story) =>
+              s._id === story._id
+                ? { ...s, savedCount: s.savedCount + change }
+                : s,
+            ),
+          };
+        },
+      );
+
+      const delay = !isSaved ? 800 : 0;
+
+      setTimeout(async () => {
+        await Promise.all([
+          queryClient.invalidateQueries({ queryKey: ["user-profile"] }),
+          queryClient.invalidateQueries({ queryKey: ["profile-stories"] }),
+          queryClient.invalidateQueries({
+            queryKey: ["stories"],
+            refetchType: "active",
+          }),
+          queryClient.invalidateQueries({
+            queryKey: ["stories-popular"],
+            refetchType: "active",
+          }),
+          queryClient.invalidateQueries({
+            queryKey: ["stories-related"],
+            refetchType: "active",
+          }),
+          queryClient.invalidateQueries({
+            queryKey: ["stories-public"],
+            refetchType: "active",
+          }),
+        ]);
+
+        try {
+          const updatedUser = await getUserProfile();
+          setUser(updatedUser);
+        } catch (e) {
+          console.error(e);
+        }
+
+        const message = isSaved
+          ? "Історію видалено зі збережених"
+          : "Історію збережено";
+
+        toast.success(message);
+      }, delay);
     },
 
     onError: (error: AxiosError) => {
+      setLocalSavedCount(story.savedCount);
       if (
         error.message === "Сесія завершена. Увійдіть знову." ||
         error.response?.status === 401
@@ -115,7 +150,7 @@ export default function StoryCard({ story }: Props) {
 
     if (!isSaved) {
       setIsAnimating(true);
-      setTimeout(() => setIsAnimating(false), 1000);
+      setTimeout(() => setIsAnimating(false), 1200);
     }
 
     toggleSave();
@@ -139,8 +174,13 @@ export default function StoryCard({ story }: Props) {
             <p>{story.ownerId?.name || "Невідомий автор"}</p>
             <span className={css.point}>.</span>
             <span className={css.saveInfo}>
-              {/* {story.savedCount} */}
-              <NumberFlow value={story.savedCount} />
+              <NumberFlow
+                value={localSavedCount}
+                transformTiming={{
+                  duration: 500,
+                  easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+                }}
+              />
               <Icon
                 id={"icon-bookmark-filled-green"}
                 className={css.bookmark}
@@ -185,15 +225,6 @@ export default function StoryCard({ story }: Props) {
                   style={{ position: "relative", zIndex: 12 }}
                 />
               </div>
-
-              {/* {isPending ? (
-                <Loader size="sm" />
-              ) : (
-                <Icon
-                  id={isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"}
-                  className={css.icon}
-                />
-              )} */}
             </button>
           </div>
         </div>

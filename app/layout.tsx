@@ -59,7 +59,6 @@ export default function RootLayout({
       <body>
         <TanStackProvider>
           <AuthProvider>
-            {/* для переходів між сторінками */}
             <NextTopLoader
               color="#4a9849"
               showSpinner={false}

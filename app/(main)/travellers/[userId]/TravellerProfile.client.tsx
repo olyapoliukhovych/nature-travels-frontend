@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Story } from "@/types/stories";
 import StoryCard from "@/components/StoryCard/StoryCard";
 import Pagination from "@/components/Pagination/Pagination";
 import { getUserStoriesPublic } from "@/lib/api/users/clientApi";
 import css from "./TravellerProfile.module.css";
+import { motion } from "framer-motion";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 interface Props {
   initialStories: (Story | string)[];
@@ -18,66 +19,67 @@ export default function TravellerProfileClient({
   initialStories,
   userId,
   totalPages,
-  currentPage,
 }: Props) {
-  // const [stories, setStories] = useState<Story[]>(
-  //   initialStories.filter((s): s is Story => typeof s !== "string"),
-  // );
-  const [stories, setStories] = useState<Story[]>(() =>
-    Array.isArray(initialStories)
-      ? initialStories.filter(
-          (s): s is Story => typeof s === "object" && s !== null && "_id" in s,
-        )
-      : [],
-  );
+  const PER_PAGE = 6;
 
-  const [page, setPage] = useState(currentPage);
-  const [isFetching, setIsFetching] = useState(false);
+  const validInitialStories = Array.isArray(initialStories)
+    ? initialStories.filter(
+        (s): s is Story => typeof s === "object" && s !== null,
+      )
+    : [];
 
-  const fetchNextPage = async () => {
-    if (isFetching || page >= totalPages) return;
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ["stories-public", userId],
+      queryFn: ({ pageParam = 1 }) =>
+        getUserStoriesPublic({
+          userId,
+          page: pageParam as number,
+          perPage: PER_PAGE,
+        }),
+      initialPageParam: 1,
+      initialData: {
+        pages: [
+          {
+            stories: validInitialStories,
+            totalPages,
+            page: 1,
+            perPage: PER_PAGE,
+            totalItems: validInitialStories.length,
+          },
+        ],
+        pageParams: [1],
+      },
+      getNextPageParam: (lastPage) =>
+        lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
+    });
 
-    setIsFetching(true);
-    try {
-      const nextPage = page + 1;
-      const data = await getUserStoriesPublic({
-        userId,
-        page: nextPage,
-        perPage: 6,
-      });
-
-      if (data?.stories) {
-        const validNewStories = data.stories.filter(
-          (s): s is Story => typeof s === "object" && s !== null && "_id" in s,
-        );
-
-        setStories((prev) => [...prev, ...validNewStories]);
-        setPage(page + 1);
-      }
-    } catch (error) {
-      return <p>Помилка при завантаженні.</p>;
-    } finally {
-      setIsFetching(false);
-    }
-  };
+  const allStories = data?.pages.flatMap((page) => page.stories) || [];
 
   return (
     <div>
       <ul className={css.travellerProfileClientList}>
-        {stories.map((story, index) => (
-          <li
-            key={`${story._id}-${index}`}
+        {allStories.map((story) => (
+          <motion.li
+            layout
+            key={story._id}
             className={css.travellerProfileClientcard}
+            transition={{
+              duration: 0.5,
+              type: "spring",
+              stiffness: 100,
+              damping: 15,
+            }}
           >
             <StoryCard story={story} />
-          </li>
+          </motion.li>
         ))}
       </ul>
       <div className={css.travellerProfileClientBtnWrapper}>
-        {page < totalPages && (
+        {hasNextPage && (
           <Pagination
             fetchNextPage={fetchNextPage}
-            isFetchingNextPage={isFetching}
+            isFetchingNextPage={isFetchingNextPage}
           />
         )}
       </div>

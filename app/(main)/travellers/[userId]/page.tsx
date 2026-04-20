@@ -5,6 +5,8 @@ import {
 } from "@/lib/api/users/clientApi";
 import css from "./page.module.css";
 import TravellerProfileClient from "./TravellerProfile.client";
+import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
+import { UserPrivate } from "@/types/user";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -26,14 +28,12 @@ export async function generateMetadata({
     title: data.name,
     description: `Переглядайте історії мандрів та еко-пригоди користувача ${data.name} на платформі Природні Мандри.`,
     openGraph: {
-      title: `${data.name} — Профіль мандрівника`,
+      title: `${data.name} — Профіль Мандрівника`,
       description: `Приєднуйтесь до пригод ${data.name} в Україні.`,
       images: [userAvatar || "/default-avatar.jpg"],
     },
   };
 }
-import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
-import { UserPrivate } from "@/types/user";
 
 export default async function TravellerPage({
   params,
@@ -60,7 +60,7 @@ export default async function TravellerPage({
     <section className={css.travellerProfilePageSection}>
       <div className="container">
         <TravellerInfo user={user as UserPrivate} />
-        <h1 className={css.travellerProfilePageTitle}>Історії мандрівника</h1>
+        <h1 className={css.travellerProfilePageTitle}>Історії Мандрівника</h1>
 
         {hasStories ? (
           <TravellerProfileClient
