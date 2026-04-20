@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Story } from "@/types/stories";
 import TravellersStories from "../TravellersStories/TravellersStories";
 import {
   getUserStoriesFavorites,
   getUserStoriesPrivate,
-  getUserProfile,
 } from "@/lib/api/users/clientApi";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
+
 interface Props {
   initialStories: Story[];
   initialTotalPages: number;
@@ -22,53 +22,33 @@ export default function ProfileStoriesClient({
 }: Props) {
   const [page, setPage] = useState(1);
   const perPage = 6;
-  const [allStories, setAllStories] = useState<Story[]>(initialStories);
-
-  const { data: userProfile } = useQuery({
-    queryKey: ["user-profile"],
-    queryFn: getUserProfile,
-  });
 
   const { data, isFetching } = useQuery({
-    queryKey: ["profile-stories", type, page],
+    queryKey: ["profile-stories", type],
     queryFn: () =>
       type === "saved"
-        ? getUserStoriesFavorites({ page, perPage })
-        : getUserStoriesPrivate({ page, perPage }),
-    enabled: page > 1,
+        ? getUserStoriesFavorites({ page: 1, perPage: page * perPage })
+        : getUserStoriesPrivate({ page: 1, perPage: page * perPage }),
+    initialData: {
+      stories: initialStories,
+      totalPages: initialTotalPages,
+      totalItems: initialStories.length,
+      page: 1,
+      perPage: 6,
+    },
+    placeholderData: keepPreviousData,
   });
-
-  useEffect(() => {
-    if (data?.stories && page > 1) {
-      setAllStories((prev) => {
-        const existingIds = new Set(prev.map((s) => s._id));
-        const newUnique = data.stories.filter((s) => !existingIds.has(s._id));
-        return [...prev, ...newUnique];
-      });
-    }
-  }, [data, page]);
-
-  useEffect(() => {
-    if (type === "saved" && userProfile?.savedStories) {
-      const savedIds = new Set(
-        userProfile.savedStories.map((s: string | { _id: string }) =>
-          typeof s === "string" ? s : s._id,
-        ),
-      );
-
-      setAllStories((prev) => prev.filter((story) => savedIds.has(story._id)));
-    }
-  }, [userProfile, type]);
 
   const handleFetchNextPage = () => {
     setPage((prev) => prev + 1);
   };
 
+  const stories = data?.stories || [];
   const totalPages = data?.totalPages || initialTotalPages;
 
   return (
     <TravellersStories
-      stories={allStories}
+      stories={stories}
       fetchNextPage={handleFetchNextPage}
       isFetchingNextPage={isFetching}
       hasNextPage={page < totalPages}

@@ -58,7 +58,7 @@ export default function NavLinks({ onClick }: Props) {
             getIsActive("/profile") && styles.active,
           )}
         >
-          Мій профіль
+          Мій Профіль
         </Link>
       )}
     </nav>

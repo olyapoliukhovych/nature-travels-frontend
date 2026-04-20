@@ -13,6 +13,7 @@ import {
   getUserByIdPublic,
   getUserStoriesPublic,
 } from "@/lib/api/users/clientApi";
+import { UserPrivate } from "@/types/user";
 import {
   INITIAL_PAGE,
   TRAVELLER_STORIES_PER_PAGE,
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: data.name,
     description: `Переглядайте історії мандрів та еко-пригоди користувача ${data.name} на платформі Природні Мандри.`,
     openGraph: {
-      title: `${data.name} — Профіль мандрівника`,
+      title: `${data.name} — Профіль Мандрівника`,
       description: `Приєднуйтесь до пригод ${data.name} в Україні.`,
       images: [userAvatar || "/default-avatar.jpg"],
     },
