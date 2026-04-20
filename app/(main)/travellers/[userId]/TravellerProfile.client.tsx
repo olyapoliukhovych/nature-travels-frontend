@@ -7,57 +7,74 @@ import { getUserStoriesPublic } from "@/lib/api/users/clientApi";
 import css from "./TravellerProfile.module.css";
 import { motion } from "framer-motion";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
+import {
+  INITIAL_PAGE,
+  TRAVELLER_STORIES_PER_PAGE,
+} from "@/constants/pagination";
 
 interface Props {
-  initialStories: (Story | string)[];
   userId: string;
-  totalPages: number;
-  currentPage: number;
 }
 
 export default function TravellerProfileClient({
-  initialStories,
   userId,
-  totalPages,
+  initialStories = [],
+  totalPages = 1,
 }: Props) {
-  const PER_PAGE = 6;
+  const validInitialStories = initialStories.filter(
+    (s): s is Story => typeof s === "object" && s !== null
+  );
 
-  const validInitialStories = Array.isArray(initialStories)
-    ? initialStories.filter(
-        (s): s is Story => typeof s === "object" && s !== null,
-      )
-    : [];
-
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      queryKey: ["stories-public", userId],
-      queryFn: ({ pageParam = 1 }) =>
-        getUserStoriesPublic({
-          userId,
-          page: pageParam as number,
-          perPage: PER_PAGE,
-        }),
-      initialPageParam: 1,
-      initialData: {
-        pages: [
-          {
-            stories: validInitialStories,
-            totalPages,
-            page: 1,
-            perPage: PER_PAGE,
-            totalItems: validInitialStories.length,
-          },
-        ],
-        pageParams: [1],
-      },
-      getNextPageParam: (lastPage) =>
-        lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isError,
+    refetch,
+  } = useInfiniteQuery({
+    queryKey: ["user-public-stories", userId],
+    queryFn: ({ pageParam = INITIAL_PAGE }) =>
+      getUserStoriesPublic({
+        userId,
+        page: pageParam as number,
+        perPage: TRAVELLER_STORIES_PER_PAGE,
+      }),
+    initialPageParam: INITIAL_PAGE,
+    initialData: initialStories.length > 0 ? {
+      pages: [
+        {
+          stories: validInitialStories,
+          totalPages,
+          page: INITIAL_PAGE,
+          perPage: TRAVELLER_STORIES_PER_PAGE,
+          totalItems: validInitialStories.length,
+        },
+      ],
+      pageParams: [INITIAL_PAGE],
+    } : undefined,
+    getNextPageParam: (lastPage) => {
+      const next = lastPage.page + 1;
+      return next <= lastPage.totalPages ? next : undefined;
+    },
+    refetchOnMount: false,
+  });
 
   const allStories = data?.pages.flatMap((page) => page.stories) || [];
 
+  if (isError && allStories.length === 0) {
+    return (
+      <MessageNoStories
+        text="Виникла помилка при завантаженні історій"
+        buttonText="Спробувати ще раз"
+        onClick={() => refetch()}
+      />
+    );
+  }
+
   return (
-    <div>
+    <>
       <ul className={css.travellerProfileClientList}>
         {allStories.map((story) => (
           <motion.li
@@ -78,11 +95,11 @@ export default function TravellerProfileClient({
       <div className={css.travellerProfileClientBtnWrapper}>
         {hasNextPage && (
           <Pagination
-            fetchNextPage={fetchNextPage}
+            fetchNextPage={() => fetchNextPage()}
             isFetchingNextPage={isFetchingNextPage}
           />
         )}
       </div>
-    </div>
+    </>
   );
 }

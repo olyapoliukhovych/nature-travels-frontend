@@ -6,6 +6,7 @@ import {
 import TravellersClient from "./Travellers.client";
 import { getAllUsers } from "@/lib/api/users/serverApi";
 import { Metadata } from "next";
+import { INITIAL_PAGE, TRAVELLERS_PER_PAGE } from "@/constants/pagination";
 
 export const metadata: Metadata = {
   title: "Мандрівники",
@@ -16,8 +17,9 @@ export default async function Travellers() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["users", 1],
-    queryFn: () => getAllUsers({ page: 1, perPage: 12 }),
+    queryKey: ["users"],
+    queryFn: () =>
+      getAllUsers({ page: INITIAL_PAGE, perPage: TRAVELLERS_PER_PAGE }),
     initialPageParam: 1,
   });
 

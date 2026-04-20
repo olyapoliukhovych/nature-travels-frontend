@@ -33,13 +33,13 @@
 }
 
 .btn {
-  /* width: fit-content; */
   max-width: 100%;
   padding: 12px;
 
   @media only screen and (min-width: 768px) {
     max-width: fit-content;
   }
+
   @media only screen and (min-width: 1440px) {
     font-size: 20px;
     padding: 9px 12px;
