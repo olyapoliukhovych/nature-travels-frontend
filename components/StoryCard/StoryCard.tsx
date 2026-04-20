@@ -10,7 +10,11 @@ import {
   deleteStoryToFavorites,
   getUserProfile,
 } from "@/lib/api/users/clientApi";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  InfiniteData,
+} from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Modal from "../Modal/Modal";
@@ -26,6 +30,14 @@ import { refreshSession } from "@/lib/api/auth/clientApi";
 
 interface Props {
   story: Story;
+}
+
+interface StoriesPage {
+  stories: Story[];
+  totalPages: number;
+  page: number;
+  perPage: number;
+  totalItems: number;
 }
 
 export default function StoryCard({ story }: Props) {
@@ -71,6 +83,24 @@ export default function StoryCard({ story }: Props) {
 
       const change = isSaved ? -1 : 1;
 
+      queryClient.setQueriesData<InfiniteData<StoriesPage>>(
+        { queryKey: ["user-public-stories"] },
+        (old) => {
+          if (!old || !old.pages) return old;
+          return {
+            ...old,
+            pages: old.pages.map((page: StoriesPage) => ({
+              ...page,
+              stories: page.stories.map((s: Story) =>
+                s._id === story._id
+                  ? { ...s, savedCount: s.savedCount + change }
+                  : s,
+              ),
+            })),
+          };
+        },
+      );
+
       queryClient.setQueriesData<{ stories: Story[] }>(
         { queryKey: ["profile-stories"] },
         (old) => {
@@ -93,6 +123,7 @@ export default function StoryCard({ story }: Props) {
         await Promise.all([
           queryClient.invalidateQueries({ queryKey: ["user-profile"] }),
           queryClient.invalidateQueries({ queryKey: ["profile-stories"] }),
+          queryClient.invalidateQueries({ queryKey: ["user-public-stories"] }),
           queryClient.invalidateQueries({
             queryKey: ["stories"],
             refetchType: "active",

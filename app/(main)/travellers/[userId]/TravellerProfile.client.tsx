@@ -15,6 +15,8 @@ import {
 
 interface Props {
   userId: string;
+  initialStories?: Story[];
+  totalPages?: number;
 }
 
 export default function TravellerProfileClient({
@@ -23,7 +25,7 @@ export default function TravellerProfileClient({
   totalPages = 1,
 }: Props) {
   const validInitialStories = initialStories.filter(
-    (s): s is Story => typeof s === "object" && s !== null
+    (s): s is Story => typeof s === "object" && s !== null,
   );
 
   const {
@@ -42,18 +44,21 @@ export default function TravellerProfileClient({
         perPage: TRAVELLER_STORIES_PER_PAGE,
       }),
     initialPageParam: INITIAL_PAGE,
-    initialData: initialStories.length > 0 ? {
-      pages: [
-        {
-          stories: validInitialStories,
-          totalPages,
-          page: INITIAL_PAGE,
-          perPage: TRAVELLER_STORIES_PER_PAGE,
-          totalItems: validInitialStories.length,
-        },
-      ],
-      pageParams: [INITIAL_PAGE],
-    } : undefined,
+    initialData:
+      initialStories.length > 0
+        ? {
+            pages: [
+              {
+                stories: validInitialStories,
+                totalPages,
+                page: INITIAL_PAGE,
+                perPage: TRAVELLER_STORIES_PER_PAGE,
+                totalItems: validInitialStories.length,
+              },
+            ],
+            pageParams: [INITIAL_PAGE],
+          }
+        : undefined,
     getNextPageParam: (lastPage) => {
       const next = lastPage.page + 1;
       return next <= lastPage.totalPages ? next : undefined;
