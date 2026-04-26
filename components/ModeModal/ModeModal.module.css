@@ -58,7 +58,8 @@
 .loginLink,
 .registerLink,
 .cancelBtn,
-.logoutBtn {
+.logoutBtn,
+.deleteBtn {
   display: block;
   padding: 11px;
   text-align: center;
@@ -98,7 +99,8 @@
 }
 
 .logoutBtn,
-.cancelBtn {
+.cancelBtn,
+.deleteBtn {
   font-weight: 500;
   line-height: 1.5;
 }
@@ -117,6 +119,30 @@
   &:focus {
     background-color: var(--color-mantis-lighter);
     color: inherit;
+  }
+
+  @media only screen and (min-width: 768px) {
+    max-width: 203px;
+  }
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 20px;
+  }
+}
+
+.deleteBtn {
+  width: 100%;
+  background-color: var(--color-red);
+  border: 1px solid var(--color-red);
+  color: var(--color-white);
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+
+  &:hover,
+  &:focus {
+    background-color: var(--opacity-neutral-darkest-5);
+    color: var(--color-red);
   }
 
   @media only screen and (min-width: 768px) {
