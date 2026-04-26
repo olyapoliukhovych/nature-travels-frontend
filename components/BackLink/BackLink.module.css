@@ -1,0 +1,17 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  gap: 8px;
+  align-self: flex-start;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
+}
