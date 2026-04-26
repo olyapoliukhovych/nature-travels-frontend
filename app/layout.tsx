@@ -4,9 +4,9 @@ import "modern-normalize/modern-normalize.css";
 import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
-import { Toaster } from "react-hot-toast";
 import NextTopLoader from "nextjs-toploader";
 import ScrollToTopBtn from "@/components/ScrollToTopBtn/ScrollToTopBtn";
+import AppToaster from "@/components/AppToaster/AppToaster";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
@@ -69,49 +69,7 @@ export default function RootLayout({
             <ScrollToTopBtn />
           </AuthProvider>
         </TanStackProvider>
-
-        <Toaster
-          gutter={12}
-          containerStyle={{
-            top: 24,
-            right: 24,
-          }}
-          toastOptions={{
-            duration: 3000,
-            style: {
-              background: "var(--color-mantis-lightest)",
-              color: "var(--color-mantis-darkest)",
-              border: "1px solid var(--color-mantis-lighter)",
-              padding: "14px 16px",
-              borderRadius: "16px",
-              fontSize: "14px",
-              fontWeight: 500,
-              boxShadow: "0 10px 24px var(--opacity-neutral-darkest-10)",
-            },
-            success: {
-              style: {
-                background: "var(--color-mantis-lightest)",
-                color: "var(--color-mantis-darkest)",
-                border: "1px solid var(--color-mantis-light)",
-              },
-              iconTheme: {
-                primary: "var(--color-mantis)",
-                secondary: "var(--color-white)",
-              },
-            },
-            error: {
-              style: {
-                background: "#fff5f5",
-                color: "var(--color-red)",
-                border: "1px solid rgba(176, 1, 1, 0.2)",
-              },
-              iconTheme: {
-                primary: "var(--color-red)",
-                secondary: "var(--color-white)",
-              },
-            },
-          }}
-        />
+        <AppToaster />
       </body>
     </html>
   );
