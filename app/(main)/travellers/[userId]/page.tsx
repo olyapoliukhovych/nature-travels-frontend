@@ -13,11 +13,11 @@ import {
   getUserByIdPublic,
   getUserStoriesPublic,
 } from "@/lib/api/users/clientApi";
-import { UserPrivate } from "@/types/user";
 import {
   INITIAL_PAGE,
   TRAVELLER_STORIES_PER_PAGE,
 } from "@/constants/pagination";
+import BackLink from "@/components/BackLink/BackLink";
 
 interface Props {
   params: Promise<{ userId: string }>;
@@ -73,6 +73,8 @@ export default async function TravellerPage({ params }: Props) {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <section className={css.travellerProfilePageSection}>
         <div className="container">
+          <BackLink variant="travellers" className={css.backLink} />
+
           <TravellerInfo user={user} />
 
           <h1 className={css.travellerProfilePageTitle}>Історії мандрівника</h1>

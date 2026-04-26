@@ -86,7 +86,7 @@ export default function StoriesClient() {
           />
 
           {status === "pending" && !isFetchingNextPage ? (
-            <Loader />
+            <Loader size="md" />
           ) : (
             <div className={css.contentWrapper}>
               {hasStories ? (
