@@ -2,11 +2,11 @@ import { cookies } from "next/headers";
 import { api } from "../api";
 import {
   CreateStoryResponse,
+  CreateStoryValues,
   GategoryRecomendParams,
   RequestParamsGetAllStories,
   StoriesResponse,
   Story,
-  StoryCreate,
 } from "@/types/stories";
 
 export const getAllStories = async ({
@@ -64,7 +64,7 @@ export const createStory = async ({
   title,
   article,
   img,
-}: StoryCreate): Promise<CreateStoryResponse> => {
+}: CreateStoryValues): Promise<CreateStoryResponse> => {
   const cookie = await cookies();
 
   const formData = new FormData();
