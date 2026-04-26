@@ -12,7 +12,7 @@ export default function MyStoriesPage() {
     queryFn: () => getUserStoriesPrivate({ page: 1, perPage: 6 }),
   });
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader size="md" />;
 
   if (isError) return <div>Помилка завантаження історій</div>;
 

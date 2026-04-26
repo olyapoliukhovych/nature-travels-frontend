@@ -4,7 +4,7 @@ import Image from "next/image";
 import css from "./StoryCard.module.css";
 import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
-import { Story } from "@/types/stories";
+import { StoriesPage, Story } from "@/types/stories";
 import {
   addStoryToFavorites,
   deleteStoryToFavorites,
@@ -27,20 +27,15 @@ import NumberFlow from "@number-flow/react";
 import { useAuthStore } from "@/lib/store/authStore";
 import { AxiosError } from "axios";
 import { refreshSession } from "@/lib/api/auth/clientApi";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface Props {
   story: Story;
 }
 
-interface StoriesPage {
-  stories: Story[];
-  totalPages: number;
-  page: number;
-  perPage: number;
-  totalItems: number;
-}
-
 export default function StoryCard({ story }: Props) {
+  const pathname = usePathname();
   const queryClient = useQueryClient();
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
     useAuthStore();
@@ -58,6 +53,11 @@ export default function StoryCard({ story }: Props) {
     }
     return item._id === story._id;
   });
+  const isMyStoriesPage = pathname === "/profile/my-stories";
+  const isOwner =
+    user?._id ===
+    (typeof story.ownerId === "string" ? story.ownerId : story.ownerId?._id);
+  const showEditButton = isMyStoriesPage && isOwner;
 
   const { mutate: toggleSave, isPending } = useMutation({
     mutationFn: async () => {
@@ -67,7 +67,11 @@ export default function StoryCard({ story }: Props) {
           : await addStoryToFavorites(story._id);
       } catch {
         try {
-          await refreshSession();
+          const isSessionRefreshed = await refreshSession();
+
+          if (!isSessionRefreshed) {
+            throw new Error("Сесія завершена. Увійдіть знову.");
+          }
 
           return isSaved
             ? await deleteStoryToFavorites(story._id)
@@ -212,6 +216,7 @@ export default function StoryCard({ story }: Props) {
                   easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
                 }}
               />
+
               <Icon
                 id={"icon-bookmark-filled-green"}
                 className={css.bookmark}
@@ -230,33 +235,45 @@ export default function StoryCard({ story }: Props) {
               Переглянути статтю
             </AppLink>
 
-            <button
-              className={`${css.saveButton} ${isSaved ? css.isSaved : ""}`}
-              onClick={handleSaveClick}
-              disabled={isPending}
-              type="button"
-              style={{ position: "relative" }}
-            >
-              <div
-                style={{
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "24px",
-                  height: "24px",
-                }}
+            {showEditButton ? (
+              <Link
+                href={`/profile/edit/${story._id}`}
+                className={css.editLink}
+                title="Редагувати"
               >
-                {isAnimating && <CircleAnimation />}
-                {isAnimating && <BurstAnimation />}
+                <Icon id="icon-edit" className={css.editIcon} />
+              </Link>
+            ) : (
+              <button
+                className={`${css.saveButton} ${isSaved ? css.isSaved : ""}`}
+                onClick={handleSaveClick}
+                disabled={isPending}
+                type="button"
+                style={{ position: "relative" }}
+              >
+                <div
+                  style={{
+                    position: "relative",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "24px",
+                    height: "24px",
+                  }}
+                >
+                  {isAnimating && <CircleAnimation />}
+                  {isAnimating && <BurstAnimation />}
 
-                <Icon
-                  id={isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"}
-                  className={css.icon}
-                  style={{ position: "relative", zIndex: 12 }}
-                />
-              </div>
-            </button>
+                  <Icon
+                    id={
+                      isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"
+                    }
+                    className={css.icon}
+                    style={{ position: "relative", zIndex: 12 }}
+                  />
+                </div>
+              </button>
+            )}
           </div>
         </div>
       </div>

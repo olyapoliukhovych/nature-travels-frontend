@@ -23,7 +23,7 @@ export default function StoryDetailsClient() {
     refetchOnMount: false,
   });
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader size="md" />;
   if (isError || !story) return <p>Така історія відсутня</p>;
 
   return (

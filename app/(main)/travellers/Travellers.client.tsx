@@ -35,7 +35,7 @@ export default function TravellersClient() {
       <PageTitle align="center">Мандрівники</PageTitle>
 
       {status === "pending" && !isFetchingNextPage ? (
-        <Loader />
+        <Loader size="md" />
       ) : (
         <div className={css.contentWrapper}>
           {hasUsers ? (

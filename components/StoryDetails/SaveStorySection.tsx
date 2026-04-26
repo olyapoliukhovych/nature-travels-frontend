@@ -17,13 +17,18 @@ import { AxiosError } from "axios";
 
 interface SaveStorySectionProps {
   storyId: string;
+  storyOwnerId?: string;
 }
 
-export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
+export default function SaveStorySection({
+  storyId,
+  storyOwnerId,
+}: SaveStorySectionProps) {
   const queryClient = useQueryClient();
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
     useAuthStore();
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const isOwnStory = !!storyOwnerId && user?._id === storyOwnerId;
 
   const isSaved = user?.savedStories?.some((item: string | { _id: string }) => {
     if (typeof item === "string") {
@@ -40,7 +45,11 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
           : await addStoryToFavorites(storyId);
       } catch {
         try {
-          await refreshSession();
+          const isSessionRefreshed = await refreshSession();
+
+          if (!isSessionRefreshed) {
+            throw new Error("Сесія завершена. Увійдіть знову.");
+          }
 
           return isSaved
             ? await deleteStoryToFavorites(storyId)
@@ -95,6 +104,10 @@ export default function SaveStorySection({ storyId }: SaveStorySectionProps) {
 
     toggleSave();
   };
+
+  if (isOwnStory) {
+    return null;
+  }
 
   return (
     <div className={css.saveStoryWrapper}>

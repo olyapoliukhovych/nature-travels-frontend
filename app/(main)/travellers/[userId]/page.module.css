@@ -2,6 +2,10 @@
     padding: 48px 0 72px 0;
 }
 
+.backLink {
+    margin-bottom: 24px;
+}
+
 .travellerProfilePageTitle {
 
     line-height: 120%;

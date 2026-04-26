@@ -4,30 +4,47 @@ import Link from "next/link";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 interface Props {
-  mode: "save" | "logout";
+  mode: "save" | "logout" | "delete";
   onClose: () => void;
   logout?: () => void;
+  onDelete?: () => void;
 }
 
-export function ModeModal({ mode, onClose, logout }: Props) {
+export function ModeModal({ mode, onClose, logout, onDelete }: Props) {
   const { setRedirect } = useAuthRedirect();
-  const variant = mode === "save";
+
+  const getContent = () => {
+    switch (mode) {
+      case "save":
+        return {
+          title: "Помилка під час збереження",
+          text: "Щоб зберегти статтю, вам треба увійти. Якщо ще немає облікового запису, зареєструйтесь.",
+        };
+      case "logout":
+        return {
+          title: "Ви точно хочете вийти?",
+          text: "Ми будемо сумувати за вами!",
+        };
+      case "delete":
+        return {
+          title: "Видалити історію?",
+          text: "Цю дію неможливо буде скасувати.",
+        };
+    }
+  };
+
+  const { title, text } = getContent();
 
   return (
     <>
       <button className={css.closeBtn} type="button" onClick={onClose}>
         <Icon id="icon-close" className={css.iconClose} />
       </button>
-      <h2 className={css.titleModal}>
-        {variant ? "Помилка під час збереження" : "Ви точно хочете вийти?"}
-      </h2>
-      <p className={css.textModal}>
-        {variant
-          ? "Щоб зберегти статтю, вам треба увійти. Якщо ще немає облікового запису, зареєструйтесь."
-          : "Ми будемо сумувати за вами!"}
-      </p>
+      <h2 className={css.titleModal}>{title}</h2>
+      <p className={css.textModal}>{text}</p>
+
       <div className={css.navigationWrapper}>
-        {variant ? (
+        {mode === "save" && (
           <>
             <Link
               className={css.loginLink}
@@ -44,13 +61,26 @@ export function ModeModal({ mode, onClose, logout }: Props) {
               Зареєструватись
             </Link>
           </>
-        ) : (
+        )}
+
+        {mode === "logout" && (
           <>
             <button className={css.cancelBtn} onClick={onClose}>
               Відмінити
             </button>
             <button className={css.logoutBtn} onClick={logout}>
               Вийти
+            </button>
+          </>
+        )}
+
+        {mode === "delete" && (
+          <>
+            <button className={css.cancelBtn} onClick={onClose}>
+              Відмінити
+            </button>
+            <button className={css.deleteBtn} onClick={onDelete}>
+              Видалити
             </button>
           </>
         )}

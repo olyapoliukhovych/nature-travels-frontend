@@ -1,11 +1,9 @@
 import Image from "next/image";
 import { Story } from "@/types/stories";
 import css from "./StoryDetails.module.css";
-import { Icon } from "../Icon/Icon";
 import clsx from "clsx";
-import AppLink from "../AppLink/AppLink";
-
 import SaveStorySection from "./SaveStorySection";
+import BackLink from "../BackLink/BackLink";
 
 interface Props {
   story: Story;
@@ -32,10 +30,7 @@ export default function StoryDetailsPage({ story }: Props) {
         />
 
         <div className={css.contentWrapper}>
-          <AppLink href="/stories" className={css.backLink} variant="base">
-            <Icon id="icon-chevron_left" className={css.icon} />
-            Всі статті
-          </AppLink>
+          <BackLink variant="stories" storyOwnerId={story.ownerId?._id} />
 
           <h1 className={css.mainTitle}>{story.title}</h1>
 
@@ -53,7 +48,7 @@ export default function StoryDetailsPage({ story }: Props) {
         </div>
       </div>
       <p className={clsx(css.text, css.textDesctop)}>{story.article}</p>
-      <SaveStorySection storyId={story._id} />
+      <SaveStorySection storyId={story._id} storyOwnerId={story.ownerId?._id} />
     </div>
   );
 }

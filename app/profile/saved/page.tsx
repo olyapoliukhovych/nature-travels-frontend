@@ -47,7 +47,7 @@ export default async function SavedStoriesPage() {
         )}
       </>
     );
-  } catch (error) {
+  } catch {
     return <p>Не вдалося завантажити збережені історії.</p>;
   }
 }
