@@ -47,11 +47,19 @@ export interface StoriesResponse {
   stories: Story[];
 }
 
-export interface StoryCreate {
+export interface CreateStoryValues {
   categoryId: string;
   title: string;
   article: string;
   img: File | null;
+}
+
+export interface StoriesPage {
+  stories: Story[];
+  totalPages: number;
+  page: number;
+  perPage: number;
+  totalItems: number;
 }
 
 export type NewStoryData = {
