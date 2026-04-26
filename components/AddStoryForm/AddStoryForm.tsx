@@ -63,14 +63,13 @@ const AddStoryForm = ({
   isEditMode = false,
 }: AddStoryFormProps) => {
   const router = useRouter();
+  const draftValues = useStoryDraftStore((state) => state.draft);
   const clearDraft = useStoryDraftStore((state) => state.clearDraft);
   const queryClient = useQueryClient();
   const [preview, setPreview] = useState<string | null>(
     initialData?.img || null,
   );
-  const [isDraftHydrated, setIsDraftHydrated] = useState(
-    isEditMode || useStoryDraftStore.persist.hasHydrated(),
-  );
+  const [isDraftHydrated, setIsDraftHydrated] = useState(isEditMode);
 
   // при розмонтуванні компонента видаляємо посилання на фото з пам'яті, щоб не засмічувати
   useEffect(() => {
@@ -82,16 +81,34 @@ const AddStoryForm = ({
   }, [preview]);
 
   useEffect(() => {
-    if (isEditMode || isDraftHydrated) {
+    if (isEditMode) {
       return;
     }
 
-    const unsubscribe = useStoryDraftStore.persist.onFinishHydration(() => {
+    const persistApi = useStoryDraftStore.persist;
+
+    if (!persistApi) {
+      const timeoutId = window.setTimeout(() => {
+        setIsDraftHydrated(true);
+      }, 0);
+
+      return () => window.clearTimeout(timeoutId);
+    }
+
+    if (persistApi.hasHydrated()) {
+      const timeoutId = window.setTimeout(() => {
+        setIsDraftHydrated(true);
+      }, 0);
+
+      return () => window.clearTimeout(timeoutId);
+    }
+
+    const unsubscribe = persistApi.onFinishHydration(() => {
       setIsDraftHydrated(true);
     });
 
     return unsubscribe;
-  }, [isDraftHydrated, isEditMode]);
+  }, [isEditMode]);
 
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
@@ -149,8 +166,6 @@ const AddStoryForm = ({
   if (!isEditMode && !isDraftHydrated) {
     return <Loader size="md" />;
   }
-
-  const draftValues = isEditMode ? null : useStoryDraftStore.getState().draft;
 
   const initialValues: CreateStoryValues = {
     title: isEditMode ? initialData?.title || "" : draftValues?.title || "",

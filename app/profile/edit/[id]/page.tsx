@@ -15,8 +15,8 @@ export default async function EditStoryPage({ params }: Props) {
   const story = await getStoryById(id);
 
   return (
-    // <div className="container">
+
     <AddStoryForm initialData={story} isEditMode={true} />
-    // </div>
+
   );
 }

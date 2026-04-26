@@ -24,8 +24,6 @@ export async function GET(request: Request, { params }: Props) {
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
         { status: error.response?.status ?? 500 },
-
-        // change error.status
       );
     }
     logErrorResponse({ message: (error as Error).message });
