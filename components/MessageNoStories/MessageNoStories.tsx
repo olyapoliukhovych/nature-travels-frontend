@@ -32,22 +32,3 @@ export default function MessageNoStories({
     </div>
   );
 }
-
-//!PROPS TO NO Stories
-/* 
-<MessageNoStories text = "Ви ще нічого не публікували, поділіться своєю першою історією"
-  buttonText = "Опублікувати історію" 
-  linkTo="/stories/new"/>
-*/
-
-/* <MessageNoStories
-  text="У вас ще немає збережених історій, спершу збережіть вашу першу історію!"
-  buttonText="До історій"
-  linkTo="/stories"
-/>*/
-
-/* <MessageNoStories
-  text="Цей користувач ще не публікував історій"
-  buttonText="Назад до історій"
-  linkTo="/stories"
-/>*/
