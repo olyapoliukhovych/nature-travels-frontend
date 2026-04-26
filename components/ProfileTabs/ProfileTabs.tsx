@@ -6,8 +6,13 @@ import css from "./ProfileTabs.module.css";
 
 export default function ProfileTabs() {
   const pathname = usePathname();
+  const isEditPage = pathname.startsWith("/profile/edit/");
 
   const isActive = (path: string) => pathname === path;
+
+  if (isEditPage) {
+    return null;
+  }
 
   return (
     <nav className={css.profileTabsNav}>
