@@ -48,19 +48,6 @@ export default function NavLinks({ onClick }: Props) {
           {link.name}
         </Link>
       ))}
-
-      {isAuthenticated && (
-        <Link
-          href="/profile"
-          onClick={onClick}
-          className={clsx(
-            styles.link,
-            getIsActive("/profile") && styles.active,
-          )}
-        >
-          Мій Профіль
-        </Link>
-      )}
     </nav>
   );
 }
