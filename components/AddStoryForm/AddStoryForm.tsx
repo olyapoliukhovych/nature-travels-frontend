@@ -115,11 +115,7 @@ const AddStoryForm = ({
     queryFn: getCategories,
   });
 
-  const { mutate, isPending } = useMutation<
-    Story | CreateStoryResponse,
-    Error,
-    CreateStoryValues
-  >({
+  const { mutate, isPending } = useMutation<Story, Error, CreateStoryValues>({
     mutationFn: (values) => {
       if (isEditMode && initialData?._id) {
         return updateStory(initialData._id, {
@@ -149,9 +145,14 @@ const AddStoryForm = ({
       queryClient.invalidateQueries({ queryKey: ["stories"] });
       queryClient.invalidateQueries({ queryKey: ["user-public-stories"] });
 
-      const storyId = "_id" in data ? data._id : initialData?._id;
+      const storyId = data?._id;
 
-      router.push(storyId ? `/stories/${storyId}` : "/profile/my-stories");
+      if (!storyId) {
+        console.error("No storyId returned");
+        return;
+      }
+
+      router.push(`/stories/${storyId}`);
     },
     onError: (error) => {
       toast.error(error.message || "Сталася помилка", { id: "publish-error" });
