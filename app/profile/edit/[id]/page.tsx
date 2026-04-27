@@ -3,7 +3,7 @@ import AddStoryForm from "@/components/AddStoryForm/AddStoryForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Редагування історії",
+  title: "Редагувати історію",
 };
 
 interface Props {
@@ -14,9 +14,5 @@ export default async function EditStoryPage({ params }: Props) {
   const { id } = await params;
   const story = await getStoryById(id);
 
-  return (
-
-    <AddStoryForm initialData={story} isEditMode={true} />
-
-  );
+  return <AddStoryForm initialData={story} isEditMode={true} />;
 }

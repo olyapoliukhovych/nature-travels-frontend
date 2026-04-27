@@ -1,6 +1,5 @@
 import { api } from "../api";
 import {
-  CreateStoryResponse,
   CreateStoryValues,
   GategoryRecomendParams,
   RequestParamsGetAllStories,
@@ -47,7 +46,7 @@ export const createStory = async ({
   title,
   article,
   img,
-}: CreateStoryValues): Promise<CreateStoryResponse> => {
+}: CreateStoryValues): Promise<Story> => {
   const formData = new FormData();
 
   formData.append("categoryId", categoryId);
@@ -58,7 +57,7 @@ export const createStory = async ({
     formData.append("img", img);
   }
 
-  const res = await api.post<CreateStoryResponse>("/stories", formData);
+  const res = await api.post<Story>("/stories", formData);
   return res.data;
 };
 

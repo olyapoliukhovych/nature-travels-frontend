@@ -11,14 +11,16 @@ import PageTitle from "../PageTitle/PageTitle";
 import AppSelect from "../AppSelect/AppSelect";
 import css from "./AddStoryForm.module.css";
 import { createStory, updateStory } from "@/lib/api/stories/clientApi";
+import { getUserProfile } from "@/lib/api/users/clientApi";
 import toast from "react-hot-toast";
 import Button from "../Button/Button";
 import { useStoryDraftStore } from "@/lib/store/createStoryStore";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { CreateStoryResponse, CreateStoryValues, Story } from "@/types/stories";
+import { CreateStoryValues, Story } from "@/types/stories";
 import DeleteStoryButton from "../DeleteStoryButton/DeleteStoryButton";
 import Loader from "../Loader/Loader";
+import { useAuthStore } from "@/lib/store/authStore";
 
 const getValidationSchema = (isEditMode: boolean) =>
   Yup.object({
@@ -65,6 +67,7 @@ const AddStoryForm = ({
   const router = useRouter();
   const draftValues = useStoryDraftStore((state) => state.draft);
   const clearDraft = useStoryDraftStore((state) => state.clearDraft);
+  const setUser = useAuthStore((state) => state.setUser);
   const queryClient = useQueryClient();
   const [preview, setPreview] = useState<string | null>(
     initialData?.img || null,
@@ -115,11 +118,7 @@ const AddStoryForm = ({
     queryFn: getCategories,
   });
 
-  const { mutate, isPending } = useMutation<
-    Story | CreateStoryResponse,
-    Error,
-    CreateStoryValues
-  >({
+  const { mutate, isPending } = useMutation<Story, Error, CreateStoryValues>({
     mutationFn: (values) => {
       if (isEditMode && initialData?._id) {
         return updateStory(initialData._id, {
@@ -136,7 +135,7 @@ const AddStoryForm = ({
         img: values.img as File,
       });
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success(
         isEditMode
           ? "Історію успішно оновлено!"
@@ -146,12 +145,43 @@ const AddStoryForm = ({
 
       if (!isEditMode) clearDraft();
 
-      queryClient.invalidateQueries({ queryKey: ["stories"] });
-      queryClient.invalidateQueries({ queryKey: ["user-public-stories"] });
+      if (!isEditMode) {
+        queryClient.removeQueries({
+          queryKey: ["profile-stories", "my"],
+          exact: true,
+        });
+        queryClient.removeQueries({
+          queryKey: ["profile-stories-initial", "my"],
+          exact: true,
+        });
+      }
 
-      const storyId = "_id" in data ? data._id : initialData?._id;
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["stories"] }),
+        queryClient.invalidateQueries({ queryKey: ["profile-stories"] }),
+        queryClient.invalidateQueries({
+          queryKey: ["profile-stories-initial"],
+        }),
+        queryClient.invalidateQueries({ queryKey: ["user-public-stories"] }),
+        queryClient.invalidateQueries({ queryKey: ["user-profile"] }),
+        queryClient.invalidateQueries({ queryKey: ["user-public"] }),
+      ]);
 
-      router.push(storyId ? `/stories/${storyId}` : "/profile/my-stories");
+      try {
+        const updatedUser = await getUserProfile();
+        setUser(updatedUser);
+      } catch (error) {
+        console.error(error);
+      }
+
+      const storyId = data?._id;
+
+      if (!storyId) {
+        console.error("No storyId returned");
+        return;
+      }
+
+      router.push(`/stories/${storyId}`);
     },
     onError: (error) => {
       toast.error(error.message || "Сталася помилка", { id: "publish-error" });

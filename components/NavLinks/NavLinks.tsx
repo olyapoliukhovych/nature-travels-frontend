@@ -4,7 +4,6 @@ import Link from "next/link";
 import styles from "./NavLinks.module.css";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { useAuthStore } from "@/lib/store/authStore";
 
 interface Props {
   onClick?: () => void;
@@ -18,7 +17,6 @@ const navLinks = [
 
 export default function NavLinks({ onClick }: Props) {
   const pathname = usePathname();
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
   const getIsActive = (href: string) => {
     if (href === "/stories") {
@@ -48,19 +46,6 @@ export default function NavLinks({ onClick }: Props) {
           {link.name}
         </Link>
       ))}
-
-      {isAuthenticated && (
-        <Link
-          href="/profile"
-          onClick={onClick}
-          className={clsx(
-            styles.link,
-            getIsActive("/profile") && styles.active,
-          )}
-        >
-          Мій Профіль
-        </Link>
-      )}
     </nav>
   );
 }

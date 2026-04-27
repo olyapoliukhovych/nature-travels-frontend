@@ -3,7 +3,7 @@
   padding: 48px 0;
   height: auto;
 
-  @media screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1440px) {
     padding: 80px 0;
   }
 }
@@ -21,12 +21,12 @@
   grid-template-columns: 1fr;
   justify-items: center;
 
-  @media screen and (min-width: 768px) {
+  @media only screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
     row-gap: 24px;
   }
 
-  @media screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1440px) {
     margin-bottom: 24px;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
@@ -38,7 +38,7 @@
   justify-self: center;
 }
 
-@media screen and (min-width: 768px) {
+@media only screen and (min-width: 768px) {
   .footerWrapper > a {
     grid-column: 1;
     grid-row: 1;
@@ -50,7 +50,7 @@
     grid-row: 1;
     justify-self: end;
 
-    @media screen and (min-width: 1440px) {
+    @media only screen and (min-width: 1440px) {
       justify-self: center;
     }
   }
@@ -60,8 +60,7 @@
     grid-row: 2;
     width: auto;
 
-    @media screen and (min-width: 1440px) {
-      /* width: 400px; */
+    @media only screen and (min-width: 1440px) {
       justify-self: end;
 
       grid-column: 3;

@@ -20,7 +20,7 @@ export default function TravellerInfo({ user }: Props) {
           height={145}
           alt={user.name}
           className={css.travellerInfoAvatar}
-          priority
+          loading="eager"
         />
       </div>
 
