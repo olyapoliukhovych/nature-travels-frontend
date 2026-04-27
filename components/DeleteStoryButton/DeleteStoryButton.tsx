@@ -73,7 +73,14 @@ export default function DeleteStoryButton({ storyId }: Props) {
         onClick={() => setIsModalOpen(true)}
         disabled={isPending}
       >
-        {isPending ? <Loader size="sm" /> : <MdDelete />}
+        {isPending ? (
+          <Loader size="sm" />
+        ) : (
+          <>
+            <MdDelete />
+            <span className={css.deleteText}>Видалити</span>
+          </>
+        )}
       </Button>
 
       {isModalOpen && (

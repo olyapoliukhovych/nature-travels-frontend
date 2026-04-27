@@ -1,13 +1,13 @@
 .copyrightParagraph {
-    font-weight: 400;
-    font-size: 12px;
-    max-width: 239px;
+  font-weight: 400;
+  font-size: 12px;
+  max-width: 239px;
 
-    @media screen and (min-width: 768px) {
-        max-width: none;
-    }
+  @media only screen and (min-width: 768px) {
+    max-width: none;
+  }
 
-    @media screen and (min-width: 1440px) {
-        font-size: 16px;
-    }
+  @media only screen and (min-width: 1440px) {
+    font-size: 16px;
+  }
 }

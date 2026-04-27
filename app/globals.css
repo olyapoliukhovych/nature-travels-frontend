@@ -49,7 +49,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  data-scroll-behavior: smooth;
   scrollbar-color: var(--color-mantis-dark) var(--color-scheme-2-background);
 }
 

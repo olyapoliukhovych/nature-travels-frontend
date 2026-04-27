@@ -1,7 +1,7 @@
 .formWrapper {
   width: 100%;
   max-width: 600px;
-  padding: 32px 0 0;
+  padding: 32px 0 64px;
   box-sizing: border-box;
   flex-direction: column;
   display: flex;
@@ -119,7 +119,7 @@
   line-height: 1;
 }
 
-.allButtonsGroup {
+/* .allButtonsGroup {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -131,15 +131,31 @@
   display: flex;
   flex-direction: row;
   gap: 16px;
+} */
+
+.allButtonsGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 40px;
+  /* margin-bottom: 72px; */
+  gap: 16px;
+}
+
+.mainButtonsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .btnSave,
 .btnCancel {
   font-weight: 500;
   padding: 6px 12px;
+  height: 50px;
 }
 
-@media (min-width: 768px) {
+@media only screen and (min-width: 768px) {
   .formWrapper {
     max-width: 704px;
   }
@@ -154,6 +170,11 @@
 
   .allButtonsGroup {
     margin-bottom: 64px;
+    flex-direction: row;
+  }
+
+  .mainButtonsGroup {
+    flex-direction: row;
   }
 
   .btnSave,
@@ -164,7 +185,7 @@
   }
 }
 
-@media (min-width: 1440px) {
+@media only screen and (min-width: 1440px) {
   .formWrapper {
     max-width: 1091px;
     padding: 48px 0 0;

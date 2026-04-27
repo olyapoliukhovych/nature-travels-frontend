@@ -1,6 +1,5 @@
 import { api } from "../api";
 import {
-  CreateStoryResponse,
   CreateStoryValues,
   GategoryRecomendParams,
   RequestParamsGetAllStories,
