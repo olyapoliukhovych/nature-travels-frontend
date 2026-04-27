@@ -12,6 +12,7 @@ import {
   INITIAL_PAGE,
   TRAVELLER_STORIES_PER_PAGE,
 } from "@/constants/pagination";
+import { useMemo } from "react";
 
 interface Props {
   userId: string;
@@ -44,7 +45,7 @@ export default function TravellerProfileClient({
         perPage: TRAVELLER_STORIES_PER_PAGE,
       }),
     initialPageParam: INITIAL_PAGE,
-    initialData:
+    placeholderData:
       initialStories.length > 0
         ? {
             pages: [
@@ -66,7 +67,17 @@ export default function TravellerProfileClient({
     refetchOnMount: false,
   });
 
-  const allStories = data?.pages.flatMap((page) => page.stories) || [];
+  const allStories = useMemo(() => {
+    const flat = data?.pages.flatMap((page) => page.stories) || [];
+
+    const map = new Map();
+
+    for (const story of flat) {
+      map.set(story._id, story);
+    }
+
+    return Array.from(map.values());
+  }, [data]);
 
   if (isError && allStories.length === 0) {
     return (

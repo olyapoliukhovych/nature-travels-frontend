@@ -5,11 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import ProfileStoriesClient from "@/components/ProfileStories/ProfileStories";
 import Loader from "@/components/Loader/Loader";
 import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
+import { INITIAL_PAGE, PROFILE_STORIES_PER_PAGE } from "@/constants/pagination";
 
 export default function MyStoriesPage() {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["stories", "my"],
-    queryFn: () => getUserStoriesPrivate({ page: 1, perPage: 6 }),
+    queryKey: ["profile-stories-initial", "my"],
+    queryFn: () =>
+      getUserStoriesPrivate({
+        page: INITIAL_PAGE,
+        perPage: PROFILE_STORIES_PER_PAGE,
+      }),
   });
 
   if (isLoading) return <Loader size="md" />;

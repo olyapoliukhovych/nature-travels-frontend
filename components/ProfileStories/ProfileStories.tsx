@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { Story } from "@/types/stories";
 import TravellersStories from "../TravellersStories/TravellersStories";
 import {
   getUserStoriesFavorites,
   getUserStoriesPrivate,
 } from "@/lib/api/users/clientApi";
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { INITIAL_PAGE, PROFILE_STORIES_PER_PAGE } from "@/constants/pagination";
+import { useMemo } from "react";
 
 interface Props {
   initialStories: Story[];
@@ -20,38 +21,57 @@ export default function ProfileStoriesClient({
   initialTotalPages,
   type,
 }: Props) {
-  const [page, setPage] = useState(1);
-  const perPage = 6;
+  const { data, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfiniteQuery({
+      queryKey: ["profile-stories", type],
+      queryFn: ({ pageParam = INITIAL_PAGE }) =>
+        type === "saved"
+          ? getUserStoriesFavorites({
+              page: pageParam as number,
+              perPage: PROFILE_STORIES_PER_PAGE,
+            })
+          : getUserStoriesPrivate({
+              page: pageParam as number,
+              perPage: PROFILE_STORIES_PER_PAGE,
+            }),
+      initialPageParam: INITIAL_PAGE,
+      placeholderData:
+        initialStories.length > 0
+          ? {
+              pages: [
+                {
+                  stories: initialStories,
+                  totalPages: initialTotalPages,
+                  totalItems: initialStories.length,
+                  page: INITIAL_PAGE,
+                  perPage: PROFILE_STORIES_PER_PAGE,
+                },
+              ],
+              pageParams: [INITIAL_PAGE],
+            }
+          : undefined,
+      getNextPageParam: (lastPage) =>
+        lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
+    });
 
-  const { data, isFetching } = useQuery({
-    queryKey: ["profile-stories", type],
-    queryFn: () =>
-      type === "saved"
-        ? getUserStoriesFavorites({ page: 1, perPage: page * perPage })
-        : getUserStoriesPrivate({ page: 1, perPage: page * perPage }),
-    initialData: {
-      stories: initialStories,
-      totalPages: initialTotalPages,
-      totalItems: initialStories.length,
-      page: 1,
-      perPage: 6,
-    },
-    placeholderData: keepPreviousData,
-  });
+  const stories = useMemo(() => {
+    const all = data?.pages.flatMap((page) => page.stories) || [];
 
-  const handleFetchNextPage = () => {
-    setPage((prev) => prev + 1);
-  };
+    const map = new Map();
 
-  const stories = data?.stories || [];
-  const totalPages = data?.totalPages || initialTotalPages;
+    for (const story of all) {
+      map.set(story._id, story);
+    }
+
+    return Array.from(map.values());
+  }, [data]);
 
   return (
     <TravellersStories
       stories={stories}
-      fetchNextPage={handleFetchNextPage}
-      isFetchingNextPage={isFetching}
-      hasNextPage={page < totalPages}
+      fetchNextPage={() => fetchNextPage()}
+      isFetchingNextPage={isFetchingNextPage}
+      hasNextPage={!!hasNextPage}
     />
   );
 }
