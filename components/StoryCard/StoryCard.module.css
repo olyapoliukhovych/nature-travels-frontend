@@ -34,9 +34,8 @@
   background: var(--opacity-neutral-darkest-5);
   color: var(--color-neutral-darkest);
   transition:
-    border var(--transition),
-    fill var(--transition),
-    background var(--transition),
+    border-color var(--transition),
+    background-color var(--transition),
     color var(--transition);
 
   &:hover,
@@ -44,7 +43,6 @@
     background: var(--color-mantis-dark);
     color: var(--color-white);
     border: 1px solid transparent;
-    fill: var(--color-white);
   }
 
   &:disabled {
@@ -66,7 +64,6 @@
   width: 24px;
   height: 24px;
   fill: currentColor;
-  transition: fill var(--transition);
 }
 
 .buttonWrapper {
