@@ -4,17 +4,13 @@ import Image from "next/image";
 import css from "./StoryCard.module.css";
 import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
-import { StoriesPage, Story } from "@/types/stories";
+import { Story } from "@/types/stories";
 import {
   addStoryToFavorites,
   deleteStoryToFavorites,
   getUserProfile,
 } from "@/lib/api/users/clientApi";
-import {
-  useMutation,
-  useQueryClient,
-  InfiniteData,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Modal from "../Modal/Modal";
@@ -53,6 +49,12 @@ export default function StoryCard({ story }: Props) {
     }
     return item._id === story._id;
   });
+  const [savedState, setSavedState] = useState(Boolean(isSaved));
+
+  useEffect(() => {
+    setSavedState(Boolean(isSaved));
+  }, [isSaved]);
+
   const isMyStoriesPage = pathname === "/profile/my-stories";
   const isOwner =
     user?._id ===
@@ -83,47 +85,14 @@ export default function StoryCard({ story }: Props) {
     },
 
     onSuccess: async () => {
-      setLocalSavedCount((prev) => (isSaved ? prev - 1 : prev + 1));
+      const nextSavedState = !isSaved;
 
-      const change = isSaved ? -1 : 1;
+      setSavedState(nextSavedState);
+      setLocalSavedCount((prev) => prev + (nextSavedState ? 1 : -1));
 
-      queryClient.setQueriesData<InfiniteData<StoriesPage>>(
-        { queryKey: ["user-public-stories"] },
-        (old) => {
-          if (!old || !old.pages) return old;
-          return {
-            ...old,
-            pages: old.pages.map((page: StoriesPage) => ({
-              ...page,
-              stories: page.stories.map((s: Story) =>
-                s._id === story._id
-                  ? { ...s, savedCount: s.savedCount + change }
-                  : s,
-              ),
-            })),
-          };
-        },
-      );
+      const delay = nextSavedState ? 800 : 0;
 
-      queryClient.setQueriesData<{ stories: Story[] }>(
-        { queryKey: ["profile-stories"] },
-        (old) => {
-          if (!old || !old.stories) return old;
-
-          return {
-            ...old,
-            stories: old.stories.map((s: Story) =>
-              s._id === story._id
-                ? { ...s, savedCount: s.savedCount + change }
-                : s,
-            ),
-          };
-        },
-      );
-
-      const delay = !isSaved ? 800 : 0;
-
-      setTimeout(async () => {
+      window.setTimeout(async () => {
         await Promise.all([
           queryClient.invalidateQueries({ queryKey: ["user-profile"] }),
           queryClient.invalidateQueries({ queryKey: ["profile-stories"] }),
@@ -153,15 +122,16 @@ export default function StoryCard({ story }: Props) {
           console.error(e);
         }
 
-        const message = isSaved
-          ? "Історію видалено зі збережених"
-          : "Історію збережено";
+        const message = nextSavedState
+          ? "Історію додано до збережених"
+          : "Історію видалено зі збережених";
 
         toast.success(message);
       }, delay);
     },
 
     onError: (error: AxiosError) => {
+      setSavedState(Boolean(isSaved));
       setLocalSavedCount(story.savedCount);
       if (
         error.message === "Сесія завершена. Увійдіть знову." ||
@@ -183,7 +153,7 @@ export default function StoryCard({ story }: Props) {
       return;
     }
 
-    if (!isSaved) {
+    if (!savedState) {
       setIsAnimating(true);
       setTimeout(() => setIsAnimating(false), 1200);
     }
@@ -245,7 +215,7 @@ export default function StoryCard({ story }: Props) {
               </Link>
             ) : !isOwner ? (
               <button
-                className={`${css.saveButton} ${isSaved ? css.isSaved : ""}`}
+                className={`${css.saveButton} ${savedState ? css.isSaved : ""}`}
                 onClick={handleSaveClick}
                 disabled={isPending}
                 type="button"
@@ -266,7 +236,9 @@ export default function StoryCard({ story }: Props) {
 
                   <Icon
                     id={
-                      isSaved ? "icon-bookmark-filled-green" : "icon-bookmark"
+                      savedState
+                        ? "icon-bookmark-filled-green"
+                        : "icon-bookmark"
                     }
                     className={css.icon}
                     style={{ position: "relative", zIndex: 12 }}
