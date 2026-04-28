@@ -243,7 +243,7 @@ export default function StoryCard({ story }: Props) {
               >
                 <Icon id="icon-edit" className={css.editIcon} />
               </Link>
-            ) : (
+            ) : !isOwner ? (
               <button
                 className={`${css.saveButton} ${isSaved ? css.isSaved : ""}`}
                 onClick={handleSaveClick}
@@ -273,7 +273,7 @@ export default function StoryCard({ story }: Props) {
                   />
                 </div>
               </button>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
