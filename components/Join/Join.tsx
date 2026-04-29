@@ -23,7 +23,7 @@ export default function Join() {
             </p>
 
             <AppLink
-              href={isAuth ? "/profile" : "/auth/register"}
+              href={isAuth ? "/profile/saved" : "/auth/register"}
               variant="mantis"
               className={css.button}
             >

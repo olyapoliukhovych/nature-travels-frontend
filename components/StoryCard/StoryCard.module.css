@@ -152,4 +152,11 @@
 .editIcon {
   width: 24px;
   height: 24px;
+  transition: fill var(--transition);
+}
+
+.editLink:hover svg,
+.editLink:focus svg,
+.editLink:active svg {
+  fill: var(--color-white);
 }

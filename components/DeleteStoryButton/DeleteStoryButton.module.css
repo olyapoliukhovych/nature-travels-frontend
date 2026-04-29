@@ -16,15 +16,15 @@
 
   &:not(.disabled):hover,
   &:not(.disabled):focus {
-    border-color: var(--color-red);
-    background: var(--opacity-neutral-darkest-5);
-    color: var(--color-red);
+    border-color: var(--color-red) !important;
+    background: var(--opacity-neutral-darkest-5) !important;
+    color: var(--color-red) !important;
   }
 
   &:active {
-    border-color: var(--color-red);
-    background: var(--opacity-neutral-darkest-5);
-    color: var(--color-red);
+    border-color: var(--color-red) !important;
+    background: var(--opacity-neutral-darkest-5) !important;
+    color: var(--color-red) !important;
   }
 
   @media only screen and (min-width: 768px) {

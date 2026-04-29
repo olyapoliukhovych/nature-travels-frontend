@@ -92,7 +92,7 @@ export default function TravellerProfileClient({
   return (
     <>
       <ul className={css.travellerProfileClientList}>
-        {allStories.map((story) => (
+        {allStories.map((story, index) => (
           <motion.li
             layout
             key={story._id}
@@ -104,7 +104,7 @@ export default function TravellerProfileClient({
               damping: 15,
             }}
           >
-            <StoryCard story={story} />
+            <StoryCard story={story} priority={index === 0} />
           </motion.li>
         ))}
       </ul>

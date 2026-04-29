@@ -28,9 +28,10 @@ import Link from "next/link";
 
 interface Props {
   story: Story;
+  priority?: boolean;
 }
 
-export default function StoryCard({ story }: Props) {
+export default function StoryCard({ story, priority = false }: Props) {
   const pathname = usePathname();
   const queryClient = useQueryClient();
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
@@ -171,6 +172,8 @@ export default function StoryCard({ story }: Props) {
             src={story.img}
             fill
             sizes="100%"
+            priority={priority}
+            suppressHydrationWarning
           />
         </div>
 

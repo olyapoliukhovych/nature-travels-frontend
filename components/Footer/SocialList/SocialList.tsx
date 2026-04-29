@@ -1,6 +1,7 @@
 import Link from "next/link";
 import css from "./SocialList.module.css";
 import { Icon } from "@/components/Icon/Icon";
+
 export default function SocialList() {
   const socials = [
     { id: "facebook", href: "https://www.facebook.com", label: "Фейсбук" },
