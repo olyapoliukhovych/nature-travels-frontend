@@ -78,9 +78,9 @@ export default function PopularStories({
               1440: { slidesPerView: 3 },
             }}
           >
-            {stories.map((el) => (
+            {stories.map((el, index) => (
               <SwiperSlide key={el._id}>
-                <StoryCard story={el} />
+                <StoryCard story={el} priority={index < 2} />
               </SwiperSlide>
             ))}
           </Swiper>

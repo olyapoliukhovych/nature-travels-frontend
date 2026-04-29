@@ -27,7 +27,7 @@ export default function StoryDetailsPage({ story }: Props) {
           width={335}
           height={223}
           alt={story.title}
-          loading="eager"
+          priority
         />
 
         <div className={css.contentWrapper}>

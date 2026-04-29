@@ -25,11 +25,15 @@ import { useAuthStore } from "@/lib/store/authStore";
 const getValidationSchema = (isEditMode: boolean) =>
   Yup.object({
     title: Yup.string()
+      .trim()
       .min(3, "Заголовок має бути не менше 3 символів")
+      .max(100, "Заголовок занадто довгий (макс. 100 символів)")
       .required("Це обов'язкове поле"),
     categoryId: Yup.string().required("Оберіть категорію"),
     article: Yup.string()
+      .trim()
       .min(3, "Текст має бути не менше 3 символів")
+      .max(5000, "Стаття занадто довга (макс. 5000 символів)")
       .required("Це обов'язкове поле"),
     img: isEditMode
       ? Yup.mixed().nullable()
@@ -238,7 +242,7 @@ const AddStoryForm = ({
                   width={1191}
                   height={726}
                   className={css.image}
-                  loading="eager"
+                  priority
                 />
               </div>
               <label className={css.uploadBtn}>
@@ -273,8 +277,12 @@ const AddStoryForm = ({
                 id="title-input"
                 name="title"
                 className={css.input}
+                maxLength={100}
                 placeholder="Введіть заголовок історії"
               />
+              <div className={css.titleCharCount}>
+                {values.title.length} / 100
+              </div>
               <ErrorMessage
                 name="title"
                 component="div"
@@ -316,9 +324,12 @@ const AddStoryForm = ({
                 name="article"
                 as={TextareaAutosize}
                 className={css.textarea}
-                minRows={8}
+                maxLength={5000}
                 placeholder="Ваша історія тут"
               />
+              <div className={css.articleCharCount}>
+                {values.article.length} / 5000
+              </div>
               <ErrorMessage
                 name="article"
                 component="div"

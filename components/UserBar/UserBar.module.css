@@ -32,6 +32,8 @@
   height: 32px;
   border-radius: 50%;
   overflow: hidden;
+
+  background-color: var(--color-scheme-2-foreground);
 }
 
 .avatarImg {

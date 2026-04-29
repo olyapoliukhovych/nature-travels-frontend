@@ -20,7 +20,7 @@ export default function TravellersStories({
   return (
     <div className={css.container}>
       <ul className={css.list}>
-        {stories.map((story) => (
+        {stories.map((story, index) => (
           <motion.li
             layout
             key={story._id}
@@ -32,7 +32,7 @@ export default function TravellersStories({
               damping: 15,
             }}
           >
-            <StoryCard story={story} />
+            <StoryCard story={story} priority={index === 0} />
           </motion.li>
         ))}
       </ul>
