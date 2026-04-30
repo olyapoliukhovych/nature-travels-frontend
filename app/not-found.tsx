@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import css from "@/app/NotFound.module.css";
-import AppLink from "@/components/AppLink/AppLink";
 
 export default function NotFound() {
   const [seconds, setSeconds] = useState(5);
@@ -29,9 +29,9 @@ export default function NotFound() {
         You will be redirected to the home page in
         <span className={css.timer}> {seconds} </span>seconds...
       </p>
-      <AppLink className={css.link} href={"/"} variant={"mantis"}>
+      <Link className={css.link} href="/">
         Go back home
-      </AppLink>
+      </Link>
     </div>
   );
 }
