@@ -19,10 +19,15 @@ const AuthProvider = ({ children }: Props) => {
     const fetchUser = async () => {
       const isAuthenticated = await refreshSession();
 
-      if (isAuthenticated) {
-        const user = await getUserProfile();
+      if (!isAuthenticated) {
+        clearIsAuthenticated();
+        return;
+      }
 
-        if (user) setUser(user);
+      const user = await getUserProfile();
+
+      if (user) {
+        setUser(user);
       } else {
         clearIsAuthenticated();
       }

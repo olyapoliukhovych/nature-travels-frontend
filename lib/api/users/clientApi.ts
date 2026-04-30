@@ -10,6 +10,7 @@ import {
   UserPublic,
   UsersResponse,
 } from "@/types/user";
+import { AxiosError } from "axios";
 
 export const getAllUsers = async ({
   page,
@@ -45,10 +46,19 @@ export const getUserStoriesPublic = async ({
   return res.data;
 };
 
-export const getUserProfile = async (): Promise<UserPrivate> => {
-  const res = await api.get<UserPrivate>("/users/me");
+export const getUserProfile = async (): Promise<UserPrivate | null> => {
+  try {
+    const res = await api.get<UserPrivate>("/users/me");
+    return res.data;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 401) {
+        return null;
+      }
+    }
 
-  return res.data;
+    throw error;
+  }
 };
 
 export const addStoryToFavorites = async (
@@ -90,5 +100,28 @@ export const getUserStoriesFavorites = async ({
     params: { perPage, page },
   });
 
+  return res.data;
+};
+
+export const updateUser = async (data: { name?: string; email?: string }) => {
+  const res = await api.patch("/users/me", data);
+  return res.data;
+};
+
+export const updateUserAvatar = async (file: File) => {
+  const formData = new FormData();
+  formData.append("avatar", file);
+
+  const res = await api.patch("/users/me/avatar", formData);
+  return res.data;
+};
+
+export const verifyEmail = async (token: string) => {
+  const res = await api.get(`/users/verify/${token}`);
+  return res.data;
+};
+
+export const deleteUser = async (): Promise<{ message: string }> => {
+  const res = await api.delete<{ message: string }>("/users/me");
   return res.data;
 };

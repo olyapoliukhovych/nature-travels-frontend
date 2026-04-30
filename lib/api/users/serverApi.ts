@@ -11,6 +11,7 @@ import {
   UsersResponse,
 } from "@/types/user";
 import { cookies } from "next/headers";
+import { AxiosError } from "axios";
 
 export const getAllUsers = async ({
   page,
@@ -62,16 +63,26 @@ export const getUserStoriesPublic = async ({
   return res.data;
 };
 
-export const getUserProfile = async (): Promise<UserPrivate> => {
-  const cookie = await cookies();
+export const getUserProfile = async (): Promise<UserPrivate | null> => {
+  try {
+    const cookieStore = await cookies();
 
-  const res = await api.get<UserPrivate>("/users/me", {
-    headers: {
-      Cookie: cookie.toString(),
-    },
-  });
+    const res = await api.get<UserPrivate>("/users/me", {
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
+    });
 
-  return res.data;
+    return res.data;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 401) {
+        return null;
+      }
+    }
+
+    throw error;
+  }
 };
 
 export const addStoryToFavorites = async (
