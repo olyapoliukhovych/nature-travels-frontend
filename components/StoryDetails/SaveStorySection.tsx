@@ -11,6 +11,7 @@ import {
   getUserProfile,
 } from "@/lib/api/users/clientApi";
 import toast from "react-hot-toast";
+import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 import { useAuthStore } from "@/lib/store/authStore";
 import { refreshSession } from "@/lib/api/auth/clientApi";
 import { AxiosError } from "axios";
@@ -89,7 +90,7 @@ export default function SaveStorySection({
         clearIsAuthenticated();
         setIsErrorModalOpen(true);
       } else {
-        toast.error(error.message || "Помилка збереження");
+        toast.error(getUserFriendlyErrorMessage(error));
       }
     },
   });

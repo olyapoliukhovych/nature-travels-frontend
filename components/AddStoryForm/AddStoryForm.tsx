@@ -13,6 +13,7 @@ import css from "./AddStoryForm.module.css";
 import { createStory, updateStory } from "@/lib/api/stories/clientApi";
 import { getUserProfile } from "@/lib/api/users/clientApi";
 import toast from "react-hot-toast";
+import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 import Button from "../Button/Button";
 import { useStoryDraftStore } from "@/lib/store/createStoryStore";
 import { useRouter } from "next/navigation";
@@ -188,7 +189,7 @@ const AddStoryForm = ({
       router.push(`/stories/${storyId}`);
     },
     onError: (error) => {
-      toast.error(error.message || "Сталася помилка", { id: "publish-error" });
+      toast.error(getUserFriendlyErrorMessage(error), { id: "publish-error" });
     },
   });
 
@@ -322,6 +323,7 @@ const AddStoryForm = ({
               <Field
                 id="article-field"
                 name="article"
+                autoComplete="off"
                 as={TextareaAutosize}
                 className={css.textarea}
                 maxLength={5000}
