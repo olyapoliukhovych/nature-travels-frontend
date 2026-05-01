@@ -9,6 +9,7 @@ import Button from "../Button/Button";
 import { RegistrationValues } from "../../types/types";
 import { useAuthStore } from "@/lib/store/authStore";
 import { loginUser, registerUser } from "@/lib/api/auth/clientApi";
+import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 
 const RegistrationSchema = Yup.object().shape({
   name: Yup.string()
@@ -50,11 +51,7 @@ export default function RegistrationForm() {
       router.push("/");
       router.refresh();
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message, { id: "register-err" });
-      } else {
-        toast.error("Щось пішло не так", { id: "register-error" });
-      }
+      toast.error(getUserFriendlyErrorMessage(error), { id: "register-err" });
     } finally {
       setSubmitting(false);
     }

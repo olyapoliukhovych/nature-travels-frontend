@@ -14,6 +14,7 @@ export interface UserPublic {
 
 export interface UserPrivate extends UserPublic {
   email: string;
+  pendingEmail?: string | null;
 }
 
 export interface UsersResponse {

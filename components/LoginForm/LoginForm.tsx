@@ -10,6 +10,7 @@ import { LoginValues } from "../../types/types";
 import { useAuthStore } from "@/lib/store/authStore";
 import { loginUser } from "@/lib/api/auth/clientApi";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -38,11 +39,7 @@ export default function LoginForm() {
       const destination = getRedirect();
       router.push(destination);
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message, { id: "login-error" });
-      } else {
-        toast.error("Щось пішло не так", { id: "login-err" });
-      }
+      toast.error(getUserFriendlyErrorMessage(error), { id: "login-error" });
     } finally {
       setSubmitting(false);
     }

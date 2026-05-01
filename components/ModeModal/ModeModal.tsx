@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 interface Props {
-  mode: "save" | "logout" | "delete";
+  mode: "save" | "logout" | "deleteStory" | "deleteProfile";
   onClose: () => void;
   logout?: () => void;
   onDelete?: () => void;
@@ -25,10 +25,15 @@ export function ModeModal({ mode, onClose, logout, onDelete }: Props) {
           title: "Ви точно хочете вийти?",
           text: "Ми будемо сумувати за вами!",
         };
-      case "delete":
+      case "deleteStory":
         return {
           title: "Видалити історію?",
           text: "Цю дію неможливо буде скасувати.",
+        };
+      case "deleteProfile":
+        return {
+          title: "Видалити профіль?",
+          text: "Усі ваші дані будуть видалені.",
         };
     }
   };
@@ -74,7 +79,7 @@ export function ModeModal({ mode, onClose, logout, onDelete }: Props) {
           </>
         )}
 
-        {mode === "delete" && (
+        {mode === "deleteStory" || mode === "deleteProfile" ? (
           <>
             <button className={css.cancelBtn} onClick={onClose}>
               Відмінити
@@ -83,7 +88,7 @@ export function ModeModal({ mode, onClose, logout, onDelete }: Props) {
               Видалити
             </button>
           </>
-        )}
+        ) : null}
       </div>
     </>
   );

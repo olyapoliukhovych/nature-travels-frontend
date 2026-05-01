@@ -13,6 +13,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 import Modal from "../Modal/Modal";
 import { ModeModal } from "../ModeModal/ModeModal";
 import {
@@ -141,7 +142,7 @@ export default function StoryCard({ story, priority = false }: Props) {
         clearIsAuthenticated();
         setIsErrorModalOpen(true);
       } else {
-        toast.error(error.message || "Помилка збереження");
+        toast.error(getUserFriendlyErrorMessage(error));
       }
     },
   });
@@ -212,7 +213,7 @@ export default function StoryCard({ story, priority = false }: Props) {
               <Link
                 href={`/profile/edit/${story._id}`}
                 className={css.editLink}
-                title="Редагувати"
+                title="Редагувати історію"
               >
                 <Icon id="icon-edit" className={css.editIcon} />
               </Link>

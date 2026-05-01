@@ -6,6 +6,7 @@ import { deleteStory } from "@/lib/api/stories/clientApi";
 import { getUserProfile } from "@/lib/api/users/clientApi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 import Modal from "../Modal/Modal";
 import { ModeModal } from "../ModeModal/ModeModal";
 import Button from "../Button/Button";
@@ -60,7 +61,7 @@ export default function DeleteStoryButton({ storyId }: Props) {
       router.refresh();
     },
     onError: (error: Error) => {
-      toast.error(error.message || "Не вдалося видалити історію");
+      toast.error(getUserFriendlyErrorMessage(error));
     },
   });
 
@@ -68,6 +69,7 @@ export default function DeleteStoryButton({ storyId }: Props) {
     <>
       <Button
         type="button"
+        title="Видалити історію"
         variant="neutral"
         className={css.deleteBtn}
         onClick={() => setIsModalOpen(true)}
@@ -86,7 +88,7 @@ export default function DeleteStoryButton({ storyId }: Props) {
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <ModeModal
-            mode="delete"
+            mode="deleteStory"
             onClose={() => setIsModalOpen(false)}
             onDelete={() => {
               mutate();
