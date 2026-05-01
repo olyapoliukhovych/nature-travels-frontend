@@ -2,4 +2,13 @@
   display: block;
   width: 124px;
   height: 40px;
+  fill: #1b391b !important;
+}
+
+:global([data-theme="dark"]) .logoIcon {
+  fill: #e6f7e6 !important;
+}
+
+:global([data-theme="light"]) .logoIcon {
+  fill: #1b391b !important;
 }

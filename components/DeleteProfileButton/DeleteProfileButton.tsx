@@ -56,7 +56,7 @@ export default function DeleteProfileButton() {
         ) : (
           <>
             <MdDelete />
-            <span className={css.deleteText}>Видалити профіль</span>
+            <span className={css.deleteText}>Видалити</span>
           </>
         )}
       </Button>

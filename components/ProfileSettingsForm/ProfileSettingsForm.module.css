@@ -55,13 +55,13 @@
   &:focus {
     background: var(--color-mantis-dark);
     border: 1px solid var(--opacity-transparent);
-    color: var(--color-white);
+    color: #fff;
   }
 
   &:active {
     background: var(--color-mantis-darker);
     border: 1px solid var(--opacity-neutral-darkest-5);
-    color: var(--color-white);
+    color: #fff;
   }
 }
 

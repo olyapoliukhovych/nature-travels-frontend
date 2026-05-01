@@ -4,6 +4,7 @@ import "modern-normalize/modern-normalize.css";
 import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 import NextTopLoader from "nextjs-toploader";
 import ScrollToTopBtn from "@/components/ScrollToTopBtn/ScrollToTopBtn";
 import AppToaster from "@/components/AppToaster/AppToaster";
@@ -59,14 +60,16 @@ export default function RootLayout({
       <body>
         <TanStackProvider>
           <AuthProvider>
-            <NextTopLoader
-              color="#4a9849"
-              showSpinner={false}
-              height={2}
-              speed={150}
-            />
-            {children}
-            <ScrollToTopBtn />
+            <ThemeProvider>
+              <NextTopLoader
+                color="#4a9849"
+                showSpinner={false}
+                height={2}
+                speed={150}
+              />
+              {children}
+              <ScrollToTopBtn />
+            </ThemeProvider>
           </AuthProvider>
         </TanStackProvider>
         <AppToaster />

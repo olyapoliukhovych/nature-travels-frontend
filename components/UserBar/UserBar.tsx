@@ -9,6 +9,7 @@ import { logoutUser } from "@/lib/api/auth/clientApi";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import { ModeModal } from "../ModeModal/ModeModal";
+import { ThemeToggleButton } from "../ThemeToggleButton/ThemeToggleButton";
 
 export default function UserBar() {
   const user = useAuthStore((s) => s.user);
@@ -52,6 +53,10 @@ export default function UserBar() {
 
             <span className={css.name}>{user?.name || "Ім'я"}</span>
           </Link>
+
+          <span className={css.divider} />
+
+          <ThemeToggleButton />
 
           <span className={css.divider} />
 

@@ -34,8 +34,11 @@ const DropdownIndicator = (props: DropdownIndicatorProps<Option, false>) => {
           width: "24px",
           height: "24px",
           display: "block",
+          color: "var(--color-scheme-2-text)",
+          fill: "var(--color-scheme-2-text)",
           transform: menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
-          transition: "transform var(--transition)",
+          transition:
+            "transform var(--transition), color var(--transition), fill var(--transition)",
         }}
       />
     </components.DropdownIndicator>

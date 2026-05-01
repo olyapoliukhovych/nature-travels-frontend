@@ -24,6 +24,6 @@
   width: 24px;
   height: 24px;
   stroke-width: 4px;
-  stroke: var(--color-white);
+  stroke: #fff !important;
   transform: rotate(90deg);
 }

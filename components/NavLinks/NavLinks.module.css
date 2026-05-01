@@ -11,6 +11,9 @@
   font-size: 18px;
   line-height: 1.5;
   color: var(--color-scheme-2-text);
+  transition:
+    color var(--transition),
+    transform var(--transition);
 }
 
 .link:hover,

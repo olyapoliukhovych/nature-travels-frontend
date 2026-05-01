@@ -13,20 +13,20 @@ export default function AppToaster() {
       toastOptions={{
         duration: 3000,
         style: {
-          background: "var(--color-mantis-lightest)",
-          color: "var(--color-mantis-darkest)",
-          border: "1px solid var(--color-mantis-lighter)",
+          background: "var(--color-scheme-1-foreground)",
+          color: "var(--color-scheme-1-text)",
+          border: "1px solid var(--color-scheme-1-border)",
           padding: "14px 16px",
           borderRadius: "16px",
           fontSize: "14px",
           fontWeight: 500,
-          boxShadow: "0 10px 24px var(--opacity-neutral-darkest-10)",
+          boxShadow: "none",
         },
         success: {
           style: {
-            background: "var(--color-mantis-lightest)",
-            color: "var(--color-mantis-darkest)",
-            border: "1px solid var(--color-mantis-light)",
+            background: "var(--color-scheme-1-foreground)",
+            color: "var(--color-scheme-1-text)",
+            border: "1px solid var(--color-scheme-1-accent)",
           },
           iconTheme: {
             primary: "var(--color-mantis)",
@@ -35,7 +35,7 @@ export default function AppToaster() {
         },
         error: {
           style: {
-            background: "#fff5f5",
+            background: "var(--color-scheme-1-foreground)",
             color: "var(--color-red)",
             border: "1px solid rgba(176, 1, 1, 0.2)",
           },
