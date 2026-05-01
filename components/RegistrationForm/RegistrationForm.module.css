@@ -73,3 +73,20 @@
     font-size: 20px;
   }
 }
+
+.showPwdBtn {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 43px;
+  height: 43px;
+  padding: 0;
+}
+
+.eyeIcon {
+  width: 24px;
+  height: 24px;
+}

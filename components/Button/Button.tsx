@@ -7,6 +7,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   isLoading?: boolean;
   loadingText?: string;
+  hideSpinner?: boolean;
 }
 
 export default function Button({
@@ -15,6 +16,7 @@ export default function Button({
   variant = "mantis",
   disabled,
   loadingText,
+  hideSpinner,
   className,
   style,
   ...props
@@ -31,8 +33,21 @@ export default function Button({
     >
       {isLoading ? (
         <span className={css.loaderWrapper} aria-live="polite">
-          <span className={css.spinner}></span>
-          {loadingText?.trim() && <span>{loadingText.trim()}....</span>}
+          {!hideSpinner && <span className={css.spinner}></span>}
+          {loadingText?.trim() && (
+            <span>
+              {loadingText.trim()}
+              <span className={css.dot} style={{ animationDelay: "0s" }}>
+                .
+              </span>
+              <span className={css.dot} style={{ animationDelay: "0.2s" }}>
+                .
+              </span>
+              <span className={css.dot} style={{ animationDelay: "0.4s" }}>
+                .
+              </span>
+            </span>
+          )}
         </span>
       ) : (
         children
