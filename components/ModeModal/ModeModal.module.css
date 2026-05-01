@@ -123,7 +123,7 @@
   width: 100%;
   background-color: var(--color-mantis-dark);
   border: 1px solid var(--color-mantis-dark);
-  color: #fff;
+
   transition:
     background-color var(--transition),
     color var(--transition);
@@ -131,7 +131,6 @@
   &:hover,
   &:focus {
     background-color: var(--color-mantis-lighter);
-    color: #1b391b;
   }
 
   @media only screen and (min-width: 768px) {
@@ -140,6 +139,28 @@
 
   @media only screen and (min-width: 1440px) {
     font-size: 20px;
+  }
+}
+
+:global([data-theme="light"]) .registerLink,
+:global([data-theme="light"]) .logoutBtn {
+  color: #fff !important;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #1b391b !important;
+  }
+}
+
+:global([data-theme="dark"]) .registerLink,
+:global([data-theme="dark"]) .logoutBtn {
+  color: #fff !important;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #fff !important;
   }
 }
 

@@ -25,11 +25,18 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 140%;
-  color: var(--color-neutral-darkest);
 
   @media only screen and (min-width: 1440px) {
     font-size: 26px;
   }
+}
+
+:global([data-theme="dark"]) .text {
+  color: #fff;
+}
+
+:global([data-theme="light"]) .text {
+  color: #000;
 }
 
 .btn {
