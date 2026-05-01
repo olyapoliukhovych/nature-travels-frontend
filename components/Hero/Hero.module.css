@@ -66,7 +66,6 @@
   display: block;
   border-radius: 6px;
   border: 1px solid var(--color-mantis-dark);
-  color: var(--color-white);
   text-align: center;
   background-color: var(--color-mantis-dark);
   transition: all var(--transition);
@@ -74,13 +73,12 @@
   &:hover,
   &:focus {
     background-color: var(--color-mantis-lighter);
-    color: inherit;
   }
 
   &:active {
-    color: var(--color-white);
     background-color: var(--color-mantis-darker);
     border: 1px solid var(--color-mantis-darker);
+    transform: scale(0.95);
   }
 
   @media only screen and (min-width: 768px) {
@@ -93,5 +91,22 @@
     padding: 3.5px 12px;
     font-size: 20px;
     min-width: 278px;
+  }
+}
+
+:global([data-theme="dark"]) .heroLink {
+  color: #fff !important;
+}
+
+:global([data-theme="light"]) .heroLink {
+  color: #fff !important;
+
+  &:hover,
+  &:focus {
+    color: #1b391b !important;
+  }
+
+  &:active {
+    color: #fff !important;
   }
 }

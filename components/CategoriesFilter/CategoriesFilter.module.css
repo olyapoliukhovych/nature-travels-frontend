@@ -54,7 +54,9 @@
   border: 1px solid var(--opacity-transparent);
   background: transparent;
   cursor: pointer;
-  transition: color var(--transition);
+  transition:
+    color var(--transition),
+    transform var(--transition);
 
   font-weight: 400;
   font-size: 16px;

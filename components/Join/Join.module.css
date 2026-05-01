@@ -54,7 +54,7 @@
   font-size: 26px;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: var(--color-white);
+  color: #fff;
   margin-bottom: 24px;
 
   @media only screen and (min-width: 768px) {
@@ -70,7 +70,7 @@
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
-  color: var(--color-white);
+  color: #fff;
   margin-bottom: 32px;
 
   @media only screen and (min-width: 1440px) {

@@ -2,21 +2,14 @@ import css from "./Footer.module.css";
 import Copyright from "./Copyright";
 import SocialList from "./SocialList/SocialList";
 import FooterNav from "./FooterNav/FooterNav";
-import { Icon } from "../Icon/Icon";
-import Link from "next/link";
+import Logo from "../Logo/Logo";
 
 export default function Footer() {
   return (
     <footer className={css.footer}>
       <div className="container">
         <div className={css.footerWrapper}>
-          <Link
-            className={css.footerLogo}
-            href="/"
-            aria-label="На головну сторінку"
-          >
-            <Icon id="icon-logo" className={css.footerSvg} />
-          </Link>
+          <Logo />
           <SocialList />
           <FooterNav />
         </div>

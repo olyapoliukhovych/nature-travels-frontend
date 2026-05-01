@@ -65,7 +65,7 @@
   font-size: 32px;
   line-height: 110%;
   letter-spacing: -0.01em;
-  color: var(--color-mantis-darkest);
+  color: var(--color-scheme-2-text);
 
   @media only screen and (min-width: 768px) {
     font-size: 48px;
@@ -102,7 +102,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
-  color: var(--color-neutral-darkest);
+  color: var(--color-scheme-2-text);
 
   @media only screen and (min-width: 1440px) {
     font-size: 18px;
@@ -133,7 +133,7 @@
   font-size: 12px;
 
   line-height: 150%;
-  color: var(--color-neutral-darkest);
+  color: var(--color-scheme-2-text);
 
   @media only screen and (min-width: 1440px) {
     font-size: 16px;

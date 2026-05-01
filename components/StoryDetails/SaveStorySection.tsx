@@ -78,7 +78,7 @@ export default function SaveStorySection({
       if (isSaved) {
         toast.success("Історію видалено зі збережених");
       } else {
-        toast.success("Історію збережено");
+        toast.success("Історію додано до збережених");
       }
     },
 

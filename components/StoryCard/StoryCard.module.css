@@ -32,7 +32,7 @@
   height: 48px;
   padding: 6px;
   background: var(--opacity-neutral-darkest-5);
-  color: var(--color-neutral-darkest);
+  color: var(--color-scheme-2-text);
   transition:
     border-color var(--transition),
     background-color var(--transition),
@@ -63,7 +63,32 @@
 .icon {
   width: 24px;
   height: 24px;
-  fill: currentColor;
+  animation: fadeInScale 0.3s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+:global([data-theme="dark"]) .icon {
+  fill: #fff !important;
+}
+
+:global([data-theme="light"]) .icon {
+  fill: #1b391b !important;
+}
+
+:global([data-theme="light"]) .saveButton:hover .icon,
+.saveButton:focus .icon,
+.saveButton:active .icon {
+  fill: #fff !important;
 }
 
 .buttonWrapper {
@@ -155,8 +180,16 @@
   transition: fill var(--transition);
 }
 
-.editLink:hover svg,
+:global([data-theme="dark"]) .editIcon {
+  fill: #fff !important;
+}
+
+:global([data-theme="light"]) .editIcon {
+  fill: #000 !important;
+}
+
+:global([data-theme="light"]) .editLink:hover svg,
 .editLink:focus svg,
 .editLink:active svg {
-  fill: var(--color-white);
+  fill: #fff !important;
 }

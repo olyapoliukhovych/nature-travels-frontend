@@ -239,6 +239,7 @@ export default function StoryCard({ story, priority = false }: Props) {
                   {isAnimating && <BurstAnimation />}
 
                   <Icon
+                    key={`bookmark-${savedState}`}
                     id={
                       savedState
                         ? "icon-bookmark-filled-green"

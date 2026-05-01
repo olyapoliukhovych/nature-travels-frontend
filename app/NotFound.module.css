@@ -62,7 +62,8 @@
   transition:
     border var(--transition),
     background var(--transition),
-    color var(--transition);
+    color var(--transition),
+    transform var(--transition);
   cursor: pointer;
   text-decoration: none;
 }

@@ -2,11 +2,18 @@
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  gap: 8px;
   align-self: flex-start;
   font-weight: 500;
   font-size: 20px;
   line-height: 1.5;
+}
+
+:global([data-theme="dark"]) .link {
+  color: #fff;
+}
+
+:global([data-theme="light"]) .link {
+  color: #1b391b;
 }
 
 .icon {
@@ -14,4 +21,18 @@
   height: 24px;
   flex-shrink: 0;
   display: block;
+  transition: transform var(--transition);
+}
+
+.link:hover .icon,
+.link:focus .icon {
+  transform: translateX(-4px);
+}
+
+:global([data-theme="dark"]) .icon {
+  fill: #fff !important;
+}
+
+:global([data-theme="light"]) .icon {
+  fill: #1b391b !important;
 }
