@@ -4,12 +4,15 @@ import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import css from "./RegistrationForm.module.css";
 import Button from "../Button/Button";
 import { RegistrationValues } from "../../types/types";
 import { useAuthStore } from "@/lib/store/authStore";
 import { loginUser, registerUser } from "@/lib/api/auth/clientApi";
 import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
+import { LuEye } from "react-icons/lu";
+import { LuEyeClosed } from "react-icons/lu";
 
 const RegistrationSchema = Yup.object().shape({
   name: Yup.string()
@@ -29,6 +32,7 @@ const RegistrationSchema = Yup.object().shape({
 export default function RegistrationForm() {
   const router = useRouter();
   const setUser = useAuthStore((s) => s.setUser);
+  const [showPassword, setShowPassword] = useState(false);
 
   const nameId = "registration-name";
   const emailId = "registration-email";
@@ -110,11 +114,24 @@ export default function RegistrationForm() {
               <Field
                 id={passwordId}
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 autoComplete="new-password"
                 placeholder="Введіть пароль"
                 className={`${css.registrationInput} ${errors.password && touched.password ? css.registrationInputError : ""}`}
+                style={{ paddingRight: "40px" }}
               />
+              <button
+                type="button"
+                title={showPassword ? "Приховати пароль" : "Показати пароль"}
+                className={css.showPwdBtn}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <LuEyeClosed className={css.eyeIcon} />
+                ) : (
+                  <LuEye className={css.eyeIcon} />
+                )}
+              </button>
               <ErrorMessage
                 name="password"
                 component="span"
@@ -126,6 +143,7 @@ export default function RegistrationForm() {
               variant="mantis"
               isLoading={isSubmitting}
               loadingText="Реєстрація"
+              hideSpinner
               className={css.registrationSubmitButton}
             >
               Зареєструватись

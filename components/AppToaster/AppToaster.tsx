@@ -36,8 +36,8 @@ export default function AppToaster() {
         error: {
           style: {
             background: "var(--color-scheme-1-foreground)",
-            color: "var(--color-red)",
-            border: "1px solid rgba(176, 1, 1, 0.2)",
+            color: "var(--color-scheme-1-text)",
+            border: "1px solid var(--color-red)",
           },
           iconTheme: {
             primary: "var(--color-red)",

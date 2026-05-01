@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import css from "./LoginForm.module.css";
 import Button from "../Button/Button";
 import { LoginValues } from "../../types/types";
@@ -11,6 +12,8 @@ import { useAuthStore } from "@/lib/store/authStore";
 import { loginUser } from "@/lib/api/auth/clientApi";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
+import { LuEye } from "react-icons/lu";
+import { LuEyeClosed } from "react-icons/lu";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -23,6 +26,7 @@ export default function LoginForm() {
   const router = useRouter();
   const setUser = useAuthStore((s) => s.setUser);
   const { getRedirect } = useAuthRedirect();
+  const [showPassword, setShowPassword] = useState(false);
 
   const emailId = "login-email";
   const passwordId = "login-password";
@@ -82,13 +86,25 @@ export default function LoginForm() {
               <Field
                 id={passwordId}
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 placeholder="Введіть пароль"
                 className={`${css.loginInput} ${
                   errors.password && touched.password ? css.loginInputError : ""
                 }`}
+                style={{ paddingRight: "40px" }}
               />
+              <button
+                type="button"
+                className={css.showPwdBtn}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <LuEyeClosed className={css.eyeIcon} />
+                ) : (
+                  <LuEye className={css.eyeIcon} />
+                )}
+              </button>
               <ErrorMessage
                 name="password"
                 component="span"
@@ -101,6 +117,7 @@ export default function LoginForm() {
               variant="mantis"
               isLoading={isSubmitting}
               loadingText="Вхід"
+              hideSpinner
               className={css.loginSubmitButton}
             >
               Увійти
