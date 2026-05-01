@@ -109,17 +109,25 @@ export default function AppSelect({
       }),
       option: (base, state) => ({
         ...base,
-        backgroundColor:
-          state.isSelected || state.isFocused
-            ? "var(--color-neutral-lightest)"
+        backgroundColor: state.isSelected
+          ? "var(--color-mantis-dark)"
+          : state.isFocused
+            ? "var(--color-mantis-lighter)"
             : "transparent",
-        color: "var(--color-scheme-2-text)",
+        color: state.isSelected
+          ? "var(--color-white)"
+          : "var(--color-scheme-2-text)",
         fontSize: "18px",
         borderRadius: "4px",
         padding: "4px 8px",
         margin: "4px 0",
         cursor: "pointer",
         transition: "all var(--transition)",
+        ":active": {
+          backgroundColor: state.isSelected
+            ? "var(--color-mantis-dark)"
+            : "var(--color-mantis-light)",
+        },
       }),
       singleValue: (base) => ({
         ...base,
