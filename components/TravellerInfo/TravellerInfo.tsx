@@ -18,7 +18,7 @@ export default function TravellerInfo({ user: propUser }: Props) {
   const isPrivateProfilePage =
     pathname === "/profile/my-stories" || pathname === "/profile/saved";
   const isOwner = authUser?._id === propUser._id && isPrivateProfilePage;
-  const user = propUser;
+  const user = isOwner && authUser ? authUser : propUser;
 
   if (!user) return null;
 

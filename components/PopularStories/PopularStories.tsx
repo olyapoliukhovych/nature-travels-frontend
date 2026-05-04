@@ -87,10 +87,10 @@ export default function PopularStories({
         </div>
 
         <div className={css.navigationWrapper}>
-          <button className={css.prev}>
+          <button className={css.prev} aria-label="Попередня історія">
             <Icon id="icon-arrow_back" className={css.arrow} />
           </button>
-          <button className={css.next}>
+          <button className={css.next} aria-label="Наступна історія">
             <Icon id="icon-arrow_forward" className={css.arrow} />
           </button>
         </div>

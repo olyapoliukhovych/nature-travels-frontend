@@ -6,7 +6,7 @@ import css from "./ProfileTabs.module.css";
 
 export default function ProfileTabs() {
   const pathname = usePathname();
-  const isEditPage = pathname.startsWith("/profile/edit/");
+  const isEditPage = pathname.startsWith("/profile/stories/edit/");
 
   const isActive = (path: string) => pathname === path;
 

@@ -97,7 +97,7 @@ export default function LoginForm() {
               <button
                 type="button"
                 className={css.showPwdBtn}
-                onClick={() => setShowPassword(!showPassword)}
+                aria-label="Show/hide password"
               >
                 {showPassword ? (
                   <LuEyeClosed className={css.eyeIcon} />

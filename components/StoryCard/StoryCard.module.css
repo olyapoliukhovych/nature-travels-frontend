@@ -115,6 +115,8 @@
 
 .picture {
   object-fit: cover;
+  width: auto;
+  height: auto;
 }
 
 .title {

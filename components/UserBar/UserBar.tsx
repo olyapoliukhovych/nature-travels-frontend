@@ -39,6 +39,7 @@ export default function UserBar() {
                   width={32}
                   height={32}
                   className={css.avatarImg}
+                  priority
                 />
               ) : (
                 <Image

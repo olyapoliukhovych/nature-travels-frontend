@@ -16,11 +16,12 @@ export default function ProfileLayoutClient({
   const pathname = usePathname();
 
   const isSettingsPage = pathname.includes("/profile/settings");
+  const isEditPage = pathname.includes("/profile/stories/edit");
 
   return (
     <div className={css.profileLayoutWrapper}>
       <div className="container">
-        {!isSettingsPage && (
+        {!isSettingsPage && !isEditPage && (
           <>
             <TravellerInfo user={user} />
             <ProfileTabs />
