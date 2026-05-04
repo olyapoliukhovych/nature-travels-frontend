@@ -211,7 +211,7 @@ export default function StoryCard({ story, priority = false }: Props) {
 
             {showEditButton ? (
               <Link
-                href={`/profile/edit/${story._id}`}
+                href={`/profile/stories/edit/${story._id}`}
                 className={css.editLink}
                 title="Редагувати історію"
               >
