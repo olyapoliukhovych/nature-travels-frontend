@@ -90,3 +90,11 @@
   width: 24px;
   height: 24px;
 }
+
+:global([data-theme="dark"]) .eyeIcon {
+  color: #fff;
+}
+
+:global([data-theme="light"]) .eyeIcon {
+  color: #000;
+}
