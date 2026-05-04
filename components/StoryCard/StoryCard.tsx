@@ -223,6 +223,7 @@ export default function StoryCard({ story, priority = false }: Props) {
                 onClick={handleSaveClick}
                 disabled={isPending}
                 type="button"
+                aria-label="Save/unsave button"
                 style={{ position: "relative" }}
               >
                 <div

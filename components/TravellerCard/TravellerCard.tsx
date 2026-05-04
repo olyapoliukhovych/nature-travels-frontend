@@ -19,6 +19,7 @@ export default function TravellerCard({ user }: Props) {
           width={130}
           height={130}
           alt={"user"}
+          priority
         />
       </div>
       <div className={css.infoWrappper}>

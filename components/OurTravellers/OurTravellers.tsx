@@ -69,10 +69,10 @@ export default function OurTravellers() {
         </div>
 
         <div className={css.navigationWrapper}>
-          <button className={css.prev}>
+          <button className={css.prev} aria-label="Попередній мандрівник">
             <Icon id="icon-arrow_back" className={css.arrow} />
           </button>
-          <button className={css.next}>
+          <button className={css.next} aria-label="Наступний мандрівник">
             <Icon id="icon-arrow_forward" className={css.arrow} />
           </button>
         </div>
