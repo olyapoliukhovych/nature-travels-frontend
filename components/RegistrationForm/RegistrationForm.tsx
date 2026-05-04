@@ -125,6 +125,7 @@ export default function RegistrationForm() {
                 title={showPassword ? "Приховати пароль" : "Показати пароль"}
                 className={css.showPwdBtn}
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label="Приховати/Показати пароль"
               >
                 {showPassword ? (
                   <LuEyeClosed className={css.eyeIcon} />
