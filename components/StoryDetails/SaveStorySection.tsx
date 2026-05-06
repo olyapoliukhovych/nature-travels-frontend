@@ -15,6 +15,7 @@ import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 import { useAuthStore } from "@/lib/store/authStore";
 import { refreshSession } from "@/lib/api/auth/clientApi";
 import { AxiosError } from "axios";
+import Modal from "../Modal/Modal";
 
 interface SaveStorySectionProps {
   storyId: string;
@@ -131,14 +132,9 @@ export default function SaveStorySection({
       </Button>
 
       {isErrorModalOpen && (
-        <div
-          className={css.backdrop}
-          onClick={() => setIsErrorModalOpen(false)}
-        >
-          <div className={css.modal} onClick={(e) => e.stopPropagation()}>
-            <ModeModal mode="save" onClose={() => setIsErrorModalOpen(false)} />
-          </div>
-        </div>
+        <Modal onClose={() => setIsErrorModalOpen(false)}>
+          <ModeModal mode="save" onClose={() => setIsErrorModalOpen(false)} />
+        </Modal>
       )}
     </div>
   );
