@@ -49,8 +49,6 @@
 }
 
 .image {
-  width: 100% !important;
-  height: auto !important;
   object-fit: cover;
   background-color: var(--color-scheme-2-foreground);
 }
