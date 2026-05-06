@@ -77,10 +77,11 @@ export default function ProfileSettingsForm({ user }: Props) {
       }
       setUser(updatedUser);
 
-      if (updatedUser.pendingEmail) {
-        toast.success("Підтверди email через пошту");
-      } else {
+      if (isNameChanged || file) {
         toast.success("Профіль оновлено");
+      }
+      if (updatedUser.pendingEmail) {
+        toast.success("Підтвердіть email на пошті");
       }
 
       router.push("/profile/my-stories");
