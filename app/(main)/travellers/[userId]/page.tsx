@@ -40,7 +40,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${data.name} — Профіль Мандрівника`,
       description: `Приєднуйтесь до пригод ${data.name} в Україні.`,
-      images: [userAvatar || "/default-avatar.jpg"],
+      images: userAvatar
+        ? [{ url: userAvatar, width: 400, height: 400 }]
+        : [{ url: "/default-avatar.jpg", width: 400, height: 400 }],
     },
   };
 }

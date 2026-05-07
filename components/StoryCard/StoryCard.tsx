@@ -40,6 +40,7 @@ export default function StoryCard({ story, priority = false }: Props) {
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [localSavedCount, setLocalSavedCount] = useState(story.savedCount);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     setLocalSavedCount(story.savedCount);
@@ -80,8 +81,12 @@ export default function StoryCard({ story, priority = false }: Props) {
           return isSaved
             ? await deleteStoryToFavorites(story._id)
             : await addStoryToFavorites(story._id);
-        } catch {
-          throw new Error("Сесія завершена. Увійдіть знову.");
+        } catch (err) {
+          const axiosErr = err as AxiosError;
+          if (axiosErr?.response?.status === 401) {
+            throw new Error("Сесія завершена. Увійдіть знову.");
+          }
+          throw new Error("Помилка мережі. Спробуйте ще раз.");
         }
       }
     },
@@ -129,16 +134,15 @@ export default function StoryCard({ story, priority = false }: Props) {
           : "Історію видалено зі збережених";
 
         toast.success(message);
+        setIsProcessing(false);
       }, delay);
     },
 
     onError: (error: AxiosError) => {
+      setIsProcessing(false);
       setSavedState(Boolean(isSaved));
       setLocalSavedCount(story.savedCount);
-      if (
-        error.message === "Сесія завершена. Увійдіть знову." ||
-        error.response?.status === 401
-      ) {
+      if (error.response?.status === 401) {
         clearIsAuthenticated();
         setIsErrorModalOpen(true);
       } else {
@@ -154,6 +158,9 @@ export default function StoryCard({ story, priority = false }: Props) {
       setIsErrorModalOpen(true);
       return;
     }
+
+    if (isProcessing) return;
+    setIsProcessing(true);
 
     if (!savedState) {
       setIsAnimating(true);
@@ -221,7 +228,7 @@ export default function StoryCard({ story, priority = false }: Props) {
               <button
                 className={`${css.saveButton} ${savedState ? css.isSaved : ""}`}
                 onClick={handleSaveClick}
-                disabled={isPending}
+                disabled={isPending || isProcessing}
                 type="button"
                 aria-label="Зберегти/Видалити історію зі збережених"
                 style={{ position: "relative" }}

@@ -35,11 +35,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const root = document.documentElement;
 
     if (theme === "system") {
-      root.removeAttribute("data-theme");
+      root.setAttribute("data-theme", systemTheme);
     } else {
       root.setAttribute("data-theme", theme);
     }
-  }, [theme]);
+  }, [theme, systemTheme]);
 
   useLayoutEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");

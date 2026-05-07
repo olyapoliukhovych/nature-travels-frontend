@@ -56,8 +56,12 @@ export default function SaveStorySection({
           return isSaved
             ? await deleteStoryToFavorites(storyId)
             : await addStoryToFavorites(storyId);
-        } catch {
-          throw new Error("Сесія завершена. Увійдіть знову.");
+        } catch (err) {
+          const axiosErr = err as AxiosError;
+          if (axiosErr?.response?.status === 401) {
+            throw new Error("Сесія завершена. Увійдіть знову.");
+          }
+          throw new Error("Помилка мережі. Спробуйте ще раз.");
         }
       }
     },
@@ -84,10 +88,7 @@ export default function SaveStorySection({
     },
 
     onError: (error: AxiosError) => {
-      if (
-        error.message === "Сесія завершена. Увійдіть знову." ||
-        error.response?.status === 401
-      ) {
+      if (error.response?.status === 401) {
         clearIsAuthenticated();
         setIsErrorModalOpen(true);
       } else {

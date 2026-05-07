@@ -36,17 +36,26 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "Природні Мандри",
-    description: "Діліться вашими історіями",
+    description:
+      "Платформа для екологічних мандрів Україною: відкривайте нові місця, діліться історіями та знаходьте однодумців.",
     url: "https://nature-travels-frontend.vercel.app",
     siteName: "Природні Мандри",
     locale: "uk_UA",
     type: "website",
+    images: [
+      {
+        url: "/preview.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
     title: "Природні Мандри",
     description: "Еко-подорожі Україною",
+    images: ["/preview.png"],
   },
 };
 

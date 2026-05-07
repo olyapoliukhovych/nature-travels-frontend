@@ -1,3 +1,5 @@
+"use client";
+
 import css from "./Hero.module.css";
 import { getImageProps } from "next/image";
 import Link from "next/link";
@@ -32,6 +34,11 @@ const desktop = getImageProps({
 export default function Hero() {
   const alt = common.alt;
 
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.querySelector("#join")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className={css.heroSection}>
       <div className="container">
@@ -64,7 +71,11 @@ export default function Hero() {
               України. Ми зібрали маршрути, які допоможуть побачити красу
               природи без шкоди для неї.
             </p>
-            <Link href="#join" className={css.heroLink}>
+            <Link
+              href="#join"
+              onClick={handleAnchorClick}
+              className={css.heroLink}
+            >
               Доєднатись до мандрів
             </Link>
           </div>
