@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Користувача не знайдено" };
   }
 
-  const userAvatar = (data as { avatar?: string }).avatar;
+  const userAvatar = (data as { avatarUrl?: string }).avatarUrl;
 
   return {
     title: data.name,
