@@ -13,14 +13,19 @@ export default function Modal({ children, onClose }: ModalProps) {
       if (e.key === "Escape") onClose();
     };
 
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
     const prevOverflow = document.body.style.overflow;
 
     document.addEventListener("keydown", handleEscKey);
     document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
 
     return () => {
       document.removeEventListener("keydown", handleEscKey);
       document.body.style.overflow = prevOverflow;
+      document.body.style.paddingRight = "";
     };
   }, [onClose]);
 

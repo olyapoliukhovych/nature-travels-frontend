@@ -21,14 +21,16 @@ export default function StoryDetailsPage({ story }: Props) {
   return (
     <div className={css.container}>
       <div className={css.desctopWrapper}>
-        <Image
-          className={css.imageWrapper}
-          src={story.img}
-          width={335}
-          height={223}
-          alt={story.title}
-          priority
-        />
+        <div className={css.imageWrapper}>
+          <Image
+            className={css.image}
+            src={story.img}
+            alt={story.title}
+            sizes="(min-width: 1440px) 755px, (min-width: 768px) 704px, 335px"
+            fill
+            priority
+          />
+        </div>
 
         <div className={css.contentWrapper}>
           <BackLink variant="stories" storyOwnerId={story.ownerId?._id} />
