@@ -53,7 +53,14 @@ export default function StoriesClient() {
         ? lastPage.page + 1
         : undefined;
     },
-    select: (data) => data.pages.flatMap((page) => page.stories),
+    select: (data) => {
+      const flat = data.pages.flatMap((page) => page.stories);
+      const map = new Map();
+      for (const story of flat) {
+        map.set(story._id, story);
+      }
+      return Array.from(map.values());
+    },
   });
 
   const stories = data || [];
