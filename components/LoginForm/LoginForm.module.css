@@ -78,13 +78,17 @@
 .showPwdBtn {
   position: absolute;
   right: 0;
-  top: 35px;
+  top: 44%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 43px;
-  height: 43px;
+  width: 41px;
+  height: 41px;
   padding: 0;
+
+  @media only screen and (min-width: 768px) {
+    top: 46%;
+  }
 }
 
 .eyeIcon {
