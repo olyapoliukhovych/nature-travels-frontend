@@ -186,7 +186,7 @@
 }
 
 html {
-  data-scroll-behavior: smooth;
+  scroll-behavior: smooth;
   scrollbar-color: var(--color-mantis-dark) var(--color-scheme-2-background);
 }
 
@@ -202,6 +202,15 @@ body {
 ::selection {
   background-color: var(--color-mantis-light);
   color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-mantis-dark);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* base reset */
