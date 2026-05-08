@@ -92,7 +92,7 @@ export default function LoginForm() {
                 className={`${css.loginInput} ${
                   errors.password && touched.password ? css.loginInputError : ""
                 }`}
-                style={{ paddingRight: "40px" }}
+                style={{ paddingRight: "41px" }}
               />
               <button
                 type="button"
