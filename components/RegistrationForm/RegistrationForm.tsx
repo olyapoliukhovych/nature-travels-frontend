@@ -118,7 +118,7 @@ export default function RegistrationForm() {
                 autoComplete="new-password"
                 placeholder="Введіть пароль"
                 className={`${css.registrationInput} ${errors.password && touched.password ? css.registrationInputError : ""}`}
-                style={{ paddingRight: "40px" }}
+                style={{ paddingRight: "41px" }}
               />
               <button
                 type="button"
