@@ -1,7 +1,9 @@
 import { Icon } from "../Icon/Icon";
 import css from "./ModeModal.module.css";
-import Link from "next/link";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import Button from "../Button/Button";
+import AnimatedText from "../AnimatedText/AnimatedText";
+import AppLink from "../AppLink/AppLink";
 
 interface Props {
   mode: "save" | "logout" | "deleteStory" | "deleteProfile";
@@ -13,82 +15,79 @@ interface Props {
 export function ModeModal({ mode, onClose, logout, onDelete }: Props) {
   const { setRedirect } = useAuthRedirect();
 
-  const getContent = () => {
-    switch (mode) {
-      case "save":
-        return {
-          title: "Помилка під час збереження",
-          text: "Щоб зберегти статтю, вам треба увійти. Якщо ще немає облікового запису, зареєструйтесь.",
-        };
-      case "logout":
-        return {
-          title: "Ви точно хочете вийти?",
-          text: "Ми будемо сумувати за вами!",
-        };
-      case "deleteStory":
-        return {
-          title: "Видалити історію?",
-          text: "Цю дію неможливо буде скасувати.",
-        };
-      case "deleteProfile":
-        return {
-          title: "Видалити профіль?",
-          text: "Усі ваші дані будуть видалені.",
-        };
-    }
-  };
-
-  const { title, text } = getContent();
+  const content = {
+    save: {
+      title: "Помилка під час збереження",
+      text: "Щоб зберегти статтю, вам треба увійти. Якщо ще немає облікового запису, зареєструйтесь.",
+    },
+    logout: {
+      title: "Ви точно хочете вийти?",
+      text: "Ми будемо сумувати за вами!",
+      confirmLabel: "Вийти",
+      action: logout,
+    },
+    deleteStory: {
+      title: "Видалити історію?",
+      text: "Цю дію неможливо буде скасувати.",
+      confirmLabel: "Видалити",
+      action: onDelete,
+    },
+    deleteProfile: {
+      title: "Видалити профіль?",
+      text: "Усі ваші дані будуть видалені.",
+      confirmLabel: "Видалити",
+      action: onDelete,
+    },
+  }[mode];
 
   return (
     <>
       <button className={css.closeBtn} type="button" onClick={onClose}>
         <Icon id="icon-close" className={css.iconClose} />
       </button>
-      <h2 className={css.titleModal}>{title}</h2>
-      <p className={css.textModal}>{text}</p>
+
+      <AnimatedText tag="h2" align="center" className={css.titleModal}>
+        {content.title}
+      </AnimatedText>
+      <AnimatedText tag="p" align="center" className={css.textModal}>
+        {content.text}
+      </AnimatedText>
 
       <div className={css.navigationWrapper}>
-        {mode === "save" && (
+        {mode === "save" ? (
           <>
-            <Link
+            <AppLink
               className={css.loginLink}
               onClick={setRedirect}
               href="/auth/login"
             >
               Увійти
-            </Link>
-            <Link
+            </AppLink>
+            <AppLink
               className={css.registerLink}
               onClick={setRedirect}
               href="/auth/register"
             >
               Зареєструватись
-            </Link>
+            </AppLink>
+          </>
+        ) : (
+          <>
+            <Button
+              className={css.cancelBtn}
+              onClick={onClose}
+              variant="neutral"
+            >
+              Відмінити
+            </Button>
+            <Button
+              className={mode === "logout" ? css.logoutBtn : css.deleteBtn}
+              onClick={"action" in content ? content.action : undefined}
+            >
+              {"confirmLabel" in content ? content.confirmLabel : ""}
+            </Button>
           </>
         )}
-
-        {mode === "logout" && (
-          <>
-            <button className={css.cancelBtn} onClick={onClose}>
-              Відмінити
-            </button>
-            <button className={css.logoutBtn} onClick={logout}>
-              Вийти
-            </button>
-          </>
-        )}
-
-        {mode === "deleteStory" || mode === "deleteProfile" ? (
-          <>
-            <button className={css.cancelBtn} onClick={onClose}>
-              Відмінити
-            </button>
-            <button className={css.deleteBtn} onClick={onDelete}>
-              Видалити
-            </button>
-          </>
-        ) : null}
       </div>
     </>
   );

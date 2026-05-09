@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import styles from "./NavLinks.module.css";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import AppLink from "../AppLink/AppLink";
 
 interface Props {
   onClick?: () => void;
@@ -37,14 +37,14 @@ export default function NavLinks({ onClick }: Props) {
   return (
     <nav className={styles.nav} aria-label="Основна навігація">
       {navLinks.map((link) => (
-        <Link
+        <AppLink
           key={link.href}
           href={link.href}
           onClick={onClick}
           className={clsx(styles.link, getIsActive(link.href) && styles.active)}
         >
           {link.name}
-        </Link>
+        </AppLink>
       ))}
     </nav>
   );

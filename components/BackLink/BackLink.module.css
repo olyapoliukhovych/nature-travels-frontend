@@ -25,11 +25,6 @@
   transition: transform var(--transition);
 }
 
-.link:hover .icon,
-.link:focus .icon {
-  transform: translateX(-4px);
-}
-
 :global([data-theme="dark"]) .icon {
   fill: #fff !important;
 }

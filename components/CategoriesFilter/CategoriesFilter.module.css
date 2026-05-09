@@ -4,7 +4,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  color: var(--color-scheme-1-text);
+  color: inherit;
 }
 
 .mobileOnly {
@@ -61,7 +61,6 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  color: var(--color-scheme-2-text);
 
   @media only screen and (min-width: 1440px) {
     font-size: 18px;
@@ -69,12 +68,14 @@
 
   &:hover,
   &:focus-visible {
+    color: inherit !important;
+    border: 1px solid var(--opacity-transparent) !important;
+    background: var(--color-scheme-2-foreground) !important;
     color: var(--color-scheme-1-accent);
   }
 }
 
 .active {
   background: var(--color-scheme-2-foreground);
-  pointer-events: none;
-  transform: scale(1.1);
+  cursor: default;
 }

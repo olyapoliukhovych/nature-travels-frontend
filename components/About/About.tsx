@@ -1,3 +1,4 @@
+import AnimatedText from "../AnimatedText/AnimatedText";
 import css from "./About.module.css";
 import { getImageProps } from "next/image";
 
@@ -34,31 +35,33 @@ export default function About() {
       <div className="container">
         <div className={css.aboutMainContainer}>
           <div className={css.aboutMainTextWrapper}>
-            <h2 className={css.aboutTitle}>
+            <AnimatedText tag="h3" className={css.aboutTitle}>
               Мандруй екологічно та відкривай нові горизонти
-            </h2>
-            <p className={css.aboutText}>
+            </AnimatedText>
+            <AnimatedText tag="p" className={css.aboutText}>
               Наш проєкт створений для тих, хто хоче досліджувати Україну
               відповідально. Ми допоможемо знайти унікальні маршрути, які
               поєднують красу природи, локальну культуру та принципи сталого
               туризму.
-            </p>
+            </AnimatedText>
             <div className={css.aboutSubTextWrapper}>
               <div className={css.helperWrapper}>
-                <h3 className={css.aboutSubTitle}>Еко-маршрути по Україні</h3>
-                <p className={css.aboutSubText}>
+                <AnimatedText tag="h3" className={css.aboutSubTitle}>
+                  Еко-маршрути по Україні
+                </AnimatedText>
+                <AnimatedText tag="p" className={css.aboutSubText}>
                   Від Карпат до Чорного моря — добірка локацій, де можна
                   подорожувати без шкоди для довкілля.
-                </p>
+                </AnimatedText>
               </div>
               <div className={css.helperWrapper}>
-                <h3 className={css.aboutSubTitle}>
+                <AnimatedText tag="h3" className={css.aboutSubTitle}>
                   Практичні екологічні поради
-                </h3>
-                <p className={css.aboutSubText}>
+                </AnimatedText>
+                <AnimatedText tag="p" className={css.aboutSubText}>
                   Дізнайся, як зменшити свій екологічний слід під час мандрів,
                   та зробити подорож комфортною й свідомою.
-                </p>
+                </AnimatedText>
               </div>
             </div>
           </div>

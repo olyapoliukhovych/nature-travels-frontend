@@ -1,6 +1,6 @@
 import LoginForm from "@/components/LoginForm/LoginForm";
 import css from "./page.module.css";
-import PageTitle from "@/components/PageTitle/PageTitle";
+import AnimatedText from "@/components/AnimatedText/AnimatedText";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <>
-      <PageTitle align="center">Вхід</PageTitle>
-      <p className={css.loginFormParagraph}>
+      <AnimatedText align="center">Вхід</AnimatedText>
+      <AnimatedText tag="p" align="center" className={css.loginFormParagraph}>
         Вітаємо знову у спільноті мандрівників!
-      </p>
+      </AnimatedText>
       <LoginForm />
     </>
   );

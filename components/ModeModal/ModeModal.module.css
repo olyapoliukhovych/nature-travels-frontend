@@ -33,7 +33,6 @@
   font-size: 26px;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  text-align: center;
   color: var(--color-scheme-1-text);
 
   @media only screen and (min-width: 768px) {
@@ -48,7 +47,6 @@
 .textModal {
   margin-bottom: 32px;
   font-weight: 400;
-  text-align: center;
   letter-spacing: -0.05em;
   color: var(--color-scheme-1-text);
 
@@ -74,7 +72,6 @@
 .deleteBtn {
   display: block;
   padding: 11px;
-  text-align: center;
   border-radius: 6px;
 
   @media only screen and (min-width: 1440px) {

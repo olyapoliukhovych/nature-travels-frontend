@@ -3,6 +3,7 @@
 import css from "./MessageNoStories.module.css";
 import AppLink from "../AppLink/AppLink";
 import Button from "../Button/Button";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 interface Props {
   text: string;
@@ -19,7 +20,9 @@ export default function MessageNoStories({
 }: Props) {
   return (
     <div className={css.wrapper}>
-      <p className={css.text}>{text}</p>
+      <AnimatedText tag="p" className={css.text}>
+        {text}
+      </AnimatedText>
       {onClick ? (
         <Button onClick={onClick} className={css.btn} type="button">
           {buttonText}

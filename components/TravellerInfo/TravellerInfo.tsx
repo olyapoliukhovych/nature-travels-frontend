@@ -7,6 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "../Icon/Icon";
 import { useAuthStore } from "@/lib/store/authStore";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 interface Props {
   user: UserPublic | UserPrivate;
@@ -37,7 +38,9 @@ export default function TravellerInfo({ user: propUser }: Props) {
 
       <div className={css.travellerInfoContentWrapper}>
         <div className={css.titleWrapper}>
-          <h1 className={css.travellerInfoTitle}>{user.name}</h1>
+          <AnimatedText className={css.travellerInfoTitle}>
+            {user.name}
+          </AnimatedText>
           {isOwner && (
             <Link
               href={"/profile/settings"}
@@ -48,9 +51,9 @@ export default function TravellerInfo({ user: propUser }: Props) {
             </Link>
           )}
         </div>
-        <p className={css.travellerInfoParagraph}>
-          Статей: {user.totalUserStories}
-        </p>
+        <AnimatedText tag="p" className={css.travellerInfoParagraph}>
+          {`Статей: ${user.totalUserStories}`}
+        </AnimatedText>
       </div>
     </div>
   );

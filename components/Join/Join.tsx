@@ -3,6 +3,7 @@
 import { useAuthStore } from "@/lib/store/authStore";
 import AppLink from "../AppLink/AppLink";
 import css from "./Join.module.css";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 export default function Join() {
   const isAuth = useAuthStore((s) => s.isAuthenticated);
@@ -12,15 +13,15 @@ export default function Join() {
       <div className="container">
         <div className={css.bgCard}>
           <div className={css.content}>
-            <h3 className={css.title}>
+            <AnimatedText tag="h3" className={css.title}>
               Приєднуйся до спільноти свідомих мандрівників
-            </h3>
+            </AnimatedText>
 
-            <p className={css.text}>
+            <AnimatedText tag="p" className={css.text}>
               Стань частиною ком’юніті, де подорожі стають не лише пригодою, а й
               внеском у збереження природи. Тут ти знайдеш однодумців, поради
               для сталих мандрів та натхнення для нових маршрутів Україною.
-            </p>
+            </AnimatedText>
 
             <AppLink
               href={isAuth ? "/profile/saved" : "/auth/register"}

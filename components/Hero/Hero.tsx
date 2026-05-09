@@ -2,8 +2,8 @@
 
 import css from "./Hero.module.css";
 import { getImageProps } from "next/image";
-import Link from "next/link";
-import PageTitle from "../PageTitle/PageTitle";
+import AppLink from "../AppLink/AppLink";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 const common = {
   alt: "forest and mountains",
@@ -63,21 +63,21 @@ export default function Hero() {
             </picture>
           </div>
           <div className={css.textWrapper}>
-            <PageTitle className={css.heroTitle}>
+            <AnimatedText className={css.title}>
               Відкрий Україну заново — еко-мандри для натхнення
-            </PageTitle>
-            <p className={css.heroText}>
+            </AnimatedText>
+            <AnimatedText tag="p" className={css.heroText}>
               Подорожуй екологічно, відкривай заповідні місця, гори та річки
               України. Ми зібрали маршрути, які допоможуть побачити красу
               природи без шкоди для неї.
-            </p>
-            <Link
+            </AnimatedText>
+            <AppLink
               href="#join"
               onClick={handleAnchorClick}
               className={css.heroLink}
             >
               Доєднатись до мандрів
-            </Link>
+            </AppLink>
           </div>
         </div>
       </div>

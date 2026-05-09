@@ -1,0 +1,23 @@
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  color: var(--color-scheme-2-text);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.toggle:hover {
+  background-color: var(--opacity-neutral-darkest-5) !important;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}

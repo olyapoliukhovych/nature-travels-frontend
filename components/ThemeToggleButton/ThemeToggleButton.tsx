@@ -14,39 +14,23 @@ export function ThemeToggleButton() {
     setMounted(true);
   }, []);
 
+  const isDark = (theme === "system" ? actualTheme : theme) === "dark";
+
   const toggleTheme = () => {
-    if (theme === "system") {
-      setTheme(actualTheme === "dark" ? "light" : "dark");
-    } else {
-      setTheme(theme === "dark" ? "light" : "dark");
-    }
+    setTheme(isDark ? "light" : "dark");
   };
 
-  const getIcon = () => {
-    if (theme === "system") {
-      if (!mounted) {
-        return "icon-moon";
-      }
-      return actualTheme === "dark" ? "icon-sun" : "icon-moon";
-    }
-    return theme === "dark" ? "icon-sun" : "icon-moon";
-  };
+  if (!mounted) {
+    return (
+      <button className={css.toggle} aria-label="Завантаження теми">
+        <Icon id="icon-moon" className={css.icon} />
+      </button>
+    );
+  }
 
-  const getLabel = () => {
-    if (theme === "system") {
-      if (!mounted) {
-        return "Змінити тему";
-      }
-      return actualTheme === "dark"
-        ? "Перемкнути на світлу тему"
-        : "Перемкнути на темну тему";
-    }
-    return theme === "dark"
-      ? "Перемкнути на світлу тему"
-      : "Перемкнути на темну тему";
-  };
-
-  const label = getLabel();
+  const label = isDark
+    ? "Перемкнути на світлу тему"
+    : "Перемкнути на темну тему";
 
   return (
     <button
@@ -55,7 +39,7 @@ export function ThemeToggleButton() {
       aria-label={label}
       title={label}
     >
-      <Icon id={getIcon()} className={css.icon} />
+      <Icon id={isDark ? "icon-sun" : "icon-moon"} className={css.icon} />
     </button>
   );
 }

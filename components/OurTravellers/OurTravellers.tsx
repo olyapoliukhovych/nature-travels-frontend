@@ -12,6 +12,7 @@ import TravellerCard from "../TravellerCard/TravellerCard";
 import { Icon } from "../Icon/Icon";
 import { useQuery } from "@tanstack/react-query";
 import { getAllUsers } from "@/lib/api/users/clientApi";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 export default function OurTravellers() {
   const { data } = useQuery({
@@ -26,7 +27,9 @@ export default function OurTravellers() {
   return (
     <section className={css.wrapper}>
       <div className={`container ${css.gridContainer}`}>
-        <h2 className={css.title}>Наші Мандрівники</h2>
+        <AnimatedText tag="h2" className={css.title}>
+          Наші Мандрівники
+        </AnimatedText>
 
         <AppLink className={css.appLink} href="/travellers" variant="mantis">
           Всі мандрівники

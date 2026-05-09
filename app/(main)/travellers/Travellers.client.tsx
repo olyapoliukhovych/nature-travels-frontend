@@ -6,8 +6,8 @@ import TravellersList from "@/components/TravellersList/TravellersList";
 import Loader from "@/components/Loader/Loader";
 import css from "./Travellers.module.css";
 import clsx from "clsx";
-import PageTitle from "@/components/PageTitle/PageTitle";
 import { INITIAL_PAGE, TRAVELLERS_PER_PAGE } from "@/constants/pagination";
+import AnimatedText from "@/components/AnimatedText/AnimatedText";
 
 export default function TravellersClient() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
@@ -32,7 +32,9 @@ export default function TravellersClient() {
 
   return (
     <section className={clsx(css.section, "container")}>
-      <PageTitle align="center">Мандрівники</PageTitle>
+      <AnimatedText align="center" className={css.title}>
+        Мандрівники
+      </AnimatedText>
 
       {status === "pending" && !isFetchingNextPage ? (
         <Loader size="md" />

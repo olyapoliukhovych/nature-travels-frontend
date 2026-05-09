@@ -7,7 +7,6 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { getCategories } from "@/lib/api/category/clientApi";
-import PageTitle from "../PageTitle/PageTitle";
 import AppSelect from "../AppSelect/AppSelect";
 import css from "./AddStoryForm.module.css";
 import { createStory, updateStory } from "@/lib/api/stories/clientApi";
@@ -22,6 +21,7 @@ import { CreateStoryValues, Story } from "@/types/stories";
 import DeleteStoryButton from "../DeleteStoryButton/DeleteStoryButton";
 import Loader from "../Loader/Loader";
 import { useAuthStore } from "@/lib/store/authStore";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 const getValidationSchema = (isEditMode: boolean) =>
   Yup.object({
@@ -79,7 +79,7 @@ const AddStoryForm = ({
   );
   const [isDraftHydrated, setIsDraftHydrated] = useState(isEditMode);
 
-  // при розмонтуванні компонента видаляємо посилання на фото з пам'яті, щоб не засмічувати
+  // при розмонтуванні компонента видаляємо посилання на фото з пам'яті
   useEffect(() => {
     return () => {
       if (preview && preview.startsWith("blob:")) {
@@ -217,9 +217,9 @@ const AddStoryForm = ({
 
   return (
     <div className={css.formWrapper}>
-      <PageTitle className={css.pageTitle}>
+      <AnimatedText className={css.title}>
         {isEditMode ? "Редагувати історію" : "Створити нову історію"}
-      </PageTitle>
+      </AnimatedText>
 
       <Formik
         initialValues={initialValues}
@@ -231,7 +231,9 @@ const AddStoryForm = ({
           <Form className={css.form}>
             {!isEditMode && <FormikObserver />}
             <div className={css.imageSection}>
-              <span className={css.span}>Обкладинка статті</span>
+              <AnimatedText tag="span" className={css.span}>
+                Обкладинка статті
+              </AnimatedText>
               <div className={css.imagePreview}>
                 <Image
                   src={preview || "/placeholder.png"}
@@ -247,7 +249,10 @@ const AddStoryForm = ({
                 />
               </div>
               <label className={css.uploadBtn}>
-                {isEditMode ? "Змінити фото" : "Завантажити фото"}
+                <AnimatedText tag="span">
+                  {isEditMode ? "Змінити фото" : "Завантажити фото"}
+                </AnimatedText>
+
                 <input
                   id="image-upload"
                   type="file"
@@ -271,9 +276,13 @@ const AddStoryForm = ({
             </div>
 
             <div className={css.fieldGroup}>
-              <label htmlFor="title-input" className={css.label}>
+              <AnimatedText
+                tag="label"
+                htmlFor="title-input"
+                className={css.label}
+              >
                 Заголовок
-              </label>
+              </AnimatedText>
               <Field
                 id="title-input"
                 name="title"
@@ -292,9 +301,13 @@ const AddStoryForm = ({
             </div>
 
             <div className={css.fieldGroup}>
-              <label htmlFor="category-select-input" className={css.label}>
+              <AnimatedText
+                tag="label"
+                htmlFor="category-select-input"
+                className={css.label}
+              >
                 Категорія
-              </label>
+              </AnimatedText>
               <AppSelect
                 inputId="category-select-input"
                 instanceId="category-select"
@@ -317,9 +330,13 @@ const AddStoryForm = ({
             </div>
 
             <div className={css.fieldGroup}>
-              <label htmlFor="article-field" className={css.label}>
+              <AnimatedText
+                tag="label"
+                htmlFor="article-field"
+                className={css.label}
+              >
                 Текст історії
-              </label>
+              </AnimatedText>
               <Field
                 id="article-field"
                 name="article"
