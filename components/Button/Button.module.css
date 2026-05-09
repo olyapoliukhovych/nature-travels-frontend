@@ -1,89 +1,75 @@
 .button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 6px;
   line-height: 1.5;
+  padding: 8px 16px;
+  cursor: pointer;
   transition: all var(--transition);
+  font-weight: 500;
+  border: 1px solid transparent;
 
   &:disabled {
-    opacity: 0.3;
+    opacity: 0.4;
     cursor: not-allowed;
     pointer-events: none;
   }
 }
 
+/* --- ВАРІАНТ MANTIS --- */
 .mantis {
   background-color: var(--color-mantis-dark);
-  border: 1px solid var(--color-mantis-dark);
-
-  &:not(:disabled):hover,
-  &:not(:disabled):focus {
-    background: var(--color-mantis-lighter);
-  }
-
-  &:active {
-    background: var(--color-mantis-dark);
-    border: 1px solid var(--color-mantis-dark);
-    transform: scale(0.97);
-  }
+  border-color: var(--color-mantis-dark);
+  color: var(--color-white);
 }
 
-:global([data-theme="dark"]) .mantis {
-  color: #fff !important;
+.mantis:not(:disabled):hover,
+.mantis:not(:disabled):focus-visible {
+  background-color: var(--color-mantis-lighter);
+  border-color: var(--color-mantis-lighter);
+  color: var(--color-mantis-darker);
 }
 
-:global([data-theme="light"]) .mantis {
-  color: #fff !important;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: #1b391b !important;
-  }
+.mantis:active {
+  transform: scale(0.97);
+  background-color: var(--color-mantis-dark);
 }
 
+/* --- ВАРІАНТ NEUTRAL --- */
 .neutral {
   background-color: var(--opacity-neutral-darkest-5);
-  border: 1px solid var(--color-scheme-2-border);
+  border-color: var(--color-scheme-2-border);
 
-  &:not(:disabled):hover,
-  &:not(:disabled):focus {
-    border: 1px solid var(--opacity-transparent);
-    background: var(--color-mantis-dark);
-  }
-
-  &:active {
-    background: var(--color-mantis-darker);
-    border: 1px solid var(--opacity-transparent);
-    transform: scale(0.97);
-  }
-
-  &:disabled {
-    border: 1px solid var(--opacity-transparent);
-  }
+  color: var(--color-scheme-2-text);
 }
 
-:global([data-theme="dark"]) .neutral {
-  color: #fff !important;
+.neutral:not(:disabled):hover,
+.neutral:not(:disabled):focus-visible {
+  background-color: var(--color-mantis-dark);
+  border-color: var(--color-mantis-dark);
+  color: var(--color-white);
 }
 
-:global([data-theme="light"]) .neutral {
-  color: #1b391b !important;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: #fff !important;
-  }
+.neutral:active {
+  transform: scale(0.97);
+  background-color: var(--color-mantis-darker);
 }
 
 .button svg {
   fill: currentColor;
   stroke: currentColor;
+  width: 1.2em;
+  height: 1.2em;
   flex-shrink: 0;
 }
 
+.button svg[fill="currentColor"] {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* --- ЛОАДЕР --- */
 .loaderWrapper {
   display: flex;
   align-items: center;
@@ -93,8 +79,8 @@
 .spinner {
   width: 18px;
   height: 18px;
-  border: 2px solid var(--color-mantis-light);
-  border-top-color: var(--color-scheme-2-text);
+  border: 2px solid currentColor;
+  border-top-color: transparent;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }

@@ -110,3 +110,17 @@
     color: #fff !important;
   }
 }
+
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.1;
+
+  @media only screen and (min-width: 768px) {
+    font-size: 48px;
+  }
+
+  @media only screen and (min-width: 1440px) {
+    font-size: 56px;
+  }
+}

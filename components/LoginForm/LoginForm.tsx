@@ -14,6 +14,7 @@ import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 import { LuEye } from "react-icons/lu";
 import { LuEyeClosed } from "react-icons/lu";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -59,9 +60,13 @@ export default function LoginForm() {
         {({ isSubmitting, errors, touched }) => (
           <Form className={css.loginForm}>
             <div className={css.loginField}>
-              <label className={css.loginLabel} htmlFor={emailId}>
+              <AnimatedText
+                tag="label"
+                className={css.loginLabel}
+                htmlFor={emailId}
+              >
                 Пошта*
-              </label>
+              </AnimatedText>
               <Field
                 id={emailId}
                 name="email"
@@ -80,9 +85,13 @@ export default function LoginForm() {
             </div>
 
             <div className={css.loginField}>
-              <label className={css.loginLabel} htmlFor={passwordId}>
+              <AnimatedText
+                tag="label"
+                className={css.loginLabel}
+                htmlFor={passwordId}
+              >
                 Пароль*
-              </label>
+              </AnimatedText>
               <Field
                 id={passwordId}
                 name="password"

@@ -16,7 +16,7 @@ import Image from "next/image";
 import Button from "../Button/Button";
 import { useRouter } from "next/navigation";
 import DeleteProfileButton from "../DeleteProfileButton/DeleteProfileButton";
-import PageTitle from "../PageTitle/PageTitle";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 interface Props {
   user: UserPrivate;
@@ -94,7 +94,7 @@ export default function ProfileSettingsForm({ user }: Props) {
 
   return (
     <div className={css.wrapper}>
-      <PageTitle className={css.title}>Налаштування профілю</PageTitle>
+      <AnimatedText className={css.title}>Налаштування профілю</AnimatedText>
 
       <div className={css.form}>
         <div>
@@ -109,18 +109,22 @@ export default function ProfileSettingsForm({ user }: Props) {
             />
           </div>
 
-          <label className={css.uploadBtn}>
+          <AnimatedText
+            className={css.uploadBtn}
+            tag="label"
+            htmlFor="image-upload"
+          >
             Завантажити фото
-            <input
-              className={css.fileInput}
-              id="image-upload"
-              name="img"
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={(e) => setFile(e.target.files?.[0] || null)}
-            />
-          </label>
+          </AnimatedText>
+          <input
+            className={css.fileInput}
+            id="image-upload"
+            name="img"
+            type="file"
+            accept="image/*"
+            hidden
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+          />
         </div>
 
         <input

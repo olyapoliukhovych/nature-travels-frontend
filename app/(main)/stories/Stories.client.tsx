@@ -13,9 +13,9 @@ import TravellersStories from "@/components/TravellersStories/TravellersStories"
 import Loader from "@/components/Loader/Loader";
 import clsx from "clsx";
 import CategoriesFilter from "@/components/CategoriesFilter/CategoriesFilter";
-import PageTitle from "@/components/PageTitle/PageTitle";
 import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
 import { INITIAL_PAGE, STORIES_PER_PAGE } from "@/constants/pagination";
+import AnimatedText from "@/components/AnimatedText/AnimatedText";
 
 export default function StoriesClient() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
@@ -72,7 +72,9 @@ export default function StoriesClient() {
 
   return (
     <section className={clsx(css.section, "container")}>
-      <PageTitle align="center">Статті</PageTitle>
+      <AnimatedText align="center" className={css.title}>
+        Статті
+      </AnimatedText>
       {isStoriesError || isCategoriesError ? (
         <div className={css.messageWrapper}>
           <MessageNoStories

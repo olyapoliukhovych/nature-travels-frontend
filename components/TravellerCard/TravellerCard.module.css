@@ -39,10 +39,12 @@
 }
 
 .userName {
-  max-width: 262px;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: 262px;
   font-weight: 600;
   font-size: 18px;
   line-height: 1.5;

@@ -10,6 +10,8 @@ import { useState } from "react";
 import Modal from "../Modal/Modal";
 import { ModeModal } from "../ModeModal/ModeModal";
 import { ThemeToggleButton } from "../ThemeToggleButton/ThemeToggleButton";
+import AnimatedText from "../AnimatedText/AnimatedText";
+import { AnimationToggleButton } from "../AnimationToggleButton/AnimationToggleButton";
 
 export default function UserBar() {
   const user = useAuthStore((s) => s.user);
@@ -52,8 +54,14 @@ export default function UserBar() {
               )}
             </div>
 
-            <span className={css.name}>{user?.name || "Ім'я"}</span>
+            <AnimatedText tag="span" className={css.name}>
+              {user?.name || "Ім'я"}
+            </AnimatedText>
           </Link>
+
+          <span className={css.divider} />
+
+          <AnimationToggleButton />
 
           <span className={css.divider} />
 

@@ -11,6 +11,7 @@ import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
 import { useQuery } from "@tanstack/react-query";
 import { getAllStories } from "@/lib/api/stories/clientApi";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 type Props = {
   title?: string;
@@ -52,7 +53,11 @@ export default function PopularStories({
       <div
         className={`${withContainer ? "container" : ""} ${css.gridContainer}`}
       >
-        <h2 className={css.title}>{title}</h2>
+        {title && (
+          <AnimatedText tag="h2" className={css.title}>
+            {title}
+          </AnimatedText>
+        )}
 
         {linkLabel && linkHref && (
           <AppLink className={css.appLink} href={linkHref} variant="mantis">

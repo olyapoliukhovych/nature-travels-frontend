@@ -5,6 +5,7 @@ import css from "./CategoriesFilter.module.css";
 import clsx from "clsx";
 import { Category } from "@/types/category";
 import AppSelect from "../AppSelect/AppSelect";
+import Button from "../Button/Button";
 
 interface Props {
   categories: Category[];
@@ -34,45 +35,39 @@ export default function CategoriesFilter({
   );
 
   return (
-    <>
-      <div className={css.mobileOnly}>
-        <label className={css.label} htmlFor="category-select-input">
-          Категорії
-        </label>
-        <AppSelect
-          instanceId="category-select"
-          inputId="category-select-input"
-          options={options}
-          value={currentOption}
-          onChange={(opt) => onClick(opt?.value || "")}
-        />
-      </div>
+    categories && (
+      <>
+        <div className={css.mobileOnly}>
+          <label className={css.label} htmlFor="category-select-input">
+            Категорії
+          </label>
+          <AppSelect
+            instanceId="category-select"
+            inputId="category-select-input"
+            options={options}
+            value={currentOption}
+            onChange={(opt) => onClick(opt?.value || "")}
+          />
+        </div>
 
-      <ul className={css.desktopOnly}>
-        <li>
-          <button
-            type="button"
-            className={clsx(css.btn, activeCategoryId === "" && css.active)}
-            onClick={() => onClick("")}
-          >
-            Всі статті
-          </button>
-        </li>
-        {categories.map((cat) => (
-          <li key={cat._id}>
-            <button
-              type="button"
-              className={clsx(
-                css.btn,
-                activeCategoryId === cat._id && css.active,
-              )}
-              onClick={() => onClick(cat._id)}
-            >
-              {cat.category}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </>
+        <ul className={css.desktopOnly}>
+          {options.map((cat) => (
+            <li key={cat.value}>
+              <Button
+                type="button"
+                variant="neutral"
+                className={clsx(
+                  css.btn,
+                  activeCategoryId === cat.value && css.active,
+                )}
+                onClick={() => onClick(cat.value)}
+              >
+                {cat.label}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
   );
 }

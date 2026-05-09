@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import css from "./ProfileTabs.module.css";
+import AppLink from "../AppLink/AppLink";
 
 export default function ProfileTabs() {
   const pathname = usePathname();
@@ -16,18 +16,20 @@ export default function ProfileTabs() {
 
   return (
     <nav className={css.profileTabsNav}>
-      <Link
+      <AppLink
         href="/profile/saved"
+        replace={true}
         className={`${css.profileTabsLink} ${isActive("/profile/saved") ? css.profileTabsActive : ""}`}
       >
         Збережені історії
-      </Link>
-      <Link
+      </AppLink>
+      <AppLink
         href="/profile/my-stories"
+        replace={true}
         className={`${css.profileTabsLink} ${isActive("/profile/my-stories") ? css.profileTabsActive : ""}`}
       >
         Мої історії
-      </Link>
+      </AppLink>
     </nav>
   );
 }

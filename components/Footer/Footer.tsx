@@ -1,8 +1,8 @@
 import css from "./Footer.module.css";
 import Copyright from "./Copyright";
 import SocialList from "./SocialList/SocialList";
-import FooterNav from "./FooterNav/FooterNav";
 import Logo from "../Logo/Logo";
+import NavLinks from "../NavLinks/NavLinks";
 
 export default function Footer() {
   return (
@@ -11,7 +11,7 @@ export default function Footer() {
         <div className={css.footerWrapper}>
           <Logo />
           <SocialList />
-          <FooterNav />
+          <NavLinks />
         </div>
 
         <hr className={css.footerLine} />

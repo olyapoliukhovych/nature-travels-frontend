@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import css from "./Button.module.css";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 type ButtonVariant = "mantis" | "neutral";
 
@@ -49,6 +50,8 @@ export default function Button({
             </span>
           )}
         </span>
+      ) : typeof children === "string" ? (
+        <AnimatedText tag="span">{children}</AnimatedText>
       ) : (
         children
       )}

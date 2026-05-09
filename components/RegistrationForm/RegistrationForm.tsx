@@ -13,6 +13,7 @@ import { loginUser, registerUser } from "@/lib/api/auth/clientApi";
 import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 import { LuEye } from "react-icons/lu";
 import { LuEyeClosed } from "react-icons/lu";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 const RegistrationSchema = Yup.object().shape({
   name: Yup.string()
@@ -71,9 +72,13 @@ export default function RegistrationForm() {
         {({ isSubmitting, errors, touched }) => (
           <Form className={css.registrationForm} noValidate>
             <div className={css.registrationField}>
-              <label className={css.registrationLabel} htmlFor={nameId}>
+              <AnimatedText
+                tag="label"
+                className={css.registrationLabel}
+                htmlFor={nameId}
+              >
                 Імʼя та Прізвище*
-              </label>
+              </AnimatedText>
               <Field
                 id={nameId}
                 name="name"
@@ -89,9 +94,13 @@ export default function RegistrationForm() {
             </div>
 
             <div className={css.registrationField}>
-              <label className={css.registrationLabel} htmlFor={emailId}>
+              <AnimatedText
+                tag="label"
+                className={css.registrationLabel}
+                htmlFor={emailId}
+              >
                 Пошта*
-              </label>
+              </AnimatedText>
               <Field
                 id={emailId}
                 name="email"
@@ -108,9 +117,13 @@ export default function RegistrationForm() {
             </div>
 
             <div className={css.registrationField}>
-              <label className={css.registrationLabel} htmlFor={passwordId}>
+              <AnimatedText
+                tag="label"
+                className={css.registrationLabel}
+                htmlFor={passwordId}
+              >
                 Пароль*
-              </label>
+              </AnimatedText>
               <Field
                 id={passwordId}
                 name="password"

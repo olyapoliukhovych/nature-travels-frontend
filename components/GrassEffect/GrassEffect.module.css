@@ -1,0 +1,74 @@
+.grassLetter {
+  display: inline-block !important;
+  transform-origin: bottom center;
+  will-change: transform, color;
+
+  transition:
+    transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 1.2s ease-out;
+
+  animation: breeze-out 1.2s ease-out 1;
+
+  color: inherit;
+}
+
+.grassLetter:hover {
+  animation: breeze-combined 2.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 1
+    forwards;
+  transition: none;
+}
+
+@keyframes breeze-combined {
+  0% {
+    transform: rotate(0deg);
+    color: inherit;
+  }
+  10% {
+    transform: rotate(12deg);
+    color: #4ade80;
+  }
+  30% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(6deg);
+    color: #4ade80;
+  }
+  65% {
+    transform: rotate(-4deg);
+  }
+  80% {
+    transform: rotate(2deg);
+    color: #74cc8d;
+  }
+  90% {
+    transform: rotate(-0.5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    color: inherit;
+  }
+}
+
+@keyframes breeze-out {
+  0% {
+    transform: rotate(12deg);
+    color: #4ade80;
+  }
+  30% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    color: inherit;
+  }
+}
+
+.space {
+  display: inline-block;
+  white-space: pre;
+}
