@@ -4,6 +4,7 @@ import css from "./StoryDetails.module.css";
 import clsx from "clsx";
 import SaveStorySection from "./SaveStorySection";
 import BackLink from "../BackLink/BackLink";
+import AnimatedText from "../AnimatedText/AnimatedText";
 
 interface Props {
   story: Story;
@@ -35,22 +36,34 @@ export default function StoryDetailsPage({ story }: Props) {
         <div className={css.contentWrapper}>
           <BackLink variant="stories" storyOwnerId={story.ownerId?._id} />
 
-          <h1 className={css.mainTitle}>{story.title}</h1>
+          <AnimatedText className={css.mainTitle}>{story.title}</AnimatedText>
 
           <ul className={css.autorsWrapp}>
             <li className={css.text}>
-              <span className={css.bold}>Автор статті</span>
-              {story.ownerId?.name ?? "Невідомий автор"}
+              <AnimatedText tag="span" className={css.bold}>
+                Автор статті
+              </AnimatedText>
+              <AnimatedText tag="span">
+                {story.ownerId?.name ?? "Невідомий автор"}
+              </AnimatedText>
             </li>
             <li className={css.text}>
-              <span className={css.bold}>Опубліковано</span>
-              {formattedDate}
+              <AnimatedText tag="span" className={css.bold}>
+                Опубліковано
+              </AnimatedText>
+              <AnimatedText tag="span">{formattedDate}</AnimatedText>
             </li>
-            <li className={css.categories}>{story.categoryId.category}</li>
+            <li className={css.categories}>
+              <AnimatedText tag="span">
+                {story.categoryId.category}
+              </AnimatedText>
+            </li>
           </ul>
         </div>
       </div>
-      <p className={clsx(css.text, css.textDesctop)}>{story.article}</p>
+      <AnimatedText tag="p" className={clsx(css.text, css.textDesctop)}>
+        {story.article}
+      </AnimatedText>
       <SaveStorySection storyId={story._id} storyOwnerId={story.ownerId?._id} />
     </div>
   );

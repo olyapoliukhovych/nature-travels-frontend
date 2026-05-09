@@ -18,6 +18,7 @@ import {
   TRAVELLER_STORIES_PER_PAGE,
 } from "@/constants/pagination";
 import BackLink from "@/components/BackLink/BackLink";
+import AnimatedText from "@/components/AnimatedText/AnimatedText";
 
 interface Props {
   params: Promise<{ userId: string }>;
@@ -79,7 +80,9 @@ export default async function TravellerPage({ params }: Props) {
 
           <TravellerInfo user={user} />
 
-          <h1 className={css.travellerProfilePageTitle}>Історії мандрівника</h1>
+          <AnimatedText className={css.travellerProfilePageTitle}>
+            Історії мандрівника
+          </AnimatedText>
 
           {user.totalUserStories > 0 ? (
             <TravellerProfileClient userId={userId} />
