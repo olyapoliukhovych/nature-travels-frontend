@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useSettingsStore } from "@/lib/store/settingsStore";
-import Button from "../Button/Button";
 import { LuWaves, LuMoveHorizontal } from "react-icons/lu";
 import css from "./AnimationToggleButton.module.css";
 
@@ -20,7 +19,7 @@ export function AnimationToggleButton() {
   const label = isAnimationEnabled ? "Вимкнути анімацію" : "Увімкнути анімацію";
 
   return (
-    <Button
+    <button
       type="button"
       className={css.toggle}
       onClick={toggleAnimation}
@@ -32,6 +31,6 @@ export function AnimationToggleButton() {
       ) : (
         <LuWaves className={css.icon} />
       )}
-    </Button>
+    </button>
   );
 }

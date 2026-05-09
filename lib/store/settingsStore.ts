@@ -4,15 +4,21 @@ import { persist } from "zustand/middleware";
 interface SettingsState {
   isAnimationEnabled: boolean;
   toggleAnimation: () => void;
+  resetSettings: () => void;
 }
 
 export const useSettingsStore = create<SettingsState>()(
   persist(
     (set) => ({
       isAnimationEnabled: false,
+
       toggleAnimation: () =>
         set((state) => ({ isAnimationEnabled: !state.isAnimationEnabled })),
+
+      resetSettings: () => set({ isAnimationEnabled: false }),
     }),
-    { name: "ui-settings" },
+    {
+      name: "ui-settings",
+    },
   ),
 );

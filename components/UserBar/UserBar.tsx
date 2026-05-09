@@ -22,10 +22,11 @@ export default function UserBar() {
   const handleLogout = async () => {
     try {
       await logoutUser();
-    } catch {}
-
-    clear();
-    window.location.href = "/";
+    } catch {
+    } finally {
+      clear();
+      window.location.href = "/";
+    }
   };
 
   return (

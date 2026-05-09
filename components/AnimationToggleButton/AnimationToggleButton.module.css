@@ -13,7 +13,7 @@
 }
 
 .toggle:hover {
-  background-color: var(--opacity-neutral-darkest-5) !important;
+  background-color: var(--opacity-neutral-darkest-5);
 }
 
 .icon {

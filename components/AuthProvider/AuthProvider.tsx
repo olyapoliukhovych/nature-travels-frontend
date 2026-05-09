@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAuthStore } from "@/lib/store/authStore";
 import { refreshSession } from "@/lib/api/auth/clientApi";
 import { getUserProfile } from "@/lib/api/users/clientApi";
+import { useSettingsStore } from "@/lib/store/settingsStore";
 
 type Props = {
   children: React.ReactNode;
@@ -14,6 +15,7 @@ const AuthProvider = ({ children }: Props) => {
   const clearIsAuthenticated = useAuthStore(
     (state) => state.clearIsAuthenticated,
   );
+  const resetSettings = useSettingsStore((state) => state.resetSettings);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -21,6 +23,7 @@ const AuthProvider = ({ children }: Props) => {
 
       if (!isAuthenticated) {
         clearIsAuthenticated();
+        resetSettings();
         return;
       }
 
@@ -30,11 +33,12 @@ const AuthProvider = ({ children }: Props) => {
         setUser(user);
       } else {
         clearIsAuthenticated();
+        resetSettings();
       }
     };
 
     fetchUser();
-  }, [setUser, clearIsAuthenticated]);
+  }, [setUser, clearIsAuthenticated, resetSettings]);
 
   return children;
 };
