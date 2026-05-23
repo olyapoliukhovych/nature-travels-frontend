@@ -59,13 +59,34 @@ export const metadata: Metadata = {
   },
 };
 
+const themeInitializerScript = `
+  (function() {
+    try {
+      var savedTheme = localStorage.getItem('theme') || 'system';
+      if (savedTheme === 'system') {
+        var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    } catch (e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk" className={`${montserrat.variable}`}>
+    <html
+      lang="uk"
+      className={`${montserrat.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitializerScript }} />
+      </head>
       <body>
         <TanStackProvider>
           <AuthProvider>
