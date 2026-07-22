@@ -61,7 +61,6 @@ export default function BurgerMenu({ isOpen, onClose }: Props) {
                   <AppLink
                     href="/stories/new"
                     variant="mantis"
-                    className={css.publish}
                     onClick={onClose}
                   >
                     Опублікувати статтю

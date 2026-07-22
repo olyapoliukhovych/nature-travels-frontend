@@ -1,59 +1,44 @@
 .deleteBtn {
   width: 100%;
-  height: 50px;
+  height: 48px;
   background: var(--opacity-neutral-darkest-5);
   border-color: var(--color-scheme-2-border);
-  padding: 8px 16px;
+  padding: 10px 28px;
   color: var(--color-scheme-2-text);
   border-radius: 6px;
   font-size: 16px;
   font-weight: 500;
-
   transition:
     background var(--transition),
     border-color var(--transition),
     color var(--transition);
-
-  &:not(.disabled):hover,
-  &:not(.disabled):focus {
-    border-color: var(--color-red) !important;
-    background: var(--opacity-neutral-darkest-5) !important;
-    color: var(--color-red) !important;
-  }
-
-  &:active {
-    border-color: var(--color-red) !important;
-    background: var(--opacity-neutral-darkest-5) !important;
-    color: var(--color-red) !important;
-  }
-
-  @media only screen and (min-width: 768px) {
-    width: 50px;
-  }
 }
 
-.deleteBtn svg {
-  display: none;
+.deleteBtn:not(:disabled):hover,
+.deleteBtn:not(:disabled):focus-visible,
+.deleteBtn:active {
+  border-color: var(--color-red);
+  background: var(--opacity-neutral-darkest-5);
+  color: var(--color-red);
+}
 
-  @media only screen and (min-width: 768px) {
-    width: 24px;
-    height: 24px;
-    fill: var(--color-scheme-2-text);
-    transition: fill var(--transition);
-    display: inline;
+.deleteBtn:global(.loading) {
+  border-color: var(--color-red);
+}
+
+@media only screen and (min-width: 768px) {
+  .deleteBtn {
+    border-radius: 12px;
+    width: 48px;
+    padding: 0;
   }
-}
 
-.deleteBtn:hover svg,
-.deleteBtn:focus svg,
-.deleteBtn:active svg {
-  fill: var(--color-red);
-}
-
-.deleteText {
-  display: inline;
-
-  @media only screen and (min-width: 768px) {
+  .deleteBtn [class*="buttonText"] {
     display: none;
+  }
+
+  .deleteBtn [class*="iconWrapper"] svg {
+    width: 20px;
+    height: 20px;
   }
 }

@@ -224,6 +224,7 @@ const AddStoryForm = ({
       <Formik
         initialValues={initialValues}
         enableReinitialize={isEditMode}
+        validateOnMount={true}
         validationSchema={getValidationSchema(isEditMode)}
         onSubmit={(values) => mutate(values)}
       >
@@ -361,9 +362,10 @@ const AddStoryForm = ({
                 <Button
                   type="submit"
                   className={css.btnSave}
-                  disabled={!isValid || isPending}
+                  isLoading={isPending}
+                  disabled={!isValid}
                 >
-                  {isPending ? <Loader size="sm" /> : "Зберегти"}
+                  Зберегти
                 </Button>
 
                 <Button

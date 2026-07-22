@@ -108,20 +108,13 @@
   width: 100%;
 }
 
-.publish {
-  padding: 3px 10px;
-  width: 100%;
-}
-
 .actions {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 100%;
 }
 
-.themeToggleWrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+.actions a {
+  padding: 10px 28px;
+  min-height: 48px;
 }

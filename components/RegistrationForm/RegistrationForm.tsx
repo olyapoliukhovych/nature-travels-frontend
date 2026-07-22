@@ -131,7 +131,7 @@ export default function RegistrationForm() {
                 autoComplete="new-password"
                 placeholder="Введіть пароль"
                 className={`${css.registrationInput} ${errors.password && touched.password ? css.registrationInputError : ""}`}
-                style={{ paddingRight: "41px" }}
+                style={{ paddingRight: "59px" }}
               />
               <button
                 type="button"
@@ -157,7 +157,6 @@ export default function RegistrationForm() {
               variant="mantis"
               isLoading={isSubmitting}
               loadingText="Реєстрація"
-              hideSpinner
               className={css.registrationSubmitButton}
             >
               Зареєструватись

@@ -72,12 +72,12 @@
 .appLink {
   grid-area: link;
   width: 100%;
-  height: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  padding: 6px 12px;
+  padding: 10px 28px;
   white-space: nowrap;
   flex-shrink: 0;
   font-size: 16px;

@@ -11,7 +11,6 @@ import { useAuthStore } from "@/lib/store/authStore";
 import toast from "react-hot-toast";
 import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 import { UserPrivate } from "@/types/user";
-import Loader from "@/components/Loader/Loader";
 import Image from "next/image";
 import Button from "../Button/Button";
 import { useRouter } from "next/navigation";
@@ -162,15 +161,10 @@ export default function ProfileSettingsForm({ user }: Props) {
             <Button
               className={css.btnSave}
               onClick={handleSubmit}
-              disabled={
-                !isDirty ||
-                !isFormValid ||
-                isLoading ||
-                name.trim() === "" ||
-                email.trim() === ""
-              }
+              isLoading={isLoading}
+              disabled={!isDirty || !isFormValid}
             >
-              {isLoading ? <Loader size="sm" /> : "Зберегти"}
+              Зберегти
             </Button>
 
             <Button
