@@ -18,7 +18,9 @@ export default function OurTravellers() {
   const { data } = useQuery({
     queryKey: ["popular-travellers"],
     queryFn: () => getAllUsers({ page: 1, perPage: 12 }),
+    staleTime: 1000 * 60 * 2,
     refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const travellers = data?.users || [];
