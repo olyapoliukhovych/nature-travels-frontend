@@ -1,38 +1,33 @@
 .profileTabsNav {
-    display: inline-flex;
-    align-items: center;
-    background: var(--color-scheme-2-foreground);
-    padding: 4px;
-    border-radius: 10px;
-    height: 40px;
-    margin-bottom: 40px;
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-scheme-2-foreground);
+  padding: 6px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  width: 100%;
 
-    @media only screen and (min-width:768px) {
-        height: 48px;
-    }
-
+  @media only screen and (min-width: 768px) {
+    width: auto;
+    height: 54px;
+  }
 }
 
 .profileTabsLink {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px 12px;
-    width: 163px;
-    text-decoration: none;
-    color: var(--color-scheme-2-text);
-    border-radius: 10px;
-    transition: var(--transition);
-    white-space: nowrap;
-    font-weight: 400;
+  height: 100%;
+  padding: 4px 18px;
+  width: 50%;
+  text-decoration: none;
+  color: var(--color-scheme-2-text);
+  transition: var(--transition);
+  white-space: nowrap;
 
-    @media only screen and (min-width:768px) {
-        width: 207px;
-    }
+  @media only screen and (min-width: 768px) {
+    width: 208px;
+  }
 }
 
 .profileTabsActive {
-    background: var(--color-scheme-2-background);
-    font-weight: 500;
-    border: 1px solid var(--color-scheme-2-border);
+  background: var(--color-scheme-2-background);
+  border: 1px solid var(--color-scheme-2-border);
 }

@@ -4,7 +4,6 @@ import Link, { LinkProps } from "next/link";
 import clsx from "clsx";
 import styles from "./AppLink.module.css";
 import { AnchorHTMLAttributes } from "react";
-import GrassEffect from "../GrassEffect/GrassEffect";
 
 interface AppLinkProps
   extends LinkProps, Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
@@ -36,7 +35,7 @@ export default function AppLink({
       )}
       {...rest}
     >
-      <GrassEffect>{children}</GrassEffect>
+      {children}
     </Link>
   );
 }

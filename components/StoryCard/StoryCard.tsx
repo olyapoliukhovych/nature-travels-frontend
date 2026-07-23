@@ -26,7 +26,6 @@ import { AxiosError } from "axios";
 import { refreshSession } from "@/lib/api/auth/clientApi";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import AnimatedText from "../AnimatedText/AnimatedText";
 
 interface Props {
   story: Story;
@@ -188,9 +187,7 @@ export default function StoryCard({ story, priority = false }: Props) {
 
         <div className={css.descriptionWrapper}>
           <div className={css.titleWrapper}>
-            <AnimatedText tag="p">
-              {story.ownerId?.name || "Невідомий автор"}
-            </AnimatedText>
+            <p>{story.ownerId?.name || "Невідомий автор"}</p>
             <span className={css.point}>.</span>
             <span className={css.saveInfo}>
               <NumberFlow
@@ -208,9 +205,7 @@ export default function StoryCard({ story, priority = false }: Props) {
             </span>
           </div>
 
-          <AnimatedText tag="h3" className={css.title}>
-            {story.title}
-          </AnimatedText>
+          <h3 className={css.title}>{story.title}</h3>
 
           <div className={css.buttonWrapper}>
             <AppLink

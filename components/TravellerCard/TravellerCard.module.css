@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  padding: 24px;
+  padding: 24px 16px 16px 16px;
   border-radius: 12px;
   background-color: var(--color-mantis-lighter);
 }
@@ -39,11 +39,9 @@
 }
 
 .userName {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   max-width: 262px;
   font-weight: 600;
   font-size: 18px;

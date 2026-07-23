@@ -10,9 +10,8 @@ import { getUserFriendlyErrorMessage } from "@/lib/utils/getErrorMessage";
 import Modal from "../Modal/Modal";
 import { ModeModal } from "../ModeModal/ModeModal";
 import Button from "../Button/Button";
-import { MdDelete } from "react-icons/md";
+import { LuTrash2 } from "react-icons/lu";
 import css from "../DeleteStoryButton/DeleteStoryButton.module.css";
-import Loader from "../Loader/Loader";
 import { useAuthStore } from "@/lib/store/authStore";
 
 export default function DeleteProfileButton() {
@@ -50,15 +49,10 @@ export default function DeleteProfileButton() {
         className={css.deleteBtn}
         onClick={() => setIsModalOpen(true)}
         disabled={isPending}
+        isLoading={isPending}
+        icon={<LuTrash2 />}
       >
-        {isPending ? (
-          <Loader size="sm" />
-        ) : (
-          <>
-            <MdDelete />
-            <span className={css.deleteText}>Видалити</span>
-          </>
-        )}
+        Видалити
       </Button>
 
       {isModalOpen && (

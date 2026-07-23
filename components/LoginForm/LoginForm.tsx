@@ -101,7 +101,7 @@ export default function LoginForm() {
                 className={`${css.loginInput} ${
                   errors.password && touched.password ? css.loginInputError : ""
                 }`}
-                style={{ paddingRight: "41px" }}
+                style={{ paddingRight: "59px" }}
               />
               <button
                 type="button"
@@ -128,7 +128,6 @@ export default function LoginForm() {
               variant="mantis"
               isLoading={isSubmitting}
               loadingText="Вхід"
-              hideSpinner
               className={css.loginSubmitButton}
             >
               Увійти

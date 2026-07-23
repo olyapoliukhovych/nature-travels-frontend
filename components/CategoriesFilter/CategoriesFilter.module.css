@@ -31,8 +31,7 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 
-    padding-left: 6px;
-    padding-right: 6px;
+    padding: 0 6px;
 
     scrollbar-width: none;
     &::-webkit-scrollbar {
@@ -42,17 +41,15 @@
 
   @media only screen and (min-width: 1440px) {
     justify-content: center;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0;
   }
 }
 
 .btn {
   white-space: nowrap;
-  border-radius: 8px;
   padding: 6px;
-  border: 1px solid var(--opacity-transparent);
-  background: transparent;
+  border: 1px solid var(--opacity-transparent) !important;
+  background: transparent !important;
   cursor: pointer;
   transition:
     color var(--transition),
@@ -68,14 +65,12 @@
 
   &:hover,
   &:focus-visible {
-    color: inherit !important;
     border: 1px solid var(--opacity-transparent) !important;
     background: var(--color-scheme-2-foreground) !important;
-    color: var(--color-scheme-1-accent);
   }
 }
 
 .active {
-  background: var(--color-scheme-2-foreground);
+  background: var(--color-scheme-2-foreground) !important;
   cursor: default;
 }

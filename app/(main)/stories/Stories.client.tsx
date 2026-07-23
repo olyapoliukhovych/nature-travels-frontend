@@ -28,7 +28,9 @@ export default function StoriesClient() {
     queryKey: ["categories"],
     queryFn: getCategories,
     placeholderData: keepPreviousData,
+    staleTime: 1000 * 60 * 5,
     refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const {
@@ -53,6 +55,8 @@ export default function StoriesClient() {
         ? lastPage.page + 1
         : undefined;
     },
+    staleTime: 1000 * 60 * 2,
+    refetchOnWindowFocus: false,
     select: (data) => {
       const flat = data.pages.flatMap((page) => page.stories);
       const map = new Map();

@@ -50,15 +50,15 @@
 
 .swiper[class*="OurTravellers"] {
   @media (max-width: 375px) {
-    height: calc(335px * 3 + 24px * 2);
+    height: calc(309px * 3 + 24px * 2);
   }
 
   @media only screen and (min-width: 768px) {
-    height: calc(317px * 2 + 24px);
+    height: calc(309px * 2 + 24px);
   }
 
   @media only screen and (min-width: 1440px) {
-    height: 335px;
+    height: 327px;
   }
 }
 
@@ -72,12 +72,12 @@
 .appLink {
   grid-area: link;
   width: 100%;
-  height: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  padding: 6px 12px !important;
+  padding: 10px 28px;
   white-space: nowrap;
   flex-shrink: 0;
   font-size: 16px;

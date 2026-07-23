@@ -62,11 +62,11 @@
 }
 
 .heroLink {
-  padding: 6.5px 0px;
-  display: block;
-  border-radius: 6px;
+  min-height: 48px;
+  width: 100%;
+  max-width: 320px;
+  padding: 10px 28px;
   border: 1px solid var(--color-mantis-dark);
-  text-align: center;
   background-color: var(--color-mantis-dark);
   transition: all var(--transition);
 
@@ -82,15 +82,10 @@
   }
 
   @media only screen and (min-width: 768px) {
-    display: inline-block;
-    padding: 6.5px 12px;
-    min-width: 228px;
   }
 
   @media only screen and (min-width: 1440px) {
-    padding: 3.5px 12px;
     font-size: 20px;
-    min-width: 278px;
   }
 }
 
