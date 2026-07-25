@@ -115,7 +115,9 @@
   stroke: var(--color-scheme-2-text);
 }
 
-:global(.swiper-slide) {
+.slide {
+  width: 100%;
+
   max-width: 335px;
 
   @media only screen and (min-width: 565px) {
