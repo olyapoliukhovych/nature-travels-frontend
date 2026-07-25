@@ -6,32 +6,21 @@
 }
 
 .list {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: center;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
 
-  @media only screen and (min-width: 768px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 16px;
+  gap: 16px;
+
+  @media only screen and (min-width: 565px) {
+    grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
+    grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
     gap: 24px;
   }
 }
 
 .card {
   width: 100%;
-
-  @media only screen and (min-width: 768px) {
-    flex-basis: calc((100% - 32px) / 3);
-    max-width: calc((100% - 32px) / 3);
-  }
-
-  @media only screen and (min-width: 1440px) {
-    flex-basis: calc((100% - 72px) / 4);
-  }
 }

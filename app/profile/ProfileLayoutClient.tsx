@@ -28,11 +28,7 @@ export default function ProfileLayoutClient({
           </>
         )}
 
-        <div
-          className={isSettingsPage ? css.settingsContent : css.storiesContent}
-        >
-          {children}
-        </div>
+        <main className={"mainContent"}>{children}</main>
       </div>
     </div>
   );

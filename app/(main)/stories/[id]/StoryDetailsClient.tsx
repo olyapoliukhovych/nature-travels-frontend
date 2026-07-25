@@ -20,7 +20,9 @@ export default function StoryDetailsClient() {
     queryKey: ["story", id],
     queryFn: () => getStoryById(id),
     enabled: !!id,
+    staleTime: 1000 * 60 * 2,
     refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) return <Loader size="md" />;

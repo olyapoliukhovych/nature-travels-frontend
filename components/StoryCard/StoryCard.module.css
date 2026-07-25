@@ -15,7 +15,7 @@
   font-size: 16px;
   padding: 6px 12px;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 20px;
   }
 }
@@ -107,7 +107,8 @@
 .imageWrapper {
   position: relative;
   width: 100%;
-  height: 340px;
+
+  aspect-ratio: 1/1;
   overflow: hidden;
 }
 
@@ -129,7 +130,9 @@
   font-size: 18px;
   line-height: 1.5;
 
-  @media only screen and (min-width: 1440px) {
+  min-height: calc(18px * 1.5 * 2);
+
+  @media only screen and (min-width: 1200px) {
     font-size: 26px;
   }
 }
@@ -139,6 +142,7 @@
   flex-direction: column;
   overflow: hidden;
   height: 100%;
+  width: 100%;
   border-radius: 12px;
   background: var(--color-scheme-2-foreground);
 }
@@ -152,7 +156,7 @@
   font-size: 12px;
   line-height: 1.5;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     height: 212px;
     font-size: 16px;
   }
@@ -166,7 +170,7 @@
   font-size: 12px;
   line-height: 1.5;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 16px;
   }
 }

@@ -31,53 +31,41 @@ export default function UserBar() {
 
   return (
     <>
-      <div className={css.user}>
-        <div className={css.bottom}>
-          <Link href="/profile/my-stories" className={css.profile}>
-            <div className={css.avatar}>
-              {user?.avatarUrl ? (
-                <Image
-                  src={user.avatarUrl}
-                  alt={user.name}
-                  width={32}
-                  height={32}
-                  className={css.avatarImg}
-                  priority
-                />
-              ) : (
-                <Image
-                  src={"/default-avatar.jpg"}
-                  alt={"default avatar"}
-                  width={32}
-                  height={32}
-                  className={css.avatarImg}
-                />
-              )}
-            </div>
+      <div className={css.userBar}>
+        <Link href="/profile/my-stories" className={css.profile}>
+          <div className={css.avatar}>
+            <Image
+              src={user?.avatarUrl || "/default-avatar.jpg"}
+              alt={user?.name || "default avatar"}
+              width={32}
+              height={32}
+              className={css.avatarImg}
+              priority
+            />
+          </div>
 
-            <AnimatedText tag="span" className={css.name}>
-              {user?.name || "Ім'я"}
-            </AnimatedText>
-          </Link>
+          <AnimatedText tag="span" className={css.name}>
+            {user?.name || "Ім'я"}
+          </AnimatedText>
+        </Link>
 
-          <span className={css.divider} />
+        <span className={css.divider} />
 
-          <AnimationToggleButton />
+        <AnimationToggleButton />
 
-          <span className={css.divider} />
+        <span className={css.divider} />
 
-          <ThemeToggleButton />
+        <ThemeToggleButton />
 
-          <span className={css.divider} />
+        <span className={css.divider} />
 
-          <button
-            className={css.logout}
-            onClick={() => setIsModalOpen(true)}
-            aria-label="Вийти"
-          >
-            <Icon id="icon-logout" className={css.logoutSvg} />
-          </button>
-        </div>
+        <button
+          className={css.logout}
+          onClick={() => setIsModalOpen(true)}
+          aria-label="Вийти"
+        >
+          <Icon id="icon-logout" className={css.logoutSvg} />
+        </button>
       </div>
 
       {isModalOpen && (

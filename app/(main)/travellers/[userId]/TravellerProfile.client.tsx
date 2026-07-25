@@ -1,11 +1,7 @@
 "use client";
 
 import { Story } from "@/types/stories";
-import StoryCard from "@/components/StoryCard/StoryCard";
-import Pagination from "@/components/Pagination/Pagination";
 import { getUserStoriesPublic } from "@/lib/api/users/clientApi";
-import css from "./TravellerProfile.module.css";
-import { motion } from "framer-motion";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
 import {
@@ -13,6 +9,7 @@ import {
   TRAVELLER_STORIES_PER_PAGE,
 } from "@/constants/pagination";
 import { useMemo } from "react";
+import TravellersStories from "@/components/TravellersStories/TravellersStories";
 
 interface Props {
   userId: string;
@@ -64,7 +61,9 @@ export default function TravellerProfileClient({
       const next = lastPage.page + 1;
       return next <= lastPage.totalPages ? next : undefined;
     },
+    staleTime: 1000 * 60 * 2,
     refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const allStories = useMemo(() => {
@@ -90,32 +89,11 @@ export default function TravellerProfileClient({
   }
 
   return (
-    <>
-      <ul className={css.travellerProfileClientList}>
-        {allStories.map((story, index) => (
-          <motion.li
-            layout
-            key={story._id}
-            className={css.travellerProfileClientcard}
-            transition={{
-              duration: 0.5,
-              type: "spring",
-              stiffness: 100,
-              damping: 15,
-            }}
-          >
-            <StoryCard story={story} priority={index === 0} />
-          </motion.li>
-        ))}
-      </ul>
-      <div className={css.travellerProfileClientBtnWrapper}>
-        {hasNextPage && (
-          <Pagination
-            fetchNextPage={() => fetchNextPage()}
-            isFetchingNextPage={isFetchingNextPage}
-          />
-        )}
-      </div>
-    </>
+    <TravellersStories
+      stories={allStories}
+      fetchNextPage={() => fetchNextPage()}
+      isFetchingNextPage={isFetchingNextPage}
+      hasNextPage={!!hasNextPage}
+    />
   );
 }

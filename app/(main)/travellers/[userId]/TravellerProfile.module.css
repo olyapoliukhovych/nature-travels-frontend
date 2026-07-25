@@ -1,18 +1,21 @@
 .travellerProfileClientList {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: left;
   gap: 24px;
-  margin-bottom: 40px;
+
+  @media only screen and (min-width: 565px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 
 .travellerProfileClientcard {
-  flex-basis: 100%;
-
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     flex-basis: calc((100% - 24px) / 2);
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     flex-basis: calc((100% - (24px * 2)) / 3);
   }
 }

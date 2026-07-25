@@ -7,7 +7,7 @@
   margin-bottom: 40px;
   width: 100%;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     width: auto;
     height: 54px;
   }
@@ -15,14 +15,14 @@
 
 .profileTabsLink {
   height: 100%;
-  padding: 4px 18px;
+  padding: 8px 18px;
   width: 50%;
   text-decoration: none;
   color: var(--color-scheme-2-text);
   transition: var(--transition);
   white-space: nowrap;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     width: 208px;
   }
 }

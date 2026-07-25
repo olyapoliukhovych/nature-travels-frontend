@@ -46,10 +46,10 @@ export default function Hero() {
           <div className={css.imageWrapper}>
             <picture>
               <source
-                media="(min-width: 1440px)"
+                media="(min-width: 1200px)"
                 srcSet={desktop.props.srcSet}
               />
-              <source media="(min-width: 768px)" srcSet={tablet.props.srcSet} />
+              <source media="(min-width: 565px)" srcSet={tablet.props.srcSet} />
               <img
                 src={mobile.props.src}
                 srcSet={mobile.props.srcSet}

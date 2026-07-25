@@ -1,12 +1,12 @@
 .heroSection {
   padding: 64px 0;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     padding: 72px 0;
   }
 }
 
-@media only screen and (min-width: 1440px) {
+@media only screen and (min-width: 1200px) {
   .heroWrapper {
     display: flex;
     flex-direction: row-reverse;
@@ -14,18 +14,22 @@
     align-items: center;
   }
 
-  .textWrapper {
-    max-width: 644px;
+  .textWrapper,
+  .imageWrapper {
+    flex: 1;
+    width: 50%;
   }
 }
 
 .imageWrapper {
+  border-radius: 12px;
   width: 100%;
   margin-bottom: 24px;
+  overflow: hidden;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
+    width: auto;
     margin: 0;
-    width: 644px;
     height: 580px;
     flex-shrink: 0;
   }
@@ -35,28 +39,16 @@
   border-radius: 12px;
   display: block;
   width: 100%;
-  height: auto;
-
-  aspect-ratio: 335 / 469;
+  height: 100%;
   object-fit: cover;
-
   background-color: var(--color-scheme-2-foreground);
-
-  @media only screen and (min-width: 768px) {
-    aspect-ratio: 704 / 469;
-  }
-
-  @media only screen and (min-width: 1440px) {
-    aspect-ratio: 644 / 580;
-    height: 100%;
-  }
 }
 
 .heroText {
   margin-top: 24px;
   margin-bottom: 32px;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 20px;
   }
 }
@@ -81,10 +73,7 @@
     transform: scale(0.95);
   }
 
-  @media only screen and (min-width: 768px) {
-  }
-
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 20px;
   }
 }
@@ -111,11 +100,11 @@
   font-size: 32px;
   line-height: 1.1;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     font-size: 48px;
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 56px;
   }
 }

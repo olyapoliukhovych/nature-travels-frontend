@@ -12,18 +12,17 @@
   align-items: center;
   padding: 64px 20px;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     padding: 80px 32px;
   }
 }
 
 .loginAuthWrapper {
   width: 100%;
-  max-width: 335px;
   display: flex;
   flex-direction: column;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     max-width: 644px;
   }
 }

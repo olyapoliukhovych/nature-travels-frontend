@@ -22,4 +22,7 @@
 .column .link {
   width: 100%;
   text-align: center;
+  min-width: 300px;
+  padding: 10px 40px;
+  height: 48px;
 }

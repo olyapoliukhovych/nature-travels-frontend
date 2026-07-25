@@ -1,26 +1,27 @@
 .wrapper {
   padding: 64px 0;
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     padding: 72px 0;
   }
 }
 
 .gridContainer {
   display: grid;
-  gap: 40px;
+  gap: 24px;
   grid-template-areas:
     "title"
     "slider"
     "nav"
     "link";
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     grid-template-columns: 1fr auto;
     grid-template-areas:
       "title link"
       "slider slider"
       "nav nav";
     align-items: center;
+    gap: 32px 24px;
   }
 }
 
@@ -29,11 +30,11 @@
   font-weight: 700;
   font-size: 28px;
 
-  @media only screen and (min-width: 768px) {
-    font-size: 44px;
+  @media only screen and (min-width: 565px) {
+    font-size: 38px;
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 52px;
   }
 }
@@ -48,18 +49,6 @@
 .swiper {
   width: 100%;
   height: auto;
-}
-
-.swiper[class*="OurTravellers"] {
-  height: calc(335px * 3 + 24px * 2);
-
-  @media only screen and (min-width: 768px) {
-    height: calc(317px * 2 + 24px);
-  }
-
-  @media only screen and (min-width: 1440px) {
-    height: 335px;
-  }
 }
 
 .navigationWrapper {
@@ -82,7 +71,7 @@
   flex-shrink: 0;
   font-size: 16px;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 20px;
   }
 }
@@ -124,4 +113,18 @@
   height: 24px;
   stroke-width: 4px;
   stroke: var(--color-scheme-2-text);
+}
+
+.slide {
+  width: 100%;
+  max-width: 335px;
+
+  @media only screen and (min-width: 565px) {
+    max-width: none;
+    width: 340px;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    width: 420px;
+  }
 }

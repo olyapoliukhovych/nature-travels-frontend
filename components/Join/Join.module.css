@@ -1,7 +1,7 @@
 .joinSection {
   padding: 32px 0;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     padding: 48px 0;
   }
 }
@@ -22,14 +22,14 @@
 
   background-color: var(--color-scheme-2-foreground);
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     background-image: image-set(
       url("/join/join-tablet@1x.webp") 1x,
       url("/join/join-tablet@2x.webp") 2x
     );
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     background-image: image-set(
       url("/join/join-desktop@1x.webp") 1x,
       url("/join/join-desktop@2x.webp") 2x
@@ -42,7 +42,7 @@
   z-index: 1;
   padding: 16px;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     padding: 64px;
     max-width: 900px;
   }
@@ -57,11 +57,11 @@
   color: #fff;
   margin-bottom: 24px;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     font-size: 32px;
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 48px;
   }
 }
@@ -73,7 +73,7 @@
   color: #fff;
   margin-bottom: 32px;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 20px;
   }
 }
@@ -87,10 +87,10 @@
   line-height: 1.5;
   max-width: 320px;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 20px;
   }
 }

@@ -1,8 +1,8 @@
 import css from "./Footer.module.css";
-import Copyright from "./Copyright";
 import SocialList from "./SocialList/SocialList";
 import Logo from "../Logo/Logo";
 import NavLinks from "../NavLinks/NavLinks";
+import Copyright from "./Copyright/Copyright";
 
 export default function Footer() {
   return (

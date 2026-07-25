@@ -50,23 +50,10 @@ export default function OurTravellers() {
               disabledClass: css.disabled,
             }}
             loop={false}
-            breakpoints={{
-              320: {
-                slidesPerView: 1,
-                grid: { rows: 3, fill: "row" },
-              },
-              768: {
-                slidesPerView: 2,
-                grid: { rows: 2, fill: "row" },
-              },
-              1440: {
-                slidesPerView: 4,
-                grid: { rows: 1, fill: "row" },
-              },
-            }}
+            slidesPerView="auto"
           >
             {travellers.map((el) => (
-              <SwiperSlide className={css.cardWrapper} key={el._id}>
+              <SwiperSlide key={el._id} className={css.slide}>
                 <TravellerCard user={el} />
               </SwiperSlide>
             ))}
