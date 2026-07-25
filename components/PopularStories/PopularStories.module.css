@@ -119,11 +119,10 @@
   max-width: 335px;
 
   @media only screen and (min-width: 565px) {
-    max-width: none;
-    width: 340px;
+    max-width: 340px;
   }
 
   @media only screen and (min-width: 1200px) {
-    width: 420px;
+    max-width: 420px;
   }
 }
