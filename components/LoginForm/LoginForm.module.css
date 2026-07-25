@@ -19,7 +19,7 @@
   font-size: 16px;
   color: var(--color-scheme-1-text);
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     font-size: 18px;
   }
 }
@@ -40,7 +40,7 @@
     border: 1px solid var(--color-scheme-1-accent);
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 18px;
     height: 52px;
   }
@@ -67,7 +67,7 @@
   border: 1px solid var(--color-mantis-dark);
   font-size: 16px;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 20px;
   }
 }
@@ -83,7 +83,7 @@
   height: 41px;
   padding: 0;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     top: 46%;
   }
 }

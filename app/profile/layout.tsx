@@ -16,10 +16,10 @@ export default async function ProfileLayout({
   }
 
   return (
-    <>
+    <div className={"layoutWrapper"}>
       <Header />
       <ProfileLayoutClient user={user}>{children}</ProfileLayoutClient>
       <Footer />
-    </>
+    </div>
   );
 }

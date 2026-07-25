@@ -244,7 +244,7 @@ const AddStoryForm = ({
                       : "Місце для обкладинки статті"
                   }
                   fill
-                  sizes="(min-width: 1440px) 1091px, 100%"
+                  sizes="(min-width: 1200px) 1091px, 100%"
                   className={css.image}
                   priority
                 />

@@ -1,7 +1,11 @@
 .profileLayoutWrapper {
+  display: flex;
+  flex-direction: column;
   padding: 32px 0 64px;
+  flex-grow: 1;
+  width: 100%;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     padding: 48px 0 72px 0;
   }
 }

@@ -1,29 +1,18 @@
-.container {
+.section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  color: var(--color-scheme-1-text);
-  font-family: var(--font-family);
-  max-width: 320px;
-  margin: 0 auto;
-
-  @media only screen and (min-width: 768px) {
-    max-width: 768px;
-  }
-
-  @media only screen and (min-width: 1440px) {
-    max-width: 1440px;
-  }
+  padding: 80px 0;
 }
 
 .title {
-  margin: 0px;
   margin-bottom: 12px;
+  text-align: center;
 }
 
 .description {
+  text-align: center;
   margin-bottom: 18px;
 }
 
@@ -49,12 +38,13 @@
 }
 
 .link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
   text-align: center;
-  padding: 4px 10px;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 8px 20px;
   border-radius: 6px;
   border: 1px solid var(--color-mantis-dark);
   background-color: var(--color-mantis-dark);
@@ -63,17 +53,17 @@
     background var(--transition),
     color var(--transition),
     transform var(--transition);
-}
 
-.link:hover,
-.link:focus-visible {
-  background-color: var(--color-mantis-lighter);
-}
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color-mantis-lighter);
+  }
 
-.link:active {
-  background-color: var(--color-mantis-dark);
-  border: 1px solid var(--color-mantis-dark);
-  transform: scale(0.97);
+  &:active {
+    background-color: var(--color-mantis-dark);
+    border: 1px solid var(--color-mantis-dark);
+    transform: scale(0.97);
+  }
 }
 
 :global([data-theme="dark"]) .link {

@@ -79,14 +79,10 @@ export default function PopularStories({
               disabledClass: css.disabled,
             }}
             loop={false}
-            breakpoints={{
-              320: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1440: { slidesPerView: 3 },
-            }}
+            slidesPerView="auto"
           >
             {stories.map((el, index) => (
-              <SwiperSlide key={el._id}>
+              <SwiperSlide key={el._id} className={css.slide}>
                 <StoryCard story={el} priority={index < 2} />
               </SwiperSlide>
             ))}

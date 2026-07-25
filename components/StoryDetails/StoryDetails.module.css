@@ -3,9 +3,8 @@
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  margin-bottom: 24px;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     gap: 48px;
   }
 }
@@ -15,37 +14,30 @@
   flex-direction: column;
   gap: 24px;
 
-  @media only screen and (min-width: 1440px) {
-    display: flex;
-    flex-direction: row-reverse;
+  @media only screen and (min-width: 1200px) {
+    display: grid;
+    grid-template-columns: 59fr 41fr;
+    direction: rtl;
     align-items: stretch;
   }
+}
+
+.desctopWrapper > * {
+  direction: ltr;
 }
 
 .imageWrapper {
   position: relative;
   overflow: hidden;
   width: 100%;
-  max-width: 335px;
-  height: 223px;
+  aspect-ratio: 16 / 10;
   border-radius: 24px;
   background-color: var(--color-scheme-2-foreground);
 
-  @media only screen and (min-width: 768px) {
-    max-width: 704px;
-    height: 468px;
+  @media only screen and (min-width: 1200px) {
+    flex: unset;
+    aspect-ratio: 3 / 2;
   }
-
-  @media only screen and (min-width: 1440px) {
-    width: 755px;
-    max-width: 755px;
-    height: 502px;
-    flex: 0 0 755px;
-  }
-}
-
-.image {
-  object-fit: cover;
 }
 
 .contentWrapper {
@@ -54,10 +46,13 @@
   gap: 24px;
   width: 100%;
 
-  @media only screen and (min-width: 1440px) {
-    width: 533px;
-    flex: 0 0 533px;
+  @media only screen and (min-width: 1200px) {
+    flex: unset;
   }
+}
+
+.image {
+  object-fit: cover;
 }
 
 .autorsWrapp {
@@ -73,11 +68,11 @@
   letter-spacing: -0.01em;
   color: var(--color-scheme-2-text);
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
     font-size: 48px;
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 56px;
   }
 }
@@ -90,9 +85,9 @@
   align-self: flex-start;
   font-weight: 500;
   font-size: 16px;
-  line-height: 150%;
+  line-height: 1.5;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 20px;
   }
 }
@@ -110,13 +105,13 @@
   line-height: 1.5;
   color: var(--color-scheme-2-text);
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 18px;
   }
 }
 
 .textDesctop {
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     max-width: 865px;
     margin: 0 auto;
   }
@@ -142,7 +137,7 @@
   line-height: 150%;
   color: var(--color-scheme-2-text);
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 16px;
     height: 36px;
   }
@@ -151,10 +146,10 @@
 .saveStoryTitle {
   font-weight: 700;
   font-size: 18px;
-  line-height: 140%;
+  line-height: 1.4;
   color: var(--color-neutral-darkest);
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     font-size: 26px;
   }
 }
@@ -169,9 +164,11 @@
   flex-direction: column;
   gap: 16px;
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     padding: 32px;
-    margin: 0 223px;
+    width: 100%;
+    max-width: 865px;
+    margin: 0 auto;
   }
 }
 
@@ -179,11 +176,12 @@
   font-size: 16px;
   min-height: 48px;
   width: 100%;
-  max-width: 320px;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 565px) {
+    max-width: 320px;
   }
-  @media only screen and (min-width: 1440px) {
+
+  @media only screen and (min-width: 1200px) {
     font-size: 20px;
   }
 }

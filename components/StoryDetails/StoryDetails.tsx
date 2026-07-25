@@ -27,7 +27,6 @@ export default function StoryDetailsPage({ story }: Props) {
             className={css.image}
             src={story.img}
             alt={story.title}
-            sizes="(min-width: 1440px) 755px, (min-width: 768px) 704px, 335px"
             fill
             priority
           />
