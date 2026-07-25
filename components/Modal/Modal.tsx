@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import css from "./Modal.module.css";
 import { createPortal } from "react-dom";
+import FocusLock from "react-focus-lock";
 
 interface ModalProps {
   children: ReactNode;
@@ -34,16 +35,18 @@ export default function Modal({ children, onClose }: ModalProps) {
   };
 
   return createPortal(
-    <div
-      className={css.backdrop}
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose}
-    >
-      <div className={css.modal} onClick={handleModalClick}>
-        {children}
+    <FocusLock returnFocus>
+      <div
+        className={css.backdrop}
+        role="dialog"
+        aria-modal="true"
+        onClick={onClose}
+      >
+        <div className={css.modal} onClick={handleModalClick}>
+          {children}
+        </div>
       </div>
-    </div>,
+    </FocusLock>,
     document.body,
   );
 }
