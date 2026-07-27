@@ -1,5 +1,6 @@
 "use client";
 
+import { Drawer } from "vaul";
 import { clsx } from "clsx";
 import css from "./BurgerMenu.module.css";
 import NavLinks from "../NavLinks/NavLinks";
@@ -9,72 +10,99 @@ import Logo from "../Logo/Logo";
 import BurgerMenuBtn from "../BurgerMenuBtn/BurgerMenuBtn";
 import { useAuthStore } from "@/lib/store/authStore";
 import AppLink from "../AppLink/AppLink";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onLogoutClick: () => void;
 }
 
-export default function BurgerMenu({ isOpen, onClose }: Props) {
+export default function BurgerMenu({ isOpen, onClose, onLogoutClick }: Props) {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const [isTablet, setIsTablet] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
+    const checkScreen = () => {
+      setIsTablet(window.innerWidth >= 480);
     };
-  }, [isOpen]);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handlePopState = () => {
+      onClose();
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isOpen, onClose]);
 
   return (
-    <div
-      className={clsx(css.backdrop, isOpen && css.backdropActive)}
-      onClick={onClose}
+    <Drawer.Root
+      open={isOpen}
+      onOpenChange={(open) => !open && onClose()}
+      direction={isTablet ? "right" : "bottom"}
     >
-      <div
-        className={clsx(css.panel, isOpen && css.panelActive)}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className={clsx(css.wrapper, "container")}>
-          <div className={css.header}>
-            <div className={css.logoWrapper}>
-              <Logo onClick={onClose} />
+      <Drawer.Portal>
+        <Drawer.Overlay className={css.backdrop} />
+
+        <Drawer.Content
+          className={clsx(
+            css.panel,
+            isTablet ? css.panelRight : css.panelBottom,
+          )}
+        >
+          {!isTablet && (
+            <div className={css.dragHandleWrapper}>
+              <div className={css.dragHandle} />
+            </div>
+          )}
+
+          <div className={clsx(css.wrapper, "container")}>
+            <div className={css.header}>
+              <div className={css.logoWrapper}>
+                <Logo onClick={onClose} />
+              </div>
+
+              <div className={css.closeButtonWrapper}>
+                <BurgerMenuBtn isOpen={true} setIsOpen={onClose} />
+              </div>
             </div>
 
-            <div className={css.closeButtonWrapper}>
-              <BurgerMenuBtn isOpen={true} setIsOpen={onClose} />
+            <div className={css.content}>
+              <div className={css.navWrap}>
+                <NavLinks onClick={onClose} />
+              </div>
+
+              <div className={css.actions}>
+                {isAuthenticated ? (
+                  <div className={css.profileWrapper}>
+                    <AppLink
+                      href="/stories/new"
+                      variant="mantis"
+                      className={css.publish}
+                      onClick={onClose}
+                    >
+                      Опублікувати статтю
+                    </AppLink>
+                    <UserBar onLogoutClick={onLogoutClick} />
+                  </div>
+                ) : (
+                  <AuthBar direction="column" onClick={onClose} />
+                )}
+              </div>
             </div>
           </div>
-
-          <div className={css.content}>
-            <div className={css.navWrap}>
-              <NavLinks onClick={onClose} />
-            </div>
-
-            <div className={css.actions}>
-              {isAuthenticated ? (
-                <div className={css.profileWrapper}>
-                  <AppLink
-                    href="/stories/new"
-                    variant="mantis"
-                    className={css.publish}
-                    onClick={onClose}
-                  >
-                    Опублікувати статтю
-                  </AppLink>
-                  <UserBar />
-                </div>
-              ) : (
-                <AuthBar direction="column" onClick={onClose} />
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        </Drawer.Content>
+      </Drawer.Portal>
+    </Drawer.Root>
   );
 }

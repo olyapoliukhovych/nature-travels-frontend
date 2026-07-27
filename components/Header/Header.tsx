@@ -11,10 +11,30 @@ import AppLink from "../AppLink/AppLink";
 import { useAuthStore } from "@/lib/store/authStore";
 import clsx from "clsx";
 import Logo from "../Logo/Logo";
+import Modal from "../Modal/Modal";
+import { ModeModal } from "../ModeModal/ModeModal";
+import { logoutUser } from "@/lib/api/auth/clientApi";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const clear = useAuthStore((s) => s.clearIsAuthenticated);
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+    } catch {
+    } finally {
+      clear();
+      window.location.href = "/";
+    }
+  };
+
+  const handleLogoutClick = () => {
+    setIsOpen(false);
+    setIsLogoutModalOpen(true);
+  };
 
   return (
     <header className={css.header}>
@@ -38,7 +58,7 @@ export default function Header() {
               </AppLink>
             </div>
             <div className={css.userBarWrapper}>
-              <UserBar />
+              <UserBar onLogoutClick={handleLogoutClick} />
             </div>
           </>
         ) : (
@@ -52,7 +72,21 @@ export default function Header() {
         </div>
       </div>
 
-      <BurgerMenu isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <BurgerMenu
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onLogoutClick={handleLogoutClick}
+      />
+
+      {isLogoutModalOpen && (
+        <Modal onClose={() => setIsLogoutModalOpen(false)}>
+          <ModeModal
+            mode="logout"
+            onClose={() => setIsLogoutModalOpen(false)}
+            logout={handleLogout}
+          />
+        </Modal>
+      )}
     </header>
   );
 }
