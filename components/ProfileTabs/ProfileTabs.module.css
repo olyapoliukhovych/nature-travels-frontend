@@ -1,33 +1,57 @@
 .profileTabsNav {
-  display: inline-flex;
+  position: relative;
+  display: flex;
   align-items: center;
   background: var(--color-scheme-2-foreground);
   padding: 6px;
   border-radius: 10px;
   margin-bottom: 40px;
-  width: 100%;
+  max-width: 428px;
 
   @media only screen and (min-width: 565px) {
-    width: auto;
     height: 54px;
   }
 }
 
-.profileTabsLink {
-  height: 100%;
-  padding: 8px 18px;
-  width: 50%;
-  text-decoration: none;
-  color: var(--color-scheme-2-text);
-  transition: var(--transition);
-  white-space: nowrap;
-
-  @media only screen and (min-width: 565px) {
-    width: 208px;
-  }
-}
-
-.profileTabsActive {
+.profileTabsNav::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  width: calc(50% - 6px);
+  height: calc(100% - 12px);
   background: var(--color-scheme-2-background);
   border: 1px solid var(--color-scheme-2-border);
+  border-radius: 8px;
+  transition: transform var(--transition);
+  z-index: 1;
+}
+
+.profileTabsNav.savedActive::after {
+  transform: translateX(0);
+}
+
+.profileTabsNav.myStoriesActive::after {
+  transform: translateX(100%);
+}
+
+.profileTabsLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 8px 12px;
+  flex: 1;
+  min-width: 0;
+  text-decoration: none;
+  color: var(--color-scheme-2-text);
+  z-index: 2;
+}
+
+.profileTabsText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }

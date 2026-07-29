@@ -108,13 +108,9 @@ export default function ProfileSettingsForm({ user }: Props) {
             />
           </div>
 
-          <AnimatedText
-            className={css.uploadBtn}
-            tag="label"
-            htmlFor="image-upload"
-          >
+          <label className={css.uploadBtn} htmlFor="image-upload">
             Завантажити фото
-          </AnimatedText>
+          </label>
           <input
             className={css.fileInput}
             id="image-upload"
