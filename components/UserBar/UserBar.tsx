@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Icon } from "../Icon/Icon";
 import { useAuthStore } from "@/lib/store/authStore";
 import { ThemeToggleButton } from "../ThemeToggleButton/ThemeToggleButton";
-import AnimatedText from "../AnimatedText/AnimatedText";
 import { AnimationToggleButton } from "../AnimationToggleButton/AnimationToggleButton";
 
 interface Props {
@@ -29,9 +28,7 @@ export default function UserBar({ onLogoutClick }: Props) {
           />
         </div>
 
-        <AnimatedText tag="span" className={css.name}>
-          {user?.name || "Ім'я"}
-        </AnimatedText>
+        <span className={css.name}>{user?.name || "Ім'я"}</span>
       </Link>
 
       <span className={css.divider} />

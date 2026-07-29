@@ -232,9 +232,7 @@ const AddStoryForm = ({
           <Form className={css.form}>
             {!isEditMode && <FormikObserver />}
             <div className={css.imageSection}>
-              <AnimatedText tag="span" className={css.span}>
-                Обкладинка статті
-              </AnimatedText>
+              <span className={css.span}>Обкладинка статті</span>
               <div className={css.imagePreview}>
                 <Image
                   src={preview || "/placeholder.png"}
@@ -250,9 +248,7 @@ const AddStoryForm = ({
                 />
               </div>
               <label className={css.uploadBtn}>
-                <AnimatedText tag="span">
-                  {isEditMode ? "Змінити фото" : "Завантажити фото"}
-                </AnimatedText>
+                {isEditMode ? "Змінити фото" : "Завантажити фото"}
 
                 <input
                   id="image-upload"
@@ -277,13 +273,9 @@ const AddStoryForm = ({
             </div>
 
             <div className={css.fieldGroup}>
-              <AnimatedText
-                tag="label"
-                htmlFor="title-input"
-                className={css.label}
-              >
+              <label htmlFor="title-input" className={css.label}>
                 Заголовок
-              </AnimatedText>
+              </label>
               <Field
                 id="title-input"
                 name="title"
@@ -302,13 +294,9 @@ const AddStoryForm = ({
             </div>
 
             <div className={css.fieldGroup}>
-              <AnimatedText
-                tag="label"
-                htmlFor="category-select-input"
-                className={css.label}
-              >
+              <label htmlFor="category-select-input" className={css.label}>
                 Категорія
-              </AnimatedText>
+              </label>
               <AppSelect
                 inputId="category-select-input"
                 instanceId="category-select"
@@ -331,13 +319,9 @@ const AddStoryForm = ({
             </div>
 
             <div className={css.fieldGroup}>
-              <AnimatedText
-                tag="label"
-                htmlFor="article-field"
-                className={css.label}
-              >
+              <label htmlFor="article-field" className={css.label}>
                 Текст історії
-              </AnimatedText>
+              </label>
               <Field
                 id="article-field"
                 name="article"

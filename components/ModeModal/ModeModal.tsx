@@ -2,7 +2,6 @@ import { Icon } from "../Icon/Icon";
 import css from "./ModeModal.module.css";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import Button from "../Button/Button";
-import AnimatedText from "../AnimatedText/AnimatedText";
 import AppLink from "../AppLink/AppLink";
 
 interface Props {
@@ -46,12 +45,8 @@ export function ModeModal({ mode, onClose, logout, onDelete }: Props) {
         <Icon id="icon-close" className={css.iconClose} />
       </button>
 
-      <AnimatedText tag="h2" align="center" className={css.titleModal}>
-        {content.title}
-      </AnimatedText>
-      <AnimatedText tag="p" align="center" className={css.textModal}>
-        {content.text}
-      </AnimatedText>
+      <h2 className={css.titleModal}>{content.title}</h2>
+      <p className={css.textModal}>{content.text}</p>
 
       <div className={css.navigationWrapper}>
         {mode === "save" ? (

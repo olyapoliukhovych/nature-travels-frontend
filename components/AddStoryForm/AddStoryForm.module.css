@@ -190,6 +190,11 @@
     min-width: 160px;
     padding: 12px 24px;
   }
+
+  &:hover,
+  &:focus-visible {
+    color: #fff !important;
+  }
 }
 
 .titleCharCount,
