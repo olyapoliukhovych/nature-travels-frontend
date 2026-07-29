@@ -39,24 +39,14 @@ export default function StoryDetailsPage({ story }: Props) {
 
           <ul className={css.autorsWrapp}>
             <li className={css.text}>
-              <AnimatedText tag="span" className={css.bold}>
-                Автор статті
-              </AnimatedText>
-              <AnimatedText tag="span">
-                {story.ownerId?.name ?? "Невідомий автор"}
-              </AnimatedText>
+              <span className={css.bold}>Автор статті</span>
+              {story.ownerId?.name ?? "Невідомий автор"}
             </li>
             <li className={css.text}>
-              <AnimatedText tag="span" className={css.bold}>
-                Опубліковано
-              </AnimatedText>
-              <AnimatedText tag="span">{formattedDate}</AnimatedText>
+              <span className={css.bold}>Опубліковано</span>
+              {formattedDate}
             </li>
-            <li className={css.categories}>
-              <AnimatedText tag="span">
-                {story.categoryId.category}
-              </AnimatedText>
-            </li>
+            <li className={css.categories}>{story.categoryId.category}</li>
           </ul>
         </div>
       </div>

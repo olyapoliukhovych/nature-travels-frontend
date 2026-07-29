@@ -1,6 +1,5 @@
 import RegistrationForm from "@/components/RegistrationForm/RegistrationForm";
-import css from "./page.module.css";
-import AnimatedText from "@/components/AnimatedText/AnimatedText";
+import css from "../page.module.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,14 +11,8 @@ export const metadata: Metadata = {
 export default function RegisterPage() {
   return (
     <>
-      <AnimatedText align="center">Реєстрація</AnimatedText>
-      <AnimatedText
-        tag="p"
-        align="center"
-        className={css.registerFormParagraph}
-      >
-        Раді вас бачити у спільноті мандрівників!
-      </AnimatedText>
+      <h1 className={css.title}>Реєстрація</h1>
+      <p className={css.text}>Раді вас бачити у спільноті мандрівників!</p>
       <RegistrationForm />
     </>
   );

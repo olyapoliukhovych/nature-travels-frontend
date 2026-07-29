@@ -16,7 +16,6 @@ import { useAuthStore } from "@/lib/store/authStore";
 import { refreshSession } from "@/lib/api/auth/clientApi";
 import { AxiosError } from "axios";
 import Modal from "../Modal/Modal";
-import AnimatedText from "../AnimatedText/AnimatedText";
 
 interface SaveStorySectionProps {
   storyId: string;
@@ -115,14 +114,14 @@ export default function SaveStorySection({
 
   return (
     <div className={css.saveStoryWrapper}>
-      <AnimatedText tag="h3" className={css.title}>
+      <h3 className={css.title}>
         {isSaved ? "Стаття збережена" : "Збережіть собі історію"}
-      </AnimatedText>
-      <AnimatedText tag="p" className={css.text}>
+      </h3>
+      <p className={css.text}>
         {isSaved
           ? "Історія доступна у Вашому профілі у розділі збережене. Ви можете її видалити"
           : "Вона буде доступна у Вашому профілі у розділі збережене"}
-      </AnimatedText>
+      </p>
 
       <Button
         className={css.saveButton}

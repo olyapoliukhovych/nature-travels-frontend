@@ -4,8 +4,6 @@ import Link from "next/link";
 import { Icon } from "../Icon/Icon";
 import css from "./BackLink.module.css";
 import { useAuthStore } from "@/lib/store/authStore";
-import AnimatedText from "../AnimatedText/AnimatedText";
-import GrassEffect from "../GrassEffect/GrassEffect";
 
 interface BackLinkProps {
   variant: "stories" | "travellers";
@@ -38,11 +36,9 @@ export default function BackLink({
 
   return (
     <Link href={href} className={`${css.link} ${className ?? ""}`}>
-      <GrassEffect>
-        <Icon id="icon-chevron_left" className={css.icon} />
-      </GrassEffect>
+      <Icon id="icon-chevron_left" className={css.icon} />
 
-      <AnimatedText tag="span">{label}</AnimatedText>
+      {label}
     </Link>
   );
 }
