@@ -85,9 +85,9 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
-  max-width: 320px;
 
   @media only screen and (min-width: 565px) {
+    width: 320px;
   }
 
   @media only screen and (min-width: 1200px) {
