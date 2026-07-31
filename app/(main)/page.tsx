@@ -3,12 +3,6 @@ import OurTravellers from "@/components/OurTravellers/OurTravellers";
 import About from "@/components/About/About";
 import PopularStories from "@/components/PopularStories/PopularStories";
 import Join from "@/components/Join/Join";
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
-import { getAllStories } from "@/lib/api/stories/serverApi";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,18 +11,9 @@ export const metadata: Metadata = {
     "Природні Мандри — ваша платформа для екологічних подорожей Україною.",
 };
 
-export default async function Home() {
-  const queryClient = new QueryClient();
-
-  await Promise.all([
-    queryClient.prefetchQuery({
-      queryKey: ["stories-popular"],
-      queryFn: () => getAllStories({ page: 1, perPage: 10 }),
-    }),
-  ]);
-
+export default function Home() {
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
+    <>
       <Hero />
       <PopularStories
         title="Популярні статті"
@@ -39,6 +24,6 @@ export default async function Home() {
       <About />
       <OurTravellers />
       <Join />
-    </HydrationBoundary>
+    </>
   );
 }

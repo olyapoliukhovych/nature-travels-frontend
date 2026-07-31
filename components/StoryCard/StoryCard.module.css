@@ -1,71 +1,3 @@
-.titleWrapper {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.point {
-  transform: translateY(-4px);
-}
-
-.appLink {
-  flex-grow: 1;
-  height: 48px;
-  font-weight: 500;
-  font-size: 16px;
-  padding: 6px 12px;
-
-  @media only screen and (min-width: 1200px) {
-    font-size: 20px;
-  }
-}
-
-.saveButton,
-.editLink {
-  flex-shrink: 0;
-  border: 1px solid var(--color-scheme-2-border);
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-  padding: 6px;
-  background: var(--opacity-neutral-darkest-5);
-  color: var(--color-scheme-2-text);
-  transition:
-    border-color var(--transition),
-    background-color var(--transition),
-    color var(--transition);
-
-  &:hover,
-  &:focus {
-    background: var(--color-mantis-dark);
-    color: var(--color-white);
-    border: 1px solid transparent;
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-}
-
-.appLink:active {
-  background: var(--color-mantis-darker);
-}
-
-.saveButton.isSaved {
-  border: 1px solid var(--color-scheme-2-border);
-  background: var(--opacity-neutral-darkest-5);
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-  animation: fadeInScale 0.3s ease-out;
-}
-
 @keyframes fadeInScale {
   from {
     opacity: 0.5;
@@ -74,66 +6,6 @@
   to {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-:global([data-theme="dark"]) .icon {
-  fill: #fff !important;
-}
-
-:global([data-theme="light"]) .icon {
-  fill: #1b391b !important;
-}
-
-:global([data-theme="light"]) .saveButton:hover .icon,
-.saveButton:focus .icon,
-.saveButton:active .icon {
-  fill: #fff !important;
-}
-
-.buttonWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  justify-content: space-between;
-}
-
-.descriptionWrapper {
-  padding: 16px;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
-
-.imageWrapper {
-  position: relative;
-  width: 100%;
-
-  aspect-ratio: 1/1;
-  overflow: hidden;
-}
-
-.picture {
-  object-fit: cover;
-  width: auto;
-  height: auto;
-}
-
-.title {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 12px;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 1.5;
-
-  min-height: calc(18px * 1.5 * 2);
-
-  @media only screen and (min-width: 1200px) {
-    font-size: 26px;
   }
 }
 
@@ -147,18 +19,178 @@
   background: var(--color-scheme-2-foreground);
 }
 
+.point {
+  transform: translateY(-4px);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.picture {
+  object-fit: cover;
+  width: auto;
+  height: auto;
+}
+
 .descriptionWrapper {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   justify-content: space-between;
+  padding: 16px;
+  gap: 12px;
   font-weight: 600;
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 2;
 
   @media only screen and (min-width: 1200px) {
-    height: 212px;
     font-size: 16px;
+  }
+}
+
+.titleWrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.5;
+  min-height: calc(18px * 1.5 * 2);
+
+  @media only screen and (min-width: 1200px) {
+    font-size: 26px;
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.appLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 6px 12px;
+  font-weight: 500;
+  font-size: 16px;
+  min-width: 0;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+
+  &:active {
+    background: var(--color-mantis-darker);
+  }
+
+  @media only screen and (min-width: 1200px) {
+    font-size: 20px;
+  }
+}
+
+.appLinkText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 100%;
+}
+
+.saveButton,
+.editLink {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 6px;
+  border: 1px solid var(--color-scheme-2-border);
+  border-radius: 6px;
+  background: var(--opacity-neutral-darkest-5);
+  color: var(--color-scheme-2-text);
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    color var(--transition);
+
+  &:hover,
+  &:focus {
+    background: var(--color-mantis-dark);
+    color: var(--color-white);
+    border-color: transparent;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.saveButton.isSaved {
+  border-color: var(--color-scheme-2-border);
+  background: var(--opacity-neutral-darkest-5);
+}
+
+.icon,
+.editIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.icon {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+.editIcon {
+  transition: fill var(--transition);
+}
+
+.bookmark {
+  width: 16px;
+  height: 16px;
+}
+
+:global([data-theme="dark"]) {
+  .icon,
+  .editIcon {
+    fill: #fff !important;
+  }
+}
+
+:global([data-theme="light"]) {
+  .icon {
+    fill: #1b391b !important;
+  }
+  .editIcon {
+    fill: #000 !important;
+  }
+}
+
+:global([data-theme="light"]) {
+  .saveButton:hover .icon,
+  .saveButton:focus .icon,
+  .saveButton:active .icon,
+  .editLink:hover svg,
+  .editLink:focus svg,
+  .editLink:active svg {
+    fill: #fff !important;
   }
 }
 
@@ -175,27 +207,39 @@
   }
 }
 
-.bookmark {
-  width: 16px;
-  height: 16px;
+.skeletonImage {
+  width: 100%;
+  aspect-ratio: 1 / 1;
 }
 
-.editIcon {
-  width: 24px;
+.skeletonMeta {
   height: 24px;
-  transition: fill var(--transition);
+  width: 45%;
+  border-radius: 4px;
+
+  @media only screen and (min-width: 1200px) {
+    height: 32px;
+  }
 }
 
-:global([data-theme="dark"]) .editIcon {
-  fill: #fff !important;
+.skeletonTitle {
+  height: 54px;
+  width: 100%;
+  border-radius: 4px;
+
+  @media only screen and (min-width: 1200px) {
+    height: 78px;
+  }
 }
 
-:global([data-theme="light"]) .editIcon {
-  fill: #000 !important;
+.skeletonAppLink {
+  flex: 1;
+  height: 48px;
+  border-radius: 6px;
 }
 
-:global([data-theme="light"]) .editLink:hover svg,
-.editLink:focus svg,
-.editLink:active svg {
-  fill: #fff !important;
+.skeletonSaveBtn {
+  height: 48px;
+  width: 48px;
+  border-radius: 6px;
 }

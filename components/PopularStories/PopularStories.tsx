@@ -6,12 +6,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 import StoryCard from "../StoryCard/StoryCard";
+import StoryCardSkeleton from "../StoryCardSkeleton/StoryCardSkeleton";
 import css from "./PopularStories.module.css";
 import AppLink from "../AppLink/AppLink";
 import { Icon } from "../Icon/Icon";
 import { useQuery } from "@tanstack/react-query";
 import { getAllStories } from "@/lib/api/stories/clientApi";
 import AnimatedText from "../AnimatedText/AnimatedText";
+import { useInView } from "react-intersection-observer";
+import clsx from "clsx";
 
 type Props = {
   title?: string;
@@ -32,7 +35,12 @@ export default function PopularStories({
   currentStoryId,
   withContainer = true,
 }: Props) {
-  const { data } = useQuery({
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const { data, isLoading } = useQuery({
     queryKey: [queryKeyName, categoryId],
     queryFn: () =>
       getAllStories({
@@ -41,6 +49,7 @@ export default function PopularStories({
         ...(categoryId ? { categoryId } : {}),
       }),
     staleTime: 1000 * 60 * 2,
+    enabled: inView,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
@@ -48,10 +57,10 @@ export default function PopularStories({
   const stories =
     data?.stories.filter((story) => story._id !== currentStoryId) || [];
 
-  if (stories.length === 0) return null;
+  const showSkeleton = !inView || isLoading;
 
   return (
-    <section className={css.wrapper}>
+    <section ref={ref} className={css.wrapper}>
       <div
         className={`${withContainer ? "container" : ""} ${css.gridContainer}`}
       >
@@ -68,34 +77,53 @@ export default function PopularStories({
         )}
 
         <div className={css.sliderWrapper}>
-          <Swiper
-            spaceBetween={24}
-            modules={[Navigation]}
-            observer={true}
-            observeParents={true}
-            navigation={{
-              nextEl: `.${css.next}`,
-              prevEl: `.${css.prev}`,
-              disabledClass: css.disabled,
-            }}
-            loop={false}
-            slidesPerView="auto"
-          >
-            {stories.map((el, index) => (
-              <SwiperSlide key={el._id} className={css.slide}>
-                <StoryCard story={el} priority={index < 2} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {showSkeleton ? (
+            <div className={css.skeletonContainer}>
+              {[...Array(4)].map((_, index) => (
+                <div key={`skeleton-${index}`} className={css.slide}>
+                  <StoryCardSkeleton />
+                </div>
+              ))}
+            </div>
+          ) : stories.length === 0 ? null : (
+            <Swiper
+              spaceBetween={24}
+              modules={[Navigation]}
+              observer={true}
+              observeParents={true}
+              navigation={{
+                nextEl: `.${css.next}`,
+                prevEl: `.${css.prev}`,
+                disabledClass: css.disabled,
+              }}
+              loop={false}
+              slidesPerView="auto"
+            >
+              {stories.map((el, index) => (
+                <SwiperSlide key={el._id} className={css.slide}>
+                  <StoryCard story={el} priority={index < 2} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
         </div>
 
         <div className={css.navigationWrapper}>
-          <button className={css.prev} aria-label="Попередня історія">
-            <Icon id="icon-arrow_back" className={css.arrow} />
-          </button>
-          <button className={css.next} aria-label="Наступна історія">
-            <Icon id="icon-arrow_forward" className={css.arrow} />
-          </button>
+          {showSkeleton ? (
+            <>
+              <div className={clsx(css.skeletonNav, "skeletonBase")} />
+              <div className={clsx(css.skeletonNav, "skeletonBase")} />
+            </>
+          ) : (
+            <>
+              <button className={css.prev} aria-label="Попередня історія">
+                <Icon id="icon-arrow_back" className={css.arrow} />
+              </button>
+              <button className={css.next} aria-label="Наступна історія">
+                <Icon id="icon-arrow_forward" className={css.arrow} />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </section>

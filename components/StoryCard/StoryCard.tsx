@@ -213,7 +213,7 @@ export default function StoryCard({ story, priority = false }: Props) {
               variant={"neutral"}
               className={css.appLink}
             >
-              Переглянути статтю
+              <span className={css.appLinkText}>Переглянути статтю</span>
             </AppLink>
 
             {showEditButton ? (
