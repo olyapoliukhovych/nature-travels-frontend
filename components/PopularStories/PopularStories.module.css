@@ -76,8 +76,8 @@
   }
 }
 
-.next,
-.prev {
+.prev,
+.next {
   width: 48px;
   height: 48px;
   border-radius: 8px;
@@ -117,7 +117,7 @@
 
 .slide {
   width: 100%;
-
+  flex-shrink: 0;
   max-width: 335px;
 
   @media only screen and (min-width: 565px) {
@@ -127,4 +127,17 @@
   @media only screen and (min-width: 1200px) {
     max-width: 420px;
   }
+}
+
+.skeletonContainer {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.skeletonNav {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
 }
