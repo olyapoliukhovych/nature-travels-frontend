@@ -25,24 +25,12 @@
   display: block;
 }
 
-.userInfo {
-  margin-bottom: 16px;
-}
-
-.userButton {
-  height: 48px;
-  width: 100%;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.5;
-
-  @media only screen and (min-width: 1200px) {
-    font-size: 20px;
-  }
-}
-
 .infoWrappper {
   width: 100%;
+}
+
+.userInfo {
+  margin-bottom: 16px;
 }
 
 .userName {
@@ -67,4 +55,49 @@
   @media only screen and (min-width: 1200px) {
     font-size: 20px;
   }
+}
+
+.userButton {
+  height: 48px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+
+  @media only screen and (min-width: 1200px) {
+    font-size: 20px;
+  }
+}
+
+.skeletonAvatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.skeletonName {
+  height: 22px;
+  width: 90%;
+  margin-bottom: 9px;
+  border-radius: 4px;
+
+  @media only screen and (min-width: 1200px) {
+    height: 34px;
+  }
+}
+
+.skeletonText {
+  height: 20px;
+  width: 45%;
+  border-radius: 4px;
+
+  @media only screen and (min-width: 1200px) {
+    height: 26px;
+  }
+}
+
+.skeletonButton {
+  height: 48px;
+  width: 100%;
+  border-radius: 6px;
 }
