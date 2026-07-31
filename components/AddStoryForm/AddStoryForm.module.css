@@ -119,6 +119,7 @@
   font-size: 18px;
   outline: none;
   box-sizing: border-box;
+  transition: border var(--transition);
 
   &:focus,
   &:hover {
