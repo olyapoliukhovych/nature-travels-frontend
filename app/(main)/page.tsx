@@ -9,7 +9,6 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { getAllStories } from "@/lib/api/stories/serverApi";
-import { getAllUsers } from "@/lib/api/users/serverApi";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -25,10 +24,6 @@ export default async function Home() {
     queryClient.prefetchQuery({
       queryKey: ["stories-popular"],
       queryFn: () => getAllStories({ page: 1, perPage: 10 }),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: ["popular-travellers"],
-      queryFn: () => getAllUsers({ page: 1, perPage: 12 }),
     }),
   ]);
 
