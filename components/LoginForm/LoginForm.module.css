@@ -33,6 +33,7 @@
   border-radius: 6px;
   padding: 10px 20px;
   height: 46px;
+  outline: none;
 
   &:focus,
   &:hover {
