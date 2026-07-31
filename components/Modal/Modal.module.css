@@ -17,7 +17,7 @@
   padding: 64px 16px 16px 16px;
   border-radius: 24px;
   width: 90vw;
-  max-width: 320px;
+  max-width: 400px;
   position: relative;
 
   @media only screen and (min-width: 565px) {
@@ -28,4 +28,40 @@
   @media only screen and (min-width: 1200px) {
     max-width: 768px;
   }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px;
+  transition: transform var(--transition);
+
+  @media only screen and (min-width: 1200px) {
+    top: 24px;
+    right: 24px;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: rotate(90deg);
+  }
+}
+
+.iconClose {
+  display: block;
+  width: 24px;
+  height: 24px;
+  fill: #1b391b !important;
+  color: #1b391b !important;
+}
+
+:global([data-theme="light"]) .iconClose {
+  fill: #1b391b !important;
+  color: #1b391b !important;
+}
+
+:global([data-theme="dark"]) .iconClose {
+  fill: #e6f7e6 !important;
+  color: #e6f7e6 !important;
 }

@@ -2,13 +2,14 @@ import { useEffect, type ReactNode } from "react";
 import css from "./Modal.module.css";
 import { createPortal } from "react-dom";
 import FocusLock from "react-focus-lock";
+import { Icon } from "../Icon/Icon";
 
-interface ModalProps {
+interface Props {
   children: ReactNode;
   onClose: () => void;
 }
 
-export default function Modal({ children, onClose }: ModalProps) {
+export default function Modal({ children, onClose }: Props) {
   useEffect(() => {
     const handleEscKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -43,6 +44,14 @@ export default function Modal({ children, onClose }: ModalProps) {
         onClick={onClose}
       >
         <div className={css.modal} onClick={handleModalClick}>
+          <button
+            className={css.closeBtn}
+            type="button"
+            onClick={onClose}
+            aria-label="Закрити модальне вікно"
+          >
+            <Icon id="icon-close" className={css.iconClose} />
+          </button>
           {children}
         </div>
       </div>

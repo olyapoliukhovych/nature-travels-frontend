@@ -1,4 +1,3 @@
-import { Icon } from "../Icon/Icon";
 import css from "./ModeModal.module.css";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import Button from "../Button/Button";
@@ -41,10 +40,6 @@ export function ModeModal({ mode, onClose, logout, onDelete }: Props) {
 
   return (
     <>
-      <button className={css.closeBtn} type="button" onClick={onClose}>
-        <Icon id="icon-close" className={css.iconClose} />
-      </button>
-
       <h2 className={css.titleModal}>{content.title}</h2>
       <p className={css.textModal}>{content.text}</p>
 
