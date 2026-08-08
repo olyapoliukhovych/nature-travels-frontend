@@ -64,9 +64,14 @@ export const getUserStoriesPublic = async ({
 };
 
 export const getUserProfile = async (): Promise<UserPrivate | null> => {
-  try {
-    const cookieStore = await cookies();
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
 
+  if (!accessToken) {
+    return null;
+  }
+
+  try {
     const res = await api.get<UserPrivate>("/users/me", {
       headers: {
         Cookie: cookieStore.toString(),
@@ -81,7 +86,7 @@ export const getUserProfile = async (): Promise<UserPrivate | null> => {
       }
     }
 
-    throw error;
+    return null;
   }
 };
 

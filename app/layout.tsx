@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 import NextTopLoader from "nextjs-toploader";
 import ScrollToTopBtn from "@/components/ScrollToTopBtn/ScrollToTopBtn";
 import AppToaster from "@/components/AppToaster/AppToaster";
+import { getUserProfile } from "@/lib/api/users/serverApi";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
@@ -73,11 +74,13 @@ const themeInitializerScript = `
   })();
 `;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getUserProfile();
+
   return (
     <html
       lang="uk"
@@ -89,7 +92,7 @@ export default function RootLayout({
       </head>
       <body>
         <TanStackProvider>
-          <AuthProvider>
+          <AuthProvider initialUser={user}>
             <ThemeProvider>
               <NextTopLoader
                 color="#4a9849"
